@@ -1,0 +1,15 @@
+El servidor [nombre de equipo] en el IP [ip] en [hora y fecha] ha tenido conexión con los siguientes nodos en su red local:
+	Hay conexión con el nodo [ip del nodo], con una latencia de: [latencia]
+	Hay conexión con el nodo [ip del nodo], con una latencia de: [latencia]
+	Hay conexión con el nodo [ip del nodo], con una latencia de: [latencia]
+	No hay conexión con el nodo [ip del nodo]
+	Hay conexión con el nodo [ip del nodo], con una latencia de: [latencia]
+
+El servidor [nombre de equipo] en el IP [ip] en [hora y fecha] ha tenido conexión con los siguientes nodos en su red local:
+	No hay conexión con el nodo [ip del nodo]
+	Hay conexión con el nodo [ip del nodo], con una latencia de: [latencia]
+	No hay conexión con el nodo [ip del nodo]
+	No hay conexión con el nodo [ip del nodo]
+	Hay conexión con el nodo [ip del nodo], con una latencia de: [latencia]
+
+etc.

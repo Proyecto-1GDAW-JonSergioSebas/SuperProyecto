@@ -1,0 +1,75 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="933F1544-5E75-4DDB-EA02-DD0968E2E51D" name="ACCOUNTS">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-04-19 08:47:07 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="BC85E2A4-27DD-668A-63E6-251B81FA654C" value="true"/>
+<item key="28664E3B-49CA-82F6-05F0-8B1ADA595FD2" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<shortName>AC</shortName>
+<attributeInherType>All atributes</attributeInherType>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="ID_AC" id="98931EF7-DE11-00C1-4A26-4AC8479FC6E3">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-04-19 08:48:43 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="BC85E2A4-27DD-668A-63E6-251B81FA654C" value="true"/>
+<item key="28664E3B-49CA-82F6-05F0-8B1ADA595FD2" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="USERNAME" id="379BE88C-AD71-FCBD-8A56-52B9C2CB6A79">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-04-19 08:48:25 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="BC85E2A4-27DD-668A-63E6-251B81FA654C" value="true"/>
+<item key="28664E3B-49CA-82F6-05F0-8B1ADA595FD2" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PASSWD" id="1AAB7462-7470-7744-0A9B-9DBE1C4A82CF">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-04-19 08:48:39 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="BC85E2A4-27DD-668A-63E6-251B81FA654C" value="true"/>
+<item key="28664E3B-49CA-82F6-05F0-8B1ADA595FD2" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="5E35160B-B265-B840-4A5E-F5B3AF22A7E2" name="ACCOUNTS PK">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-04-19 08:51:01 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="BC85E2A4-27DD-668A-63E6-251B81FA654C" value="true"/>
+<item key="28664E3B-49CA-82F6-05F0-8B1ADA595FD2" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>98931EF7-DE11-00C1-4A26-4AC8479FC6E3</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

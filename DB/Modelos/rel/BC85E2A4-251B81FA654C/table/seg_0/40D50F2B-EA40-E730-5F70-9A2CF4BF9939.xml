@@ -1,0 +1,99 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="40D50F2B-EA40-E730-5F70-9A2CF4BF9939" name="GAME_RESULT">
+<sourceDDLFile>proyecto ddl.sql</sourceDDLFile>
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-04-19 08:27:02 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<importedID>C0F52E76-3FD6-1C86-17C1-BD629AAB4B3C</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="TEAM" id="83A3F876-3512-3EE8-17C2-1D1CC8A4BC83">
+<sourceDDLFile>proyecto ddl.sql</sourceDDLFile>
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-04-19 08:27:02 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<importedID>BEBCC1C8-A185-7746-531D-FCCE71653C12</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>85DE7C72-28EA-40E0-5267-9121E38E3368</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="511BFFFB-4B6E-C53C-937B-607803F8469D" referredColumn="385FF058-FB88-ACB0-CAFD-0E37F26FCC57"/>
+</associations>
+</Column>
+<Column name="GAME" id="4B98E3DB-5901-77CD-FBF1-FC1DCE19C253">
+<sourceDDLFile>proyecto ddl.sql</sourceDDLFile>
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-04-19 08:27:02 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<importedID>4A57958C-B324-30A1-C48A-6E30D430F737</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>85DE7C72-28EA-40E0-5267-9121E38E3368</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="4BBCC68E-9AA8-8427-09E5-F487D1B2DE54" referredColumn="72861E91-2714-4967-88D7-FE20A7ABDB36"/>
+</associations>
+</Column>
+<Column name="SCORE" id="7D7AFBC6-5DD9-F707-6A4E-ECFBC5F2C0E4">
+<sourceDDLFile>proyecto ddl.sql</sourceDDLFile>
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-04-19 08:27:02 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<importedID>1928965E-1537-4EF2-6AC4-B5987B4C485D</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>2166305A-2BD3-51B5-8764-76F7D0EA8869</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="7085EA42-3579-6975-B7A7-FF6226FADAFF" name="GR_PK">
+<sourceDDLFile>proyecto ddl.sql</sourceDDLFile>
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-04-19 08:27:02 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<importedID>D8CA2EFF-2F5D-8AE3-C086-52FA839D5D87</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="83A3F876-3512-3EE8-17C2-1D1CC8A4BC83"/>
+<colUsage columnID="4B98E3DB-5901-77CD-FBF1-FC1DCE19C253"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="83E9ABCA-326E-06DB-A512-2C8ADC22880B" name="GR_GA_FK">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-04-19 08:27:02 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4B98E3DB-5901-77CD-FBF1-FC1DCE19C253"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="202A1CC9-E2D4-6181-FA16-6F87090E0C5E" name="GR_TM_FK">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-04-19 08:27:02 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="83A3F876-3512-3EE8-17C2-1D1CC8A4BC83"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
