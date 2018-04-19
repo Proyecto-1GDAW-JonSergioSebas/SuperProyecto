@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oracle.dbtools.crest.model.design.storage.oracle.v12c.StorageDesignOraclev12c>
+   <object objectType="User" objectID="MDSYS" name="MDSYS" seqName="seg_0"/>
+   <object objectType="User" objectID="PUBLIC" name="PUBLIC" seqName="seg_0"/>
+   <object objectType="SType" objectID="47E390DE-0671-C4B1-8428-0F45CBEE18F8" name="SDO_GEOMETRY" seqName="seg_0"/>
+   <object objectType="SType" objectID="F72C39E0-D1CA-8821-2AD7-A1E95A37D3D1" name="XMLTYPE" seqName="seg_0"/>
+   <object objectType="Table" objectID="1E628326-8F2A-82BA-0FC7-CA21DCB4C5E7" name="MATCHSET" seqName="seg_0"/>
+   <object objectType="Table" objectID="3586006D-0B7A-2560-CB08-6594FD6ED008" name="LEAGUE" seqName="seg_0"/>
+   <object objectType="Table" objectID="3E63DF82-2AE2-CF42-A487-77E2B64FA231" name="PLAYER" seqName="seg_0"/>
+   <object objectType="Table" objectID="40D50F2B-EA40-E730-5F70-9A2CF4BF9939" name="GAME_RESULT" seqName="seg_0"/>
+   <object objectType="Table" objectID="968B8D2C-5C91-7063-795B-EAE16AC65984" name="TEAM_OWNER" seqName="seg_0"/>
+   <object objectType="Table" objectID="AC1AE379-FBA8-76BC-3CD8-CD95C11EAE1E" name="DB_USER" seqName="seg_0"/>
+   <object objectType="Table" objectID="B09FF3AA-8CEC-07CB-2FB5-A0505B956A87" name="TEAM" seqName="seg_0"/>
+   <object objectType="Table" objectID="C91335FD-844C-9904-8028-91A0248E3105" name="DB_ADMIN" seqName="seg_0"/>
+   <object objectType="Table" objectID="D6253E72-1A0B-60F1-C207-625F836D3E58" name="GAME" seqName="seg_0"/>
+</oracle.dbtools.crest.model.design.storage.oracle.v12c.StorageDesignOraclev12c>

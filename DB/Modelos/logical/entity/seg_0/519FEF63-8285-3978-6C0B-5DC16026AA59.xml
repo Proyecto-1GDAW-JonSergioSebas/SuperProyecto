@@ -1,0 +1,80 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="519FEF63-8285-3978-6C0B-5DC16026AA59" name="GAME">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-04-19 08:32:17 UTC</createdTime>
+<generatorID>D6253E72-1A0B-60F1-C207-625F836D3E58</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="BC85E2A4-27DD-668A-63E6-251B81FA654C" value="true"/>
+<item key="28664E3B-49CA-82F6-05F0-8B1ADA595FD2" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="ID GA" id="83AA14AE-869C-EEC6-2A99-F1BAD47971AA">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-04-19 08:32:17 UTC</createdTime>
+<generatorID>72861E91-2714-4967-88D7-FE20A7ABDB36</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="BC85E2A4-27DD-668A-63E6-251B81FA654C" value="true"/>
+<item key="28664E3B-49CA-82F6-05F0-8B1ADA595FD2" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>85DE7C72-28EA-40E0-5267-9121E38E3368</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="MATCHSET" id="96C0980A-6520-0D18-7ED7-F50B05B7998C">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-04-19 08:32:17 UTC</createdTime>
+<generatorID>60D9BCAB-8C73-273C-4CF3-55E8761D2DE3</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="BC85E2A4-27DD-668A-63E6-251B81FA654C" value="true"/>
+<item key="28664E3B-49CA-82F6-05F0-8B1ADA595FD2" value="true"/>
+</engineerTo>
+<referedAttribute>E8C4EA95-FDAF-F11A-0640-B73E2A575A97</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>85DE7C72-28EA-40E0-5267-9121E38E3368</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DATE TIME" id="61F26499-0492-C6A0-0941-F33E4DD78786">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-04-19 08:32:17 UTC</createdTime>
+<generatorID>BE5A71A4-0AF4-08AA-E0FD-4D8D334F0D96</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="BC85E2A4-27DD-668A-63E6-251B81FA654C" value="true"/>
+<item key="28664E3B-49CA-82F6-05F0-8B1ADA595FD2" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>0B283AE4-D400-75F6-4272-4E45B20D6D62</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="8ACB76AF-E3E7-9904-5EE1-59267ED0E567" name="GA PK">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-04-19 08:32:17 UTC</createdTime>
+<generatorID>41E1198A-DEA4-67B1-0BB0-5F981262F357</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="BC85E2A4-27DD-668A-63E6-251B81FA654C" value="true"/>
+<item key="28664E3B-49CA-82F6-05F0-8B1ADA595FD2" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>83AA14AE-869C-EEC6-2A99-F1BAD47971AA</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

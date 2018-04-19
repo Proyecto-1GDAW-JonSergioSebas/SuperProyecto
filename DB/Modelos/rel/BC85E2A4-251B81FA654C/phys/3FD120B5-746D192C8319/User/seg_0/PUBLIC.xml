@@ -1,0 +1,9 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<UserOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.UserOraclev10g" name="PUBLIC" directorySegmentName="seg_0" id="PUBLIC">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-04-19 08:27:00 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<nullInstance>true</nullInstance>
+<storableNullInstance>true</storableNullInstance>
+</UserOraclev10g>
