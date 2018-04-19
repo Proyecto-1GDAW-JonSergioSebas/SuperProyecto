@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--<!DOCTYPE league SYSTEM "League.dtd">-->
+<league xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:noNamespaceSchemaLocation="League.xsd">
+	<matchset>
+		<match id="a">
+			<team1></team1>
+			<team2></team2>
+			<score1></score1>
+			<score2></score2>
+		</match>
+		<match id="b">
+			<team1></team1>
+			<team2></team2>
+			<score1></score1>
+			<score2></score2>
+		</match>
+	</matchset>
+	<matchset>
+		<match id="c">
+			<team1></team1>
+			<team2></team2>
+			<date></date>
+		</match>
+		<match id="d">
+			<team1></team1>
+			<team2></team2>
+		</match>
+</matchset>
+</league>
