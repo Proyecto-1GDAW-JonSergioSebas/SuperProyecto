@@ -10,7 +10,8 @@ package superproyecto;
  * @author Jon Maneiro
  * @author Sebastián Zawisza
  * @author Sergio Zulueta
- * @since  0.0.0.1
+ * @version %I% %G%
+ * @since  1.0
  */
 
 public class SuperProyecto {
