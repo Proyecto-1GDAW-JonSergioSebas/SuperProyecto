@@ -7,9 +7,9 @@ package superproyecto;
 
 /**
  * 
+ * @author Jon Maneiro
  * @author Sebastián Zawisza
  * @author Sergio Zulueta
- * @author Jon Maneiro
  * @since  0.0.0.1
  */
 
