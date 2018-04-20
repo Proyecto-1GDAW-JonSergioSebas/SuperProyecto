@@ -7,10 +7,11 @@ package superproyecto;
 
 /**
  * 
+ * @author Jon Maneiro
  * @author Sebastián Zawisza
  * @author Sergio Zulueta
- * @author Jon Maneiro
- * @since  0.0.0.1
+ * @version %I% %G%
+ * @since  1.0
  */
 
 public class SuperProyecto {
