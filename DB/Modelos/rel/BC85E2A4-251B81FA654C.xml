@@ -12,5 +12,10 @@
 <pathName>C:\Users\1gdaw07\Desktop\Proyecto</pathName>
 <dbType>11</dbType>
 </importDDLFileStamp>
+<importDDLFileStamp class="oracle.dbtools.crest.imports.DDLFileStamp">
+<fileName>DDL.sql</fileName>
+<pathName>C:\Users\1gdaw07\Desktop\Proyecto</pathName>
+<dbType>11</dbType>
+</importDDLFileStamp>
 </importDDLFileStamps>
 </relationalModel>

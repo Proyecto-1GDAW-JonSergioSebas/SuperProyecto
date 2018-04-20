@@ -18,8 +18,8 @@
 <ownerDesignName>Modelos</ownerDesignName>
 <importedID>DB4B3B6A-417F-E130-7190-5D2BF258BABD</importedID>
 <use>0</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<domain>85DE7C72-28EA-40E0-5267-9121E38E3368</domain>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>B2E37860-63D4-DFD7-2DA1-E7889C117B4B</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementColumn>true</autoIncrementColumn>
 <identityColumn>true</identityColumn>

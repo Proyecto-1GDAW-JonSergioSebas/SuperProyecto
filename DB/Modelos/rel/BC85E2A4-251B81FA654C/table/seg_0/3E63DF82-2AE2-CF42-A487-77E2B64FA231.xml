@@ -18,8 +18,8 @@
 <ownerDesignName>Modelos</ownerDesignName>
 <importedID>29A05AC2-966E-BBB9-3AAA-839F80F467F7</importedID>
 <use>0</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<domain>85DE7C72-28EA-40E0-5267-9121E38E3368</domain>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>B2E37860-63D4-DFD7-2DA1-E7889C117B4B</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementColumn>true</autoIncrementColumn>
 <identityColumn>true</identityColumn>
@@ -88,8 +88,8 @@
 <importedID>955FDF56-6B85-41B6-9820-6CEACDE7DB5E</importedID>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<domain>85DE7C72-28EA-40E0-5267-9121E38E3368</domain>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>B2E37860-63D4-DFD7-2DA1-E7889C117B4B</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
