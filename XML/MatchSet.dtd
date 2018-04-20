@@ -1,0 +1,13 @@
+<!ELEMENT matchset (match)>
+        <!ELEMENT match (team1, team2, score1, score2, date)>
+        <!ATTLIST match
+                id CDATA #REQUIRED>
+        <!ELEMENT team1 (#PCDATA)>
+        <!ELEMENT team2 (#PCDATA)>
+        <!ELEMENT score1 (#PCDATA)>
+        <!ELEMENT score2 (#PCDATA)>
+        <!ELEMENT date (#PCDATA)>
+
+
+
+
