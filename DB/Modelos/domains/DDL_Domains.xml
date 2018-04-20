@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<DomainFile class="oracle.dbtools.crest.model.design.DomainFileWrapper" fileName="DDL_Domains">
+   <domains>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="NUMERIC_5_0_0" id="B2E37860-63D4-DFD7-2DA1-E7889C117B4B">
+         <createdBy>1gdaw07</createdBy>
+         <createdTime>2018-04-20 09:34:39 UTC</createdTime>
+         <generatorID>Generado por el Usuario</generatorID>
+         <ownerDesignName>Modelos</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>5</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>0</dataTypeSize>
+         <fileName>DDL_Domains</fileName>
+         <logicalDatatype>LOGDT019</logicalDatatype>
+      </Domain>
+   </domains>
+</DomainFile>
