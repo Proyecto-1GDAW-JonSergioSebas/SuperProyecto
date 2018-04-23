@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="classification" type="classification_type"/>
+    <xs:complexType name="classification_type">
+        <xs:sequence>
+            <xs:element name="team" type="team_type" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="team_type">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="points" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
+
