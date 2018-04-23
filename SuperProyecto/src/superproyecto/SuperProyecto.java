@@ -22,4 +22,14 @@ public class SuperProyecto {
         // TODO code application logic here
     }
 
+    /**
+     * Crea el calendario para la liga actual, dando a la base de datos los
+     * datos para la creacion de League, MatchSets, Game y GameResult.
+     * 
+     * 
+     */
+    public static void createCalendar(){
+        
+    }
+    
 }
