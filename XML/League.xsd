@@ -18,8 +18,8 @@
         <xs:sequence>
             <xs:element name="team1" type="xs:string"/>
             <xs:element name="team2" type="xs:string"/>
-            <xs:element name="score1" type="xs:string" minOccurs="0"/>
-            <xs:element name="score2" type="xs:string" minOccurs="0"/>
+            <xs:element name="score1" type="xs:int" minOccurs="0"/>
+            <xs:element name="score2" type="xs:int" minOccurs="0"/>
             <xs:element name="date" type="xs:string" minOccurs="0"/>
         </xs:sequence>
         <xs:attribute type="xs:ID" name="id"/>
