@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ModelDB;
+package DB;
 
 /**
  *
@@ -13,6 +13,6 @@ package ModelDB;
  * @version %I% %G%
  * @since 1.0
  */
-public class DBAccounts {
-
+public class DBTeamOwner {
+    
 }
