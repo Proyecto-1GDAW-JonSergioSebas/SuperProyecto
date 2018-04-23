@@ -5,6 +5,12 @@
  */
 package superproyecto;
 
+import static ModelDB.DBController.createConnection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Jon Maneiro
@@ -19,7 +25,17 @@ public class SuperProyecto {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        try {
+            /*vvNO MODIFICAR ESTOvv*/
+            DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+        
+        /*^^NO MODIFICAR ESTO^^*/
+        createConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
