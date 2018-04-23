@@ -17,14 +17,13 @@ import java.sql.*;
 public class DBController {
     /**
      * Este metodo crea la conexión a la base de datos
+     * @throws ClassNotFoundException no encuentra la clase
+     * @throws SQLException hay una excepcion SQL
      */
     public static void createConnection() throws ClassNotFoundException, SQLException{
         
             Class.forName("oracle.jdbc.OracleDriver");//Indicar el driver
             Connection con= DriverManager.getConnection("jdbc:oracle:thin:@SrvOracle:1521:orcl","eqdaw01","eqdaw01");//Crear la conexion
-            con.close();
-            
-        
-        
+         
     }
 }
