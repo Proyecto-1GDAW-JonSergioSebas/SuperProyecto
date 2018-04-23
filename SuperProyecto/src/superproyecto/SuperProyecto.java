@@ -5,6 +5,8 @@
  */
 package superproyecto;
 
+import View.ViewController;
+import DB.DBController;
 /**
  *
  * @author Jon Maneiro
@@ -16,10 +18,12 @@ package superproyecto;
 public class SuperProyecto {
 
     /**
+     * Abre la ventana de Login, de la cual nacen todas las demás.
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        ViewController.login();
     }
 
     /**
@@ -32,4 +36,15 @@ public class SuperProyecto {
         
     }
     
+    /**
+     * Busca la cuenta con los parametros introducidos y devuelve un int dependiendo del tipo de cuenta.
+     * Usado por el Login.
+     * @param username El usuario de la cuenta.
+     * @param password La contraseña de la cuenta.
+     * @return El tipo de cuenta.
+     */
+    public static byte getAccountType(String username, char[] password){
+    //buscar la cuenta y hacer un switch o algo para devolver un byte dependiendo del tipo
+    //yo(sebas) puedo hacer esto sin problema una vez lo de la DB esté hecho
+    }
 }
