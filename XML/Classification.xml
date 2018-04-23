@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--<!DOCTYPE classification SYSTEM "Classification.dtd">-->
+<classification xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="Classification.xsd">
+    <team>
+        <name></name>
+        <points>0</points>
+    </team>
+    <team>
+        <name></name>
+        <points>0</points>
+    </team>
+    <team>
+        <name></name>
+        <points>0</points>
+    </team>
+</classification>

@@ -1,0 +1,4 @@
+<!ELEMENT classification (team)+>
+<!ELEMENT team (name,points)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT points (#PCDATA)>
