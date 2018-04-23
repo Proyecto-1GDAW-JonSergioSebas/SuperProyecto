@@ -10,7 +10,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import View.ViewController;
+import DB.DBController;
 /**
  *
  * @author Jon Maneiro
@@ -22,6 +23,7 @@ import java.util.logging.Logger;
 public class SuperProyecto {
 
     /**
+     * Abre la ventana de Login, de la cual nacen todas las demás.
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -36,6 +38,8 @@ public class SuperProyecto {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
         }
+      
+        ViewController.login();
     }
 
     /**
@@ -48,4 +52,15 @@ public class SuperProyecto {
         
     }
     
+    /**
+     * Busca la cuenta con los parametros introducidos y devuelve un int dependiendo del tipo de cuenta.
+     * Usado por el Login.
+     * @param username El usuario de la cuenta.
+     * @param password La contraseña de la cuenta.
+     * @return El tipo de cuenta.
+     */
+    public static byte getAccountType(String username, char[] password){
+    //buscar la cuenta y hacer un switch o algo para devolver un byte dependiendo del tipo
+    //yo(sebas) puedo hacer esto sin problema una vez lo de la DB esté hecho
+    }
 }
