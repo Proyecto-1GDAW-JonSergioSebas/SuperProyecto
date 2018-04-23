@@ -6,14 +6,13 @@
 package superproyecto;
 
 /**
- * 
+ *
  * @author Jon Maneiro
  * @author Sebastián Zawisza
  * @author Sergio Zulueta
  * @version %I% %G%
- * @since  1.0
+ * @since 1.0
  */
-
 public class SuperProyecto {
 
     /**
@@ -22,5 +21,5 @@ public class SuperProyecto {
     public static void main(String[] args) {
         // TODO code application logic here
     }
-    
+
 }
