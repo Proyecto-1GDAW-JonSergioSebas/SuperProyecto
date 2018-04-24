@@ -38,6 +38,17 @@ public class Team {
         this.teamOwner = teamOwner;
         this.players = players;
     }
+    /**
+     * Constructor que requiere nombre y nacinalidad
+     * @param teamName nombre del equipo
+     * @param nationality nacionalidad del equipo
+     */
+    public Team(String teamName, String nationality) {
+        this.teamName = teamName;
+        this.nationality = nationality;
+    }
+    
+    
 
     /**
      * Es un Get que devuelve el nombre del equipo
