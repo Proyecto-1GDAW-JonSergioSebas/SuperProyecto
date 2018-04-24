@@ -17,16 +17,33 @@ import java.util.ArrayList;
  */
 public class MatchSet {
 
+    /**
+     * Construcion del atributo games.
+     */
     private ArrayList<Game> games;
 
+    /**
+     *
+     * @param games (requiered)partidos que se van a jugar y que se han jugado
+     */
     public MatchSet(ArrayList<Game> games) {
         this.games = games;
     }
 
+    /**
+     * Es un Get que devuelve los partidos
+     * 
+     * @return games devuelve los partidos
+     */
     public ArrayList<Game> getGames() {
         return games;
     }
 
+    /**
+     * Es un Set que establece los partidos
+     * 
+     * @param games establece los partidos
+     */
     public void setGames(ArrayList<Game> games) {
         this.games = games;
     }

@@ -15,21 +15,24 @@ package ModelUML;
  */
 public class TeamOwner {
 
+    /**
+     * Creacion de los atributos fullName, telephone.
+     */
     private String fullName;
     private String telephone;
 
     /**
-     * Sole constructor. (For invocation by subclass constructors, typically
-     * implicit.)
+     * Constructor vacio. (Para invocación por constructores de subclases,
+     * típicamente implícito.)
      */
     public TeamOwner() {
     }
 
     /**
-     * 
-     * @param fullName (requiered) the name of the owner
-     * @param telephone  (requiered) the telephone of the owner
-     *      values 9 numbers
+     * Constructor lleno
+     *
+     * @param fullName (requerido) el nombre del dueño del equipo
+     * @param telephone (requerido) El telefono del dueño values 9 numbers
      */
     public TeamOwner(String fullName, String telephone) {
         this.fullName = fullName;
@@ -37,36 +40,36 @@ public class TeamOwner {
     }
 
     /**
-     * This is a setter which gets the fullName
+     * Es un Get que devuelve el nombre del dueño del equipo
      *
-     * @param fullName - the name to be get
+     * @return fullName el nombre devuelto
      */
     public String getFullName() {
         return fullName;
     }
 
     /**
-     * This is a setter which sets the fullName
+     * Es un Set que establece el nombre del dueño
      *
-     * @param fullName - the name to be set
+     * @param fullName el nombre del dueño establecido
      */
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
 
     /**
-     * This is a setter which gets the telephone
+     * Es un Get que devuelve el telefono del dueño
      *
-     * @param telephone - the telephone to be get
+     * @return telephone devuelve el numero de telefono
      */
     public String getTelephone() {
         return telephone;
     }
 
     /**
-     * This is a setter which sets the telephone
+     * Es un Set que establece el telefono
      *
-     * @param telephone - the telephone to be set
+     * @param telephone es un numero de telefono establecido
      */
     public void setTelephone(String telephone) {
         this.telephone = telephone;
