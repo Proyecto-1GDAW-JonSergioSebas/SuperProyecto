@@ -62,5 +62,6 @@ public class SuperProyecto {
     public static byte getAccountType(String username, char[] password){
     //buscar la cuenta y hacer un switch o algo para devolver un byte dependiendo del tipo
     //yo(sebas) puedo hacer esto sin problema una vez lo de la DB esté hecho
+    return 0; //esto es solo para que no de error mientras el metodo no está hecho
     }
 }

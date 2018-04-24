@@ -15,24 +15,21 @@ package ModelUML;
  */
 public class TeamOwner {
 
-    /**
-     * Creacion de los atributos fullName, telephone.
-     */
     private String fullName;
     private String telephone;
 
     /**
-     * Constructor vacio. (Para invocación por constructores de subclases,
-     * típicamente implícito.)
+     * Sole constructor. (For invocation by subclass constructors, typically
+     * implicit.)
      */
     public TeamOwner() {
     }
 
     /**
-     * Constructor lleno
-     *
-     * @param fullName (requerido) nombre del dueño
-     * @param telephone (requerido) telefono del dueño valor de 9 digitos
+     * 
+     * @param fullName (requiered) the name of the owner
+     * @param telephone  (requiered) the telephone of the owner
+     *      values 9 numbers
      */
     public TeamOwner(String fullName, String telephone) {
         this.fullName = fullName;
@@ -40,36 +37,36 @@ public class TeamOwner {
     }
 
     /**
-     * Es un Get que devuelve el fullName
+     * This is a setter which gets the fullName
      *
-     * @return fullName el fullName que se devuelve
+     * @param fullName - the name to be get
      */
     public String getFullName() {
         return fullName;
     }
 
     /**
-     * Es un Set que establece el fullName
+     * This is a setter which sets the fullName
      *
-     * @param fullName el fullName que se establece
+     * @param fullName - the name to be set
      */
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
 
     /**
-     * Es un Get que devuelve el telephone
+     * This is a setter which gets the telephone
      *
-     * @return telephone el telephone que se devuelve
+     * @param telephone - the telephone to be get
      */
     public String getTelephone() {
         return telephone;
     }
 
     /**
-     * Es un Set que establece el telephone
+     * This is a setter which sets the telephone
      *
-     * @param telephone el telephone que se establece
+     * @param telephone - the telephone to be set
      */
     public void setTelephone(String telephone) {
         this.telephone = telephone;
