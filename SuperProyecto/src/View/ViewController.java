@@ -28,7 +28,7 @@ public class ViewController {
      * Abre la ventana de User.
      */
     public static void user() {
-        User user = new User();
+        Admin user = new Admin();
         user.setVisible(true);
     }
     
@@ -44,7 +44,7 @@ public class ViewController {
      * Abre la ventana de Admin.
      */
     public static void admin() {
-        Admin admin = new Admin();
+        User admin = new User();
         admin.setVisible(true);
     }
 

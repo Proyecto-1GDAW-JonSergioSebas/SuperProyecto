@@ -17,7 +17,10 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @version %I% %G%
  * @since 1.0
  */
+//la clase aún es solo un esqueleto. Los botones no hacen nada, pero la interfaz se actualiza como debería (creo)
 public class Admin extends javax.swing.JFrame {
+
+    static byte modo;
 
     /**
      * Creates new form User
@@ -38,7 +41,7 @@ public class Admin extends javax.swing.JFrame {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        modo = 0;
     }
 
     /**
@@ -50,21 +53,374 @@ public class Admin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        cbLeague = new javax.swing.JComboBox<>();
+        jbCalendar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel2 = new javax.swing.JLabel();
+        cbMatchet = new javax.swing.JComboBox<>();
+        jbResult = new javax.swing.JButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButton4 = new javax.swing.JRadioButton();
+        jbCreate = new javax.swing.JButton();
+        jbDelete = new javax.swing.JButton();
+        jbRead = new javax.swing.JButton();
+        jbUpdate = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        jbUserView = new javax.swing.JButton();
+        jbOwnerView = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
+        jMenuItem16 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem17 = new javax.swing.JMenuItem();
+        jMenuItem18 = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jbCalendar.setText("Generar Calendario");
+        jbCalendar.setEnabled(false);
+
+        jLabel1.setText("Liga");
+
+        jLabel2.setText("Jornada");
+
+        cbMatchet.setEnabled(false);
+
+        jbResult.setText("Introducir Resultados");
+        jbResult.setEnabled(false);
+        jbResult.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbResultActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setText("Jugadores");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("Equipos");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setText("Dueños");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton4);
+        jRadioButton4.setText("Usuarios");
+        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton4ActionPerformed(evt);
+            }
+        });
+
+        jbCreate.setText("Alta");
+        jbCreate.setEnabled(false);
+        jbCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCreateActionPerformed(evt);
+            }
+        });
+
+        jbDelete.setText("Baja");
+        jbDelete.setEnabled(false);
+
+        jbRead.setText("Lista");
+        jbRead.setEnabled(false);
+
+        jbUpdate.setText("Modificación");
+        jbUpdate.setEnabled(false);
+
+        jbUserView.setText("Vista de Usuario");
+        jbUserView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbUserViewActionPerformed(evt);
+            }
+        });
+
+        jbOwnerView.setText("Vista de Dueño");
+        jbOwnerView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbOwnerViewActionPerformed(evt);
+            }
+        });
+
+        jMenu1.setText("Jugador");
+
+        jMenuItem1.setText("Alta");
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Baja");
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("Lista");
+        jMenu1.add(jMenuItem3);
+
+        jMenuItem4.setText("Modificación");
+        jMenu1.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Equipo");
+
+        jMenuItem5.setText("Alta");
+        jMenu2.add(jMenuItem5);
+
+        jMenuItem6.setText("Baja");
+        jMenu2.add(jMenuItem6);
+
+        jMenuItem7.setText("Lista");
+        jMenu2.add(jMenuItem7);
+
+        jMenuItem8.setText("Modificación");
+        jMenu2.add(jMenuItem8);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Dueño");
+
+        jMenuItem9.setText("Alta");
+        jMenu3.add(jMenuItem9);
+
+        jMenuItem10.setText("Baja");
+        jMenu3.add(jMenuItem10);
+
+        jMenuItem11.setText("Lista");
+        jMenu3.add(jMenuItem11);
+
+        jMenuItem12.setText("Modificación");
+        jMenu3.add(jMenuItem12);
+
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Usuario");
+
+        jMenuItem13.setText("Alta");
+        jMenu4.add(jMenuItem13);
+
+        jMenuItem14.setText("Baja");
+        jMenu4.add(jMenuItem14);
+
+        jMenuItem15.setText("Lista");
+        jMenu4.add(jMenuItem15);
+
+        jMenuItem16.setText("Modificación");
+        jMenu4.add(jMenuItem16);
+
+        jMenuBar1.add(jMenu4);
+
+        jMenu5.setText("Vistas");
+
+        jMenuItem17.setText("Usuario");
+        jMenu5.add(jMenuItem17);
+
+        jMenuItem18.setText("Dueño");
+        jMenu5.add(jMenuItem18);
+
+        jMenuBar1.add(jMenu5);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jSeparator2)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbLeague, 0, 100, Short.MAX_VALUE)
+                            .addComponent(cbMatchet, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButton1)
+                            .addComponent(jRadioButton3))
+                        .addGap(8, 8, 8)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButton4)
+                            .addComponent(jRadioButton2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jbCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jbRead, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbUserView, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbOwnerView, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(cbLeague, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbCalendar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbResult)
+                    .addComponent(cbMatchet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jbCreate)
+                    .addComponent(jbRead))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton3)
+                    .addComponent(jRadioButton4)
+                    .addComponent(jbUpdate)
+                    .addComponent(jbDelete))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbUserView)
+                    .addComponent(jbOwnerView))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbResultActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbResultActionPerformed
+    /**
+     * Actualiza el modo de la ventana para que los botones se apliquen a
+     * Dueños.
+     *
+     * @param evt Generado automáticamente.
+     */
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        modo = 3;
+        refresh();
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+    /**
+     * Actualiza el modo de la ventana para que los botones se apliquen a
+     * Usuarios.
+     *
+     * @param evt Generado automáticamente.
+     */
+    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
+        modo = 4;
+        refresh();
+    }//GEN-LAST:event_jRadioButton4ActionPerformed
+    /**
+     * Actualiza el modo de la ventana para que los botones se apliquen a
+     * Jugadores.
+     *
+     * @param evt Generado automáticamente.
+     */
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        modo = 1;
+        refresh();
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    /**
+     * Actualiza el modo de la ventana para que los botones se apliquen a
+     * Equipos.
+     *
+     * @param evt Generado automáticamente.
+     */
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        modo = 2;
+        refresh();
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jbCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCreateActionPerformed
+
+    }//GEN-LAST:event_jbCreateActionPerformed
+    /**
+     * Abre la ventana de Usuario.
+     *
+     * @param evt Generado automáticamente.
+     */
+    private void jbUserViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUserViewActionPerformed
+        ViewController.user();
+    }//GEN-LAST:event_jbUserViewActionPerformed
+    /**
+     * Abre la ventana de Dueño.
+     *
+     * @param evt Generado automáticamente.
+     */
+    private void jbOwnerViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOwnerViewActionPerformed
+        ViewController.owner();
+    }//GEN-LAST:event_jbOwnerViewActionPerformed
+
+    /**
+     * Actualiza el estado de componentes en la ventana.
+     */
+    private void refresh() {
+        if (modo != 0) {
+            jbCreate.setEnabled(true);
+            jbUpdate.setEnabled(true);
+            jbDelete.setEnabled(true);
+            jbRead.setEnabled(true);
+        }
+
+        if (cbLeague.getSelectedIndex() != -1) {
+            cbMatchet.setEnabled(true);
+            //aquí deberíamos hacer un if para habilitar la creacion de calendario si se cumplen ciertas condiciones
+        }
+
+        if (cbMatchet.getSelectedIndex() != -1) {
+            jbResult.setEnabled(true);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -80,5 +436,48 @@ public class Admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cbLeague;
+    private javax.swing.JComboBox<String> cbMatchet;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem17;
+    private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JButton jbCalendar;
+    private javax.swing.JButton jbCreate;
+    private javax.swing.JButton jbDelete;
+    private javax.swing.JButton jbOwnerView;
+    private javax.swing.JButton jbRead;
+    private javax.swing.JButton jbResult;
+    private javax.swing.JButton jbUpdate;
+    private javax.swing.JButton jbUserView;
     // End of variables declaration//GEN-END:variables
 }
