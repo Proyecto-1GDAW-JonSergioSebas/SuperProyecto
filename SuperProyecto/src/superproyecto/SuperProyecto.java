@@ -12,6 +12,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import View.ViewController;
 import DB.DBController;
+import static DB.DBController.teams;
+import ModelUML.Player;
+import ModelUML.Team;
+import ModelUML.TeamOwner;
+import java.sql.Connection;
+import java.util.ArrayList;
 /**
  *
  * @author Jon Maneiro
@@ -26,28 +32,54 @@ public class SuperProyecto {
      * Abre la ventana de Login, de la cual nacen todas las demás.
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args){
+        /*vvNO MODIFICAR ESTOvv*/
         try {
-            /*vvNO MODIFICAR ESTOvv*/
             DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-        
-        /*^^NO MODIFICAR ESTO^^*/
-        
         } catch (SQLException ex) {
             Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
         } 
-      
-        ViewController.login();
+        /*^^NO MODIFICAR ESTO^^*/
+        //ViewController.login();
+        createCalendar();
     }
 
     /**
      * Crea el calendario para la liga actual, dando a la base de datos los
      * datos para la creacion de League, MatchSets, Game y GameResult.
-     * 
-     * 
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     * @see DB.DBController#teamQuantity() 
      */
-    public static void createCalendar(){
-        //Primero necesitamos saber cuantos equipos hay
+    public static void createCalendar() {
+        try{
+            Connection con = createConnection();
+            ArrayList<Team> completeTeams=teams(con);//Los equipos
+            
+            if(completeTeams.size()%2 !=0){
+                ArrayList<Player> pl = new ArrayList();
+                completeTeams.add(new Team("Null","Null"));
+            }
+            int numDays = (completeTeams.size()-1);//Dias necesarios en el torneo o lo que sea
+            int halfSize = completeTeams.size()/2;
+            
+            ArrayList<Team> teams=new ArrayList();//Añadir los equipos y eliminar el primero
+            teams.addAll(completeTeams);
+            teams.remove(0);
+            
+            int teamsSize=teams.size();
+            
+           // for(int day=0; day<numDays; day++){
+            //    
+           // }
+            
+          con.close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
     /**
