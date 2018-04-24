@@ -7,6 +7,7 @@ package View;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -116,8 +117,22 @@ public class Login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         switch (ViewController.LoginAccountQuery(tfUsername.getText(), pfPassword.getPassword())) {
             case 0:
-                
+                JOptionPane.showMessageDialog(this, "Datos introducidos incorrectos.");
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(this, "Abriendo panel de usuario.");
+                ViewController.user();
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(this, "Abriendo panel de dueño.");
+                ViewController.owner();
+                break;
+            case 3:
+                JOptionPane.showMessageDialog(this, "Abriendo panel de administrador.");
+                ViewController.admin();
+                break;
         }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
