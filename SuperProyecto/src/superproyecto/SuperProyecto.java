@@ -5,7 +5,7 @@
  */
 package superproyecto;
 
-import static ModelDB.DBController.createConnection;
+import static DB.DBController.createConnection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -32,12 +32,10 @@ public class SuperProyecto {
             DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
         
         /*^^NO MODIFICAR ESTO^^*/
-        createConnection();
+        
         } catch (SQLException ex) {
             Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
       
         ViewController.login();
     }
@@ -49,7 +47,7 @@ public class SuperProyecto {
      * 
      */
     public static void createCalendar(){
-        
+        //Primero necesitamos saber cuantos equipos hay
     }
     
     /**
