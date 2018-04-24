@@ -20,6 +20,12 @@ public class League {
     private String leagueName;
     private ArrayList<MatchSet> matchsets;
 
+    /**
+     * Constructor lleno
+     * 
+     * @param leagueName (requerido) Nombre de la liga
+     * @param matchsets (requerido) Lista de los partidos
+     */
     public League(String leagueName, ArrayList<MatchSet> matchsets) {
         this.leagueName = leagueName;
         this.matchsets = matchsets;
