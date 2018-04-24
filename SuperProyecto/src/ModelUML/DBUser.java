@@ -13,11 +13,22 @@ package ModelUML;
  * @version %I% %G%
  * @since 1.0
  */
-public class DBUser extends Accounts {
 
+public class DBUser extends Accounts {
+    
+    
+    /**
+     * Constructor vacio. (Para invocación por constructores de subclases,
+     * típicamente implícito.)
+     */
     public DBUser() {
     }
 
+    /**
+     * Constructor lleno
+     * 
+     * @param userName (requerido) Nombre de usuario para acceder al programa
+     */
     public DBUser(String userName) {
         super(userName);
     }

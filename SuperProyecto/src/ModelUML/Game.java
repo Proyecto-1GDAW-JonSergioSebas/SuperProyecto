@@ -57,80 +57,90 @@ public class Game {
     }
 
     /**
-     * 
-     * @return 
+     * Es un Get que devuelve el nombre del equipo 1
+     *
+     * @return team1 el nombre del equipo devuelto
      */
     public Team getTeam1() {
         return team1;
     }
 
     /**
-     * 
-     * @param team1 
+     * Es un Set que establece el nombre del equipo 1
+     *
+     * @param team1 establece el nombre del equipo 1
      */
     public void setTeam1(Team team1) {
         this.team1 = team1;
     }
 
     /**
-     * 
-     * @return 
+     * Es un Get que devuelve el nombre del equipo 2
+     *
+     * @return team2 el nombre del equipo devuelto
      */
     public Team getTeam2() {
         return team2;
     }
 
     /**
-     * 
-     * @param team2 
+     * Es un Set que establece el nombre del equipo 2
+     *
+     * @param team2 establece el nombre del equipo 2
      */
     public void setTeam2(Team team2) {
         this.team2 = team2;
     }
 
     /**
-     * 
-     * @return 
+     * Es un Get que devuelve los puntos del equipo1
+     *
+     * @return score1 devuelve los puntos del equipo 1
      */
     public int getScore1() {
         return score1;
     }
 
     /**
-     * 
-     * @param score1 
+     * Es un Set que establece los puntos del equipo 1
+     *
+     * @param score1 los puntos del equipo 1 establecidos
      */
     public void setScore1(int score1) {
         this.score1 = score1;
     }
 
     /**
-     * 
-     * @return 
+     * Es un Get que devuelve los puntos del equipo 2
+     *
+     * @return score2 devuelve los puntos del equipo 2
      */
     public int getScore2() {
         return score2;
     }
 
     /**
-     * 
-     * @param score2 
+     * Es un Set que establece los puntos del equipo 2
+     *
+     * @param score2 los puntos del equipo 2 establecidos
      */
     public void setScore2(int score2) {
         this.score2 = score2;
     }
 
     /**
-     * 
-     * @return 
+     * Es un Get que devuelve la fecha del partido
+     *
+     * @return dateTime la fecha del partido devuelta
      */
     public Calendar getDateTime() {
         return dateTime;
     }
 
     /**
-     * 
-     * @param dateTime 
+     * Es un Set que establece la fecha del partido
+     *
+     * @param dateTime la fecha del partido devuelta
      */
     public void setDateTime(Calendar dateTime) {
         this.dateTime = dateTime;

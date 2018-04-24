@@ -15,9 +15,18 @@ package ModelUML;
  */
 public class DBAdmin extends Accounts {
 
+    /**
+     * Constructor vacio. (Para invocación por constructores de subclases,
+     * típicamente implícito.)
+     */
     public DBAdmin() {
     }
 
+    /**
+     * Constructor lleno
+     *
+     * @param userName (requerido) Nombre de usuario para acceder al programa
+     */
     public DBAdmin(String userName) {
         super(userName);
     }
