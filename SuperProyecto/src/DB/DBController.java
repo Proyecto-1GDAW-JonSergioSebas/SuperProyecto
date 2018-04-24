@@ -5,9 +5,16 @@
  */
 package DB;
 
+import static DB.DBPlayer.getPlayers;
+import static DB.DBTeam.getTeams;
+import static DB.DBTeamOwner.getTeamOwner;
+import ModelUML.Player;
+import ModelUML.Team;
+import ModelUML.TeamOwner;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * @author Sebastián Zawisza
@@ -32,12 +39,41 @@ public class DBController {
     }
     
     /**
-     * Pide a la clase DBTeam el numero de equipos que hay.
-     * 
+     * Pide a la clase DBTeam el numero de equipos que hay, y los
+     * devuelve.
+     * @throws ClassNotFoundException
+     * @throws SQLException
      * @return el numero de equipos
-     * @see DBTeam.getTeamQuantity()
+     * @see DBTeam#getTeams(java.sql.Connection) 
      */
-    public static int teamQuantity(){
-        
+    public static ArrayList<Team> teams(Connection con) throws ClassNotFoundException, SQLException{
+        ArrayList<Team> teams= getTeams(con);
+        return teams;
+    }
+    /**
+     * Pide a la clase TeamOwner el TeamOwner correspondiente 
+     * a la id que le pasamos
+     * @param teamownerid la id del TeamOwner 
+     * @param con la conexion
+     * @throws SQLException
+     * @return el TeamOwner solicitado
+     * @see DBTeamOwner#getTeamOwner(int, java.sql.Connection) 
+     */
+    public static TeamOwner obtainTeamOwner(int teamownerid,Connection con) throws SQLException{
+        TeamOwner own= getTeamOwner(teamownerid,con);
+        return own;
+    }
+    
+    /**
+     * Pide a la clase DBPlayer un ArrayList de Player
+     * @param teamid la id del equipo del cual queremos los jugadores
+     * @param con   la conexion
+     * @return ArrayList de los jugadores
+     * @throws SQLException 
+     * @see DBPlayer#getPlayers(int, java.sql.Connection) 
+     */
+    public static ArrayList<Player> obtainPlayers(int teamid,Connection con) throws SQLException{
+        ArrayList<Player> players =getPlayers(teamid,con);
+        return players;
     }
 }
