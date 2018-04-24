@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package View;
+
 import superproyecto.SuperProyecto;
+
 /**
  * @author Sebastián Zawisza
  * @author Sergio Zulueta
@@ -21,10 +23,35 @@ public class ViewController {
         Login login = new Login();
         login.setVisible(true);
     }
+
+    /**
+     * Abre la ventana de User.
+     */
+    public static void user() {
+        User user = new User();
+        user.setVisible(true);
+    }
     
     /**
-     * Realiza una consulta a las cuentas en la base de datos con usuario y contraseña. 
-     * Devuelve un int representando al tipo de cuenta si existe, y un 0 si no.
+     * Abre la ventana de Owner.
+     */
+    public static void owner() {
+        Owner owner = new Owner();
+        owner.setVisible(true);
+    }
+    
+    /**
+     * Abre la ventana de Admin.
+     */
+    public static void admin() {
+        Admin admin = new Admin();
+        admin.setVisible(true);
+    }
+
+    /**
+     * Realiza una consulta a las cuentas en la base de datos con usuario y
+     * contraseña. Devuelve un int representando al tipo de cuenta si existe, y
+     * un 0 si no.
      */
     public static byte LoginAccountQuery(String username, char[] password) {
         return SuperProyecto.getAccountType(username, password);
