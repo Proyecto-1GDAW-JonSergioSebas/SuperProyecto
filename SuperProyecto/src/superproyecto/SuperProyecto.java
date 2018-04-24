@@ -5,6 +5,11 @@
  */
 package superproyecto;
 
+import static ModelDB.DBController.createConnection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import View.ViewController;
 import DB.DBController;
 /**
@@ -22,7 +27,18 @@ public class SuperProyecto {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        try {
+            /*vvNO MODIFICAR ESTOvv*/
+            DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+        
+        /*^^NO MODIFICAR ESTO^^*/
+        createConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
         ViewController.login();
     }
 
@@ -46,5 +62,6 @@ public class SuperProyecto {
     public static byte getAccountType(String username, char[] password){
     //buscar la cuenta y hacer un switch o algo para devolver un byte dependiendo del tipo
     //yo(sebas) puedo hacer esto sin problema una vez lo de la DB esté hecho
+    return 0; //esto es solo para que no de error mientras el metodo no está hecho
     }
 }
