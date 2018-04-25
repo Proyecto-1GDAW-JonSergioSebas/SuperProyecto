@@ -5,6 +5,9 @@
  */
 package DB;
 
+import static DB.DBLeague.askForLeague;
+import static DB.DBLeague.insertLeague;
+import static DB.DBMatchSet.insertMatchSet;
 import static DB.DBPlayer.getPlayers;
 import static DB.DBTeam.getTeams;
 import static DB.DBTeamOwner.getTeamOwner;
@@ -41,6 +44,7 @@ public class DBController {
     /**
      * Pide a la clase DBTeam el numero de equipos que hay, y los
      * devuelve.
+     * @param con la conexion
      * @throws ClassNotFoundException
      * @throws SQLException
      * @return el numero de equipos
@@ -75,5 +79,17 @@ public class DBController {
     public static ArrayList<Player> obtainPlayers(int teamid,Connection con) throws SQLException{
         ArrayList<Player> players =getPlayers(teamid,con);
         return players;
+    }
+    /**
+     * Pide a la Clase DBLeague que cree la liga
+     * @param leaguename el nombre de la liga
+     * @param con la conexion
+     */
+    public static void createLeague(String leaguename,Connection con) throws SQLException{
+        insertLeague(leaguename,con);
+    }
+    public static void createMatchSet(String leaguename,Connection con) throws SQLException{
+        int temp=askForLeague(leaguename,con);
+        insertMatchSet(temp,con);
     }
 }
