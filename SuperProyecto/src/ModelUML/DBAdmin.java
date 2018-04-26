@@ -26,9 +26,11 @@ public class DBAdmin extends Accounts {
      * Constructor lleno
      *
      * @param userName (requerido) Nombre de usuario para acceder al programa
+     * @param password (requerido) Contraseña del usuario para accederal programa
      */
-    public DBAdmin(String userName) {
-        super(userName);
+    public DBAdmin(String userName, char[] password) {
+        super.setUserName(userName);
+        super.setPassword(password);
     }
 
 }

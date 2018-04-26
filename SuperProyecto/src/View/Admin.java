@@ -17,7 +17,10 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @version %I% %G%
  * @since 1.0
  */
+//la clase aún es solo un esqueleto. Los botones no hacen nada, pero la interfaz se actualiza como debería (creo)
 public class Admin extends javax.swing.JFrame {
+
+    static byte mode;
 
     /**
      * Creates new form User
@@ -38,7 +41,7 @@ public class Admin extends javax.swing.JFrame {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        mode = 0; //0 por defecto, 1 para jugadores, 2 para equipos, 3 para dueños, 4 para usuarios
     }
 
     /**
@@ -50,21 +53,663 @@ public class Admin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        cbLeague = new javax.swing.JComboBox<>();
+        jbCalendar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel2 = new javax.swing.JLabel();
+        cbMatchet = new javax.swing.JComboBox<>();
+        jbResults = new javax.swing.JButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButton4 = new javax.swing.JRadioButton();
+        jbCreate = new javax.swing.JButton();
+        jbDelete = new javax.swing.JButton();
+        jbRead = new javax.swing.JButton();
+        jbUpdate = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        jbUserView = new javax.swing.JButton();
+        jbOwnerView = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jmPlayerCreate = new javax.swing.JMenuItem();
+        jmPlayerDelete = new javax.swing.JMenuItem();
+        jmPlayerRead = new javax.swing.JMenuItem();
+        jmPlayerUpdate = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jmTeamCreate = new javax.swing.JMenuItem();
+        jmTeamDelete = new javax.swing.JMenuItem();
+        jmTeamRead = new javax.swing.JMenuItem();
+        jmTeamUpdate = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jmOwnerCreate = new javax.swing.JMenuItem();
+        jmOwnerDelete = new javax.swing.JMenuItem();
+        jmOwnerRead = new javax.swing.JMenuItem();
+        jmOwnerUpdate = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jmUserCreate = new javax.swing.JMenuItem();
+        jmUserDelete = new javax.swing.JMenuItem();
+        jmUserRead = new javax.swing.JMenuItem();
+        jmUserUpdate = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jmViewUser = new javax.swing.JMenuItem();
+        jmViewOwner = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jbCalendar.setText("Generar Calendario");
+
+        jLabel1.setText("Liga");
+
+        jLabel2.setText("Jornada");
+
+        cbMatchet.setEnabled(false);
+
+        jbResults.setText("Introducir Resultados");
+        jbResults.setEnabled(false);
+        jbResults.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbResultsActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setText("Jugadores");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("Equipos");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setText("Dueños");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton4);
+        jRadioButton4.setText("Usuarios");
+        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton4ActionPerformed(evt);
+            }
+        });
+
+        jbCreate.setText("Alta");
+        jbCreate.setEnabled(false);
+        jbCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCreateActionPerformed(evt);
+            }
+        });
+
+        jbDelete.setText("Baja");
+        jbDelete.setEnabled(false);
+
+        jbRead.setText("Lista");
+        jbRead.setEnabled(false);
+
+        jbUpdate.setText("Modificación");
+        jbUpdate.setEnabled(false);
+
+        jbUserView.setText("Vista de Usuario");
+        jbUserView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbUserViewActionPerformed(evt);
+            }
+        });
+
+        jbOwnerView.setText("Vista de Dueño");
+        jbOwnerView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbOwnerViewActionPerformed(evt);
+            }
+        });
+
+        jMenu1.setText("Jugador");
+
+        jmPlayerCreate.setText("Alta");
+        jmPlayerCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmPlayerCreateActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmPlayerCreate);
+
+        jmPlayerDelete.setText("Baja");
+        jmPlayerDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmPlayerDeleteActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmPlayerDelete);
+
+        jmPlayerRead.setText("Lista");
+        jmPlayerRead.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmPlayerReadActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmPlayerRead);
+
+        jmPlayerUpdate.setText("Modificación");
+        jmPlayerUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmPlayerUpdateActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmPlayerUpdate);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Equipo");
+
+        jmTeamCreate.setText("Alta");
+        jmTeamCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmTeamCreateActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmTeamCreate);
+
+        jmTeamDelete.setText("Baja");
+        jmTeamDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmTeamDeleteActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmTeamDelete);
+
+        jmTeamRead.setText("Lista");
+        jmTeamRead.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmTeamReadActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmTeamRead);
+
+        jmTeamUpdate.setText("Modificación");
+        jmTeamUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmTeamUpdateActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmTeamUpdate);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Dueño");
+
+        jmOwnerCreate.setText("Alta");
+        jmOwnerCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmOwnerCreateActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jmOwnerCreate);
+
+        jmOwnerDelete.setText("Baja");
+        jmOwnerDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmOwnerDeleteActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jmOwnerDelete);
+
+        jmOwnerRead.setText("Lista");
+        jmOwnerRead.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmOwnerReadActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jmOwnerRead);
+
+        jmOwnerUpdate.setText("Modificación");
+        jmOwnerUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmOwnerUpdateActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jmOwnerUpdate);
+
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Usuario");
+
+        jmUserCreate.setText("Alta");
+        jmUserCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmUserCreateActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jmUserCreate);
+
+        jmUserDelete.setText("Baja");
+        jmUserDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmUserDeleteActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jmUserDelete);
+
+        jmUserRead.setText("Lista");
+        jmUserRead.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmUserReadActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jmUserRead);
+
+        jmUserUpdate.setText("Modificación");
+        jmUserUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmUserUpdateActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jmUserUpdate);
+
+        jMenuBar1.add(jMenu4);
+
+        jMenu5.setText("Vistas");
+
+        jmViewUser.setText("Usuario");
+        jmViewUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmViewUserActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jmViewUser);
+
+        jmViewOwner.setText("Dueño");
+        jmViewOwner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmViewOwnerActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jmViewOwner);
+
+        jMenuBar1.add(jMenu5);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jSeparator2)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbLeague, 0, 100, Short.MAX_VALUE)
+                            .addComponent(cbMatchet, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbResults, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButton1)
+                            .addComponent(jRadioButton3))
+                        .addGap(8, 8, 8)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButton4)
+                            .addComponent(jRadioButton2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jbCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jbRead, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbUserView, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbOwnerView, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(cbLeague, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbCalendar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbResults)
+                    .addComponent(cbMatchet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jbCreate)
+                    .addComponent(jbRead))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton3)
+                    .addComponent(jRadioButton4)
+                    .addComponent(jbUpdate)
+                    .addComponent(jbDelete))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbUserView)
+                    .addComponent(jbOwnerView))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbResultsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbResultsActionPerformed
+    /**
+     * Actualiza el modo de la ventana para que los botones se apliquen a
+     * Dueños.
+     *
+     * @param evt Generado automáticamente.
+     */
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        mode = 3;
+        refresh();
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+    /**
+     * Actualiza el modo de la ventana para que los botones se apliquen a
+     * Usuarios.
+     *
+     * @param evt Generado automáticamente.
+     */
+    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
+        mode = 4;
+        refresh();
+    }//GEN-LAST:event_jRadioButton4ActionPerformed
+    /**
+     * Actualiza el modo de la ventana para que los botones se apliquen a
+     * Jugadores.
+     *
+     * @param evt Generado automáticamente.
+     */
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        mode = 1;
+        refresh();
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    /**
+     * Actualiza el modo de la ventana para que los botones se apliquen a
+     * Equipos.
+     *
+     * @param evt Generado automáticamente.
+     */
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        mode = 2;
+        refresh();
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jbCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCreateActionPerformed
+
+    }//GEN-LAST:event_jbCreateActionPerformed
+    /**
+     * Abre la ventana de Usuario.
+     *
+     * @param evt Generado automáticamente.
+     */
+    private void jbUserViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUserViewActionPerformed
+        ViewController.user();
+    }//GEN-LAST:event_jbUserViewActionPerformed
+    /**
+     * Abre la ventana de Dueño.
+     *
+     * @param evt Generado automáticamente.
+     */
+    private void jbOwnerViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOwnerViewActionPerformed
+        ViewController.owner();
+    }//GEN-LAST:event_jbOwnerViewActionPerformed
+    /**
+     * Abre la ventana de creación de jugador, modificando temporalmente el modo
+     * de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmPlayerCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPlayerCreateActionPerformed
+        byte tempMode = mode;
+        mode = 1;
+        jbCreate.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmPlayerCreateActionPerformed
+    /**
+     * Abre la ventana de eliminación de jugador, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmPlayerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPlayerDeleteActionPerformed
+        byte tempMode = mode;
+        mode = 1;
+        jbDelete.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmPlayerDeleteActionPerformed
+    /**
+     * Abre la ventana de visualización de jugador, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmPlayerReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPlayerReadActionPerformed
+        byte tempMode = mode;
+        mode = 1;
+        jbRead.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmPlayerReadActionPerformed
+    /**
+     * Abre la ventana de eliminación de jugador, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmPlayerUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPlayerUpdateActionPerformed
+        byte tempMode = mode;
+        mode = 1;
+        jbUpdate.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmPlayerUpdateActionPerformed
+    /**
+     * Abre la ventana de creación de equipo, modificando temporalmente el modo
+     * de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmTeamCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTeamCreateActionPerformed
+        byte tempMode = mode;
+        mode = 2;
+        jbCreate.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmTeamCreateActionPerformed
+    /**
+     * Abre la ventana de eliminación de equipo, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmTeamDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTeamDeleteActionPerformed
+        byte tempMode = mode;
+        mode = 2;
+        jbDelete.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmTeamDeleteActionPerformed
+    /**
+     * Abre la ventana de visualización de equipo, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmTeamReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTeamReadActionPerformed
+        byte tempMode = mode;
+        mode = 2;
+        jbRead.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmTeamReadActionPerformed
+    /**
+     * Abre la ventana de actualización de equipo, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmTeamUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTeamUpdateActionPerformed
+        byte tempMode = mode;
+        mode = 2;
+        jbUpdate.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmTeamUpdateActionPerformed
+    /**
+     * Abre la ventana de creación de dueño, modificando temporalmente el modo
+     * de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmOwnerCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOwnerCreateActionPerformed
+        byte tempMode = mode;
+        mode = 3;
+        jbCreate.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmOwnerCreateActionPerformed
+    /**
+     * Abre la ventana de eliminación de dueño, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmOwnerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOwnerDeleteActionPerformed
+        byte tempMode = mode;
+        mode = 3;
+        jbDelete.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmOwnerDeleteActionPerformed
+    /**
+     * Abre la ventana de visualización de dueño, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmOwnerReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOwnerReadActionPerformed
+        byte tempMode = mode;
+        mode = 3;
+        jbRead.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmOwnerReadActionPerformed
+    /**
+     * Abre la ventana de actualización de dueño, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmOwnerUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOwnerUpdateActionPerformed
+        byte tempMode = mode;
+        mode = 3;
+        jbUpdate.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmOwnerUpdateActionPerformed
+    /**
+     * Abre la ventana de creación de usuario, modificando temporalmente el modo
+     * de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmUserCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserCreateActionPerformed
+        byte tempMode = mode;
+        mode = 4;
+        jbCreate.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmUserCreateActionPerformed
+    /**
+     * Abre la ventana de eliminación de usuario, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmUserDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserDeleteActionPerformed
+        byte tempMode = mode;
+        mode = 4;
+        jbDelete.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmUserDeleteActionPerformed
+    /**
+     * Abre la ventana de visualización de usuario, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmUserReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserReadActionPerformed
+        byte tempMode = mode;
+        mode = 4;
+        jbRead.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmUserReadActionPerformed
+    /**
+     * Abre la ventana de actualización de usuario, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmUserUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserUpdateActionPerformed
+        byte tempMode = mode;
+        mode = 4;
+        jbUpdate.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmUserUpdateActionPerformed
+
+    private void jmViewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmViewUserActionPerformed
+        ViewController.user();
+    }//GEN-LAST:event_jmViewUserActionPerformed
+
+    private void jmViewOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmViewOwnerActionPerformed
+        ViewController.owner();
+    }//GEN-LAST:event_jmViewOwnerActionPerformed
+
+    /**
+     * Actualiza el estado de componentes en la ventana.
+     */
+    private void refresh() {
+        if (mode != 0) {
+            jbCreate.setEnabled(true);
+            jbUpdate.setEnabled(true);
+            jbDelete.setEnabled(true);
+            jbRead.setEnabled(true);
+        }
+
+        if (cbLeague.getSelectedIndex() != -1) {
+            cbMatchet.setEnabled(true);
+            //aquí deberíamos hacer un if para habilitar la creacion de calendario si se cumplen ciertas condiciones
+        }
+
+        if (cbMatchet.getSelectedIndex() != -1) {
+            jbResults.setEnabled(true);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -80,5 +725,48 @@ public class Admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cbLeague;
+    private javax.swing.JComboBox<String> cbMatchet;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JButton jbCalendar;
+    private javax.swing.JButton jbCreate;
+    private javax.swing.JButton jbDelete;
+    private javax.swing.JButton jbOwnerView;
+    private javax.swing.JButton jbRead;
+    private javax.swing.JButton jbResults;
+    private javax.swing.JButton jbUpdate;
+    private javax.swing.JButton jbUserView;
+    private javax.swing.JMenuItem jmOwnerCreate;
+    private javax.swing.JMenuItem jmOwnerDelete;
+    private javax.swing.JMenuItem jmOwnerRead;
+    private javax.swing.JMenuItem jmOwnerUpdate;
+    private javax.swing.JMenuItem jmPlayerCreate;
+    private javax.swing.JMenuItem jmPlayerDelete;
+    private javax.swing.JMenuItem jmPlayerRead;
+    private javax.swing.JMenuItem jmPlayerUpdate;
+    private javax.swing.JMenuItem jmTeamCreate;
+    private javax.swing.JMenuItem jmTeamDelete;
+    private javax.swing.JMenuItem jmTeamRead;
+    private javax.swing.JMenuItem jmTeamUpdate;
+    private javax.swing.JMenuItem jmUserCreate;
+    private javax.swing.JMenuItem jmUserDelete;
+    private javax.swing.JMenuItem jmUserRead;
+    private javax.swing.JMenuItem jmUserUpdate;
+    private javax.swing.JMenuItem jmViewOwner;
+    private javax.swing.JMenuItem jmViewUser;
     // End of variables declaration//GEN-END:variables
 }
