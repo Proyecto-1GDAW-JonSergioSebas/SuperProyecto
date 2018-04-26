@@ -23,7 +23,7 @@ public class DBLeague {
      * Crea la liga en la base de datos
      * @param leaguename el nombre de la liga    
      * @param con la conexion
-     * @throws SQLException 
+     * @throws SQLException hay una excepcion SQL
      */
     public static void insertLeague(String leaguename,Connection con) throws SQLException{
         Statement est = con.createStatement();
@@ -35,7 +35,7 @@ public class DBLeague {
      * @param leaguename el nombre de la liga
      * @param con la conexion
      * @return devuelve el id de la liga
-     * @throws SQLException 
+     * @throws SQLException hay una excepcion SQL
      */
     public static int askForLeague(String leaguename,Connection con) throws SQLException{
         Statement est = con.createStatement();

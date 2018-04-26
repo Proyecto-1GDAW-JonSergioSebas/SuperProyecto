@@ -36,7 +36,10 @@ public class TeamCRUD extends javax.swing.JDialog {
      */
     private static byte mode;
     /**
-     * Creates new form PlayerCRUD
+     * Creates new form TeamCRUD
+     * @param parent el elemento padre
+     * @param modal modal
+     * @param mode mode
      */
     public TeamCRUD(java.awt.Frame parent, boolean modal, byte mode) {
         super(parent, modal);

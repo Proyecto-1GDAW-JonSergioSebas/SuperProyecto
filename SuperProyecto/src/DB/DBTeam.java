@@ -27,8 +27,8 @@ public class DBTeam {
     /**
      * Devuelve los equipos con el nombre y la nacionalidad
      * @param con la conexion
-     * @throws ClassNotFoundException
-     * @throws SQLException
+     * @throws ClassNotFoundException no se encuentra la clase
+     * @throws SQLException hay una excepcion SQL
      * @return lista con los equipos
      */
     public static ArrayList<Team> getTeams(Connection con) throws ClassNotFoundException, SQLException{
@@ -48,7 +48,7 @@ public class DBTeam {
      * @param teamname el nombre del equipo
      * @param con la conexion
      * @return in int con el id del equipo
-     * @throws SQLException 
+     * @throws SQLException hay una excepcion SQL
      */
     public static int searchTeam(String teamname,Connection con) throws SQLException{
         int x=-1;

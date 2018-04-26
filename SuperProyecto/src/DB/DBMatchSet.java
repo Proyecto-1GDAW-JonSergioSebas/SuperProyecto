@@ -22,7 +22,7 @@ public class DBMatchSet {
      * Introduce una jornada con los datos proporcionados
      * @param leaguenum el numero de la liga
      * @param con la conexion
-     * @throws SQLException 
+     * @throws SQLException hay una excepcion SQL
      */
     public static void insertMatchSet(int leaguenum,Connection con) throws SQLException{
         Statement sta = con.createStatement();
