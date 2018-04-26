@@ -18,10 +18,15 @@ import java.sql.Statement;
  * @since 1.0
  */
 public class DBMatchSet {
-    
+    /**
+     * Introduce una jornada con los datos proporcionados
+     * @param leaguenum el numero de la liga
+     * @param con la conexion
+     * @throws SQLException 
+     */
     public static void insertMatchSet(int leaguenum,Connection con) throws SQLException{
         Statement sta = con.createStatement();
-        sta.executeUpdate("INSERT INTO MACTHSET(LEAGUE) VALUES('"+leaguenum+"');");
+        sta.executeUpdate("INSERT INTO MATCHSET(LEAGUE) VALUES('"+leaguenum+"')");
         sta.close();
     }
 }
