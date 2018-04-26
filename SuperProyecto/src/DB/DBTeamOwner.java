@@ -29,7 +29,7 @@ public class DBTeamOwner {
      */
     public static TeamOwner getTeamOwner(int teamownerid,Connection con) throws SQLException{
         Statement stat = con.createStatement();
-        ResultSet rs = stat.executeQuery("SELECT * FROM TEAM_OWNER WHERE ID_TO="+teamownerid+";");
+        ResultSet rs = stat.executeQuery("SELECT * FROM TEAM_OWNER WHERE ID_TO="+teamownerid);
         rs.next();
         TeamOwner own= new TeamOwner(rs.getString(4),rs.getString(5));
         rs.close();

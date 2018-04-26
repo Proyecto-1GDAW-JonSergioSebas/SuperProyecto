@@ -26,6 +26,7 @@ import java.util.ArrayList;
 public class DBTeam {
     /**
      * Devuelve los equipos con el nombre y la nacionalidad
+     * @param con la conexion
      * @throws ClassNotFoundException
      * @throws SQLException
      * @return lista con los equipos

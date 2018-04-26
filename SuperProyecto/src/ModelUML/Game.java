@@ -6,6 +6,7 @@
 package ModelUML;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -24,7 +25,7 @@ public class Game {
     private Team team2;
     private int score1;
     private int score2;
-    private Calendar dateTime;
+    private Date dateTime;
 
     /**
      * Constructor lleno
@@ -35,7 +36,7 @@ public class Game {
      * @param score2 (requerido) Puntos del segundo equipo
      * @param dateTime (requerido) Horario en el que juegan
      */
-    public Game(Team team1, Team team2, int score1, int score2, Calendar dateTime) {
+    public Game(Team team1, Team team2, int score1, int score2, Date dateTime) {
         this.team1 = team1;
         this.team2 = team2;
         this.score1 = score1;
@@ -50,7 +51,7 @@ public class Game {
      * @param team2 (requerido) Equipo 2 que juega
      * @param dateTime (requerido) Horario en el que juegan
      */
-    public Game(Team team1, Team team2, Calendar dateTime) {
+    public Game(Team team1, Team team2, Date dateTime) {
         this.team1 = team1;
         this.team2 = team2;
         this.dateTime = dateTime;
@@ -59,7 +60,7 @@ public class Game {
     /**
      * Es un Get que devuelve el nombre del equipo 1
      *
-     * @return team1 el nombre del equipo devuelto
+     * @return team1  equipo devuelto
      */
     public Team getTeam1() {
         return team1;
@@ -68,25 +69,25 @@ public class Game {
     /**
      * Es un Set que establece el nombre del equipo 1
      *
-     * @param team1 establece el nombre del equipo 1
+     * @param team1 establece el  equipo 1
      */
     public void setTeam1(Team team1) {
         this.team1 = team1;
     }
 
     /**
-     * Es un Get que devuelve el nombre del equipo 2
+     * Es un Get que devuelve  equipo 2
      *
-     * @return team2 el nombre del equipo devuelto
+     * @return team2  equipo devuelto
      */
     public Team getTeam2() {
         return team2;
     }
 
     /**
-     * Es un Set que establece el nombre del equipo 2
+     * Es un Set que establece el  equipo 2
      *
-     * @param team2 establece el nombre del equipo 2
+     * @param team2 establece el  equipo 2
      */
     public void setTeam2(Team team2) {
         this.team2 = team2;
@@ -133,7 +134,7 @@ public class Game {
      *
      * @return dateTime la fecha del partido devuelta
      */
-    public Calendar getDateTime() {
+    public Date getDateTime() {
         return dateTime;
     }
 
@@ -142,7 +143,7 @@ public class Game {
      *
      * @param dateTime la fecha del partido devuelta
      */
-    public void setDateTime(Calendar dateTime) {
+    public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
 

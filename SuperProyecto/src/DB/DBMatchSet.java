@@ -5,6 +5,10 @@
  */
 package DB;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  *
  * @author Sergio Zulueta
@@ -15,4 +19,9 @@ package DB;
  */
 public class DBMatchSet {
     
+    public static void insertMatchSet(int leaguenum,Connection con) throws SQLException{
+        Statement sta = con.createStatement();
+        sta.executeUpdate("INSERT INTO MACTHSET(LEAGUE) VALUES('"+leaguenum+"');");
+        sta.close();
+    }
 }
