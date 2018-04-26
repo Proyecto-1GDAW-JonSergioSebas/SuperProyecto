@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import View.ViewController;
 import DB.DBController;
+import static DB.DBController.createGames;
 import static DB.DBController.createLeague;
 import static DB.DBController.createMatchSet;
 import static DB.DBController.teams;
@@ -49,13 +50,10 @@ public class SuperProyecto {
         } catch (SQLException ex) {
             Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
         } 
-        
-        
-        
-        
             /*^^NO MODIFICAR ESTO^^*/
             ViewController.login();
-            //createCalendar("Azerbajan","2018/04/25");
+            
+        
         
       
         
@@ -80,7 +78,7 @@ public class SuperProyecto {
             ArrayList<Game> games;//Los partidos..
             ArrayList<MatchSet> league = new ArrayList();//Las jornadas..
             Calendar cal = Calendar.getInstance();//Instancia de calendario, para organizar los partidos
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             
             cal.setTime(sdf.parse(date));
             if(completeTeams.size()%2 !=0){ //Si el numero de equipos es impar añade un equipo fantasma
@@ -92,10 +90,10 @@ public class SuperProyecto {
             
             ArrayList<Team> teams=new ArrayList();//Añadir los equipos y eliminar el primero
             teams.addAll(completeTeams);
-            for(Team t:completeTeams){
+          /*  for(Team t:completeTeams){
                 System.out.println(t.getTeamName()+"\n");
             }
-            /*
+            */
             teams.remove(0);
             //Se crean las jornadas de "ida"
             for(int day=0; day<numDays; day++){//Se repetirá el numero de dias requeridos
@@ -132,11 +130,27 @@ public class SuperProyecto {
             }
             //Ahora creamos la Liga en la Base de Datos
             createLeague(leaguename,con);
-            //int x=0;
-           /* while(x<league.size()){
+            
+            //Insertamos las jornadas
+            int x=0;
+           while(x<league.size()){
             createMatchSet(leaguename,con);
             x++;
-            }*/
+           }
+           
+           //Insertamos los juegos
+           int y=1;
+           int z=0;
+           for(MatchSet m:league){
+               for(Game gm:m.getGames()){
+                   z++;
+                   createGames(gm,z,y,con);
+                   
+               }
+               y++;
+           }
+           
+           
           con.close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
