@@ -28,9 +28,11 @@ public class DBUser extends Accounts {
      * Constructor lleno
      * 
      * @param userName (requerido) Nombre de usuario para acceder al programa
+     * @param password (requerido) Contraseña delusuario para accedera al programa
      */
-    public DBUser(String userName) {
-        super(userName);
+    public DBUser(String userName, char[] password) {
+        super.setUserName(userName);
+        super.setPassword(password);
     }
 
 }
