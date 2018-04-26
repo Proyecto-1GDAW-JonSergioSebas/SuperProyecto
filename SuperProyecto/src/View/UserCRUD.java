@@ -38,7 +38,10 @@ public class UserCRUD extends javax.swing.JDialog {
     private static byte mode;
 
     /**
-     * Creates new form PlayerCRUD
+     * Creates new form UserCRUD
+     * @param parent el padre del elemento
+     * @param modal modal
+     * @param mode mode
      */
     public UserCRUD(java.awt.Frame parent, boolean modal, byte mode) {
         super(parent, modal);

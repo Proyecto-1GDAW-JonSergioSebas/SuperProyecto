@@ -23,7 +23,7 @@ public class DBGameResult {
      * @param gamenum el id del juego
      * @param teamnum el id del equipo
      * @param con la conexion
-     * @throws SQLException 
+     * @throws SQLException hay una excepcion SQL
      */
     public static void insertGameResult(int gamenum,int teamnum,Connection con) throws SQLException{
         Statement esta = con.createStatement();

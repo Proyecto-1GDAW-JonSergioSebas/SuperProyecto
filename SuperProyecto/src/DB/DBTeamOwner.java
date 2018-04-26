@@ -25,7 +25,7 @@ public class DBTeamOwner {
      * @param teamownerid la id del TeamOwner 
      * @param con la conexion
      * @return el TeamOwner correspondiente
-     * @throws SQLException 
+     * @throws SQLException hay una excepcion SQL
      */
     public static TeamOwner getTeamOwner(int teamownerid,Connection con) throws SQLException{
         Statement stat = con.createStatement();

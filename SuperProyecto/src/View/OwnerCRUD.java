@@ -36,7 +36,10 @@ public class OwnerCRUD extends javax.swing.JDialog {
      */
     private static byte mode;
     /**
-     * Creates new form PlayerCRUD
+     * Creates new form OwnerCRUD
+     * @param parent el padre del elemento
+     * @param modal modal
+     * @param mode mode
      */
     public OwnerCRUD(java.awt.Frame parent, boolean modal, byte mode) {
         super(parent, modal);

@@ -49,8 +49,8 @@ public class DBController {
      * Pide a la clase DBTeam el numero de equipos que hay, y los
      * devuelve.
      * @param con la conexion
-     * @throws ClassNotFoundException
-     * @throws SQLException
+     * @throws ClassNotFoundException no se han encontrado las clases
+     * @throws SQLException hay una excepcion SQL
      * @return el numero de equipos
      * @see DBTeam#getTeams(java.sql.Connection) 
      */
@@ -63,7 +63,7 @@ public class DBController {
      * a la id que le pasamos
      * @param teamownerid la id del TeamOwner 
      * @param con la conexion
-     * @throws SQLException
+     * @throws SQLException hay una excepcion SQL
      * @return el TeamOwner solicitado
      * @see DBTeamOwner#getTeamOwner(int, java.sql.Connection) 
      */
@@ -77,7 +77,7 @@ public class DBController {
      * @param teamid la id del equipo del cual queremos los jugadores
      * @param con   la conexion
      * @return ArrayList de los jugadores
-     * @throws SQLException 
+     * @throws SQLException hay una excepcion SQL
      * @see DBPlayer#getPlayers(int, java.sql.Connection) 
      */
     public static ArrayList<Player> obtainPlayers(int teamid,Connection con) throws SQLException{
@@ -88,6 +88,7 @@ public class DBController {
      * Pide a la Clase DBLeague que cree la liga
      * @param leaguename el nombre de la liga
      * @param con la conexion
+     * @throws SQLException hay una excepcion SQL
      */
     public static void createLeague(String leaguename,Connection con) throws SQLException{
         insertLeague(leaguename,con);
@@ -96,7 +97,7 @@ public class DBController {
      * Pide el id de la liga correspondiente y envia el id para insertar las jornadas en esa liga
      * @param leaguename en nombre de la liga
      * @param con la conexion
-     * @throws SQLException 
+     * @throws SQLException hay una excepcion SQL
      */
     public static void createMatchSet(String leaguename,Connection con) throws SQLException{
         int temp=askForLeague(leaguename,con);
@@ -111,7 +112,7 @@ public class DBController {
      * @param gamenum el id del juego
      * @param matchsetnum el id de la jornada
      * @param con la conexion
-     * @throws SQLException 
+     * @throws SQLException hay una excepcion SQL
      */
     public static void createGames(Game gm,int gamenum,int matchsetnum,Connection con) throws SQLException{
         insertGame(gm,matchsetnum,con);
