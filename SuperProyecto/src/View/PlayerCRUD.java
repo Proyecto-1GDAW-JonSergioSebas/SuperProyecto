@@ -37,6 +37,9 @@ public class PlayerCRUD extends javax.swing.JDialog {
     private static byte mode;
     /**
      * Creates new form PlayerCRUD
+     * @param parent el padre del elemento
+     * @param modal modal
+     * @param mode mode
      */
     public PlayerCRUD(java.awt.Frame parent, boolean modal, byte mode) {
         super(parent, modal);

@@ -23,11 +23,11 @@ public class DBLeague {
      * Crea la liga en la base de datos
      * @param leaguename el nombre de la liga    
      * @param con la conexion
-     * @throws SQLException 
+     * @throws SQLException hay una excepcion SQL
      */
     public static void insertLeague(String leaguename,Connection con) throws SQLException{
         Statement est = con.createStatement();
-        est.executeUpdate("INSERT INTO LEAGUE(LEAGUE_NAME) VALUES('"+leaguename+"');");
+        est.executeUpdate("INSERT INTO LEAGUE(LEAGUE_NAME) VALUES('"+leaguename+"')");
         est.close();
     }
     /**
@@ -35,13 +35,13 @@ public class DBLeague {
      * @param leaguename el nombre de la liga
      * @param con la conexion
      * @return devuelve el id de la liga
-     * @throws SQLException 
+     * @throws SQLException hay una excepcion SQL
      */
     public static int askForLeague(String leaguename,Connection con) throws SQLException{
         Statement est = con.createStatement();
-        ResultSet resul= est.executeQuery("SELECT * AS LEAGUENUM FROM LEAGUE WHERE LEAGUE_NAME='"+leaguename+"';");
+        ResultSet resul= est.executeQuery("SELECT ID_LG FROM LEAGUE WHERE LEAGUE_NAME='"+leaguename+"'");
         resul.next();
-        int temp = resul.getInt("LEAGUENUM");
+        int temp = resul.getInt("ID_LG");
         resul.close();
         est.close();
         return temp;

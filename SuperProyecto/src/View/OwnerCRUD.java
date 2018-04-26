@@ -36,7 +36,10 @@ public class OwnerCRUD extends javax.swing.JDialog {
      */
     private static byte mode;
     /**
-     * Creates new form PlayerCRUD
+     * Creates new form OwnerCRUD
+     * @param parent el padre del elemento
+     * @param modal modal
+     * @param mode mode
      */
     public OwnerCRUD(java.awt.Frame parent, boolean modal, byte mode) {
         super(parent, modal);
@@ -126,16 +129,6 @@ public class OwnerCRUD extends javax.swing.JDialog {
         jLabel4.setText("Contraseña");
 
         jLabel5.setText("Contraseña otra vez");
-
-        jTextField1.setText("jTextField1");
-
-        jFormattedTextField1.setText("jFormattedTextField1");
-
-        jTextField2.setText("jTextField1");
-
-        jPasswordField1.setText("jPasswordField1");
-
-        jPasswordField2.setText("jPasswordField2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

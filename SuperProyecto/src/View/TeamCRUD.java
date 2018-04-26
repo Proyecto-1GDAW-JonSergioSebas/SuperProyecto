@@ -36,7 +36,10 @@ public class TeamCRUD extends javax.swing.JDialog {
      */
     private static byte mode;
     /**
-     * Creates new form PlayerCRUD
+     * Creates new form TeamCRUD
+     * @param parent el elemento padre
+     * @param modal modal
+     * @param mode mode
      */
     public TeamCRUD(java.awt.Frame parent, boolean modal, byte mode) {
         super(parent, modal);
@@ -123,10 +126,6 @@ public class TeamCRUD extends javax.swing.JDialog {
 
         jLabel5.setText("Dueño");
 
-        jTextField2.setText("jTextField1");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -139,7 +138,6 @@ public class TeamCRUD extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel5)
