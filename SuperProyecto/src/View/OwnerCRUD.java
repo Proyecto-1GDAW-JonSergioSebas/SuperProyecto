@@ -130,16 +130,6 @@ public class OwnerCRUD extends javax.swing.JDialog {
 
         jLabel5.setText("Contraseña otra vez");
 
-        jTextField1.setText("jTextField1");
-
-        jFormattedTextField1.setText("jFormattedTextField1");
-
-        jTextField2.setText("jTextField1");
-
-        jPasswordField1.setText("jPasswordField1");
-
-        jPasswordField2.setText("jPasswordField2");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(

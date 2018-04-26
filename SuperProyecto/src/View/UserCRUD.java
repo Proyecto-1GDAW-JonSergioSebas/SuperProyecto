@@ -32,9 +32,11 @@ public class UserCRUD extends javax.swing.JDialog {
      */
     public static final int RET_OK = 1;
     /**
-     * El modo de la ventana, que determina qué función del CRUD se supone que realice.
+     * El modo de la ventana, que determina qué función del CRUD se supone que
+     * realice.
      */
     private static byte mode;
+
     /**
      * Creates new form UserCRUD
      * @param parent el padre del elemento
@@ -43,7 +45,7 @@ public class UserCRUD extends javax.swing.JDialog {
      */
     public UserCRUD(java.awt.Frame parent, boolean modal, byte mode) {
         super(parent, modal);
-        initComponents();        
+        initComponents();
         //<editor-fold defaultstate="collapsed" desc=" System look and feel setting code ">
         try {
             /* Set the System look and feel */
@@ -69,6 +71,7 @@ public class UserCRUD extends javax.swing.JDialog {
                 doClose(RET_CANCEL);
             }
         });
+        mode();
     }
 
     /**
@@ -95,6 +98,7 @@ public class UserCRUD extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         cancelButton = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -102,9 +106,9 @@ public class UserCRUD extends javax.swing.JDialog {
             }
         });
 
-        jPasswordField1.setText("jPasswordField1");
+        jPasswordField1.setEnabled(false);
 
-        jPasswordField2.setText("jPasswordField2");
+        jPasswordField2.setEnabled(false);
 
         jLabel3.setText("Nombre de Usuario");
 
@@ -126,7 +130,7 @@ public class UserCRUD extends javax.swing.JDialog {
             }
         });
 
-        jTextField2.setText("jTextField1");
+        jTextField2.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -140,24 +144,27 @@ public class UserCRUD extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addComponent(jLabel5))
+                        .addComponent(jLabel5)
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPasswordField2)
                             .addComponent(jPasswordField1)
-                            .addComponent(jTextField2))))
+                            .addComponent(jTextField2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -173,7 +180,7 @@ public class UserCRUD extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(okButton)
                     .addComponent(cancelButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         getRootPane().setDefaultButton(okButton);
@@ -195,7 +202,7 @@ public class UserCRUD extends javax.swing.JDialog {
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         doClose(RET_CANCEL);
     }//GEN-LAST:event_cancelButtonActionPerformed
-    
+
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
@@ -203,26 +210,35 @@ public class UserCRUD extends javax.swing.JDialog {
     }
 
     /**
+     * Habilita y deshabilita el estado inicial de componentes de la interfaz
+     * dependiendo del modo de la ventana.
+     */
+    private void mode() {
+        if (mode == 0) {
+            
+        }
+    }
+
+    /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                UserCRUD dialog = new UserCRUD(new javax.swing.JFrame(), true, mode);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            UserCRUD dialog = new UserCRUD(new javax.swing.JFrame(), true, mode);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

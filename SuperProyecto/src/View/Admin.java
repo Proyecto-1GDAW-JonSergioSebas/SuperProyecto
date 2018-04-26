@@ -157,12 +157,27 @@ public class Admin extends javax.swing.JFrame {
 
         jbDelete.setText("Baja");
         jbDelete.setEnabled(false);
+        jbDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbDeleteActionPerformed(evt);
+            }
+        });
 
         jbRead.setText("Lista");
         jbRead.setEnabled(false);
+        jbRead.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbReadActionPerformed(evt);
+            }
+        });
 
         jbUpdate.setText("Modificación");
         jbUpdate.setEnabled(false);
+        jbUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbUpdateActionPerformed(evt);
+            }
+        });
 
         jbUserView.setText("Vista de Usuario");
         jbUserView.addActionListener(new java.awt.event.ActionListener() {
@@ -471,7 +486,20 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void jbCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCreateActionPerformed
-
+        switch (mode) {
+            case 1:
+                ViewController.playerCRUD(this, (byte) 0);
+                break;
+            case 2:
+                ViewController.teamCRUD(this, (byte) 0);
+                break;
+            case 3:
+                ViewController.ownerCRUD(this, (byte) 0);
+                break;
+            case 4:
+                ViewController.userCRUD(this, (byte) 0);
+                break;
+        }
     }//GEN-LAST:event_jbCreateActionPerformed
     /**
      * Abre la ventana de Usuario.
@@ -689,6 +717,57 @@ public class Admin extends javax.swing.JFrame {
     private void jmViewOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmViewOwnerActionPerformed
         ViewController.owner();
     }//GEN-LAST:event_jmViewOwnerActionPerformed
+
+    private void jbReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbReadActionPerformed
+        switch (mode) {
+            case 1:
+                ViewController.playerCRUD(this, (byte) 2);
+                break;
+            case 2:
+                ViewController.teamCRUD(this, (byte) 2);
+                break;
+            case 3:
+                ViewController.ownerCRUD(this, (byte) 2);
+                break;
+            case 4:
+                ViewController.userCRUD(this, (byte) 2);
+                break;
+        }
+    }//GEN-LAST:event_jbReadActionPerformed
+
+    private void jbDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDeleteActionPerformed
+        switch (mode) {
+            case 1:
+                ViewController.playerCRUD(this, (byte) 1);
+                break;
+            case 2:
+                ViewController.teamCRUD(this, (byte) 1);
+                break;
+            case 3:
+                ViewController.ownerCRUD(this, (byte) 1);
+                break;
+            case 4:
+                ViewController.userCRUD(this, (byte) 1);
+                break;
+        }
+    }//GEN-LAST:event_jbDeleteActionPerformed
+
+    private void jbUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUpdateActionPerformed
+        switch (mode) {
+            case 1:
+                ViewController.playerCRUD(this, (byte) 3);
+                break;
+            case 2:
+                ViewController.teamCRUD(this, (byte) 3);
+                break;
+            case 3:
+                ViewController.ownerCRUD(this, (byte) 3);
+                break;
+            case 4:
+                ViewController.userCRUD(this, (byte) 3);
+                break;
+        }
+    }//GEN-LAST:event_jbUpdateActionPerformed
 
     /**
      * Actualiza el estado de componentes en la ventana.
