@@ -13,7 +13,7 @@ package ModelUML;
  * @version %I% %G%
  * @since 1.0
  */
-public class TeamOwner {
+public class TeamOwner extends Accounts{
 
     /**
      * Creacion de los atributos fullName, telephone.
@@ -37,6 +37,21 @@ public class TeamOwner {
     public TeamOwner(String fullName, String telephone) {
         this.fullName = fullName;
         this.telephone = telephone;
+    }
+
+    /**
+     * Constructor parcial, solo para uso al dar de alta.
+     *
+     * @param fullName (requerido) el nombre del dueño del equipo
+     * @param telephone (requerido) El telefono del dueño values 9 numbers
+     * @param userName (requerido) Nombre de usuario para acceder al programa
+     * @param password (requerido) Contraseña delusuario para accedera al programa
+     */
+    public TeamOwner(String fullName, String telephone, String userName, char[] password) {
+        this.fullName = fullName;
+        this.telephone = telephone;
+        super.setUserName(userName);
+        super.setPassword(password);
     }
 
     /**

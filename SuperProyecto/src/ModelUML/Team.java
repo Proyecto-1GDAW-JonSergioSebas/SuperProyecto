@@ -27,16 +27,34 @@ public class Team {
 
     /**
      *
-     * @param teamName (requerido) El nombre del equipo
-     * @param nationality (requerido) La nacionalidad del equipo
-     * @param teamOwner (requerido) El nombre del dueño del equipo
-     * @param players (requerido) El nombre de los jugadores en el equipo
+     * @param teamName El nombre del equipo
+     * @param teamOwner El nombre del dueño del equipo
      */
-    public Team(String teamName, String nationality, TeamOwner teamOwner, ArrayList<Player> players) {
+    public Team(String teamName, TeamOwner teamOwner) {
+        this.teamName = teamName;
+        this.teamOwner = teamOwner;
+    }
+
+    /**
+     *
+     * @param teamName El nombre del equipo
+     * @param nationality El nombre del dueño del equipo
+     */
+    public Team(String teamName, String nationality) {
         this.teamName = teamName;
         this.nationality = nationality;
+    }
+
+    /**
+     * @param teamName El nombre del equipo
+     * @param nationality La nacionalidad del equipo
+     * @param teamOwner El nombre del dueño del equipo
+     *
+     */
+    public Team(String teamName, TeamOwner teamOwner, String nationality) {
+        this.teamName = teamName;
         this.teamOwner = teamOwner;
-        this.players = players;
+        this.nationality = nationality;
     }
 
     /**
@@ -111,4 +129,12 @@ public class Team {
         this.players = players;
     }
 
+    /**
+     * Función que añade un jugador al equipo
+     *
+     * @param player el jugador a añadir
+     */
+    public void addPlayer(Player player) {
+        this.players.add(player);
+    }
 }
