@@ -5,12 +5,16 @@
  */
 package DB;
 
+import static DB.DBGame.insertGame;
+import static DB.DBGameResult.insertGameResult;
 import static DB.DBLeague.askForLeague;
 import static DB.DBLeague.insertLeague;
 import static DB.DBMatchSet.insertMatchSet;
 import static DB.DBPlayer.getPlayers;
 import static DB.DBTeam.getTeams;
+import static DB.DBTeam.searchTeam;
 import static DB.DBTeamOwner.getTeamOwner;
+import ModelUML.Game;
 import ModelUML.Player;
 import ModelUML.Team;
 import ModelUML.TeamOwner;
@@ -88,8 +92,32 @@ public class DBController {
     public static void createLeague(String leaguename,Connection con) throws SQLException{
         insertLeague(leaguename,con);
     }
+    /**
+     * Pide el id de la liga correspondiente y envia el id para insertar las jornadas en esa liga
+     * @param leaguename en nombre de la liga
+     * @param con la conexion
+     * @throws SQLException 
+     */
     public static void createMatchSet(String leaguename,Connection con) throws SQLException{
         int temp=askForLeague(leaguename,con);
         insertMatchSet(temp,con);
+    }
+    /**
+     * Crea los juegos, primero enviando a DBGame los datos del juego en si,
+     * despues pide las id de los equipos que participan en ese partido
+     * y se los pasa  a otro metodo que introduce cada equipo en el Game_Resul 
+     * correspondiente
+     * @param gm el juego
+     * @param gamenum el id del juego
+     * @param matchsetnum el id de la jornada
+     * @param con la conexion
+     * @throws SQLException 
+     */
+    public static void createGames(Game gm,int gamenum,int matchsetnum,Connection con) throws SQLException{
+        insertGame(gm,matchsetnum,con);
+        int teamnum = searchTeam(gm.getTeam1().getTeamName(),con);
+        insertGameResult(gamenum,teamnum,con);
+        teamnum = searchTeam(gm.getTeam2().getTeamName(),con);
+        insertGameResult(gamenum,teamnum,con);
     }
 }

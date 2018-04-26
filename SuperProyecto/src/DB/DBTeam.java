@@ -43,4 +43,22 @@ public class DBTeam {
         sent.close();
         return teams;
     }
+    /**
+     * Busca el equipo obteniendo como dato el nombre del equipo
+     * @param teamname el nombre del equipo
+     * @param con la conexion
+     * @return in int con el id del equipo
+     * @throws SQLException 
+     */
+    public static int searchTeam(String teamname,Connection con) throws SQLException{
+        int x=-1;
+        Statement sent= con.createStatement();
+        ResultSet resul= sent.executeQuery("SELECT ID_TM FROM TEAM WHERE TEAM_NAME='"+teamname+"'");
+        resul.next();
+        x=resul.getInt("ID_TM");
+        resul.close();
+        sent.close();
+        return x;
+        
+    }
 }
