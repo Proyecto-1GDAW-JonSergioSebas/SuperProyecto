@@ -63,6 +63,7 @@ public class Player {
         this.salary = salary;
         this.email = email;
         this.team = team;
+        team.addPlayer(this);
     }
 
     /**
@@ -153,6 +154,7 @@ public class Player {
      */
     public void setTeam(Team team) {
         this.team = team;
+        team.addPlayer(this);
     }
 
 }

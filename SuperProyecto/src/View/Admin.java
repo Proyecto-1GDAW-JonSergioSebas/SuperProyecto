@@ -20,7 +20,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 //la clase aún es solo un esqueleto. Los botones no hacen nada, pero la interfaz se actualiza como debería (creo)
 public class Admin extends javax.swing.JFrame {
 
-    static byte modo;
+    static byte mode;
 
     /**
      * Creates new form User
@@ -41,7 +41,7 @@ public class Admin extends javax.swing.JFrame {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        modo = 0;
+        mode = 0; //0 por defecto, 1 para jugadores, 2 para equipos, 3 para dueños, 4 para usuarios
     }
 
     /**
@@ -60,7 +60,7 @@ public class Admin extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         cbMatchet = new javax.swing.JComboBox<>();
-        jbResult = new javax.swing.JButton();
+        jbResults = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
@@ -74,33 +74,32 @@ public class Admin extends javax.swing.JFrame {
         jbOwnerView = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jmPlayerCreate = new javax.swing.JMenuItem();
+        jmPlayerDelete = new javax.swing.JMenuItem();
+        jmPlayerRead = new javax.swing.JMenuItem();
+        jmPlayerUpdate = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        jmTeamCreate = new javax.swing.JMenuItem();
+        jmTeamDelete = new javax.swing.JMenuItem();
+        jmTeamRead = new javax.swing.JMenuItem();
+        jmTeamUpdate = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
+        jmOwnerCreate = new javax.swing.JMenuItem();
+        jmOwnerDelete = new javax.swing.JMenuItem();
+        jmOwnerRead = new javax.swing.JMenuItem();
+        jmOwnerUpdate = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
-        jMenuItem15 = new javax.swing.JMenuItem();
-        jMenuItem16 = new javax.swing.JMenuItem();
+        jmUserCreate = new javax.swing.JMenuItem();
+        jmUserDelete = new javax.swing.JMenuItem();
+        jmUserRead = new javax.swing.JMenuItem();
+        jmUserUpdate = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
-        jMenuItem17 = new javax.swing.JMenuItem();
-        jMenuItem18 = new javax.swing.JMenuItem();
+        jmViewUser = new javax.swing.JMenuItem();
+        jmViewOwner = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jbCalendar.setText("Generar Calendario");
-        jbCalendar.setEnabled(false);
 
         jLabel1.setText("Liga");
 
@@ -108,11 +107,11 @@ public class Admin extends javax.swing.JFrame {
 
         cbMatchet.setEnabled(false);
 
-        jbResult.setText("Introducir Resultados");
-        jbResult.setEnabled(false);
-        jbResult.addActionListener(new java.awt.event.ActionListener() {
+        jbResults.setText("Introducir Resultados");
+        jbResults.setEnabled(false);
+        jbResults.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbResultActionPerformed(evt);
+                jbResultsActionPerformed(evt);
             }
         });
 
@@ -181,75 +180,165 @@ public class Admin extends javax.swing.JFrame {
 
         jMenu1.setText("Jugador");
 
-        jMenuItem1.setText("Alta");
-        jMenu1.add(jMenuItem1);
+        jmPlayerCreate.setText("Alta");
+        jmPlayerCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmPlayerCreateActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmPlayerCreate);
 
-        jMenuItem2.setText("Baja");
-        jMenu1.add(jMenuItem2);
+        jmPlayerDelete.setText("Baja");
+        jmPlayerDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmPlayerDeleteActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmPlayerDelete);
 
-        jMenuItem3.setText("Lista");
-        jMenu1.add(jMenuItem3);
+        jmPlayerRead.setText("Lista");
+        jmPlayerRead.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmPlayerReadActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmPlayerRead);
 
-        jMenuItem4.setText("Modificación");
-        jMenu1.add(jMenuItem4);
+        jmPlayerUpdate.setText("Modificación");
+        jmPlayerUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmPlayerUpdateActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmPlayerUpdate);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Equipo");
 
-        jMenuItem5.setText("Alta");
-        jMenu2.add(jMenuItem5);
+        jmTeamCreate.setText("Alta");
+        jmTeamCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmTeamCreateActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmTeamCreate);
 
-        jMenuItem6.setText("Baja");
-        jMenu2.add(jMenuItem6);
+        jmTeamDelete.setText("Baja");
+        jmTeamDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmTeamDeleteActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmTeamDelete);
 
-        jMenuItem7.setText("Lista");
-        jMenu2.add(jMenuItem7);
+        jmTeamRead.setText("Lista");
+        jmTeamRead.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmTeamReadActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmTeamRead);
 
-        jMenuItem8.setText("Modificación");
-        jMenu2.add(jMenuItem8);
+        jmTeamUpdate.setText("Modificación");
+        jmTeamUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmTeamUpdateActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmTeamUpdate);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Dueño");
 
-        jMenuItem9.setText("Alta");
-        jMenu3.add(jMenuItem9);
+        jmOwnerCreate.setText("Alta");
+        jmOwnerCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmOwnerCreateActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jmOwnerCreate);
 
-        jMenuItem10.setText("Baja");
-        jMenu3.add(jMenuItem10);
+        jmOwnerDelete.setText("Baja");
+        jmOwnerDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmOwnerDeleteActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jmOwnerDelete);
 
-        jMenuItem11.setText("Lista");
-        jMenu3.add(jMenuItem11);
+        jmOwnerRead.setText("Lista");
+        jmOwnerRead.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmOwnerReadActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jmOwnerRead);
 
-        jMenuItem12.setText("Modificación");
-        jMenu3.add(jMenuItem12);
+        jmOwnerUpdate.setText("Modificación");
+        jmOwnerUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmOwnerUpdateActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jmOwnerUpdate);
 
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Usuario");
 
-        jMenuItem13.setText("Alta");
-        jMenu4.add(jMenuItem13);
+        jmUserCreate.setText("Alta");
+        jmUserCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmUserCreateActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jmUserCreate);
 
-        jMenuItem14.setText("Baja");
-        jMenu4.add(jMenuItem14);
+        jmUserDelete.setText("Baja");
+        jmUserDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmUserDeleteActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jmUserDelete);
 
-        jMenuItem15.setText("Lista");
-        jMenu4.add(jMenuItem15);
+        jmUserRead.setText("Lista");
+        jmUserRead.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmUserReadActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jmUserRead);
 
-        jMenuItem16.setText("Modificación");
-        jMenu4.add(jMenuItem16);
+        jmUserUpdate.setText("Modificación");
+        jmUserUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmUserUpdateActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jmUserUpdate);
 
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Vistas");
 
-        jMenuItem17.setText("Usuario");
-        jMenu5.add(jMenuItem17);
+        jmViewUser.setText("Usuario");
+        jmViewUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmViewUserActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jmViewUser);
 
-        jMenuItem18.setText("Dueño");
-        jMenu5.add(jMenuItem18);
+        jmViewOwner.setText("Dueño");
+        jmViewOwner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmViewOwnerActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jmViewOwner);
 
         jMenuBar1.add(jMenu5);
 
@@ -274,7 +363,7 @@ public class Admin extends javax.swing.JFrame {
                             .addComponent(cbMatchet, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbResults, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jbCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,11 +397,11 @@ public class Admin extends javax.swing.JFrame {
                     .addComponent(jbCalendar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbResult)
+                    .addComponent(jbResults)
                     .addComponent(cbMatchet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton1)
@@ -326,7 +415,7 @@ public class Admin extends javax.swing.JFrame {
                     .addComponent(jbUpdate)
                     .addComponent(jbDelete))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbUserView)
@@ -337,9 +426,9 @@ public class Admin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbResultActionPerformed
+    private void jbResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbResultsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbResultActionPerformed
+    }//GEN-LAST:event_jbResultsActionPerformed
     /**
      * Actualiza el modo de la ventana para que los botones se apliquen a
      * Dueños.
@@ -347,7 +436,7 @@ public class Admin extends javax.swing.JFrame {
      * @param evt Generado automáticamente.
      */
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
-        modo = 3;
+        mode = 3;
         refresh();
     }//GEN-LAST:event_jRadioButton3ActionPerformed
     /**
@@ -357,7 +446,7 @@ public class Admin extends javax.swing.JFrame {
      * @param evt Generado automáticamente.
      */
     private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
-        modo = 4;
+        mode = 4;
         refresh();
     }//GEN-LAST:event_jRadioButton4ActionPerformed
     /**
@@ -367,7 +456,7 @@ public class Admin extends javax.swing.JFrame {
      * @param evt Generado automáticamente.
      */
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        modo = 1;
+        mode = 1;
         refresh();
     }//GEN-LAST:event_jRadioButton1ActionPerformed
     /**
@@ -377,7 +466,7 @@ public class Admin extends javax.swing.JFrame {
      * @param evt Generado automáticamente.
      */
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        modo = 2;
+        mode = 2;
         refresh();
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
@@ -400,12 +489,212 @@ public class Admin extends javax.swing.JFrame {
     private void jbOwnerViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOwnerViewActionPerformed
         ViewController.owner();
     }//GEN-LAST:event_jbOwnerViewActionPerformed
+    /**
+     * Abre la ventana de creación de jugador, modificando temporalmente el modo
+     * de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmPlayerCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPlayerCreateActionPerformed
+        byte tempMode = mode;
+        mode = 1;
+        jbCreate.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmPlayerCreateActionPerformed
+    /**
+     * Abre la ventana de eliminación de jugador, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmPlayerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPlayerDeleteActionPerformed
+        byte tempMode = mode;
+        mode = 1;
+        jbDelete.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmPlayerDeleteActionPerformed
+    /**
+     * Abre la ventana de visualización de jugador, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmPlayerReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPlayerReadActionPerformed
+        byte tempMode = mode;
+        mode = 1;
+        jbRead.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmPlayerReadActionPerformed
+    /**
+     * Abre la ventana de eliminación de jugador, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmPlayerUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPlayerUpdateActionPerformed
+        byte tempMode = mode;
+        mode = 1;
+        jbUpdate.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmPlayerUpdateActionPerformed
+    /**
+     * Abre la ventana de creación de equipo, modificando temporalmente el modo
+     * de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmTeamCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTeamCreateActionPerformed
+        byte tempMode = mode;
+        mode = 2;
+        jbCreate.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmTeamCreateActionPerformed
+    /**
+     * Abre la ventana de eliminación de equipo, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmTeamDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTeamDeleteActionPerformed
+        byte tempMode = mode;
+        mode = 2;
+        jbDelete.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmTeamDeleteActionPerformed
+    /**
+     * Abre la ventana de visualización de equipo, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmTeamReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTeamReadActionPerformed
+        byte tempMode = mode;
+        mode = 2;
+        jbRead.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmTeamReadActionPerformed
+    /**
+     * Abre la ventana de actualización de equipo, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmTeamUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTeamUpdateActionPerformed
+        byte tempMode = mode;
+        mode = 2;
+        jbUpdate.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmTeamUpdateActionPerformed
+    /**
+     * Abre la ventana de creación de dueño, modificando temporalmente el modo
+     * de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmOwnerCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOwnerCreateActionPerformed
+        byte tempMode = mode;
+        mode = 3;
+        jbCreate.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmOwnerCreateActionPerformed
+    /**
+     * Abre la ventana de eliminación de dueño, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmOwnerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOwnerDeleteActionPerformed
+        byte tempMode = mode;
+        mode = 3;
+        jbDelete.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmOwnerDeleteActionPerformed
+    /**
+     * Abre la ventana de visualización de dueño, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmOwnerReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOwnerReadActionPerformed
+        byte tempMode = mode;
+        mode = 3;
+        jbRead.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmOwnerReadActionPerformed
+    /**
+     * Abre la ventana de actualización de dueño, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmOwnerUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOwnerUpdateActionPerformed
+        byte tempMode = mode;
+        mode = 3;
+        jbUpdate.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmOwnerUpdateActionPerformed
+    /**
+     * Abre la ventana de creación de usuario, modificando temporalmente el modo
+     * de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmUserCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserCreateActionPerformed
+        byte tempMode = mode;
+        mode = 4;
+        jbCreate.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmUserCreateActionPerformed
+    /**
+     * Abre la ventana de eliminación de usuario, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmUserDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserDeleteActionPerformed
+        byte tempMode = mode;
+        mode = 4;
+        jbDelete.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmUserDeleteActionPerformed
+    /**
+     * Abre la ventana de visualización de usuario, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmUserReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserReadActionPerformed
+        byte tempMode = mode;
+        mode = 4;
+        jbRead.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmUserReadActionPerformed
+    /**
+     * Abre la ventana de actualización de usuario, modificando temporalmente el
+     * modo de la ventana y simulando un click al botón correspondiente.
+     *
+     * @param evt
+     */
+    private void jmUserUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserUpdateActionPerformed
+        byte tempMode = mode;
+        mode = 4;
+        jbUpdate.doClick();
+        mode = tempMode;
+    }//GEN-LAST:event_jmUserUpdateActionPerformed
+
+    private void jmViewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmViewUserActionPerformed
+        ViewController.user();
+    }//GEN-LAST:event_jmViewUserActionPerformed
+
+    private void jmViewOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmViewOwnerActionPerformed
+        ViewController.owner();
+    }//GEN-LAST:event_jmViewOwnerActionPerformed
 
     /**
      * Actualiza el estado de componentes en la ventana.
      */
     private void refresh() {
-        if (modo != 0) {
+        if (mode != 0) {
             jbCreate.setEnabled(true);
             jbUpdate.setEnabled(true);
             jbDelete.setEnabled(true);
@@ -418,7 +707,7 @@ public class Admin extends javax.swing.JFrame {
         }
 
         if (cbMatchet.getSelectedIndex() != -1) {
-            jbResult.setEnabled(true);
+            jbResults.setEnabled(true);
         }
     }
 
@@ -447,24 +736,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
-    private javax.swing.JMenuItem jMenuItem15;
-    private javax.swing.JMenuItem jMenuItem16;
-    private javax.swing.JMenuItem jMenuItem17;
-    private javax.swing.JMenuItem jMenuItem18;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
@@ -476,8 +747,26 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton jbDelete;
     private javax.swing.JButton jbOwnerView;
     private javax.swing.JButton jbRead;
-    private javax.swing.JButton jbResult;
+    private javax.swing.JButton jbResults;
     private javax.swing.JButton jbUpdate;
     private javax.swing.JButton jbUserView;
+    private javax.swing.JMenuItem jmOwnerCreate;
+    private javax.swing.JMenuItem jmOwnerDelete;
+    private javax.swing.JMenuItem jmOwnerRead;
+    private javax.swing.JMenuItem jmOwnerUpdate;
+    private javax.swing.JMenuItem jmPlayerCreate;
+    private javax.swing.JMenuItem jmPlayerDelete;
+    private javax.swing.JMenuItem jmPlayerRead;
+    private javax.swing.JMenuItem jmPlayerUpdate;
+    private javax.swing.JMenuItem jmTeamCreate;
+    private javax.swing.JMenuItem jmTeamDelete;
+    private javax.swing.JMenuItem jmTeamRead;
+    private javax.swing.JMenuItem jmTeamUpdate;
+    private javax.swing.JMenuItem jmUserCreate;
+    private javax.swing.JMenuItem jmUserDelete;
+    private javax.swing.JMenuItem jmUserRead;
+    private javax.swing.JMenuItem jmUserUpdate;
+    private javax.swing.JMenuItem jmViewOwner;
+    private javax.swing.JMenuItem jmViewUser;
     // End of variables declaration//GEN-END:variables
 }
