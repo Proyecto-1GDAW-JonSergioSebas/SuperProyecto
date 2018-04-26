@@ -5,6 +5,7 @@
  */
 package View;
 
+import java.awt.Frame;
 import superproyecto.SuperProyecto;
 
 /**
@@ -31,7 +32,7 @@ public class ViewController {
         Admin user = new Admin();
         user.setVisible(true);
     }
-    
+
     /**
      * Abre la ventana de Owner.
      */
@@ -39,13 +40,61 @@ public class ViewController {
         Owner owner = new Owner();
         owner.setVisible(true);
     }
-    
+
     /**
      * Abre la ventana de Admin.
      */
     public static void admin() {
         User admin = new User();
         admin.setVisible(true);
+    }
+
+    /**
+     * Abre la ventana del CRUD de usuario.
+     *
+     * @param f La ventana que ejecuta éste método.
+     * @param mode Determina el modo de la ventana del CRUD, y la acción que
+     * realiza.
+     */
+    public static void userCRUD(Frame f, byte mode) {
+        UserCRUD uc = new UserCRUD(f, true, mode);
+        uc.setVisible(true);
+    }
+
+    /**
+     * Abre la ventana del CRUD de usuario.
+     *
+     * @param f La ventana que ejecuta éste método.
+     * @param mode Determina el modo de la ventana del CRUD, y la acción que
+     * realiza.
+     */
+    public static void ownerCRUD(Frame f, byte mode) {
+        OwnerCRUD oc = new OwnerCRUD(f, true, mode);
+        oc.setVisible(true);
+    }
+
+    /**
+     * Abre la ventana del CRUD de usuario.
+     *
+     * @param f La ventana que ejecuta éste método.
+     * @param mode Determina el modo de la ventana del CRUD, y la acción que
+     * realiza.
+     */
+    public static void playerCRUD(Frame f, byte mode) {
+        PlayerCRUD pc = new PlayerCRUD(f, true, mode);
+        pc.setVisible(true);
+    }
+
+    /**
+     * Abre la ventana del CRUD de usuario.
+     *
+     * @param f La ventana que ejecuta éste método.
+     * @param mode Determina el modo de la ventana del CRUD, y la acción que
+     * realiza.
+     */
+    public static void teamCRUD(Frame f, byte mode) {
+        TeamCRUD tc = new TeamCRUD(f, true, mode);
+        tc.setVisible(true);
     }
 
     /**
