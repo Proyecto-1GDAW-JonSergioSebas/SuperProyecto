@@ -62,7 +62,6 @@ public class SuperProyecto {
     /**
      * Crea el calendario para la liga actual, dando a la base de datos los
      * datos para la creacion de League, MatchSets, Game y GameResult.
-     * @see DB.DBController#teamQuantity() 
      * @throws ParseException when the parse fails
      * @param leaguename nombre de la liga para la cual se va a crear el calendario
      * @param date the date as String

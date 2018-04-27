@@ -29,7 +29,7 @@ public class DBPlayer {
      * @param teamid el id del equipo del cual hay que buscar los jugadores
      * @param con la conexion
      * @return ArrayList con los jugadores
-     * @throws SQLException 
+     * @throws SQLException hay una excepcion SQL
      */
     public static ArrayList<Player> getPlayers(int teamid,Connection con) throws SQLException{
        Statement  est = con.createStatement();

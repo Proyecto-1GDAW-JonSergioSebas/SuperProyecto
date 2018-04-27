@@ -26,7 +26,7 @@ public class DBGame {
      * @param gm El juego 
      * @param matchsetnum el numero de jornada
      * @param con la conexion
-     * @throws SQLException 
+     * @throws SQLException hay una excepcion SQL
      */
     public static void insertGame(Game gm,int matchsetnum,Connection con) throws SQLException{
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
