@@ -101,20 +101,43 @@ CREATE TABLE GAME_RESULT ( --GR
 );
 
 
---ahora vamos con la creación de triggers y procesos
-
-
-
-CREATE OR REPLACE TRIGGER TM_PL_MAX --a esto le falta una solución para el prolema de tabla mutante
+--ahora vamos con la creaci?n de triggers y procesos
+CREATE OR REPLACE PACKAGE TRIGGER_MT AS
+  TEMP_PLAYERS PLAYER%ROWTYPE := NULL;
+  TEMP_COUNT_PLAYERS NUMBER;
+END;
+/
+CREATE OR REPLACE TRIGGER PL_MT_FIX --este trigger existe solo para resolver el problema de tabla mutante en los siguientes dos triggers
 BEFORE INSERT OR UPDATE OF TEAM
 ON PLAYER
 FOR EACH ROW
+BEGIN
+  TRIGGER_MT.TEMP_PLAYERS.SALARY := :NEW.SALARY; --estas son las dos variables que realmente importan para esto
+  TRIGGER_MT.TEMP_PLAYERS.TEAM := :NEW.TEAM;
+END;
+/
+CREATE OR REPLACE TRIGGER TM_PL_MAX --este trigger limita la cantidad de miembros por equipo
+BEFORE INSERT OR UPDATE OF TEAM
+ON PLAYER
 DECLARE
   MEMBERS NUMBER;
 BEGIN
-  SELECT COUNT(*) INTO MEMBERS FROM PLAYER WHERE TEAM=:NEW.TEAM;
-  IF MEMBERS >= 6 THEN
-    RAISE_APPLICATION_ERROR(-20001, 'Se ha alcanzado el límite de miembros en un equipo.');
+  SELECT COUNT(*) INTO MEMBERS FROM PLAYER WHERE TEAM=TRIGGER_MT.TEMP_PLAYERS.TEAM; --una select para calcular la cantidad de miembros actuales en el equipo
+  IF MEMBERS >= 6 THEN --si eso es mayor que 6 entonces 
+    RAISE_APPLICATION_ERROR(-20001, 'Se ha alcanzado el limite de miembros en un equipo.'); --salta la excepcion
   END IF;
 END;
-
+/
+CREATE OR REPLACE TRIGGER TM_SL_MAX --este trigger limita el salario total de los miembros del equipo
+BEFORE INSERT OR UPDATE OF TEAM
+ON PLAYER
+DECLARE
+  TEAM_SALARY NUMBER;
+BEGIN
+  SELECT SUM(SALARY) INTO TEAM_SALARY FROM PLAYER WHERE TEAM = TRIGGER_MT.TEMP_PLAYERS.SALARY; --aqui calculamos la suma del salario de los ya existentes miembros del equipo
+  TEAM_SALARY := TEAM_SALARY + TRIGGER_MT.TEMP_PLAYERS.SALARY; --y aqui le sumamos a eso el salario del nuevo miembro
+  IF TEAM_SALARY >= 200000 THEN --si la suma de los totales es mayor a 200000 entonces
+    RAISE_APPLICATION_ERROR(-20002, 'El salario total del equipo no debe ser mayor a 200000.'); --salta la excepcion
+  END IF;
+END;
+/
