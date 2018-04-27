@@ -56,7 +56,7 @@ public class DBDBUser {
      * @param con la conexion
      * @throws SQLException si hay alguna excepcion SQL
      */
-    public static void updateUserName(String username,char[] newPassword,char[] password,Connection con) throws SQLException{
+    public static void updateDBUserPassword(String username,char[] newPassword,char[] password,Connection con) throws SQLException{
         
         Statement sta = con.createStatement();
         sta.executeUpdate("UPDATE DB_USER SET PASSWD='"+String.valueOf(password)+"'"
