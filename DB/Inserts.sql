@@ -198,3 +198,5 @@ VALUES ('Lola Howard', 'Coward', '16000', 'cow@mail.com', 8);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
 VALUES ('Marco Fox', 'gwa', '15000', 'gwa@mail.com', 8);
+
+COMMIT;
