@@ -13,6 +13,6 @@ package DB;
  * @version %I% %G%
  * @since 1.0
  */
-public class DBUser {
-    
+public class DBDBAdmin {
+
 }
