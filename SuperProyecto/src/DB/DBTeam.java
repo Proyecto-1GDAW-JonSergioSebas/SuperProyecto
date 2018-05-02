@@ -150,4 +150,21 @@ public class DBTeam {
         sta.close();
         return teams;
     }
+    /**
+     * Devuelve el equipo que corresponde al id que se le facilita
+     * @param tid el id del equipo
+     * @param con la conexion
+     * @return Un objeto Team con teamName y nationality
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static Team getGameTeam(int tid,Connection con) throws SQLException{
+        
+        Statement sta = con.createStatement();
+        ResultSet resul = sta.executeQuery("SELECT * FROM TEAM WHERE ID_TM="+tid+"");
+        resul.next();
+        Team team = new Team(resul.getString(2),resul.getString(3));
+        resul.close();
+        sta.close();
+        return team;
+    }
 }
