@@ -21,11 +21,12 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class Admin extends javax.swing.JFrame {
 
     static byte mode;
+    static boolean child;
 
     /**
      * Creates new form User
      */
-    public Admin() {
+    public Admin(boolean child) {
         initComponents();
         //<editor-fold defaultstate="collapsed" desc=" System look and feel setting code ">
         try {
@@ -42,6 +43,9 @@ public class Admin extends javax.swing.JFrame {
         }
         //</editor-fold>
         mode = 0; //0 por defecto, 1 para jugadores, 2 para equipos, 3 para dueños, 4 para usuarios
+        if (child) {
+            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        }
     }
 
     /**
@@ -488,249 +492,200 @@ public class Admin extends javax.swing.JFrame {
     private void jbCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCreateActionPerformed
         switch (mode) {
             case 1:
-                ViewController.playerCRUD(this, (byte) 0);
+                PlayerCreate();
                 break;
             case 2:
-                ViewController.teamCRUD(this, (byte) 0);
+                TeamCreate();
                 break;
             case 3:
-                ViewController.ownerCRUD(this, (byte) 0);
+                OwnerCreate();
                 break;
             case 4:
-                ViewController.userCRUD(this, (byte) 0);
+                UserCreate();
                 break;
         }
     }//GEN-LAST:event_jbCreateActionPerformed
     /**
-     * Abre la ventana de Usuario.
+     * Abre la ventana de Usuario llamando al metodo correspondiente.
      *
      * @param evt Generado automáticamente.
      */
     private void jbUserViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUserViewActionPerformed
-        ViewController.user();
+        ViewController.user(true);
     }//GEN-LAST:event_jbUserViewActionPerformed
     /**
-     * Abre la ventana de Dueño.
+     * Abre la ventana de Dueño llamando al metodo correspondiente.
      *
      * @param evt Generado automáticamente.
      */
     private void jbOwnerViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOwnerViewActionPerformed
-        ViewController.owner();
+        ViewController.owner(true);
     }//GEN-LAST:event_jbOwnerViewActionPerformed
     /**
-     * Abre la ventana de creación de jugador, modificando temporalmente el modo
-     * de la ventana y simulando un click al botón correspondiente.
+     * Abre la ventana de creación de jugador llamando al metodo
+     * correspondiente.
      *
      * @param evt
      */
     private void jmPlayerCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPlayerCreateActionPerformed
-        byte tempMode = mode;
-        mode = 1;
-        jbCreate.doClick();
-        mode = tempMode;
+        PlayerCreate();
     }//GEN-LAST:event_jmPlayerCreateActionPerformed
     /**
-     * Abre la ventana de eliminación de jugador, modificando temporalmente el
-     * modo de la ventana y simulando un click al botón correspondiente.
+     * Abre la ventana de eliminación de jugador llamando al metodo
+     * correspondiente.
      *
      * @param evt
      */
     private void jmPlayerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPlayerDeleteActionPerformed
-        byte tempMode = mode;
-        mode = 1;
-        jbDelete.doClick();
-        mode = tempMode;
+        PlayerDelete();
     }//GEN-LAST:event_jmPlayerDeleteActionPerformed
     /**
-     * Abre la ventana de visualización de jugador, modificando temporalmente el
-     * modo de la ventana y simulando un click al botón correspondiente.
+     * Abre la ventana de visualización de jugador llamando al metodo
+     * correspondiente.
      *
      * @param evt
      */
     private void jmPlayerReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPlayerReadActionPerformed
-        byte tempMode = mode;
-        mode = 1;
-        jbRead.doClick();
-        mode = tempMode;
+        PlayerRead();
     }//GEN-LAST:event_jmPlayerReadActionPerformed
     /**
-     * Abre la ventana de eliminación de jugador, modificando temporalmente el
-     * modo de la ventana y simulando un click al botón correspondiente.
+     * Abre la ventana de eliminación de jugador llamando al metodo
+     * correspondiente.
      *
      * @param evt
      */
     private void jmPlayerUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPlayerUpdateActionPerformed
-        byte tempMode = mode;
-        mode = 1;
-        jbUpdate.doClick();
-        mode = tempMode;
+        PlayerUpdate();
     }//GEN-LAST:event_jmPlayerUpdateActionPerformed
     /**
-     * Abre la ventana de creación de equipo, modificando temporalmente el modo
-     * de la ventana y simulando un click al botón correspondiente.
+     * Abre la ventana de creación de equipo llamando al metodo correspondiente.
      *
      * @param evt
      */
     private void jmTeamCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTeamCreateActionPerformed
-        byte tempMode = mode;
-        mode = 2;
-        jbCreate.doClick();
-        mode = tempMode;
+        TeamCreate();
     }//GEN-LAST:event_jmTeamCreateActionPerformed
     /**
-     * Abre la ventana de eliminación de equipo, modificando temporalmente el
-     * modo de la ventana y simulando un click al botón correspondiente.
+     * Abre la ventana de eliminación de equipo llamando al metodo
+     * correspondiente.
      *
      * @param evt
      */
     private void jmTeamDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTeamDeleteActionPerformed
-        byte tempMode = mode;
-        mode = 2;
-        jbDelete.doClick();
-        mode = tempMode;
+        TeamDelete();
     }//GEN-LAST:event_jmTeamDeleteActionPerformed
     /**
-     * Abre la ventana de visualización de equipo, modificando temporalmente el
-     * modo de la ventana y simulando un click al botón correspondiente.
+     * Abre la ventana de visualización de equipo llamando al metodo
+     * correspondiente.
      *
      * @param evt
      */
     private void jmTeamReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTeamReadActionPerformed
-        byte tempMode = mode;
-        mode = 2;
-        jbRead.doClick();
-        mode = tempMode;
+        TeamRead();
     }//GEN-LAST:event_jmTeamReadActionPerformed
     /**
-     * Abre la ventana de actualización de equipo, modificando temporalmente el
-     * modo de la ventana y simulando un click al botón correspondiente.
+     * Abre la ventana de actualización de equipo llamando al metodo
+     * correspondiente.
      *
      * @param evt
      */
     private void jmTeamUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTeamUpdateActionPerformed
-        byte tempMode = mode;
-        mode = 2;
-        jbUpdate.doClick();
-        mode = tempMode;
+        TeamUpdate();
     }//GEN-LAST:event_jmTeamUpdateActionPerformed
     /**
-     * Abre la ventana de creación de dueño, modificando temporalmente el modo
-     * de la ventana y simulando un click al botón correspondiente.
+     * Abre la ventana de creación de dueño llamando al metodo correspondiente.
      *
      * @param evt
      */
     private void jmOwnerCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOwnerCreateActionPerformed
-        byte tempMode = mode;
-        mode = 3;
-        jbCreate.doClick();
-        mode = tempMode;
+        OwnerCreate();
     }//GEN-LAST:event_jmOwnerCreateActionPerformed
     /**
-     * Abre la ventana de eliminación de dueño, modificando temporalmente el
-     * modo de la ventana y simulando un click al botón correspondiente.
+     * Abre la ventana de eliminación de dueño llamando al metodo
+     * correspondiente.
      *
      * @param evt
      */
     private void jmOwnerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOwnerDeleteActionPerformed
-        byte tempMode = mode;
-        mode = 3;
-        jbDelete.doClick();
-        mode = tempMode;
+        OwnerDelete();
     }//GEN-LAST:event_jmOwnerDeleteActionPerformed
     /**
-     * Abre la ventana de visualización de dueño, modificando temporalmente el
-     * modo de la ventana y simulando un click al botón correspondiente.
+     * Abre la ventana de visualización de dueño llamando al metodo
+     * correspondiente.
      *
      * @param evt
      */
     private void jmOwnerReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOwnerReadActionPerformed
-        byte tempMode = mode;
-        mode = 3;
-        jbRead.doClick();
-        mode = tempMode;
+        OwnerRead();
     }//GEN-LAST:event_jmOwnerReadActionPerformed
     /**
-     * Abre la ventana de actualización de dueño, modificando temporalmente el
-     * modo de la ventana y simulando un click al botón correspondiente.
+     * Abre la ventana de actualización de dueño llamando al metodo
+     * correspondiente.
      *
      * @param evt
      */
     private void jmOwnerUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOwnerUpdateActionPerformed
-        byte tempMode = mode;
-        mode = 3;
-        jbUpdate.doClick();
-        mode = tempMode;
+        OwnerUpdate();
     }//GEN-LAST:event_jmOwnerUpdateActionPerformed
     /**
-     * Abre la ventana de creación de usuario, modificando temporalmente el modo
-     * de la ventana y simulando un click al botón correspondiente.
+     * Abre la ventana de creación de usuario llamando al metodo
+     * correspondiente.
      *
      * @param evt
      */
     private void jmUserCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserCreateActionPerformed
-        byte tempMode = mode;
-        mode = 4;
-        jbCreate.doClick();
-        mode = tempMode;
+        UserCreate();
     }//GEN-LAST:event_jmUserCreateActionPerformed
     /**
-     * Abre la ventana de eliminación de usuario, modificando temporalmente el
-     * modo de la ventana y simulando un click al botón correspondiente.
+     * Abre la ventana de eliminación de usuario llamando al metodo
+     * correspondiente.
      *
      * @param evt
      */
     private void jmUserDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserDeleteActionPerformed
-        byte tempMode = mode;
-        mode = 4;
-        jbDelete.doClick();
-        mode = tempMode;
+        UserDelete();
     }//GEN-LAST:event_jmUserDeleteActionPerformed
     /**
-     * Abre la ventana de visualización de usuario, modificando temporalmente el
-     * modo de la ventana y simulando un click al botón correspondiente.
+     * Abre la ventana de visualización de usuario llamando al metodo
+     * correspondiente.
      *
      * @param evt
      */
     private void jmUserReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserReadActionPerformed
-        byte tempMode = mode;
-        mode = 4;
-        jbRead.doClick();
-        mode = tempMode;
+        UserRead();
     }//GEN-LAST:event_jmUserReadActionPerformed
     /**
-     * Abre la ventana de actualización de usuario, modificando temporalmente el
-     * modo de la ventana y simulando un click al botón correspondiente.
+     * Abre la ventana de actualización de usuario llamando al metodo
+     * correspondiente.
      *
      * @param evt
+     * @see
      */
     private void jmUserUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserUpdateActionPerformed
-        byte tempMode = mode;
-        mode = 4;
-        jbUpdate.doClick();
-        mode = tempMode;
+        UserUpdate();
     }//GEN-LAST:event_jmUserUpdateActionPerformed
 
     private void jmViewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmViewUserActionPerformed
-        ViewController.user();
+        ViewController.user(true);
     }//GEN-LAST:event_jmViewUserActionPerformed
 
     private void jmViewOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmViewOwnerActionPerformed
-        ViewController.owner();
+        ViewController.owner(true);
     }//GEN-LAST:event_jmViewOwnerActionPerformed
 
     private void jbReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbReadActionPerformed
         switch (mode) {
             case 1:
-                ViewController.playerCRUD(this, (byte) 2);
+                PlayerRead();
                 break;
             case 2:
-                ViewController.teamCRUD(this, (byte) 2);
+                TeamRead();
                 break;
             case 3:
-                ViewController.ownerCRUD(this, (byte) 2);
+                OwnerRead();
                 break;
             case 4:
-                ViewController.userCRUD(this, (byte) 2);
+                UserRead();
                 break;
         }
     }//GEN-LAST:event_jbReadActionPerformed
@@ -738,16 +693,16 @@ public class Admin extends javax.swing.JFrame {
     private void jbDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDeleteActionPerformed
         switch (mode) {
             case 1:
-                ViewController.playerCRUD(this, (byte) 1);
+                PlayerDelete();
                 break;
             case 2:
-                ViewController.teamCRUD(this, (byte) 1);
+                TeamDelete();
                 break;
             case 3:
-                ViewController.ownerCRUD(this, (byte) 1);
+                OwnerDelete();
                 break;
             case 4:
-                ViewController.userCRUD(this, (byte) 1);
+                UserDelete();
                 break;
         }
     }//GEN-LAST:event_jbDeleteActionPerformed
@@ -755,19 +710,130 @@ public class Admin extends javax.swing.JFrame {
     private void jbUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUpdateActionPerformed
         switch (mode) {
             case 1:
-                ViewController.playerCRUD(this, (byte) 3);
+                PlayerUpdate();
                 break;
             case 2:
-                ViewController.teamCRUD(this, (byte) 3);
+                TeamUpdate();
                 break;
             case 3:
-                ViewController.ownerCRUD(this, (byte) 3);
+                OwnerUpdate();
                 break;
             case 4:
-                ViewController.userCRUD(this, (byte) 3);
+                UserUpdate();
                 break;
         }
     }//GEN-LAST:event_jbUpdateActionPerformed
+    /**
+     * Abre la ventana de creación de usuario.
+     */
+    private void UserCreate() {
+        ViewController.userCRUD(this, (byte) 0);
+    }
+
+    /**
+     * Abre la ventana de visualización de usuario.
+     */
+    private void UserRead() {
+        ViewController.userCRUD(this, (byte) 2);
+    }
+
+    /**
+     * Abre la ventana de modificación de usuario.
+     */
+    private void UserUpdate() {
+        ViewController.userCRUD(this, (byte) 3);
+    }
+
+    /**
+     * Abre la ventana de eliminación de usuario.
+     */
+    private void UserDelete() {
+        ViewController.userCRUD(this, (byte) 1);
+    }
+
+    /**
+     * Abre la ventana de creación de dueño.
+     */
+    private void OwnerCreate() {
+        ViewController.ownerCRUD(this, (byte) 0);
+    }
+
+    /**
+     * Abre la ventana de visualización de dueño.
+     */
+    private void OwnerRead() {
+        ViewController.ownerCRUD(this, (byte) 2);
+    }
+
+    /**
+     * Abre la ventana de modificación de dueño.
+     */
+    private void OwnerUpdate() {
+        ViewController.ownerCRUD(this, (byte) 3);
+    }
+
+    /**
+     * Abre la ventana de eliminación de dueño.
+     */
+    private void OwnerDelete() {
+        ViewController.ownerCRUD(this, (byte) 1);
+    }
+
+    /**
+     * Abre la ventana de creación de equipo.
+     */
+    private void TeamCreate() {
+        ViewController.teamCRUD(this, (byte) 0);
+    }
+
+    /**
+     * Abre la ventana de visualización de equipo.
+     */
+    private void TeamRead() {
+        ViewController.teamCRUD(this, (byte) 2);
+    }
+
+    /**
+     * Abre la ventana de modificación de equipo.
+     */
+    private void TeamUpdate() {
+        ViewController.teamCRUD(this, (byte) 3);
+    }
+
+    /**
+     * Abre la ventana de eliminación de equipo.
+     */
+    private void TeamDelete() {
+        ViewController.teamCRUD(this, (byte) 1);
+    }
+
+    /**
+     * Abre la ventana de creación de jugador.
+     */
+    private void PlayerCreate() {
+        ViewController.teamCRUD(this, (byte) 0);
+    }
+
+    /**
+     * Abre la ventana de visualización de jugador.
+     */
+    private void PlayerRead() {
+        ViewController.playerCRUD(this, (byte) 2);
+    }
+
+    /**
+     * Abre la ventana de modificación de jugador.
+     */
+    private void PlayerUpdate() {
+        ViewController.playerCRUD(this, (byte) 3);
+    }
+
+    /**
+     * Abre la ventana de eliminación de jugador.
+     */
+    private void PlayerDelete() {
+        ViewController.playerCRUD(this, (byte) 1);
+    }
 
     /**
      * Actualiza el estado de componentes en la ventana.
@@ -798,7 +864,7 @@ public class Admin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Admin().setVisible(true);
+                new Admin(child).setVisible(true);
             }
         });
     }

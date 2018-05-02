@@ -19,10 +19,12 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class User extends javax.swing.JFrame {
 
+    private static boolean child;
+
     /**
      * Creates new form User
      */
-    public User() {
+    public User(boolean child) {
         initComponents();
         //<editor-fold defaultstate="collapsed" desc=" System look and feel setting code ">
         try {
@@ -38,6 +40,9 @@ public class User extends javax.swing.JFrame {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        if (child) {
+            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        }
 
     }
 
@@ -169,7 +174,7 @@ public class User extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new User().setVisible(true);
+                new User(child).setVisible(true);
             }
         });
     }

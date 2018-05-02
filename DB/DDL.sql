@@ -99,20 +99,19 @@ CREATE TABLE GAME_RESULT ( --GR
   CONSTRAINT GR_GA_FK FOREIGN KEY (GAME) REFERENCES GAME (ID_GA),
   CONSTRAINT GR_PK PRIMARY KEY (TEAM, GAME)
 );
-
+/
 
 --ahora vamos con la creaci?n de triggers y procesos
-CREATE OR REPLACE PACKAGE TRIGGER_MT AS
-  TEMP_PLAYERS PLAYER%ROWTYPE := NULL;
-  TEMP_COUNT_PLAYERS NUMBER;
+CREATE OR REPLACE PACKAGE TRIGGER_MT AS --este trigger existe solo para la creacion de la variable que contiene
+  TEMP_PLAYERS PLAYER%ROWTYPE := NULL; --la cual existe solo para prevenir el error de tabla mutante
 END;
 /
 CREATE OR REPLACE TRIGGER PL_MT_FIX --este trigger existe solo para resolver el problema de tabla mutante en los siguientes dos triggers
-BEFORE INSERT OR UPDATE OF TEAM
+BEFORE INSERT OR UPDATE OF TEAM --se ejecuta antes que los dos siguientes triggers
 ON PLAYER
 FOR EACH ROW
 BEGIN
-  TRIGGER_MT.TEMP_PLAYERS.SALARY := :NEW.SALARY; --estas son las dos variables que realmente importan para esto
+  TRIGGER_MT.TEMP_PLAYERS.SALARY := :NEW.SALARY; --y todo lo que hace es introducir los nuevos valores a la variable que declaramos antes
   TRIGGER_MT.TEMP_PLAYERS.TEAM := :NEW.TEAM;
 END;
 /
