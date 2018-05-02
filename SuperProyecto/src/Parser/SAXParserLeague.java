@@ -8,12 +8,10 @@ package Parser;
 import ModelUML.*;
 
 import java.io.IOException;
-import java.awt.List;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.xml.parsers.ParserConfigurationException;
