@@ -8,9 +8,11 @@ package DB;
 import ModelUML.Game;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 /**
  *
@@ -34,5 +36,38 @@ public class DBGame {
         Statement sta=con.createStatement();
         sta.executeUpdate("INSERT INTO GAME(MATCHSET,DATE_TIME) VALUES("+matchsetnum+",TO_DATE('"+gameday+"','YYYY-MM-DD'))");
         sta.close();
+    }
+    /**
+     * Coge los ID de los Game que correspondan con el ID de MatchSet que se le pasa
+     * @param matchSetId el id del matchSet al que corresponden
+     * @param con la conexion
+     * @return ArrayList de int con los ID de los Game
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static ArrayList<Integer> getGamesID(int matchSetId,Connection con) throws SQLException{
+        ArrayList<Integer> gamesID=new ArrayList();
+        Statement sta = con.createStatement();
+        ResultSet resul = sta.executeQuery("SELECT * FROM GAME WHERE MATCHSET = "+matchSetId+"");
+        while(resul.next()){
+            gamesID.add(resul.getInt(1));
+        }
+        resul.close();
+        sta.close();
+        return gamesID;
+    }
+    /**
+     * Coge de la base de datos el Date de cuando se celebra el partido
+     * @param id el id del partido
+     * @param con la conexion
+     * @return devuelve un objeto Date
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static Date getGameDate(int id,Connection con) throws SQLException{
+        
+        Statement sta = con.createStatement();
+        ResultSet resul = sta.executeQuery("SELECT DATE_TIME FROM GAME WHERE ID_GA="+id+"");
+        resul.next();
+        Date date = resul.getDate(1);
+        return date;
     }
 }

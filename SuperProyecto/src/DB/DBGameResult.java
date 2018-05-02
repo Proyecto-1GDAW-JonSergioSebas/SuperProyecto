@@ -7,8 +7,10 @@ package DB;
 
 import ModelUML.Team;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  * @author Jon Maneiro
@@ -30,4 +32,41 @@ public class DBGameResult {
         esta.executeUpdate("INSERT INTO GAME_RESULT(TEAM,GAME) VALUES("+teamnum+","+gamenum+")");    
         esta.close();
     }
+    /**
+     * Pide el id de los Equipos que participan en el partido del cual se facilita el id
+     * @param gameID el id del partido
+     * @param con la conexion
+     * @return devuelve un ArrayList con los equipos que participan en el partido
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static ArrayList<Integer> getGameTeamID(int gameID,Connection con) throws SQLException{
+        ArrayList<Integer> teamID= new ArrayList();
+        Statement sta = con.createStatement();
+        ResultSet resul = sta.executeQuery("SELECT TEAM FROM GAME_RESULT WHERE GAME="+gameID+"");
+        while(resul.next()){
+            teamID.add(resul.getInt(1));
+        }
+        resul.close();
+        sta.close();
+        return teamID;
+    }
+    /**
+     * Pide los resultados de los equipos que participan en el partido del cual se facilita el id
+     * @param gameID el id del partido
+     * @param con la conexion
+     * @return un ArrayList con los resultados de los equipos que participan en el partido
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static ArrayList<Integer> getScores(int gameID,Connection con) throws SQLException{
+        ArrayList<Integer> scores= new ArrayList();
+        Statement sta = con.createStatement();
+        ResultSet resul = sta.executeQuery("SELECT SCORE FROM GAME_RESULT WHERE GAME="+gameID+"");
+        while(resul.next()){
+            scores.add(resul.getInt(1));
+        }
+        resul.close();
+        sta.close();
+        return scores;
+    }
+    
 }

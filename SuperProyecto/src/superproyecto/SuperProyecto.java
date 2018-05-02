@@ -15,6 +15,13 @@ import DB.DBController;
 import static DB.DBController.createGames;
 import static DB.DBController.createLeague;
 import static DB.DBController.createMatchSet;
+import static DB.DBController.obtainGameDate;
+import static DB.DBController.obtainGameTeamID;
+import static DB.DBController.obtainGamesID;
+import static DB.DBController.obtainLastLeagueID;
+import static DB.DBController.obtainMatchSetsID;
+import static DB.DBController.obtainScores;
+import static DB.DBController.obtainTeam;
 import static DB.DBController.teams;
 import static DB.DBController.obtainTeamOwner;
 import ModelUML.Game;
@@ -170,4 +177,48 @@ public class SuperProyecto {
         con.close();
         return (byte) type;
     }
+    /**
+     * Pide el id de la ultima liga
+     * @param con la conexion
+     * @return el id de la ultima liga como int
+     * @throws ClassNotFoundException No se encuentra la clase en la conexion
+     * @throws SQLException si se da alguna excepcion en SQL
+     */
+    public static int askLastLeagueID(Connection con) throws ClassNotFoundException, SQLException{
+        
+        int idLeague=obtainLastLeagueID(con);
+        
+        return idLeague;
+       
+    }
+    /**
+     * Pide los id de los MatchSets correspondientes a la liga 
+     * @param idLeague el id de la liga
+     * @param con la conexion
+     * @return un ArrayList con los id de los MatchSet correspondientes
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static ArrayList<Integer> askMatchSetsID(int idLeague,Connection con) throws SQLException{
+        ArrayList<Integer> matchSetsID= obtainMatchSetsID(idLeague,con);
+        
+        return matchSetsID;
+    }
+  /*  
+    public static MatchSet createMatchSets(int matchSetId,Connection con) throws SQLException{
+        ArrayList<Integer> gameID= obtainGamesID(matchSetId,con);
+        ArrayList<Game> games = new ArrayList();
+        int x=0;
+        for(Integer id:gameID){
+            ArrayList<Integer> teamID = obtainGameTeamID(id,con);
+            ArrayList<Integer> scores = obtainScores(id,con);
+            ArrayList<Team> teams = new ArrayList();
+            for(Integer tid:teamID){
+                teams.add(obtainTeam(tid,con));
+            }
+            
+            games.add(new Game(teams.get(0),teams.get(1),scores.get(0),scores.get(1),obtainGameDate(id,con)));
+            x++;
+        }
+    }
+*/
 }

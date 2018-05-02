@@ -46,4 +46,20 @@ public class DBLeague {
         est.close();
         return temp;
     }
+    /**
+     * Recoge el ultimo id de las ligas almacenadas en la base de datos y lo devuelve
+     * @param con la conexion
+     * @return el id de la ultima liga como int
+     * @throws SQLException si se da alguna excepcion en SQL
+     */
+    public static int getLastLeagueID(Connection con) throws SQLException{
+        
+        Statement sta=con.createStatement();
+        ResultSet resul= sta.executeQuery("SELECT * FROM LEAGUE");
+        resul.last();
+        int idLeague=resul.getInt(1);
+        resul.close();
+        sta.close();
+        return idLeague;
+    }
 }
