@@ -20,26 +20,7 @@ public class TeamOwner extends Accounts{
      */
     private String fullName;
     private String telephone;
-
-    /**
-     * Constructor vacio. (Para invocación por constructores de subclases,
-     * típicamente implícito.)
-     */
-    public TeamOwner() {
-    }
-
-    /**
-     * Constructor lleno
-     *
-     * @param fullName (requerido) el nombre del dueño del equipo
-     * @param telephone (requerido) El telefono del dueño values 9 numbers
-     */
-    public TeamOwner(String fullName, String telephone) {
-        this.fullName = fullName;
-        this.telephone = telephone;
-    }
-
-    /**
+     /**
      * Constructor parcial, solo para uso al dar de alta.
      *
      * @param fullName (requerido) el nombre del dueño del equipo
@@ -53,6 +34,26 @@ public class TeamOwner extends Accounts{
         super.setUserName(userName);
         super.setPassword(password);
     }
+    /**
+     * Constructor lleno
+     *
+     * @param fullName (requerido) el nombre del dueño del equipo
+     * @param telephone (requerido) El telefono del dueño values 9 numbers
+     */
+    public TeamOwner(String fullName, String telephone) {
+        this.fullName = fullName;
+        this.telephone = telephone;
+    }
+    /**
+     * Constructor vacio. (Para invocación por constructores de subclases,
+     * típicamente implícito.)
+     */
+    public TeamOwner() {
+    }
+
+    
+
+   
 
     /**
      * Es un Get que devuelve el nombre del dueño del equipo
