@@ -666,9 +666,7 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jmUserUpdateActionPerformed
 
     private void jmViewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmViewUserActionPerformed
-        jmViewUser.setEnabled(false);
         ViewController.user(true);
-        jmViewUser.setEnabled(true);
     }//GEN-LAST:event_jmViewUserActionPerformed
 
     private void jmViewOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmViewOwnerActionPerformed
