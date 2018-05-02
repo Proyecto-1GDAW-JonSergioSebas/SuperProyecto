@@ -56,7 +56,7 @@ public class Game {
         this.team2 = team2;
         this.dateTime = dateTime;
     }
-
+    
     /**
      * Es un Get que devuelve el nombre del equipo 1
      *

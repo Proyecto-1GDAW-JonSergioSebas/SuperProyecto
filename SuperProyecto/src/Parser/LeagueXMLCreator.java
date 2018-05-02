@@ -5,7 +5,9 @@
  */
 package Parser;
         
+import static DB.DBController.createConnection;
 import ModelUML.League;
+import ModelUML.MatchSet;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,6 +26,11 @@ import org.w3c.dom.Text;
 
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
+import java.sql.Connection;
+import java.sql.SQLException;
+import static superproyecto.SuperProyecto.askLastLeagueID;
+import static superproyecto.SuperProyecto.askMatchSetsID;
+//import static superproyecto.SuperProyecto.createMatchSets;
 
 /**
  * Esta clase se encarga de crear el Documento XML para la liga, con el objetivo de minimizar las consultas a la base de datos
@@ -40,7 +47,7 @@ public class LeagueXMLCreator {
      * Main for the XMLCreator
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws ClassNotFoundException, SQLException {
 
         //create an instance
         LeagueXMLCreator lxc = new LeagueXMLCreator();
@@ -49,8 +56,26 @@ public class LeagueXMLCreator {
        // lxc.runCreator();
     }
     
-    public LeagueXMLCreator(){
-        //Seleccionar todos los datos de la liga y llenarla de alguna forma con los datos actuales
+    public LeagueXMLCreator() throws ClassNotFoundException, SQLException{
+        //Cargar los datos en League
+        loadData();//Seleccionar todos los datos de la liga y llenarla de alguna forma con los datos actuales
+    }
+    
+    private void loadData() throws ClassNotFoundException, SQLException{/*
+        Connection con=createConnection();
+        int idLeague = askLastLeagueID(con);
+        ArrayList<Integer> idMatchSets= askMatchSetsID(idLeague,con);
+        ArrayList<MatchSet> matchSets= new ArrayList();
+        for(Integer x:idMatchSets){
+            matchSets.add(createMatchSets(x,con));
+        }
+        
+        
+        
+        
+        */
+        
+        //con.close();
     }
      
      

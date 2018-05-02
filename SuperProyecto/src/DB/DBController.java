@@ -5,12 +5,19 @@
  */
 package DB;
 
+import static DB.DBGame.getGameDate;
+import static DB.DBGame.getGamesID;
 import static DB.DBGame.insertGame;
+import static DB.DBGameResult.getGameTeamID;
+import static DB.DBGameResult.getScores;
 import static DB.DBGameResult.insertGameResult;
 import static DB.DBLeague.askForLeague;
+import static DB.DBLeague.getLastLeagueID;
 import static DB.DBLeague.insertLeague;
+import static DB.DBMatchSet.getMatchSetsID;
 import static DB.DBMatchSet.insertMatchSet;
 import static DB.DBPlayer.getPlayers;
+import static DB.DBTeam.getGameTeam;
 import static DB.DBTeam.getTeams;
 import static DB.DBTeam.searchTeam;
 import static DB.DBTeamOwner.getTeamOwner;
@@ -23,6 +30,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @author Sebastián Zawisza
@@ -149,6 +157,7 @@ public class DBController {
         return DBProcedures.LoginGetType(us, pw, con);
     }
 
+
     /**
      * devuelve la lista de todos los usuarios
      *
@@ -169,5 +178,86 @@ public class DBController {
 
     public static void updateDBDBUser(String username, char[] password, Connection con) throws SQLException {
         DBDBUser.updateDBUserPassword(username, password, con);
+
+    /**
+     * Pide a la clase DBLeague que le devuelva el ultimo id de las Ligas
+     * @param con la conexion
+     * @return el id de la ultima liga como int
+     * @throws SQLException si se da alguna excepcion en SQL
+     */
+    public static int obtainLastLeagueID(Connection con) throws SQLException{
+        int idLeague = getLastLeagueID(con);
+        return idLeague;
+    }
+    /**
+     * Pide a la clase DBMatchSet que le devuelva los id de los MatchSet
+     * correspondientes al id de la liga que se le envia
+     * @param idLeague el id de la liga
+     * @param con la conexion
+     * @return un ArrayList con los id
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static ArrayList<Integer> obtainMatchSetsID(int idLeague,Connection con) throws SQLException{
+        ArrayList<Integer> matchSetsID = getMatchSetsID(idLeague,con);
+        
+        return matchSetsID;
+    }
+    /**
+     * Pide a la clase DBGame que le devuelva un ArrayList con los id de los Game
+     * correspondientes al MatchSet que se le pasa
+     * @param matchSetId el id del MatchSet al que corresponden
+     * @param con la conexion
+     * @return un ArrayList de int con los id de los Game
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static ArrayList<Integer> obtainGamesID(int matchSetId,Connection con) throws SQLException{
+        ArrayList<Integer> gamesId= getGamesID(matchSetId,con);
+        
+        return gamesId;
+    }
+    /**
+     * Pide a la clase DBGameResult los id de los equipos que participan en el partido del cual se facilita el id
+     * @param gameID el id del partido
+     * @param con la conexion
+     * @return un ArrayList con los id de los equipos
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static ArrayList<Integer> obtainGameTeamID(int gameID,Connection con) throws SQLException{
+        ArrayList<Integer> teamID = getGameTeamID(gameID,con);
+        return teamID;
+    }
+    /**
+     * Pide a la clase DBGameResult los resultados de cada equipo que participa en el partido del cual se facilita el id
+     * @param gameID el id del partido
+     * @param con la conexion
+     * @return un ArrayList con los resultados del partido
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static ArrayList<Integer> obtainScores(int gameID,Connection con) throws SQLException{
+        ArrayList<Integer> scores = getScores(gameID,con);
+        return scores;
+    }
+    /**
+     * Pide a la clase DBTeam que le devuelva un objeto Team con la id que se le facilita
+     * @param tid el id del equipo
+     * @param con la conexion
+     * @return un objeto Team con teamName y nationality
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static Team obtainTeam(int tid,Connection con) throws SQLException{
+        Team team = getGameTeam(tid,con);
+        return team;
+    }
+    /**
+     * 
+     * @param id
+     * @param con
+     * @return
+     * @throws SQLException 
+     */
+    public static Date obtainGameDate(int id,Connection con) throws SQLException{
+        Date date = getGameDate(id,con);
+        return date;
+
     }
 }
