@@ -18,7 +18,7 @@ CREATE OR REPLACE PACKAGE BODY LOGIN AS
           IF CNT = 1 THEN
             AC := 3;
           ELSE 
-          AC := 0; --y si no se encuentra en ninguna, AC es 0
+            AC := 0; --y si no se encuentra en ninguna, AC es 0
           END IF;
         END IF;
       END IF;

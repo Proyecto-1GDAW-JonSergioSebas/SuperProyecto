@@ -162,7 +162,6 @@ public class SuperProyecto {
         }
 
     }
-
     /**
      * Busca la cuenta con los parametros introducidos y devuelve un int
      * dependiendo del tipo de cuenta. Usado por el Login.
@@ -177,6 +176,12 @@ public class SuperProyecto {
         con.close();
         return (byte) type;
     }
+
+    
+    public static void insertUser(String us, char[] pw){
+        
+    }
+
     /**
      * Pide el id de la ultima liga
      * @param con la conexion
@@ -221,4 +226,5 @@ public class SuperProyecto {
         }
     }
 */
+
 }
