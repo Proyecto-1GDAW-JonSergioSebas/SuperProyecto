@@ -6,6 +6,7 @@
 package View;
 
 import java.awt.Frame;
+import java.sql.SQLException;
 import superproyecto.SuperProyecto;
 
 /**
@@ -28,24 +29,24 @@ public class ViewController {
     /**
      * Abre la ventana de User.
      */
-    public static void user() {
-        Admin user = new Admin();
+    public static void user(boolean child) {
+        User user = new User(child);
         user.setVisible(true);
     }
 
     /**
      * Abre la ventana de Owner.
      */
-    public static void owner() {
-        Owner owner = new Owner();
+    public static void owner(boolean child) {
+        Owner owner = new Owner(child);
         owner.setVisible(true);
     }
 
     /**
      * Abre la ventana de Admin.
      */
-    public static void admin() {
-        User admin = new User();
+    public static void admin(boolean child) {
+        Admin admin = new Admin(child);
         admin.setVisible(true);
     }
 
@@ -101,11 +102,12 @@ public class ViewController {
      * Realiza una consulta a las cuentas en la base de datos con usuario y
      * contraseña. Devuelve un int representando al tipo de cuenta si existe, y
      * un 0 si no.
+     *
      * @param username el nombre del usuario
      * @param password un array de caracteres que contiene la contraseña
      * @return el tipo de cuenta
      */
-    public static byte LoginAccountQuery(String username, char[] password) {
+    public static byte LoginAccountQuery(String username, char[] password) throws ClassNotFoundException, SQLException {
         return SuperProyecto.getAccountType(username, password);
     }
 }

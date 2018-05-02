@@ -5,6 +5,7 @@
  */
 package View;
 
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -115,24 +116,30 @@ public class Login extends javax.swing.JFrame {
      * @param evt Generado automáticamente
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        switch (ViewController.LoginAccountQuery(tfUsername.getText(), pfPassword.getPassword())) {
-            case 0:
-                JOptionPane.showMessageDialog(this, "Datos introducidos incorrectos.");
-                break;
-            case 1:
-                JOptionPane.showMessageDialog(this, "Abriendo panel de usuario.");
-                ViewController.user();
-                break;
-            case 2:
-                JOptionPane.showMessageDialog(this, "Abriendo panel de dueño.");
-                ViewController.owner();
-                break;
-            case 3:
-                JOptionPane.showMessageDialog(this, "Abriendo panel de administrador.");
-                ViewController.admin();
-                break;
+        try {
+            switch (ViewController.LoginAccountQuery(tfUsername.getText(), pfPassword.getPassword())) {
+                case 0:
+                    JOptionPane.showMessageDialog(this, "Datos introducidos incorrectos.");
+                    break;
+                case 1:
+                    JOptionPane.showMessageDialog(this, "Abriendo panel de usuario.");
+                    ViewController.user(false);
+                    break;
+                case 2:
+                    JOptionPane.showMessageDialog(this, "Abriendo panel de dueño.");
+                    ViewController.owner(false);
+                    break;
+                case 3:
+                    JOptionPane.showMessageDialog(this, "Abriendo panel de administrador.");
+                    ViewController.admin(false);
+                    break;
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
