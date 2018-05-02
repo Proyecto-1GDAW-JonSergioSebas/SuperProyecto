@@ -86,6 +86,11 @@ public class Owner extends javax.swing.JFrame {
         });
 
         jbUser.setText("Vista de Usuario");
+        jbUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbUserActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Jugador");
 
@@ -231,6 +236,10 @@ public class Owner extends javax.swing.JFrame {
             refresh();
         }
     }//GEN-LAST:event_cbPlayerItemStateChanged
+
+    private void jbUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUserActionPerformed
+        ViewController.user(true);
+    }//GEN-LAST:event_jbUserActionPerformed
 
     /**
      * Actualiza el estado de componentes en la ventana.

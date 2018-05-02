@@ -119,19 +119,22 @@ public class Login extends javax.swing.JFrame {
         try {
             switch (ViewController.LoginAccountQuery(tfUsername.getText(), pfPassword.getPassword())) {
                 case 0:
-                    JOptionPane.showMessageDialog(this, "Datos introducidos incorrectos.");
+                    JOptionPane.showMessageDialog(this, "Datos incorrectos introducidos.");
                     break;
                 case 1:
-                    JOptionPane.showMessageDialog(this, "Abriendo panel de usuario.");
+                    System.out.println("Abriendo panel de usuario.");
                     ViewController.user(false);
+                    dispose();
                     break;
                 case 2:
-                    JOptionPane.showMessageDialog(this, "Abriendo panel de dueño.");
+                    System.out.println("Abriendo panel de dueño.");
                     ViewController.owner(false);
+                    dispose();
                     break;
                 case 3:
-                    JOptionPane.showMessageDialog(this, "Abriendo panel de administrador.");
+                    System.out.println("Abriendo panel de administrador.");
                     ViewController.admin(false);
+                    dispose();
                     break;
             }
         } catch (ClassNotFoundException ex) {
@@ -139,7 +142,6 @@ public class Login extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
