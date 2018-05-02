@@ -21,11 +21,12 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class Owner extends javax.swing.JFrame {
 
     private static byte mode, progress;
+    private static boolean child;
 
     /**
      * Creates new form User
      */
-    public Owner() {
+    public Owner(boolean child) {
         initComponents();
         //<editor-fold defaultstate="collapsed" desc=" System look and feel setting code ">
         try {
@@ -43,6 +44,9 @@ public class Owner extends javax.swing.JFrame {
         //</editor-fold>
         mode = 0;
         progress = 0;
+        if (child) {
+            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        }
     }
 
     /**
@@ -203,7 +207,7 @@ public class Owner extends javax.swing.JFrame {
         mode = 1;
         refresh();
     }//GEN-LAST:event_jRadioButton1ActionPerformed
-    
+
     /**
      * Actualiza el estado de la ventana de acuerdo al radiobutton seleccionado.
      *
@@ -249,7 +253,7 @@ public class Owner extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Owner().setVisible(true);
+                new Owner(child).setVisible(true);
             }
         });
     }
