@@ -58,6 +58,14 @@ public class Team {
     }
 
     /**
+     * Constructor vacio. (Para invocación por constructores de subclases,
+     * típicamente implícito.)
+     */
+    public Team() {
+
+    }
+
+    /**
      * Es un Get que devuelve el nombre del equipo
      *
      * @return teamName devuelve el nombre del equipo
