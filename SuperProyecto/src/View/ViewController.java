@@ -5,6 +5,7 @@
  */
 package View;
 
+import ModelUML.DBUser;
 import java.awt.Frame;
 import java.sql.SQLException;
 import superproyecto.SuperProyecto;
@@ -109,5 +110,13 @@ public class ViewController {
      */
     public static byte LoginAccountQuery(String username, char[] password) throws ClassNotFoundException, SQLException {
         return SuperProyecto.getAccountType(username, password);
+    }
+    
+    public static void insertUser(String us, char[] pw){
+        
+    }
+    
+    public static void selectUsers(){
+        
     }
 }

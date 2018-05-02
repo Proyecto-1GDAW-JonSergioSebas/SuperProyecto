@@ -155,7 +155,6 @@ public class SuperProyecto {
         }
 
     }
-
     /**
      * Busca la cuenta con los parametros introducidos y devuelve un int
      * dependiendo del tipo de cuenta. Usado por el Login.
@@ -169,5 +168,9 @@ public class SuperProyecto {
         int type = DB.DBController.getAccountType(username, String.valueOf(password), con);
         con.close();
         return (byte) type;
+    }
+    
+    public static void insertUser(String us, char[] pw){
+        
     }
 }

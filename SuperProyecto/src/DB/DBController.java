@@ -14,6 +14,7 @@ import static DB.DBPlayer.getPlayers;
 import static DB.DBTeam.getTeams;
 import static DB.DBTeam.searchTeam;
 import static DB.DBTeamOwner.getTeamOwner;
+import ModelUML.DBUser;
 import ModelUML.Game;
 import ModelUML.Player;
 import ModelUML.Team;
@@ -134,7 +135,39 @@ public class DBController {
         insertGameResult(gamenum, teamnum, con);
     }
 
+    /**
+     * Devuelve el tipo de cuenta del usuario cuyo usuario y contraseña son
+     * introducidos.
+     *
+     * @param us usuario
+     * @param pw contraseña
+     * @param con conexión
+     * @return el tipo de cuenta
+     * @throws SQLException si ocurre un error
+     */
     public static int getAccountType(String us, String pw, Connection con) throws SQLException {
         return DBProcedures.LoginGetType(us, pw, con);
+    }
+
+    /**
+     * devuelve la lista de todos los usuarios
+     *
+     * @param con conexion
+     * @return la dicha lista
+     */
+    public static ArrayList<DBUser> selectAllDBUsers(Connection con) throws SQLException {
+        return DBDBUser.selectAllUsers(con);
+    }
+
+    public static void insertDBDBUser(String username, char[] password, Connection con) throws SQLException {
+        DBDBUser.insertDBUser(username, password, con);
+    }
+
+    public static void deleteDBDBUser(String username, char[] password, Connection con) throws SQLException {
+        DBDBUser.deleteDBUser(username, password, con);
+    }
+
+    public static void updateDBDBUser(String username, char[] password, Connection con) throws SQLException {
+        DBDBUser.updateDBUserPassword(username, password, con);
     }
 }
