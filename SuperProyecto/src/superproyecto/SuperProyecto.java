@@ -181,7 +181,9 @@ public class SuperProyecto {
     public static void insertUser(String us, char[] pw){
         
     }
-
+    
+    
+    
     /**
      * Pide el id de la ultima liga
      * @param con la conexion
@@ -208,7 +210,7 @@ public class SuperProyecto {
         
         return matchSetsID;
     }
-  /*  
+    
     public static MatchSet createMatchSets(int matchSetId,Connection con) throws SQLException{
         ArrayList<Integer> gameID= obtainGamesID(matchSetId,con);
         ArrayList<Game> games = new ArrayList();
@@ -224,7 +226,23 @@ public class SuperProyecto {
             games.add(new Game(teams.get(0),teams.get(1),scores.get(0),scores.get(1),obtainGameDate(id,con)));
             x++;
         }
+        MatchSet tempMatch = new MatchSet(games);
+        return tempMatch;
     }
-*/
-
+    
+    public static ArrayList<Integer> askAllGamesID(int idLeague,Connection con) throws SQLException{
+        ArrayList<Integer> matchSetsID= obtainMatchSetsID(idLeague,con);
+        ArrayList<Integer> allGamesID = new ArrayList();
+        for(Integer id:matchSetsID){
+            ArrayList<Integer> tempGamesID = obtainGamesID(id,con);
+            for(Integer di:tempGamesID){
+                allGamesID.add(di);
+            }
+        }
+        return allGamesID;
+    }
+    
+    
+    
+    
 }
