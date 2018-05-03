@@ -74,11 +74,12 @@ public class DBTeamOwner {
      * @param con la conexion
      * @throws SQLException si se da alguna excepcion en SQL 
      */
-    public static void updateDBTeamOwnerPassword(String username,char[] newPassword,char[] password,Connection con) throws SQLException{
+    public static void updateDBTeamOwnerPassword(String username,String newUsername,char[] newPassword,String newFullName,String newTelephone,Connection con) throws SQLException{
         
         Statement sta = con.createStatement();
-        sta.executeUpdate("UPDATE TEAM_OWNER SET PASSWD='"+String.valueOf(newPassword)+"'"
-                + " WHERE USERNAME='"+username+"' AND PASSWD='"+String.valueOf(password)+"'");
+        sta.executeUpdate("UPDATE TEAM_OWNER SET USERNAME='"+newUsername+"',PASSWD='"+String.valueOf(newPassword)+"'"
+                + ",FULL_NAME='"+newFullName+"',TELEPHONE='"+newTelephone+"' "
+                + " WHERE USERNAME='"+username+"' ");
         sta.close();
     }
     /**

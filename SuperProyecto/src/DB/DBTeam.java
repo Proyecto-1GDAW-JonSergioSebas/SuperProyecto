@@ -142,9 +142,9 @@ public class DBTeam {
     public static ArrayList<Team> selectAllTeams(Connection con) throws SQLException{
         ArrayList<Team> teams = new ArrayList();
         Statement sta=con.createStatement();
-        ResultSet resul=sta.executeQuery("SELECT * FROM TEAM");
+        ResultSet resul=sta.executeQuery("SELECT TEAM_NAME,NATIONALITY FROM TEAM");
         while(resul.next()){
-            teams.add(new Team(resul.getString(2),resul.getString(3)));
+            teams.add(new Team(resul.getString(1),resul.getString(2)));
         }
         resul.close();
         sta.close();
