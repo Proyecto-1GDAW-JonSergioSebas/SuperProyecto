@@ -56,6 +56,10 @@ public class Game {
         this.team2 = team2;
         this.dateTime = dateTime;
     }
+
+    public Game() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     /**
      * Es un Get que devuelve el nombre del equipo 1

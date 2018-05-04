@@ -38,12 +38,13 @@ public class SAXParserLeague extends DefaultHandler {
     //Para mantener el contexto
     private League league;
     private ArrayList<MatchSet> matchsets;
-    private ArrayList<Game> games;
+    private Game game;
     private Team team1;
     private Team team2;
     private Game score1;
     private Game score2;
     private Game dateTime;
+    private MatchSet matchset;
 
     public SAXParserLeague() {
         myLeague = new ArrayList();
@@ -80,7 +81,7 @@ public class SAXParserLeague extends DefaultHandler {
      */
     private void printData() {
 
-        System.out.println("Las ligas '" + myLeague.size() + "'.");
+        System.out.println("Leagues'" + myLeague.size() + "'.");
 
         Iterator it = myLeague.iterator();
         while (it.hasNext()) {
@@ -94,22 +95,17 @@ public class SAXParserLeague extends DefaultHandler {
         //inicializamos
         tempVal = "";
         //Crear nuevas instancias de los objetos
-        if (qName.equalsIgnoreCase("Liga")) {
-            league.setLeagueName(attributes.getValue("Nombre liga y partidos : "));
+        if (qName.equalsIgnoreCase("League")) {
             matchsets = new ArrayList<MatchSet>();
             league.setMatchsets(matchsets);
-        } else if (qName.equalsIgnoreCase("Partidos")) {
-            team1.setTeamName(attributes.getValue("Equipo local: "));
-            team2.setTeamName(attributes.getValue("Equipo visitante: "));
-
-        } else if (qName.equalsIgnoreCase("Puntos: ")) {
-            score1.setScore1(Integer.parseInt(attributes.getValue("Puntos del equipo local")));
-            score2.setScore2(Integer.parseInt(attributes.getValue("Puntos del equipo visitante")));
-
-        } else if (qName.equalsIgnoreCase("Fecha del partido: ")) {
-            dateTime.setDateTime(Date.from(Instant.MIN));
+        } else if (qName.equalsIgnoreCase("Matchset")) {            
+            matchset = new MatchSet();
+        } else if (qName.equalsIgnoreCase("Match")) {
+            game = new Game();
         }
     }
+    
+
 
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
@@ -118,33 +114,24 @@ public class SAXParserLeague extends DefaultHandler {
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        if (qName.equalsIgnoreCase("Item")) {
+        if (qName.equalsIgnoreCase("League")) {
             //Añanadirlo a la lista
             myLeague.add(league);
-        } else if (qName.equalsIgnoreCase("Partidos")) {
+        } else if (qName.equalsIgnoreCase("Matchsets")) {
             team1.setTeamName(tempVal);
             team2.setTeamName(tempVal);
-        } else if (qName.equalsIgnoreCase("Equipo local: ")) {
+        } else if (qName.equalsIgnoreCase("Team1")) {
             team1.setTeamName(tempVal);
-        } else if (qName.equalsIgnoreCase("Equipo visitante: ")) {
+        } else if (qName.equalsIgnoreCase("Team2")) {
             team2.setTeamName(tempVal);
-        } else if (qName.equalsIgnoreCase("Puntos del equipo local: ")) {
+        } else if (qName.equalsIgnoreCase("Score1")) {
             score1.setScore1(tempVal.charAt(0));
-        } else if (qName.equalsIgnoreCase("Puntos del equipo visitante: ")) {
+        } else if (qName.equalsIgnoreCase("Score2")) {
             score1.setScore2(tempVal.charAt(0));
-        } else if (qName.equalsIgnoreCase("Fecha del partido: ")) {
+        } else if (qName.equalsIgnoreCase("Date")) {
             dateTime.setDateTime(Date.from(Instant.parse(tempVal)));
-
         }
 
-
-        /*private ArrayList<MatchSet> matchsets;
-    private ArrayList<Game> games;
-    private Team team1;
-    private Team team2;
-    private int score1;
-    private int score2;
-    private Calendar dateTime;*/
     }
 
     public static void main(String[] args) {
