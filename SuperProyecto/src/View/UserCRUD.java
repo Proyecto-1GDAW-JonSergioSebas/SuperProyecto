@@ -227,7 +227,7 @@ public class UserCRUD extends javax.swing.JDialog {
             jPasswordField2.setText("");
         }
 
-        doClose(RET_OK);
+        
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
