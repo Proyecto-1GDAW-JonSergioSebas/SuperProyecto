@@ -99,8 +99,8 @@ public class ViewController {
         TeamCRUD tc = new TeamCRUD(f, true, mode);
         tc.setVisible(true);
     }
-    
-    public static void league(Frame f){
+
+    public static void league(Frame f) {
         League league = new League(f, true);
         league.setVisible(true);
     }
@@ -117,16 +117,54 @@ public class ViewController {
     public static byte LoginAccountQuery(String username, char[] password) throws ClassNotFoundException, SQLException {
         return SuperProyecto.getAccountType(username, password);
     }
-    
-    public static void insertUser(String us, char[] pw){
-        
+
+    public static void insertUser(String us, char[] pw) {
+
     }
-    
-    public static void selectUsers(){
-        
+
+    public static void selectUsers() {
+
     }
-    
+
     public static void createCalendar(String leaguename, String date) throws ParseException {
         SuperProyecto.createCalendar(leaguename, date);
     }
+    /**
+     * Inserta un TeamOwner en la base de datos, no directamente
+     * @param username el nombre de usuario
+     * @param password la contraseña
+     * @param fullName nombre completo
+     * @param telephone numero de telefono
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion en SQL
+     */
+    static void insertTeamOwner(String username, char[] password, String fullName, String telephone) throws ClassNotFoundException, SQLException {
+        SuperProyecto.insertTeamOwner(username, password, fullName, telephone);
+    }
+    /**
+     * Elimina un TeamOwner de la base de datos, no directamente
+     * @param username el nombre de usuario
+     * @param password la contraseña
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion en SQL
+     */
+    static void deleteTeamOwner(String username, char[] password) throws ClassNotFoundException, SQLException {
+        SuperProyecto.deleteTeamOwner(username,password);
+    }
+    /**
+     * Actualiza un TeamOwner de la base de datos, no directamente
+     * @param username el nombre de usuario actual
+     * @param newUsername el nuevo nombre de usuario
+     * @param password la contrasela
+     * @param fullName el nombre completo
+     * @param telephone numero de telefono
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    static void updateTeamOwner(String username, String newUsername, char[] password, String fullName, String telephone) throws ClassNotFoundException, SQLException {
+        SuperProyecto.updateTeamOwner(username,newUsername,password,fullName,telephone);
+    }
+
+
+    
 }

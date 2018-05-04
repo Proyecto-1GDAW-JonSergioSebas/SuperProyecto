@@ -24,3 +24,5 @@ hs_err_pid*
 /SuperProyecto/build/
 /SuperProyecto/dist/
 /SuperProyecto/nbproject/private/private\.xml
+
+SuperProyecto/nbproject/private/
