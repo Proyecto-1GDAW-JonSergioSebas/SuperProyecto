@@ -33,22 +33,30 @@ import static superproyecto.SuperProyecto.askLastLeagueID;
 import static superproyecto.SuperProyecto.askMatchSetsID;
 import static superproyecto.SuperProyecto.createMatchSets;
 /**
- * 
+ * Esta clase se encarga de obtener la informacion de la base de datos y de 
+ * construir un arbol DOM con esa información(League,MatchSet,Game,Game_result)
+ * y de introducir el arbol DOM en el fichero xml League.xml
  * @author Jon
  */
 public class DOMParserLeague {
-    
+    //
     League league;
     Document dom;
     int gameIDCounter=0;
     ArrayList<Integer> gamesID;
     /**
-     * Constructor
+     * Constructor de DOM, llama a la funcion de cargar datos
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
      */
     public DOMParserLeague() throws ClassNotFoundException, SQLException{
         loadData();
     }
-    
+    /**
+     * Carga los datos recogidos de la base de datos dentro de league
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL 
+     */
     private void loadData() throws ClassNotFoundException, SQLException{
         Connection con =createConnection();
         int idLeague = askLastLeagueID(con);
@@ -62,7 +70,10 @@ public class DOMParserLeague {
         gamesID=askAllGamesID(idLeague,con);
         con.close();
     }
-    
+    /**
+     * LLama a las funciones necesarias para parsear, crear el arbol de DOM, y
+     * escribir en el fichero XML
+     */
     public void ejecutar(){
         System.out.println("Ejecutando..");
         //Volcamos el fichero XML en memoria como arbol de DOM
@@ -73,7 +84,9 @@ public class DOMParserLeague {
         escribirFicheroXML();
         System.out.println("Fichero modificado correctamente");
     }
-    
+    /**
+     * Escribe en el documento XML el arbol DOM
+     */
     private void escribirFicheroXML(){
         try {
             //Configuramos el formato de salida del fichero
@@ -90,7 +103,9 @@ public class DOMParserLeague {
             ie.printStackTrace();
         }
     }
-    
+    /**
+     * Crea el arbol DOM
+     */
     private void crearArbolDOM(){
         //referencia al objeto raiz<league>
         Element raizLeague = dom.getDocumentElement();
@@ -104,9 +119,13 @@ public class DOMParserLeague {
             Element matchsetEle =crearElementoMatchSet(ms);
             raizLeague.appendChild(matchsetEle);
         }
-        
+        gameIDCounter=0;
     }
-    
+    /**
+     * Crea un elemento MatchSet y devuelve un Element
+     * @param ms un MatchSet
+     * @return un Element 
+     */
     private Element crearElementoMatchSet(MatchSet ms){
         Element matchsetEle = dom.createElement("matchset");
         //Ahora creamos los Game del MatchSet correspondiente
@@ -116,7 +135,11 @@ public class DOMParserLeague {
         }
         return matchsetEle;
     }
-    
+    /**
+     * Crea un elemento Game y devuelve un Element 
+     * @param gm un Game
+     * @return un Element
+     */
     private Element crearElementoGame(Game gm){
         Element gameEle = dom.createElement("match");
         //Ahora creamos los elementos y el atributo y lo asociamos al Game
@@ -153,7 +176,9 @@ public class DOMParserLeague {
         
         return gameEle;
     }
-    
+    /**
+     * Parsea un documento XML 
+     */
     private void parsearFicheroXML(){
         //Creamos el DocumentBuilderFactory
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -175,7 +200,7 @@ public class DOMParserLeague {
         }
     }
     /**
-     * 
+     * Ejecuta todo el parser
      * @param args the command line arguments
      */
     public static void main(String args[]) throws ClassNotFoundException, SQLException{
