@@ -37,6 +37,7 @@ import static superproyecto.SuperProyecto.createMatchSets;
  * construir un arbol DOM con esa información(League,MatchSet,Game,Game_result)
  * y de introducir el arbol DOM en el fichero xml League.xml
  * @author Jon
+ * @version %I% %G%
  */
 public class DOMParserLeague {
     //
