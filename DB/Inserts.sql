@@ -134,69 +134,69 @@ INSERT INTO PLAYER(FULL_NAME,NICKNAME,SALARY,EMAIL)
 VALUES('Michalis Alekos','Zeus',15000.01,'zeu@mail.com');
 
 INSERT INTO PLAYER(FULL_NAME,NICKNAME,SALARY,EMAIL) 
-VALUES('Vitomir Štefanija','Völund','19586.27','vol@mail.com');
+VALUES('Vitomir Štefanija','Völund',19586.27,'vol@mail.com');
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Defensor Thrust', 'Deffy', '15000', 'aaa@mail.com', 3);
+VALUES ('Defensor Thrust', 'Deffy', 15000, 'aaa@mail.com', 3);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Gerard Hawkins', 'Rivi', '12000', 'bpa@mail.com', 7);
+VALUES ('Gerard Hawkins', 'Rivi', 12000, 'bpa@mail.com', 7);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Victoria Williamson', 'Villia', '16000', 'vwh@mail.com', 6);
+VALUES ('Victoria Williamson', 'Villia', 16000, 'vwh@mail.com', 6);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Sergio Zulueta', 'Serzulu', '24000', 'srz@mail.com', 3);
+VALUES ('Sergio Zulueta', 'Serzulu', 24000, 'srz@mail.com', 3);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Kristi Farmer ', 'Corn', '13000', 'kfm@mail.com', 1);
+VALUES ('Kristi Farmer', 'Corn', 13000, 'kfm@mail.com', 1);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Marco Brown', 'mbro', '10000', 'mbr@mail.com', 1);
+VALUES ('Marco Brown', 'mbro', 12000, 'mbr@mail.com', 1);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Emmett Mccormick', 'Pungent', '23000', 'png@mail.com', 2);
+VALUES ('Emmett Mccormick', 'Pungent', 23000, 'png@mail.com', 2);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Mathew Hines', 'Hinn', '18000', 'aaa@mail.com', 2);
+VALUES ('Mathew Hines', 'Hinn', 18000, 'aaa@mail.com', 2);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Raul Clarke', 'Rail', '17000', 'ril@mail.com', 3);
+VALUES ('Raul Clarke', 'Rail', 17000, 'ril@mail.com', 3);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Arnold Webb', 'Dlonra', '14000', 'dck@mail.com', 3);
+VALUES ('Arnold Webb', 'Dlonra', 14000, 'dck@mail.com', 3);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Ramiro Curry', 'Pooloo', '15000', 'ooo@mail.com', 4);
+VALUES ('Ramiro Curry', 'Pooloo', 15000, 'ooo@mail.com', 4);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Curtis Graves', 'dedboi', '14000', 'boi@mail.com', 4);
+VALUES ('Curtis Graves', 'dedboi', 14000, 'boi@mail.com', 4);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Rafael Poole', 'moot', '18000', 'mut@mail.com', 5);
+VALUES ('Rafael Poole', 'moot', 18000, 'mut@mail.com', 5);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Alison Bates', 'Dirtyjoke', '20000', 'lwd@mail.com', 5);
+VALUES ('Alison Bates', 'Dirtyjoke', 20000, 'lwd@mail.com', 5);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Ray Alexander', 'Raxelander', '26000', 'xel@mail.com', 6);
+VALUES ('Ray Alexander', 'Raxelander', 26000, 'xel@mail.com', 6);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Daryl Mack', 'Muack', '17000', 'xxs@mail.com', 6);
+VALUES ('Daryl Mack', 'Muack', 17000, 'xxs@mail.com', 6);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Byron Hoffman', 'lordbyron', '15555', 'sza@mail.com', 7);
+VALUES ('Byron Hoffman', 'lordbyron', 15555, 'sza@mail.com', 7);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Ollie Watkins', 'warroba', '19000', 'att@mail.com', 7);
+VALUES ('Ollie Watkins', 'warroba', 19000, 'att@mail.com', 7);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Cathy Harvey', 'Cathus', '13000', 'cth@mail.com', 8);
+VALUES ('Cathy Harvey', 'Cathus', 13000, 'cth@mail.com', 8);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Lola Howard', 'Coward', '16000', 'cow@mail.com', 8);
+VALUES ('Lola Howard', 'Coward', 16000, 'cow@mail.com', 8);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Marco Fox', 'gwa', '15000', 'gwa@mail.com', 8);
+VALUES ('Marco Fox', 'gwa', 15000, 'gwa@mail.com', 8);
 
 COMMIT;

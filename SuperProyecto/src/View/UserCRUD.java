@@ -16,6 +16,8 @@ import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import ModelUML.DBUser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -39,6 +41,7 @@ public class UserCRUD extends javax.swing.JDialog {
 
     /**
      * Creates new form UserCRUD
+     *
      * @param parent el padre del elemento
      * @param modal modal
      * @param mode mode
@@ -71,6 +74,7 @@ public class UserCRUD extends javax.swing.JDialog {
                 doClose(RET_CANCEL);
             }
         });
+        this.mode = mode;
         mode();
     }
 
@@ -196,6 +200,33 @@ public class UserCRUD extends javax.swing.JDialog {
     }//GEN-LAST:event_closeDialog
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+        if (jPasswordField1.getPassword().equals(jPasswordField2.getPassword())) {
+            switch (mode) { //cdru
+                case 0:
+                    ViewController.insertUser(jTextField2.getText(), jPasswordField1.getPassword());
+                    JOptionPane.showMessageDialog(this, "Usuario insertado.");
+                    clean();
+                    break;
+                case 1:
+                    jComboBox1.setSelectedIndex(-1);
+
+                    clean();
+                    break;
+                case 2:
+                    dispose();
+                    break;
+                case 3:
+                    jComboBox1.setSelectedIndex(-1);
+                    clean();
+                    break;
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.");
+            jPasswordField1.setText("");
+            jPasswordField2.setText("");
+        }
+
         doClose(RET_OK);
     }//GEN-LAST:event_okButtonActionPerformed
 
@@ -205,7 +236,6 @@ public class UserCRUD extends javax.swing.JDialog {
 
     private void doClose(int retStatus) {
         returnStatus = retStatus;
-        setVisible(false);
         dispose();
     }
 
@@ -215,8 +245,21 @@ public class UserCRUD extends javax.swing.JDialog {
      */
     private void mode() {
         if (mode == 0) {
+            jComboBox1.setVisible(false);
+            jTextField2.setEnabled(true);
+            jPasswordField1.setEnabled(true);
+            jPasswordField2.setEnabled(true);
+            pack();
+        } else {
             
         }
+
+    }
+
+    private void clean() {
+        jTextField2.setText("");
+        jPasswordField1.setText("");
+        jPasswordField2.setText("");
     }
 
     /**

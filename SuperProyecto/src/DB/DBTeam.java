@@ -61,4 +61,110 @@ public class DBTeam {
         return x;
         
     }
+    /**
+     * Inserta un Team en la base de datos
+     * @param teamname el nombre del equipo
+     * @param nationality la nacionalidad del equipo
+     * @param ownerID el id del TeamOwner
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void insertTeam(String teamname,String nationality,int ownerID,Connection con) throws SQLException{
+        
+        Statement sta= con.createStatement();
+        sta.executeUpdate("INSERT INTO TEAM(TEAM_NAME,NATIONALITY,TEAM_OWNER)"
+                + "VALUES('"+teamname+"','"+nationality+"',"+ownerID+")");
+        sta.close();
+    }
+    /**
+     * Inserta un Team en la base de datos sin nacionalidad
+     * @param teamname el nombre del equipo
+     * @param ownerID el id del TeamOwner
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void insertTeam(String teamname,int ownerID,Connection con) throws SQLException{
+        
+        Statement sta=con.createStatement();
+        sta.executeUpdate("INSERT INTO TEAM(TEAM_NAME,TEAM_OWNER)"
+                + "VALUES('"+teamname+"',"+ownerID+")");
+        sta.close();
+    }
+    /**
+     * Elimina un Team de la base de datos
+     * @param teamname el nombre del equipo
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void deleteTeam(String teamname,Connection con) throws SQLException{
+        
+        Statement sta=con.createStatement();
+        sta.executeUpdate("DELETE FROM TEAM WHERE TEAM_NAME='"+teamname+"'");
+        sta.close();
+    }
+    /**
+     * Actualiza un Team con los datos que se le pasan
+     * @param teamname el nombre actual del equipo
+     * @param newTeamname nuevo nombre del equipo
+     * @param newNationality nueva nacionalidad
+     * @param newownerID nuevo id del TeamOwner
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void updateTeam(String teamname,String newTeamname,String newNationality,int newownerID,Connection con) throws SQLException{
+        
+        Statement sta=con.createStatement();
+        sta.executeUpdate("UPDATE TEAM SET TEAM_NAME='"+newTeamname+"',NATIONALITY='"+newNationality+"',TEAM_OWNER="+newownerID+" "
+        + "WHERE TEAM_NAME='"+teamname+"'");
+        sta.close();
+    }
+    /**
+     * Actualiza un Team con los datos que se le pasan (sin nacionalidad)
+     * @param teamname el nombre actual del equipo
+     * @param newTeamname nuevo nombre del equipo
+     * @param newownerID nuevo id del TeamOwner
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void updateTeam(String teamname,String newTeamname,int newownerID,Connection con) throws SQLException{
+        
+        Statement sta=con.createStatement();
+        sta.executeUpdate("UPDATE TEAM SET TEAM_NAME='"+newTeamname+"',TEAM_OWNER="+newownerID+" "
+        + "WHERE TEAM_NAME='"+teamname+"'");
+        sta.close();
+    }
+    /**
+     * Devuelve un ArrayList con todos los equipos
+     * @param con la conexion
+     * @return un ArrayList con todos los equipos
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static ArrayList<Team> selectAllTeams(Connection con) throws SQLException{
+        ArrayList<Team> teams = new ArrayList();
+        Statement sta=con.createStatement();
+        ResultSet resul=sta.executeQuery("SELECT TEAM_NAME,NATIONALITY FROM TEAM");
+        while(resul.next()){
+            teams.add(new Team(resul.getString(1),resul.getString(2)));
+        }
+        resul.close();
+        sta.close();
+        return teams;
+    }
+    /**
+     * Devuelve el equipo que corresponde al id que se le facilita
+     * @param tid el id del equipo
+     * @param con la conexion
+     * @return Un objeto Team con teamName y nationality
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static Team getGameTeam(int tid,Connection con) throws SQLException{
+        
+        Statement sta = con.createStatement();
+        ResultSet resul = sta.executeQuery("SELECT * FROM TEAM WHERE ID_TM="+tid+"");
+        resul.next();
+        Team team = new Team(resul.getString(2),resul.getString(3));
+        resul.close();
+        sta.close();
+        return team;
+    }
 }
