@@ -103,8 +103,8 @@ public class SAXParserLeague extends DefaultHandler {
             team2.setTeamName(attributes.getValue("Equipo visitante: "));
 
         } else if (qName.equalsIgnoreCase("Puntos: ")) {
-            score1.setScore1(0);
-            score2.setScore2(0);
+            score1.setScore1(Integer.parseInt(attributes.getValue("Puntos del equipo local")));
+            score2.setScore2(Integer.parseInt(attributes.getValue("Puntos del equipo visitante")));
 
         } else if (qName.equalsIgnoreCase("Fecha del partido: ")) {
             dateTime.setDateTime(Date.from(Instant.MIN));
