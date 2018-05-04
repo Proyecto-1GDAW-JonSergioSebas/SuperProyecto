@@ -24,6 +24,7 @@ import static DB.DBController.obtainScores;
 import static DB.DBController.obtainTeam;
 import static DB.DBController.teams;
 import static DB.DBController.obtainTeamOwner;
+import ModelUML.DBUser;
 import ModelUML.Game;
 import ModelUML.MatchSet;
 import ModelUML.Player;
@@ -245,4 +246,20 @@ public class SuperProyecto {
     
     
     
+*/
+        public static ArrayList<DBUser> selectAllDBUsers(Connection con) throws SQLException {
+        return DBController.selectAllDBUsers(con);
+    }
+
+    public static void insertDBUser(String username, char[] password, Connection con) throws SQLException {
+        DBController.insertDBDBUser(username, password, con);
+    }
+
+    public static void deleteDBUser(String username, char[] password, Connection con) throws SQLException {
+        DBController.deleteDBDBUser(username, password, con);
+    }
+
+    public static void updateDBuser(String username, char[] password, Connection con) throws SQLException {
+        DBController.updateDBDBUser(username, password, con);
+    }
 }
