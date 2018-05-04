@@ -178,7 +178,7 @@ public class DBController {
 
     public static void updateDBDBUser(String username, char[] password, Connection con) throws SQLException {
         DBDBUser.updateDBUserPassword(username, password, con);
-
+    }
     /**
      * Pide a la clase DBLeague que le devuelva el ultimo id de las Ligas
      * @param con la conexion
@@ -249,11 +249,11 @@ public class DBController {
         return team;
     }
     /**
-     * 
-     * @param id
-     * @param con
-     * @return
-     * @throws SQLException 
+     * Pide a la clase DBGame que le devuelva la fecha en la que se juega el partido
+     * @param id la id del Game
+     * @param con la conexion
+     * @return la fecha del partido
+     * @throws SQLException  si se dal alguna excepcion SQL
      */
     public static Date obtainGameDate(int id,Connection con) throws SQLException{
         Date date = getGameDate(id,con);

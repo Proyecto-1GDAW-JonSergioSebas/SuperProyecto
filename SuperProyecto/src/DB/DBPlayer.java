@@ -90,11 +90,11 @@ public class DBPlayer {
      * @param con la conexion
      * @throws SQLException si se da alguna excepcion en SQL
      */
-    public static void updatePlayer(String fullName, String newFullName, String nickname, String newNickname, BigDecimal newSalary, String newEmail, Connection con) throws SQLException {
+    public static void updatePlayer(String newFullName, String nickname, String newNickname, BigDecimal newSalary, String newEmail, Connection con) throws SQLException {
 
         Statement sta = con.createStatement();
         sta.executeUpdate("UPDATE PLAYER SET FULL_NAME='" + newFullName + "',NICKNAME='" + newNickname + "',SALARY=" + newSalary.longValue() + ",EMAIL='" + newEmail + "'"
-                + "WHERE FULL_NAME='" + fullName + "' AND NICKNAME='" + nickname + "'");
+                + "WHERE  NICKNAME='" + nickname + "'");
         sta.close();
     }
     /**
