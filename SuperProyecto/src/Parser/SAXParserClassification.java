@@ -67,7 +67,7 @@ public class SAXParserClassification extends DefaultHandler {
      */
     private void printData() {
 
-        System.out.println("La clasificacion es: '" + myClassification.size() + "'.");
+        System.out.println("Classification is: '" + myClassification.size() + "'.");
 
         Iterator it = myClassification.iterator();
         while (it.hasNext()) {
@@ -80,11 +80,11 @@ public class SAXParserClassification extends DefaultHandler {
         //inicializamos
         tempVal = "";
         //Crear nuevas instancias d elos objetos
-        if (qName.equalsIgnoreCase("Clasificacion")) {
+        if (qName.equalsIgnoreCase("Classification")) {
             team = new Team();
-            team.setTeamName(attributes.getValue("Nombre del equipo: "));
-        } else if (qName.equalsIgnoreCase("Puntos del equipo: ")) {
-
+            points = new Team();
+        } else if (qName.equalsIgnoreCase("Team")) {
+            team.setTeamName(attributes.getValue("Team name"));
         }
 
     }
@@ -94,12 +94,12 @@ public class SAXParserClassification extends DefaultHandler {
     }
 
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        if (qName.equalsIgnoreCase("Clasificacion")) {
+        if (qName.equalsIgnoreCase("Classification")) {
             //Añanadirlo a la lista
             myClassification.add(team);
-        } else if (qName.equalsIgnoreCase("Equipos ")) {
+        } else if (qName.equalsIgnoreCase("Teams")) {
             team.setTeamName(tempVal);
-        } else if (qName.equalsIgnoreCase("Puntos ")) {
+        } else if (qName.equalsIgnoreCase("Points")) {
 
         }
 
