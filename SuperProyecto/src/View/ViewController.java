@@ -8,6 +8,7 @@ package View;
 import ModelUML.DBUser;
 import java.awt.Frame;
 import java.sql.SQLException;
+import java.text.ParseException;
 import superproyecto.SuperProyecto;
 
 /**
@@ -98,6 +99,11 @@ public class ViewController {
         TeamCRUD tc = new TeamCRUD(f, true, mode);
         tc.setVisible(true);
     }
+    
+    public static void league(Frame f){
+        League league = new League(f, true);
+        league.setVisible(true);
+    }
 
     /**
      * Realiza una consulta a las cuentas en la base de datos con usuario y
@@ -118,5 +124,9 @@ public class ViewController {
     
     public static void selectUsers(){
         
+    }
+    
+    public static void createCalendar(String leaguename, String date) throws ParseException {
+        SuperProyecto.createCalendar(leaguename, date);
     }
 }
