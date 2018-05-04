@@ -3,20 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/1gdaw07/Desktop/SuperDuper/SuperProyecto/src/DB/DBPlayer.java</file>
-            <file>file:/C:/Users/1gdaw07/Desktop/SuperDuper/SuperProyecto/src/View/OwnerCRUD.java</file>
-            <file>file:/C:/Users/1gdaw07/Desktop/SuperDuper/SuperProyecto/src/View/Admin.java</file>
-            <file>file:/C:/Users/1gdaw07/Desktop/SuperDuper/SuperProyecto/src/DB/DBDBUser.java</file>
-            <file>file:/C:/Users/1gdaw07/Desktop/SuperDuper/SuperProyecto/src/View/Owner.java</file>
-            <file>file:/C:/Users/1gdaw07/Desktop/SuperDuper/SuperProyecto/src/superproyecto/SuperProyecto.java</file>
-            <file>file:/C:/Users/1gdaw07/Desktop/SuperDuper/SuperProyecto/src/View/User.java</file>
-            <file>file:/C:/Users/1gdaw07/Desktop/SuperDuper/SuperProyecto/src/DB/DBController.java</file>
-            <file>file:/C:/Users/1gdaw07/Desktop/SuperDuper/SuperProyecto/src/View/PlayerCRUD.java</file>
-            <file>file:/C:/Users/1gdaw07/Desktop/SuperDuper/SuperProyecto/src/View/Login.java</file>
-            <file>file:/C:/Users/1gdaw07/Desktop/SuperDuper/SuperProyecto/src/View/UserCRUD.java</file>
-            <file>file:/C:/Users/1gdaw07/Desktop/SuperDuper/SuperProyecto/src/View/TeamCRUD.java</file>
-            <file>file:/C:/Users/1gdaw07/Desktop/SuperDuper/SuperProyecto/src/View/League.java</file>
-            <file>file:/C:/Users/1gdaw07/Desktop/SuperDuper/SuperProyecto/src/View/ViewController.java</file>
+            <file>file:/C:/Users/1GDAW07/Desktop/RETO/GitHub/SuperProyecto/SuperProyecto/src/ModelUML/Game.java</file>
+            <file>file:/C:/Users/1GDAW07/Desktop/RETO/GitHub/SuperProyecto/SuperProyecto/src/ModelUML/Team.java</file>
+            <file>file:/C:/Users/1GDAW07/Desktop/RETO/GitHub/SuperProyecto/SuperProyecto/src/Parser/SAXParserClassification.java</file>
+            <file>file:/C:/Users/1GDAW07/Desktop/RETO/GitHub/SuperProyecto/SuperProyecto/src/Parser/SAXParserLeague.java</file>
+            <file>file:/C:/Users/1GDAW07/Desktop/RETO/GitHub/SuperProyecto/SuperProyecto/src/ModelUML/League.java</file>
+            <file>file:/C:/Users/1GDAW07/Desktop/RETO/GitHub/SuperProyecto/SuperProyecto/src/ModelUML/MatchSet.java</file>
         </group>
     </open-files>
 </project-private>
