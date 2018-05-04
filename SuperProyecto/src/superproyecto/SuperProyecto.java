@@ -24,6 +24,7 @@ import static DB.DBController.obtainScores;
 import static DB.DBController.obtainTeam;
 import static DB.DBController.teams;
 import static DB.DBController.obtainTeamOwner;
+import ModelUML.DBUser;
 import ModelUML.Game;
 import ModelUML.MatchSet;
 import ModelUML.Player;
@@ -162,6 +163,7 @@ public class SuperProyecto {
         }
 
     }
+
     /**
      * Busca la cuenta con los parametros introducidos y devuelve un int
      * dependiendo del tipo de cuenta. Usado por el Login.
@@ -177,72 +179,84 @@ public class SuperProyecto {
         return (byte) type;
     }
 
-    
-    public static void insertUser(String us, char[] pw){
-        
+    public static void insertUser(String us, char[] pw) {
+
     }
-    
-    
-    
+
     /**
      * Pide el id de la ultima liga
+     *
      * @param con la conexion
      * @return el id de la ultima liga como int
      * @throws ClassNotFoundException No se encuentra la clase en la conexion
      * @throws SQLException si se da alguna excepcion en SQL
      */
-    public static int askLastLeagueID(Connection con) throws ClassNotFoundException, SQLException{
-        
-        int idLeague=obtainLastLeagueID(con);
-        
+    public static int askLastLeagueID(Connection con) throws ClassNotFoundException, SQLException {
+
+        int idLeague = obtainLastLeagueID(con);
+
         return idLeague;
-       
+
     }
+
     /**
-     * Pide los id de los MatchSets correspondientes a la liga 
+     * Pide los id de los MatchSets correspondientes a la liga
+     *
      * @param idLeague el id de la liga
      * @param con la conexion
      * @return un ArrayList con los id de los MatchSet correspondientes
      * @throws SQLException si se da alguna excepcion SQL
      */
-    public static ArrayList<Integer> askMatchSetsID(int idLeague,Connection con) throws SQLException{
-        ArrayList<Integer> matchSetsID= obtainMatchSetsID(idLeague,con);
-        
+    public static ArrayList<Integer> askMatchSetsID(int idLeague, Connection con) throws SQLException {
+        ArrayList<Integer> matchSetsID = obtainMatchSetsID(idLeague, con);
+
         return matchSetsID;
     }
-    
-    public static MatchSet createMatchSets(int matchSetId,Connection con) throws SQLException{
-        ArrayList<Integer> gameID= obtainGamesID(matchSetId,con);
+
+    public static MatchSet createMatchSets(int matchSetId, Connection con) throws SQLException {
+        ArrayList<Integer> gameID = obtainGamesID(matchSetId, con);
         ArrayList<Game> games = new ArrayList();
-        int x=0;
-        for(Integer id:gameID){
-            ArrayList<Integer> teamID = obtainGameTeamID(id,con);
-            ArrayList<Integer> scores = obtainScores(id,con);
+        int x = 0;
+        for (Integer id : gameID) {
+            ArrayList<Integer> teamID = obtainGameTeamID(id, con);
+            ArrayList<Integer> scores = obtainScores(id, con);
             ArrayList<Team> teams = new ArrayList();
-            for(Integer tid:teamID){
-                teams.add(obtainTeam(tid,con));
+            for (Integer tid : teamID) {
+                teams.add(obtainTeam(tid, con));
             }
-            
-            games.add(new Game(teams.get(0),teams.get(1),scores.get(0),scores.get(1),obtainGameDate(id,con)));
+
+            games.add(new Game(teams.get(0), teams.get(1), scores.get(0), scores.get(1), obtainGameDate(id, con)));
             x++;
         }
         MatchSet tempMatch = new MatchSet(games);
         return tempMatch;
     }
-    
-    public static ArrayList<Integer> askAllGamesID(int idLeague,Connection con) throws SQLException{
-        ArrayList<Integer> matchSetsID= obtainMatchSetsID(idLeague,con);
+
+    public static ArrayList<Integer> askAllGamesID(int idLeague, Connection con) throws SQLException {
+        ArrayList<Integer> matchSetsID = obtainMatchSetsID(idLeague, con);
         ArrayList<Integer> allGamesID = new ArrayList();
-        for(Integer id:matchSetsID){
-            ArrayList<Integer> tempGamesID = obtainGamesID(id,con);
-            for(Integer di:tempGamesID){
+        for (Integer id : matchSetsID) {
+            ArrayList<Integer> tempGamesID = obtainGamesID(id, con);
+            for (Integer di : tempGamesID) {
                 allGamesID.add(di);
             }
         }
         return allGamesID;
     }
-    
-    
-    
-    
+
+    public static ArrayList<DBUser> selectAllDBUsers(Connection con) throws SQLException {
+        return DBController.selectAllDBUsers(con);
+    }
+
+    public static void insertDBUser(String username, char[] password, Connection con) throws SQLException {
+        DBController.insertDBDBUser(username, password, con);
+    }
+
+    public static void deleteDBUser(String username, char[] password, Connection con) throws SQLException {
+        DBController.deleteDBDBUser(username, password, con);
+    }
+
+    public static void updateDBuser(String username, char[] password, Connection con) throws SQLException {
+        DBController.updateDBDBUser(username, password, con);
+    }
 }

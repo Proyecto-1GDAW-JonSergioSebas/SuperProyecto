@@ -149,10 +149,10 @@ INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
 VALUES ('Sergio Zulueta', 'Serzulu', 24000, 'srz@mail.com', 3);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Kristi Farmer ', 'Corn', 13000, 'kfm@mail.com', 1);
+VALUES ('Kristi Farmer', 'Corn', 13000, 'kfm@mail.com', 1);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
-VALUES ('Marco Brown', 'mbro', 10000, 'mbr@mail.com', 1);
+VALUES ('Marco Brown', 'mbro', 12000, 'mbr@mail.com', 1);
 
 INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
 VALUES ('Emmett Mccormick', 'Pungent', 23000, 'png@mail.com', 2);

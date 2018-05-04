@@ -104,6 +104,11 @@ public class Admin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jbCalendar.setText("Generar Calendario");
+        jbCalendar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCalendarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Liga");
 
@@ -723,6 +728,10 @@ public class Admin extends javax.swing.JFrame {
                 break;
         }
     }//GEN-LAST:event_jbUpdateActionPerformed
+
+    private void jbCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCalendarActionPerformed
+        ViewController.league(this);
+    }//GEN-LAST:event_jbCalendarActionPerformed
     /**
      * Abre la ventana de creación de usuario.
      */
