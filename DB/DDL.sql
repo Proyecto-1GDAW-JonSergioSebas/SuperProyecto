@@ -146,3 +146,9 @@ BEGIN
   END IF;
 END;
 /
+CREATE TABLE CLASSIFICATION_TEMP ( --tabla temporal, solo contiene datos durante la ejecucion de los procesos que generan los datos de clasificacion
+  TEAM_ID NUMBER(5) PRIMARY KEY,
+  TEAM_NAME VARCHAR2(12),
+  SCORE NUMBER(3)  
+);
+/
