@@ -127,12 +127,16 @@ public class League extends javax.swing.JDialog {
         if (JOptionPane.showConfirmDialog(this, "Una vez creadas, las ligas no pueden ser eliminadas sin acceso directo a la base de datos.\n¿Está completamente seguro de que quiere generar una liga?") == 0) {
             Pattern p = Pattern.compile("^\\S{0,20}$");
             Matcher match = p.matcher(jTextField1.getText());
-            if (match.matches()){
+            if (match.matches()) {
                 try {
                     ViewController.createCalendar(jTextField1.getText(), jFormattedTextField1.getText());
                 } catch (ParseException ex) {
                     Logger.getLogger(League.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                JOptionPane.showMessageDialog(this, "Liga creada.");
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "El nombre de la liga debe ser de menos de 20 caracteres.");
             }
         }
 
