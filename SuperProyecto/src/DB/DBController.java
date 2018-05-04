@@ -260,4 +260,39 @@ public class DBController {
         return date;
 
     }
+    /**
+     * Llama a la clase DBTeamOwner para que inserte un TeamOwner
+     * @param username el nombre de usuario
+     * @param password la contraseña
+     * @param fullName nombre completo
+     * @param telephone numero de telefono
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void insertTeamOwner(String username, char[] password, String fullName, String telephone, Connection con) throws SQLException {
+        DBTeamOwner.insertDBTeamOwner(username, password, fullName, telephone, con);
+    }
+    /**
+     * Llama a la clase DBTeamOwner para que elimine un TeamOwner
+     * @param username el nombre de usuario
+     * @param password la contraseña
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void deleteTeamOwner(String username, char[] password, Connection con) throws SQLException {
+        DBTeamOwner.deleteDBTeamOwner(username, password, con);
+    }
+    /**
+     * Llama a la clase DBTeamOwner para que actualice un TeamOwner
+     * @param username el nombre de usuario actual
+     * @param newUsername el nuevo nombre de usuario
+     * @param password la contraseña
+     * @param fullName el nombre completo
+     * @param telephone el numero de telefono
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void updateTeamOwner(String username, String newUsername, char[] password, String fullName, String telephone,Connection con) throws SQLException {
+        DBTeamOwner.updateDBTeamOwner(username, newUsername, password, fullName, telephone, con);
+    }
 }

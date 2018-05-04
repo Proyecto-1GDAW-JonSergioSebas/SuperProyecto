@@ -7,12 +7,14 @@ package View;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -198,9 +200,68 @@ public class OwnerCRUD extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        doClose(RET_OK);
+        if (jPasswordField1.getPassword().equals(jPasswordField2.getPassword())){
+            switch(mode){//cdru
+                case 0:
+            {
+                try {
+                    
+                    ViewController.insertTeamOwner(jTextField2.getText(),jPasswordField1.getPassword(),jTextField1.getText(),jFormattedTextField1.getText());
+                    JOptionPane.showMessageDialog(this, "Dueño de equipo insertado.");
+                    clean();
+                    
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+                    break;
+                case 1: 
+            {
+                 jComboBox1.setSelectedIndex(-1);
+                try {
+                    
+                    ViewController.deleteTeamOwner(jTextField2.getText(),jPasswordField1.getPassword());
+                    JOptionPane.showMessageDialog(this,"Dueño de equipo"+jTextField2.getText()+"eliminado");
+                    clean();
+                    
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+                    clean();
+                    break;
+                case 2:
+                    dispose();
+                    break;
+                case 3:    
+            {
+                jComboBox1.setSelectedIndex(-1);
+                try {
+                    
+                    ViewController.updateTeamOwner(jComboBox1.getSelectedItem().toString(),jTextField2.getText(),jPasswordField1.getPassword(),jTextField1.getText(),jFormattedTextField1.getText());
+                    JOptionPane.showMessageDialog(this, "Dueño de equipo"+jComboBox1.getSelectedItem().toString()+"actualizado");
+                    clean();
+                    
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+                    clean();
+                    break;
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.");
+            jPasswordField1.setText("");
+            jPasswordField2.setText("");
+        }
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -218,6 +279,14 @@ public class OwnerCRUD extends javax.swing.JDialog {
         returnStatus = retStatus;
         setVisible(false);
         dispose();
+    }
+    
+    private void clean(){
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jFormattedTextField1.setText("");
+        jPasswordField1.setText("");
+        jPasswordField2.setText("");
     }
 
     /**
