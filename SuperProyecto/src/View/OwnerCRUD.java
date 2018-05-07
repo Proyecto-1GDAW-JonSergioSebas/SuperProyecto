@@ -34,18 +34,21 @@ public class OwnerCRUD extends javax.swing.JDialog {
      */
     public static final int RET_OK = 1;
     /**
-     * El modo de la ventana, que determina qué función del CRUD se supone que realice.
+     * El modo de la ventana, que determina qué función del CRUD se supone que
+     * realice.
      */
     private static byte mode;
+
     /**
      * Creates new form OwnerCRUD
+     *
      * @param parent el padre del elemento
      * @param modal modal
      * @param mode mode
      */
     public OwnerCRUD(java.awt.Frame parent, boolean modal, byte mode) {
         super(parent, modal);
-        initComponents();        
+        initComponents();
         //<editor-fold defaultstate="collapsed" desc=" System look and feel setting code ">
         try {
             /* Set the System look and feel */
@@ -200,62 +203,59 @@ public class OwnerCRUD extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        if (jPasswordField1.getPassword().equals(jPasswordField2.getPassword())){
-            switch(mode){//cdru
-                case 0:
-            {
-                try {
-                    
-                    ViewController.insertTeamOwner(jTextField2.getText(),jPasswordField1.getPassword(),jTextField1.getText(),jFormattedTextField1.getText());
-                    JOptionPane.showMessageDialog(this, "Dueño de equipo insertado.");
-                    clean();
-                    
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+        if (jPasswordField1.getPassword().equals(jPasswordField2.getPassword())) {
+            switch (mode) {//cdru
+                case 0: {
+                    try {
+
+                        ViewController.insertTeamOwner(jTextField2.getText(), jPasswordField1.getPassword(), jTextField1.getText(), jFormattedTextField1.getText());
+                        JOptionPane.showMessageDialog(this, "Dueño de equipo insertado.");
+                        clean();
+
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            }
-                    break;
-                case 1: 
-            {
-                 jComboBox1.setSelectedIndex(-1);
-                try {
-                    
-                    ViewController.deleteTeamOwner(jTextField2.getText(),jPasswordField1.getPassword());
-                    JOptionPane.showMessageDialog(this,"Dueño de equipo"+jTextField2.getText()+"eliminado");
-                    clean();
-                    
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                break;
+                case 1: {
+                    jComboBox1.setSelectedIndex(-1);
+                    try {
+
+                        ViewController.deleteTeamOwner(jTextField2.getText(), jPasswordField1.getPassword());
+                        JOptionPane.showMessageDialog(this, "Dueño de equipo" + jTextField2.getText() + "eliminado");
+                        clean();
+
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            }
-                    clean();
-                    break;
+                clean();
+                break;
                 case 2:
                     dispose();
                     break;
-                case 3:    
-            {
-                jComboBox1.setSelectedIndex(-1);
-                try {
-                    
-                    ViewController.updateTeamOwner(jComboBox1.getSelectedItem().toString(),jTextField2.getText(),jPasswordField1.getPassword(),jTextField1.getText(),jFormattedTextField1.getText());
-                    JOptionPane.showMessageDialog(this, "Dueño de equipo"+jComboBox1.getSelectedItem().toString()+"actualizado");
-                    clean();
-                    
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                case 3: {
+                    jComboBox1.setSelectedIndex(-1);
+                    try {
+
+                        ViewController.updateTeamOwner(jComboBox1.getSelectedItem().toString(), jTextField2.getText(), jPasswordField1.getPassword(), jTextField1.getText(), jFormattedTextField1.getText());
+                        JOptionPane.showMessageDialog(this, "Dueño de equipo" + jComboBox1.getSelectedItem().toString() + "actualizado");
+                        clean();
+
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            }
-                    clean();
-                    break;
+                clean();
+                break;
             }
         } else {
             JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.");
@@ -274,14 +274,14 @@ public class OwnerCRUD extends javax.swing.JDialog {
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         doClose(RET_CANCEL);
     }//GEN-LAST:event_closeDialog
-    
+
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
         dispose();
     }
-    
-    private void clean(){
+
+    private void clean() {
         jTextField1.setText("");
         jTextField2.setText("");
         jFormattedTextField1.setText("");
