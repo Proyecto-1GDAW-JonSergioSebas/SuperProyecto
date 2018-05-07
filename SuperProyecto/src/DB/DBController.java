@@ -493,22 +493,6 @@ public class DBController {
     }
 
     /**
-     * Llama a la clase DBPlayer para que actualice un Player de la base de
-     * datos
-     *
-     * @param fullName nombre completo
-     * @param nickname nickname
-     * @param oldnickname antiguo nickname
-     * @param salary salario
-     * @param email email
-     * @param con la conexion
-     * @throws SQLException si se da alguna excepcion SQL
-     */
-    public static void updatePlayer(String fullName, String nickname, String oldnickname, BigDecimal salary, String email, Connection con) throws SQLException {
-        DBPlayer.updatePlayer(fullName, oldnickname, nickname, salary, email, con);
-    }
-
-    /**
      * Devuelve la id de un TeamOwner cuyo nombre se facilita
      *
      * @param teamownername nombre del dueño
