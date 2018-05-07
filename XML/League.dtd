@@ -1,4 +1,4 @@
-<!ELEMENT league (matchset)+>
+<!ELEMENT league (date, matchset+)>
 <!ELEMENT matchset (match)+>
         <!ELEMENT match (team1, team2, score1, score2, date)>
         <!ATTLIST match
