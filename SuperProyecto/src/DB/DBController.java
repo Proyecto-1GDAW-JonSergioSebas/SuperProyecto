@@ -491,4 +491,100 @@ public class DBController {
     public static ArrayList<Team> selectDBTeams(Connection con) throws SQLException {
         return DBTeam.selectAllTeams(con);
     }
+
+    /**
+     * Llama a la clase DBPlayer para que actualice un Player de la base de
+     * datos
+     *
+     * @param fullName nombre completo
+     * @param nickname nickname
+     * @param oldnickname antiguo nickname
+     * @param salary salario
+     * @param email email
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void updatePlayer(String fullName, String nickname, String oldnickname, BigDecimal salary, String email, Connection con) throws SQLException {
+        DBPlayer.updatePlayer(fullName, oldnickname, nickname, salary, email, con);
+    }
+
+    /**
+     * Devuelve la id de un TeamOwner cuyo nombre se facilita
+     *
+     * @param teamownername nombre del dueño
+     * @param con la conexion
+     * @return devuelve el id
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static int getTeamOwnerID(String teamownername, Connection con) throws SQLException {
+        int x = DBTeamOwner.selectTeamOwnerID(teamownername, con);
+        return x;
+    }
+
+    /**
+     * Llama a la clase DBTeam para que inserte un Team en la base de datos sin
+     * nacionalidad
+     *
+     * @param teamname nombre del equipo
+     * @param teamownerid id del TeamOwner
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void insertTeam(String teamname, int teamownerid, Connection con) throws SQLException {
+        DBTeam.insertTeam(teamname, teamownerid, con);
+    }
+
+    /**
+     * LLama a la clase DBTeam para que inserte un Team en la base de datos
+     *
+     * @param teamname el nombre del equipo
+     * @param nationality la nacionalidad
+     * @param teamownerid el id del TeamOwner
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void insertTeam(String teamname, String nationality, int teamownerid, Connection con) throws SQLException {
+        DBTeam.insertTeam(teamname, nationality, teamownerid, con);
+    }
+
+    /**
+     * LLama a la clase DBTeam para que elimine un Team de la base de datos
+     *
+     * @param teamname el nombre del equipo
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void deleteTeam(String teamname, Connection con) throws SQLException {
+        DBTeam.deleteTeam(teamname, con);
+    }
+
+    /**
+     * Llama a la clase DBTeam para que actualice un Team de la base de datos
+     * sin nacionalidad
+     *
+     * @param teamname el nombre del equipo
+     * @param newTeamname nuevo nombre del equipo
+     * @param teamownerid la id del TeamOwner
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void updateTeam(String teamname, String newTeamname, int teamownerid, Connection con) throws SQLException {
+        DBTeam.updateTeam(teamname, newTeamname, teamownerid, con);
+    }
+
+    /**
+     * Llama a la clase DBTeam para que actualice un Team de la base de datos
+     * sin nacionalidad
+     *
+     * @param teamname el nombre del equipo
+     * @param newTeamname nuevo nombre del equipo
+     * @param newNationality nueva nacionalidad
+     * @param teamownerid el id del TeamOwner
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void updateTeam(String teamname, String newTeamname, String newNationality, int teamownerid, Connection con) throws SQLException {
+        DBTeam.updateTeam(teamname, newTeamname, newNationality, teamownerid, con);
+    }
+
 }

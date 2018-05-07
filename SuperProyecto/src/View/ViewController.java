@@ -344,4 +344,67 @@ public class ViewController {
         return SuperProyecto.selectDBTeams();
     }
 
+    /**
+     * Inserta un Team en la base de datos sin nacionalidad
+     *
+     * @param teamname el nombre del equipo
+     * @param teamownername el nombre del dueño del equipo
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    static void insertTeam(String teamname, String teamownername) throws ClassNotFoundException, SQLException {
+        SuperProyecto.insertTeam(teamname, teamownername);
+    }
+
+    /**
+     * Inserta un Team en la base de datos
+     *
+     * @param teamname el nombre del equipo
+     * @param nationality la nacionalidad
+     * @param teamownername el nombre del dueño del equipo
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    static void insertTeam(String teamname, String nationality, String teamownername) throws ClassNotFoundException, SQLException {
+        SuperProyecto.insertTeam(teamname, nationality, teamownername);
+    }
+
+    /**
+     * Elimina un team de la base de datos
+     *
+     * @param teamname el nombre del equipo
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    static void deleteTeam(String teamname) throws ClassNotFoundException, SQLException {
+        SuperProyecto.deleteTeam(teamname);
+    }
+
+    /**
+     * Actualiza un Team de la base de datos sin nacionalidad
+     *
+     * @param teamname el nombre del equipo
+     * @param newTeamname el nuevo nombre del equipo
+     * @param newTeamownername el nombre del nuevo dueño de equipo
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    static void updateTeam(String teamname, String newTeamname, String newTeamownername) throws ClassNotFoundException, SQLException {
+        SuperProyecto.updateTeam(teamname, newTeamname, newTeamownername);
+    }
+
+    /**
+     * Actualiza un Team de la base de datos
+     *
+     * @param teamname el nombre del equipo
+     * @param newTeamname el nuevo nombre del equipo
+     * @param newNationality la nueva nacionalidad
+     * @param newTeamownername el nombre del nuevo dueño de equipo
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    static void updateTeam(String teamname, String newTeamname, String newNationality, String newTeamownername) throws ClassNotFoundException, SQLException {
+        SuperProyecto.updateTeam(teamname, newTeamname, newNationality, newTeamownername);
+    }
+
 }
