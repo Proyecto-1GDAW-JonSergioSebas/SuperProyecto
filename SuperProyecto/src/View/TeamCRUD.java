@@ -7,12 +7,14 @@ package View;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -32,18 +34,21 @@ public class TeamCRUD extends javax.swing.JDialog {
      */
     public static final int RET_OK = 1;
     /**
-     * El modo de la ventana, que determina qué función del CRUD se supone que realice.
+     * El modo de la ventana, que determina qué función del CRUD se supone que
+     * realice.
      */
     private static byte mode;
+
     /**
      * Creates new form TeamCRUD
+     *
      * @param parent el elemento padre
      * @param modal modal
      * @param mode mode
      */
     public TeamCRUD(java.awt.Frame parent, boolean modal, byte mode) {
         super(parent, modal);
-        initComponents();        
+        initComponents();
         //<editor-fold defaultstate="collapsed" desc=" System look and feel setting code ">
         try {
             /* Set the System look and feel */
@@ -192,9 +197,56 @@ public class TeamCRUD extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        doClose(RET_OK);
+        if (validar()) {
+            switch (mode) {//cdru
+                case 0:
+                    try {
+                        if (jTextField1.getText().isEmpty()) {
+                            ViewController.insertTeam(jTextField2.getText(), jComboBox1.getSelectedItem().toString());
+                        } else {
+                            ViewController.insertTeam(jTextField2.getText(), jTextField1.getText(), jComboBox1.getSelectedItem().toString());
+                        }
+                        clear();
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                case 1:
+                    try {
+                        ViewController.deleteTeam(jTextField2.getText());
+                        clear();
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                case 2:
+                    dispose();
+                    break;
+                case 3:
+                    try {
+                        if (jTextField1.getText().isEmpty()) {
+                            ViewController.updateTeam(jComboBox2.getSelectedItem().toString(), jTextField2.getText(), jComboBox1.getSelectedItem().toString());
+                        } else {
+                            ViewController.updateTeam(jComboBox2.getSelectedItem().toString(), jTextField2.getText(), jTextField1.getText(), jComboBox1.getSelectedItem().toString());
+                        }
+                        clear();
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor rellena todos los datos");
+        }
     }//GEN-LAST:event_okButtonActionPerformed
-    
+
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
@@ -235,4 +287,22 @@ public class TeamCRUD extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private int returnStatus = RET_CANCEL;
+
+    /**
+     * Valida que los campos esten llenos
+     *
+     * @return true si estan llenos, false si estan vacios
+     */
+    private boolean validar() {
+        if (jTextField2.getText().isEmpty() || jComboBox1.getSelectedIndex() == -1) {
+            return false;
+        }
+        return true;
+    }
+
+    private void clear() {
+        jComboBox1.setSelectedIndex(-1);
+        jTextField1.setText("");
+        jTextField2.setText("");
+    }
 }

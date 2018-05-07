@@ -204,26 +204,26 @@ public class UserCRUD extends javax.swing.JDialog {
         if (jPasswordField1.getPassword().equals(jPasswordField2.getPassword())) {
             switch (mode) { //cdru
                 case 0:
-                    try{
-                        
-                    ViewController.insertUser(jTextField2.getText(), jPasswordField1.getPassword());
-                    JOptionPane.showMessageDialog(this, "Usuario insertado.");
-                    clean();
-                    
-                    } catch (SQLException ex) { 
-                         Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    try {
+
+                        ViewController.insertUser(jTextField2.getText(), jPasswordField1.getPassword());
+                        JOptionPane.showMessageDialog(this, "Usuario insertado.");
+                        clean();
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     break;
                 case 1:
-                    try{
-                        
-                    jComboBox1.setSelectedIndex(-1);
-                    ViewController.deleteUser(jTextField2.getText(), jPasswordField1.getPassword());
-                    JOptionPane.showMessageDialog(this, "Usuario eliminado.");
-                    clean();
-                    
+                    try {
+
+                        jComboBox1.setSelectedIndex(-1);
+                        ViewController.deleteUser(jTextField2.getText(), jPasswordField1.getPassword());
+                        JOptionPane.showMessageDialog(this, "Usuario eliminado.");
+                        clean();
+
                     } catch (SQLException ex) {
                         Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ClassNotFoundException ex) {
@@ -234,13 +234,13 @@ public class UserCRUD extends javax.swing.JDialog {
                     dispose();
                     break;
                 case 3:
-                    try{
-                        
-                    jComboBox1.setSelectedIndex(-1);
-                    ViewController.updateUser(jTextField2.getText(), jPasswordField1.getPassword());
-                    JOptionPane.showMessageDialog(this,"Usuario actualizado");
-                    clean();
-                    
+                    try {
+
+                        jComboBox1.setSelectedIndex(-1);
+                        ViewController.updateUser(jTextField2.getText(), jPasswordField1.getPassword());
+                        JOptionPane.showMessageDialog(this, "Usuario actualizado");
+                        clean();
+
                     } catch (SQLException ex) {
                         Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ClassNotFoundException ex) {
@@ -255,7 +255,7 @@ public class UserCRUD extends javax.swing.JDialog {
             jPasswordField2.setText("");
         }
 
-        
+
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -279,7 +279,7 @@ public class UserCRUD extends javax.swing.JDialog {
             jPasswordField2.setEnabled(true);
             pack();
         } else {
-            
+
         }
 
     }

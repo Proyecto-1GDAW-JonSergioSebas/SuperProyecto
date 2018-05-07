@@ -180,8 +180,6 @@ public class SuperProyecto {
         return (byte) type;
     }
 
-
-
     /**
      * Pide el id de la ultima liga
      *
@@ -211,13 +209,15 @@ public class SuperProyecto {
 
         return matchSetsID;
     }
+
     /**
      * Recoge los datos necesario para crear un objeto MatchSet en relacion a la
      * id que se le envie
+     *
      * @param matchSetId el id del MatchSet a crear
      * @param con la conexion
      * @return un MatchSet
-     * @throws SQLException si se da alguna excepcion SQL 
+     * @throws SQLException si se da alguna excepcion SQL
      */
     public static MatchSet createMatchSets(int matchSetId, Connection con) throws SQLException {
         ArrayList<Integer> gameID = obtainGamesID(matchSetId, con);
@@ -237,9 +237,11 @@ public class SuperProyecto {
         MatchSet tempMatch = new MatchSet(games);
         return tempMatch;
     }
+
     /**
      * Recoge los id de todos los Game que haya dentro de la League cuyo id se
      * envia
+     *
      * @param idLeague el id de la League
      * @param con la conexion
      * @return un ArrayList de Integer con las id de los Game
@@ -256,16 +258,18 @@ public class SuperProyecto {
         }
         return allGamesID;
     }
-    
+
     public static ArrayList<DBUser> selectAllDBUsers() throws SQLException, ClassNotFoundException {
-        
+
         Connection con = createConnection();
         ArrayList<DBUser> allDBUsers = DBController.selectAllDBUsers(con);
         con.close();
         return allDBUsers;
     }
+
     /**
      * Inserta un DBUser en la base de datos
+     *
      * @param username el nombre de usuario
      * @param password la contraseña
      * @throws SQLException si se da alguna excepcion SQL
@@ -276,8 +280,10 @@ public class SuperProyecto {
         DBController.insertDBDBUser(username, password, con);
         con.close();
     }
+
     /**
      * Elimina un DBUser de la base de datos
+     *
      * @param username el nombre de usuario
      * @param password la contraseña
      * @throws SQLException si se da alguna excepcion SQL
@@ -288,8 +294,10 @@ public class SuperProyecto {
         DBController.deleteDBDBUser(username, password, con);
         con.close();
     }
+
     /**
      * Actualiza un DBUser de la base de datos
+     *
      * @param username el nombre de usuario
      * @param password la conetraseña
      * @throws SQLException si se da algune aexcepcion SQL
@@ -300,8 +308,10 @@ public class SuperProyecto {
         DBController.updateDBDBUser(username, password, con);
         con.close();
     }
+
     /**
      * Inserta un TeamOwner en la Base de datos
+     *
      * @param username nombre de usuario
      * @param password contraseña
      * @param fullName nombre completo
@@ -311,12 +321,14 @@ public class SuperProyecto {
      */
     public static void insertTeamOwner(String username, char[] password, String fullName, String telephone) throws ClassNotFoundException, SQLException {
         Connection con = createConnection();
-        DBController.insertTeamOwner(username,password,fullName,telephone,con);
+        DBController.insertTeamOwner(username, password, fullName, telephone, con);
         con.close();
-        
+
     }
+
     /**
      * Elimina un TeamOwner de la Base de datos
+     *
      * @param username el nombre de usuario
      * @param password la contraseña
      * @throws ClassNotFoundException si no se encuentra la clase
@@ -324,11 +336,13 @@ public class SuperProyecto {
      */
     public static void deleteTeamOwner(String username, char[] password) throws ClassNotFoundException, SQLException {
         Connection con = createConnection();
-        DBController.deleteTeamOwner(username,password,con);
+        DBController.deleteTeamOwner(username, password, con);
         con.close();
     }
+
     /**
      * Actualiza un TeamOwner de la Base de datos
+     *
      * @param username el nombre de usuario actual
      * @param newUsername el nuevo nombre de usuario
      * @param password la contraseña
@@ -339,11 +353,13 @@ public class SuperProyecto {
      */
     public static void updateTeamOwner(String username, String newUsername, char[] password, String fullName, String telephone) throws ClassNotFoundException, SQLException {
         Connection con = createConnection();
-        DBController.updateTeamOwner(username,newUsername,password,fullName,telephone,con);
+        DBController.updateTeamOwner(username, newUsername, password, fullName, telephone, con);
         con.close();
     }
+
     /**
      * Inserta un Player en la base de datos
+     *
      * @param fullName nombre completo
      * @param nickname nickname
      * @param salary salario
@@ -353,11 +369,13 @@ public class SuperProyecto {
      */
     public static void insertPlayer(String fullName, String nickname, BigDecimal salary, String email) throws ClassNotFoundException, SQLException {
         Connection con = createConnection();
-        DBController.insertPlayer(fullName,nickname,salary,email,con);
+        DBController.insertPlayer(fullName, nickname, salary, email, con);
         con.close();
     }
+
     /**
      * Inserta un Player en la base de datos on equipo
+     *
      * @param fullName nombre completo
      * @param nickname nickname
      * @param salary salario
@@ -368,12 +386,14 @@ public class SuperProyecto {
      */
     public static void insertPlayerT(String fullName, String nickname, BigDecimal salary, String email, String teamname) throws ClassNotFoundException, SQLException {
         Connection con = createConnection();
-        int teamid = DBController.getTeamID(teamname,con);
-        DBController.insertPlayerT(fullName,nickname,salary,email,teamid,con);
+        int teamid = DBController.getTeamID(teamname, con);
+        DBController.insertPlayerT(fullName, nickname, salary, email, teamid, con);
         con.close();
     }
+
     /**
      * Elimina un Player de la base de datos
+     *
      * @param fullName nombre compelto
      * @param nickname nickname
      * @throws ClassNotFoundException si no se encuentra la clase
@@ -381,11 +401,13 @@ public class SuperProyecto {
      */
     public static void deletePlayer(String fullName, String nickname) throws ClassNotFoundException, SQLException {
         Connection con = createConnection();
-        DBController.deletePlayer(fullName,nickname,con);
+        DBController.deletePlayer(fullName, nickname, con);
         con.close();
     }
+
     /**
      * Actualiza un Player en la base de datos y le quita el equipo
+     *
      * @param fullName nombre completo
      * @param nickname nickname
      * @param oldnickname antiguo nickname
@@ -394,13 +416,15 @@ public class SuperProyecto {
      * @throws ClassNotFoundException si no se encuentra la clase
      * @throws SQLException si se da alguna excepcion SQL
      */
-    public static void updatePlayerNT(String fullName, String nickname,String oldnickname, BigDecimal salary, String email) throws ClassNotFoundException, SQLException {
+    public static void updatePlayerNT(String fullName, String nickname, String oldnickname, BigDecimal salary, String email) throws ClassNotFoundException, SQLException {
         Connection con = createConnection();
-        DBController.updatePlayerNT(fullName,nickname,oldnickname,salary,email,con);
+        DBController.updatePlayerNT(fullName, nickname, oldnickname, salary, email, con);
         con.close();
     }
+
     /**
      * Actualiza un Player de la base de datos y le cambia el equipo
+     *
      * @param fullName nombre completo
      * @param nickname nickname
      * @param oldnickname antiguo nickname
@@ -410,14 +434,16 @@ public class SuperProyecto {
      * @throws ClassNotFoundException si no se encuentra la clase
      * @throws SQLException si se da alguna excepcion SQL
      */
-    public static void updatePlayerT(String fullName, String nickname,String oldnickname, BigDecimal salary, String email, String teamname) throws ClassNotFoundException, SQLException {
+    public static void updatePlayerT(String fullName, String nickname, String oldnickname, BigDecimal salary, String email, String teamname) throws ClassNotFoundException, SQLException {
         Connection con = createConnection();
         int teamid = DBController.getTeamID(teamname, con);
-        DBController.updatePlayerT(fullName,nickname,oldnickname,salary,email,teamid,con);
+        DBController.updatePlayerT(fullName, nickname, oldnickname, salary, email, teamid, con);
         con.close();
     }
+
     /**
      * Actualiza un Player de la base de datos
+     *
      * @param fullName nombre completo
      * @param nickname nickame
      * @param oldnickname antiguo nickname
@@ -426,9 +452,86 @@ public class SuperProyecto {
      * @throws ClassNotFoundException si no se encuentra la clase
      * @throws SQLException si se da alguna excepcion SQL
      */
-    public static void updatePlayer(String fullName, String nickname,String oldnickname, BigDecimal salary, String email) throws ClassNotFoundException, SQLException {
+    public static void updatePlayer(String fullName, String nickname, String oldnickname, BigDecimal salary, String email) throws ClassNotFoundException, SQLException {
         Connection con = createConnection();
-        DBController.updatePlayer(fullName,nickname,oldnickname,salary,email,con);
+        DBController.updatePlayer(fullName, nickname, oldnickname, salary, email, con);
+        con.close();
+    }
+
+    /**
+     * Inserta un Team en la base de datos sin nacionalidad
+     *
+     * @param teamname el nombre del equipo
+     * @param teamownername el nombre del dueño del equipo
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void insertTeam(String teamname, String teamownername) throws ClassNotFoundException, SQLException {
+        Connection con = createConnection();
+        int teamownerid = DBController.getTeamOwnerID(teamownername, con);
+        DBController.insertTeam(teamname, teamownerid, con);
+        con.close();
+    }
+
+    /**
+     * Inserta un Team en la base de datos
+     *
+     * @param teamname el nombre del equipo
+     * @param nationality la nacionalidad
+     * @param teamownername el nombre del dueño del equipo
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void insertTeam(String teamname, String nationality, String teamownername) throws ClassNotFoundException, SQLException {
+        Connection con = createConnection();
+        int teamownerid = DBController.getTeamOwnerID(teamownername, con);
+        DBController.insertTeam(teamname, nationality, teamownerid, con);
+        con.close();
+    }
+
+    /**
+     * Elimina un Team de la base de datos
+     *
+     * @param teamname el nombre del equipo
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void deleteTeam(String teamname) throws ClassNotFoundException, SQLException {
+        Connection con = createConnection();
+        DBController.deleteTeam(teamname, con);
+        con.close();
+    }
+
+    /**
+     * Actualiza un Team de la base de datos sin nacionalidad
+     *
+     * @param teamname el nombre del equipo
+     * @param newTeamname el nuevo nombre del equipo
+     * @param newTeamownername el nombre del nuevo dueño del equipo
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void updateTeam(String teamname, String newTeamname, String newTeamownername) throws ClassNotFoundException, SQLException {
+        Connection con = createConnection();
+        int teamownerid = DBController.getTeamOwnerID(newTeamownername, con);
+        DBController.updateTeam(teamname, newTeamname, teamownerid, con);
+        con.close();
+    }
+
+    /**
+     * Actualiza un Team de la base de datos
+     *
+     * @param teamname el nombre del equipo
+     * @param newTeamname el nuevo nombre del equipo
+     * @param newNationality la nueva nacionalidad
+     * @param newTeamownername el nombre del nuevo dueño del equipo
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void updateTeam(String teamname, String newTeamname, String newNationality, String newTeamownername) throws ClassNotFoundException, SQLException {
+        Connection con = createConnection();
+        int teamownerid = DBController.getTeamOwnerID(newTeamownername, con);
+        DBController.updateTeam(teamname, newTeamname, newNationality, teamownerid, con);
         con.close();
     }
 }
