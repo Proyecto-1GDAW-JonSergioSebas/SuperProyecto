@@ -4,6 +4,7 @@
 
     <xs:complexType name="league_type">
         <xs:sequence>
+			<xs:element name="date" type="xs:string"/>
             <xs:element name="matchset" type="matchset_type" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
@@ -20,7 +21,6 @@
             <xs:element name="team2" type="xs:string"/>
             <xs:element name="score1" type="xs:int" minOccurs="0"/>
             <xs:element name="score2" type="xs:int" minOccurs="0"/>
-            <xs:element name="date" type="xs:string" minOccurs="0"/>
         </xs:sequence>
         <xs:attribute type="xs:ID" name="id"/>
     </xs:complexType>
