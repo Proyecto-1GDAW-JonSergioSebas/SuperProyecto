@@ -26,6 +26,7 @@ import ModelUML.Game;
 import ModelUML.Player;
 import ModelUML.Team;
 import ModelUML.TeamOwner;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -167,15 +168,33 @@ public class DBController {
     public static ArrayList<DBUser> selectAllDBUsers(Connection con) throws SQLException {
         return DBDBUser.selectAllUsers(con);
     }
-
+    /**
+     * Inserta un DBUser en la base de datos
+     * @param username el nombre de usuario
+     * @param password la contraseña
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
     public static void insertDBDBUser(String username, char[] password, Connection con) throws SQLException {
         DBDBUser.insertDBUser(username, password, con);
     }
-
+    /**
+     * Elimina un DBUser de la base de datos
+     * @param username el nombre de usuario
+     * @param password la contraseña
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
     public static void deleteDBDBUser(String username, char[] password, Connection con) throws SQLException {
         DBDBUser.deleteDBUser(username, password, con);
     }
-
+    /**
+     * Actualiza un DBUserd de la base de datos
+     * @param username el nombre de usuario
+     * @param password la contraseña
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
     public static void updateDBDBUser(String username, char[] password, Connection con) throws SQLException {
         DBDBUser.updateDBUserPassword(username, password, con);
     }
@@ -295,4 +314,92 @@ public class DBController {
     public static void updateTeamOwner(String username, String newUsername, char[] password, String fullName, String telephone,Connection con) throws SQLException {
         DBTeamOwner.updateDBTeamOwner(username, newUsername, password, fullName, telephone, con);
     }
+    /**
+     * Llama a la clase DBPlayer para que inserte un Player en la base de datos
+     * @param fullName nombre completo
+     * @param nickname nickname
+     * @param salary salario
+     * @param email email
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void insertPlayer(String fullName, String nickname, BigDecimal salary, String email,Connection con) throws SQLException {
+        DBPlayer.insertPlayer(fullName, nickname, salary, email, con);
+    }
+    /**
+     * Obtiene el ID del Team cuyo nombre se introduce
+     * @param teamname el nombre del equipo
+     * @param con la conexion
+     * @return un int con el ID del equipo
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static int getTeamID(String teamname, Connection con) throws SQLException {
+        int teamid = DBTeam.searchTeam(teamname, con);
+        return teamid;
+    }
+    /**
+     * LLama a la clase DBPlayer para que inserte un Player en la base de datos
+     * @param fullName nombre completo
+     * @param nickname nickname
+     * @param salary salario
+     * @param email email
+     * @param teamid el id del equipo
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void insertPlayerT(String fullName, String nickname, BigDecimal salary, String email, int teamid, Connection con) throws SQLException {
+        DBPlayer.insertPlayerT(fullName, nickname, salary, email, teamid, con);
+    }
+    /**
+     * Llama a la clase DBPlayer para que elimine un Player de la base de datos
+     * @param fullName nombre completo
+     * @param nickname nickname
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void deletePlayer(String fullName, String nickname, Connection con) throws SQLException {
+        DBPlayer.deletePlayer(fullName, nickname, con);
+    }
+    /**
+     * Llama a la clase DBPlayer para que actualice un Player de la base de datos
+     * @param fullName nombre completo
+     * @param nickname nickname
+     * @param oldnickname el nickname antiguo
+     * @param salary salario
+     * @param email email
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void updatePlayerNT(String fullName, String nickname,String oldnickname, BigDecimal salary, String email,Connection con) throws SQLException {
+        DBPlayer.updatePlayerNT(fullName, oldnickname, nickname, salary, email, con);
+    }
+    /**
+     * Llama a la clase DBPlayer para que actualice un Player de la base de datos
+     * @param fullName nombre completo
+     * @param nickname nickname
+     * @param oldnickname antiguo nickname
+     * @param salary salario
+     * @param email email
+     * @param teamid el id del equipo al que se va a unir
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void updatePlayerT(String fullName, String nickname,String oldnickname, BigDecimal salary, String email, int teamid,Connection con) throws SQLException {
+        DBPlayer.updatePlayerT(fullName, oldnickname,nickname, salary, email, teamid, con);
+    }
+    /**
+     * Llama a la clase DBPlayer para que actualice un Player de la base de datos
+     * @param fullName
+     * @param nickname
+     * @param oldnickname
+     * @param salary
+     * @param email
+     * @param con
+     * @throws SQLException 
+     */
+    public static void updatePlayer(String fullName, String nickname,String oldnickname, BigDecimal salary, String email,Connection con) throws SQLException {
+        DBPlayer.updatePlayer(fullName,oldnickname,nickname, salary, email, con);
+    }
+    
+    
 }

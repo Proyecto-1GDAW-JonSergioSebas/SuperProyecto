@@ -46,7 +46,7 @@ public class DBPlayer {
     }
 
     /**
-     * Inserta un Player en la base de datos
+     * Inserta un Player en la base de datos sin equipo
      *
      * @param fullName nombre completo
      * @param nickname nickname
@@ -60,6 +60,23 @@ public class DBPlayer {
         Statement sta = con.createStatement();
         sta.executeUpdate("INSERT INTO PLAYER(FULL_NAME,NICKNAME,SALARY,EMAIL) "
                 + "VALUES('" + fullName + "','" + nickname + "'," + salary.longValue() + ",'" + email + "')");
+        sta.close();
+    }
+    /**
+     * Inserta un Player en la base de datos con equipo
+     * @param fullName el nombre completo
+     * @param nickname el nickname
+     * @param salary el salario
+     * @param email el email
+     * @param teamid el id del equipo
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void insertPlayerT(String fullName,String nickname,BigDecimal salary,String email,int teamid,Connection con) throws SQLException{
+       
+        Statement sta = con.createStatement();
+        sta.executeUpdate("INSERT INTO PLAYER(FULL_NAME,NICKNAME,SALARY,EMAIL,TEAM)"
+                + "VALUES('"+fullName+"','"+nickname+"',"+salary+",'"+email+"',"+teamid+")");
         sta.close();
     }
 
@@ -94,6 +111,41 @@ public class DBPlayer {
 
         Statement sta = con.createStatement();
         sta.executeUpdate("UPDATE PLAYER SET FULL_NAME='" + newFullName + "',NICKNAME='" + newNickname + "',SALARY=" + newSalary.longValue() + ",EMAIL='" + newEmail + "'"
+                + "WHERE  NICKNAME='" + nickname + "'");
+        sta.close();
+    }
+    /**
+     * Actualiza un Player y le cambia el valor de TEAM
+     * @param newFullName el nuevo nombre
+     * @param nickname el nickname actual
+     * @param newNickname el nuevo nickname
+     * @param newSalary el salario
+     * @param newEmail el nuevo email
+     * @param newTeamID el id del nuevo equipo
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void updatePlayerT(String newFullName,String nickname,String newNickname,BigDecimal newSalary,String newEmail,int newTeamID,Connection con) throws SQLException{
+        
+        Statement sta = con.createStatement();
+        sta.executeUpdate("UPDATE PLAYER SEY FULL_NAME='" + newFullName + "',NICKNAME='" + newNickname + "',SALARY=" + newSalary.longValue() + ",EMAIL='" + newEmail + "',TEAM="+newTeamID+""
+                + "WHERE  NICKNAME='" + nickname + "'");
+        sta.close();
+    }
+    /**
+     * Actualiza un Player y le quita el TEAM
+     * @param newFullName nuevo nombre completo
+     * @param nickname el nickname actual
+     * @param newNickname el nuevo nickname
+     * @param newSalary el nuevo salario
+     * @param newEmail el nuevo email
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void updatePlayerNT(String newFullName,String nickname,String newNickname,BigDecimal newSalary,String newEmail,Connection con) throws SQLException{
+        
+        Statement sta = con.createStatement();
+        sta.executeUpdate("UPDATE PLAYER SEY FULL_NAME='" + newFullName + "',NICKNAME='" + newNickname + "',SALARY=" + newSalary.longValue() + ",EMAIL='" + newEmail + "',TEAM="+"NULL"+""
                 + "WHERE  NICKNAME='" + nickname + "'");
         sta.close();
     }
