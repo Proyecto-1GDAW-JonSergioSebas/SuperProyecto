@@ -820,7 +820,7 @@ public class Admin extends javax.swing.JFrame {
      * Abre la ventana de creación de jugador.
      */
     private void PlayerCreate() {
-        ViewController.teamCRUD(this, (byte) 0);
+        ViewController.playerCRUD(this, (byte) 0);
     }
 
     /**

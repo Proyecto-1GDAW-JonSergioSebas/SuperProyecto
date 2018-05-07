@@ -21,6 +21,7 @@ import static DB.DBTeam.getGameTeam;
 import static DB.DBTeam.getTeams;
 import static DB.DBTeam.searchTeam;
 import static DB.DBTeamOwner.getTeamOwner;
+import ModelUML.DBAdmin;
 import ModelUML.DBUser;
 import ModelUML.Game;
 import ModelUML.Player;
@@ -435,16 +436,60 @@ public class DBController {
      * Llama a la clase DBPlayer para que actualice un Player de la base de
      * datos
      *
-     * @param fullName nombre completo
-     * @param nickname nickname
-     * @param oldnickname antiguo nickname
-     * @param salary salario
-     * @param email email
-     * @param con la conexion
-     * @throws SQLException si se da alguna excepcion SQL
+     * @param fullName
+     * @param nickname
+     * @param oldnickname
+     * @param salary
+     * @param email
+     * @param con
+     * @throws SQLException
      */
     public static void updatePlayer(String fullName, String nickname, String oldnickname, BigDecimal salary, String email, Connection con) throws SQLException {
         DBPlayer.updatePlayer(fullName, oldnickname, nickname, salary, email, con);
+    }
+
+    /**
+     * Realiza una consulta a la base de datos y devuelve todos los Users
+     *
+     * @param con
+     * @return La lista de Users
+     * @throws SQLException
+     */
+    public static ArrayList<DBUser> selectDBUsers(Connection con) throws SQLException {
+        return DBDBUser.selectAllUsers(con);
+    }
+
+    /**
+     * Realiza una consulta a la base de datos y devuelve todos los Admins
+     *
+     * @param con
+     * @return La lista de Admins
+     * @throws SQLException
+     */
+    public static ArrayList<TeamOwner> selectDBOwners(Connection con) throws SQLException {
+        return DBTeamOwner.selectAllTeamOwners(con);
+    }
+
+    /**
+     * Realiza una consulta a la base de datos y devuelve todos los Players
+     *
+     * @param con
+     * @return La lista de Players
+     * @throws SQLException
+     */
+    public static ArrayList<Player> selectDBPlayers(Connection con) throws SQLException {
+        return DBPlayer.selectAllPlayers(con);
+    }
+
+    /**
+     * Realiza una consulta a la base de datos y devuelve todos los Teams
+     *
+     * @param con
+     * @return La lista de Teams
+     * @throws SQLException
+     */
+    public static ArrayList<Team> selectDBTeams(Connection con) throws SQLException {
+        return DBTeam.selectAllTeams(con);
     }
 
     /**

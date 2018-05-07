@@ -77,6 +77,7 @@ public class UserCRUD extends javax.swing.JDialog {
         });
         this.mode = mode;
         mode();
+
     }
 
     /**
@@ -111,10 +112,6 @@ public class UserCRUD extends javax.swing.JDialog {
             }
         });
 
-        jPasswordField1.setEnabled(false);
-
-        jPasswordField2.setEnabled(false);
-
         jLabel3.setText("Nombre de Usuario");
 
         jLabel4.setText("Contraseña");
@@ -135,7 +132,9 @@ public class UserCRUD extends javax.swing.JDialog {
             }
         });
 
-        jTextField2.setEnabled(false);
+        jTextField2.setMaximumSize(new java.awt.Dimension(6, 20));
+
+        jComboBox1.setMaximumRowCount(50);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -149,18 +148,17 @@ public class UserCRUD extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPasswordField2)
-                            .addComponent(jPasswordField1)
-                            .addComponent(jTextField2)))
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(43, 43, 43)
+                        .addComponent(jLabel4))
                     .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -272,14 +270,28 @@ public class UserCRUD extends javax.swing.JDialog {
      * dependiendo del modo de la ventana.
      */
     private void mode() {
+        System.out.println(mode);
         if (mode == 0) {
             jComboBox1.setVisible(false);
-            jTextField2.setEnabled(true);
-            jPasswordField1.setEnabled(true);
-            jPasswordField2.setEnabled(true);
             pack();
         } else {
-
+            try {
+                ViewController.selectDBUsers().forEach(e -> jComboBox1.addItem(e.getUserName()));
+            } catch (SQLException ex) {
+                Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (mode != 3) {
+                jPasswordField1.setVisible(false);
+                jPasswordField2.setVisible(false);
+                jLabel5.setVisible(false);
+                jLabel4.setVisible(false);
+                pack();
+            }
+            else {
+                jTextField2.setEnabled(false);
+            }
         }
 
     }

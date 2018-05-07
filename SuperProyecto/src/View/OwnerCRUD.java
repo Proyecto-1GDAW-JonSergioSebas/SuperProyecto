@@ -74,6 +74,9 @@ public class OwnerCRUD extends javax.swing.JDialog {
                 doClose(RET_CANCEL);
             }
         });
+        this.mode = mode;
+        mode();
+
     }
 
     /**
@@ -135,6 +138,8 @@ public class OwnerCRUD extends javax.swing.JDialog {
         jLabel4.setText("Contraseña");
 
         jLabel5.setText("Contraseña otra vez");
+
+        jComboBox1.setMaximumRowCount(50);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -325,4 +330,29 @@ public class OwnerCRUD extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private int returnStatus = RET_CANCEL;
+
+    private void mode() {
+        try {
+            if (mode != 0) {
+                ViewController.selectDBOwners().forEach(e -> jComboBox1.addItem(e.getUserName()));
+                if (mode != 3) {
+                    jPasswordField1.setVisible(false);
+                    jPasswordField2.setVisible(false);
+                    jLabel4.setVisible(false);
+                    jLabel5.setVisible(false);
+                    pack();
+                    jFormattedTextField1.setEnabled(false);
+                    jTextField1.setEnabled(false);
+                    jTextField2.setEnabled(false);
+                }
+            } else {
+                jComboBox1.setVisible(false);
+                pack();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
