@@ -75,20 +75,20 @@ public class DOMParserLeague {
      * LLama a las funciones necesarias para parsear, crear el arbol de DOM, y
      * escribir en el fichero XML
      */
-    public void ejecutar(){
+    public void execute(){
         System.out.println("Ejecutando..");
         //Volcamos el fichero XML en memoria como arbol de DOM
-        parsearFicheroXML();
+        parseXMLFile();
         //Creamos los elementos y los agregamos al arbol de DOM
-        crearArbolDOM();
+        createDOMTree();
         //Escribimos el arbol DOM en el fichero XML
-        escribirFicheroXML();
+        writeXMLFile();
         System.out.println("Fichero modificado correctamente");
     }
     /**
      * Escribe en el documento XML el arbol DOM
      */
-    private void escribirFicheroXML(){
+    private void writeXMLFile(){
         try {
             //Configuramos el formato de salida del fichero
             OutputFormat format = new OutputFormat(dom);
@@ -107,9 +107,9 @@ public class DOMParserLeague {
     /**
      * Crea el arbol DOM
      */
-    private void crearArbolDOM(){
+    private void createDOMTree(){
         //referencia al objeto raiz<league>
-        Element raizLeague = dom.getDocumentElement();
+        Element rootLeague = dom.getDocumentElement();
         /*Ahora se va a recorrer el ArrayList de MatchSet que hay en league, creando cada
         objeto MatchSet, a su vez, para cada MatchSet, se recorrera el ArrayList de Game 
         creando los objetos cada uno con sus elementos y atributos */
@@ -117,8 +117,8 @@ public class DOMParserLeague {
         while(it.hasNext()){
             MatchSet ms = (MatchSet)it.next();
             //Cogemos la informacion almacenada y creamos
-            Element matchsetEle =crearElementoMatchSet(ms);
-            raizLeague.appendChild(matchsetEle);
+            Element matchsetEle =createMatchSetElement(ms);
+            rootLeague.appendChild(matchsetEle);
         }
         gameIDCounter=0;
     }
@@ -127,11 +127,11 @@ public class DOMParserLeague {
      * @param ms un MatchSet
      * @return un Element 
      */
-    private Element crearElementoMatchSet(MatchSet ms){
+    private Element createMatchSetElement(MatchSet ms){
         Element matchsetEle = dom.createElement("matchset");
         //Ahora creamos los Game del MatchSet correspondiente
         for(Game gm:ms.getGames()){
-            Element gameEle = crearElementoGame(gm);
+            Element gameEle = createGameElement(gm);
             matchsetEle.appendChild(gameEle);
         }
         return matchsetEle;
@@ -141,7 +141,7 @@ public class DOMParserLeague {
      * @param gm un Game
      * @return un Element
      */
-    private Element crearElementoGame(Game gm){
+    private Element createGameElement(Game gm){
         Element gameEle = dom.createElement("match");
         //Ahora creamos los elementos y el atributo y lo asociamos al Game
         gameEle.setAttribute("id",""+gamesID.get(gameIDCounter));//esa forma de convertir a String tan "Meh"
@@ -180,7 +180,7 @@ public class DOMParserLeague {
     /**
      * Parsea un documento XML 
      */
-    private void parsearFicheroXML(){
+    private void parseXMLFile(){
         //Creamos el DocumentBuilderFactory
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         
@@ -202,15 +202,14 @@ public class DOMParserLeague {
     }
     /**
      * Ejecuta todo el parser
-     * @param args the command line arguments
      */
-    public static void main(String args[]) throws ClassNotFoundException, SQLException{
+    public static void executeDOMLeague() throws ClassNotFoundException, SQLException{
         
         //Creamos una instancia
         DOMParserLeague dLeague = new DOMParserLeague();
         
         //Ejecutamos
-        dLeague.ejecutar();
+        dLeague.execute();
     }
     
 }

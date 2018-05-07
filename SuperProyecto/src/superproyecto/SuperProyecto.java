@@ -32,6 +32,7 @@ import ModelUML.Team;
 import ModelUML.TeamOwner;
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -188,7 +189,7 @@ public class SuperProyecto {
      * @throws ClassNotFoundException No se encuentra la clase en la conexion
      * @throws SQLException si se da alguna excepcion en SQL
      */
-    public static int askLastLeagueID(Connection con) throws ClassNotFoundException, SQLException {
+    public static int askLastLeagueID(Connection con) throws ClassNotFoundException, SQLException, SQLException, SQLException {
 
         int idLeague = obtainLastLeagueID(con);
 
@@ -590,4 +591,11 @@ public class SuperProyecto {
         DBController.updateTeam(teamname, newTeamname, newNationality, teamownerid, con);
         con.close();
     }
+
+    public static ResultSet getClassification(int leagueid, Connection con) throws SQLException {
+        ResultSet rs = DBController.getClassification(leagueid,con);
+        return rs;
+    }
+
+    
 }
