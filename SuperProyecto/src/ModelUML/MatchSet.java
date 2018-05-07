@@ -30,6 +30,10 @@ public class MatchSet {
         this.games = games;
     }
 
+    public MatchSet() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     /**
      * Es un Get que devuelve los partidos
      * 
