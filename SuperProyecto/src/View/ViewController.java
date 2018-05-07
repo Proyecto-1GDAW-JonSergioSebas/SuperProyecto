@@ -6,10 +6,14 @@
 package View;
 
 import ModelUML.DBUser;
+import ModelUML.Player;
+import ModelUML.Team;
+import ModelUML.TeamOwner;
 import java.awt.Frame;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import superproyecto.SuperProyecto;
 
 /**
@@ -298,6 +302,46 @@ public class ViewController {
      */
     static void updatePlayer(String fullName, String nickname, String oldnickname, BigDecimal salary, String email) throws ClassNotFoundException, SQLException {
         SuperProyecto.updatePlayer(fullName, nickname, oldnickname, salary, email);
+    }
+
+    /**
+     * Realiza una consulta a la base de datos y devuelve todos los Users
+     *
+     * @return La lista de Users
+     * @throws SQLException
+     */
+    public static ArrayList<DBUser> selectDBUsers() throws SQLException, ClassNotFoundException {
+        return SuperProyecto.selectDBUsers();
+    }
+
+    /**
+     * Realiza una consulta a la base de datos y devuelve todos los Admins
+     *
+     * @return La lista de Admins
+     * @throws SQLException
+     */
+    public static ArrayList<TeamOwner> selectDBOwners() throws SQLException, ClassNotFoundException {
+        return SuperProyecto.selectDBOwners();
+    }
+
+    /**
+     * Realiza una consulta a la base de datos y devuelve todos los Players
+     *
+     * @return La lista de Players
+     * @throws SQLException
+     */
+    public static ArrayList<Player> selectDBPlayers() throws SQLException, ClassNotFoundException {
+        return SuperProyecto.selectDBPlayers();
+    }
+
+    /**
+     * Realiza una consulta a la base de datos y devuelve todos los Teams
+     *
+     * @return La lista de Teams
+     * @throws SQLException
+     */
+    public static ArrayList<Team> selectDBTeams() throws SQLException, ClassNotFoundException {
+        return SuperProyecto.selectDBTeams();
     }
 
     /**
