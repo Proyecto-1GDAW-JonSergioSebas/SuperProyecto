@@ -35,18 +35,21 @@ public class PlayerCRUD extends javax.swing.JDialog {
      */
     public static final int RET_OK = 1;
     /**
-     * El modo de la ventana, que determina qué función del CRUD se supone que realice.
+     * El modo de la ventana, que determina qué función del CRUD se supone que
+     * realice.
      */
     private static byte mode;
+
     /**
      * Creates new form PlayerCRUD
+     *
      * @param parent el padre del elemento
      * @param modal modal
      * @param mode mode
      */
     public PlayerCRUD(java.awt.Frame parent, boolean modal, byte mode) {
         super(parent, modal);
-        initComponents();        
+        initComponents();
         //<editor-fold defaultstate="collapsed" desc=" System look and feel setting code ">
         try {
             /* Set the System look and feel */
@@ -72,6 +75,28 @@ public class PlayerCRUD extends javax.swing.JDialog {
                 doClose(RET_CANCEL);
             }
         });
+        try {
+            if (mode != 0) {
+                ViewController.selectDBPlayers().forEach(e -> jComboBox2.addItem(e.getNickName()));
+                if (mode != 3) {
+                    jFormattedTextField1.setEnabled(false);
+                    jComboBox1.setEnabled(false);
+                    jTextField1.setEnabled(false);
+                    jTextField2.setEnabled(false);
+                    jTextField3.setEnabled(false);
+                }
+            } else {
+                jComboBox2.setVisible(false);
+                pack();
+            }
+            jComboBox1.addItem("Ninguno");
+            ViewController.selectDBTeams().forEach(e -> jComboBox1.addItem(e.getTeamName()));
+            jComboBox1.setSelectedIndex(-1);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -141,6 +166,9 @@ public class PlayerCRUD extends javax.swing.JDialog {
             }
         });
 
+        jComboBox1.setMaximumRowCount(50);
+
+        jComboBox2.setMaximumRowCount(50);
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);
@@ -153,30 +181,28 @@ public class PlayerCRUD extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField2)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                                    .addComponent(jFormattedTextField1)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(33, 33, 33)
-                                .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel5))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField2)
+                                .addComponent(jTextField1)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                                .addComponent(jFormattedTextField1)
+                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(33, 33, 33)
+                            .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,20 +242,19 @@ public class PlayerCRUD extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        if (validar()){
-            switch(mode){//cdru
+        if (validar()) {
+            switch (mode) {//cdru
                 case 0:
-                    try{
-                    if(jComboBox1.getSelectedIndex()==-1){    
-                        ViewController.insertPlayer(jTextField1.getText(),jTextField2.getText(),BigDecimal.valueOf(Double.parseDouble(jFormattedTextField1.getText())),jTextField3.getText());
-                        JOptionPane.showMessageDialog(this,"Jugador insertado");
-                        clear();
-                    }
-                    else{
-                        ViewController.insertPlayerT(jTextField1.getText(),jTextField2.getText(),BigDecimal.valueOf(Double.parseDouble(jFormattedTextField1.getText())),jTextField3.getText(),jComboBox1.getSelectedItem().toString());
-                        JOptionPane.showMessageDialog(this,"Jugador insertado");
-                        clear();
-                    }
+                    try {
+                        if (jComboBox1.getSelectedIndex() == -1) {
+                            ViewController.insertPlayer(jTextField1.getText(), jTextField2.getText(), BigDecimal.valueOf(Double.parseDouble(jFormattedTextField1.getText())), jTextField3.getText());
+                            JOptionPane.showMessageDialog(this, "Jugador insertado");
+                            clear();
+                        } else {
+                            ViewController.insertPlayerT(jTextField1.getText(), jTextField2.getText(), BigDecimal.valueOf(Double.parseDouble(jFormattedTextField1.getText())), jTextField3.getText(), jComboBox1.getSelectedItem().toString());
+                            JOptionPane.showMessageDialog(this, "Jugador insertado");
+                            clear();
+                        }
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(PlayerCRUD.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (SQLException ex) {
@@ -237,14 +262,14 @@ public class PlayerCRUD extends javax.swing.JDialog {
                     }
                     break;
                 case 1:
-                    try{
-                        
+                    try {
+
                         jComboBox2.setSelectedIndex(-1);
                         jComboBox1.setSelectedIndex(-1);
-                        ViewController.deletePlayer(jTextField1.getText(),jTextField2.getText());
-                        JOptionPane.showMessageDialog(this,"Jugador Eliminado");
+                        ViewController.deletePlayer(jTextField1.getText(), jTextField2.getText());
+                        JOptionPane.showMessageDialog(this, "Jugador Eliminado");
                         clear();
-                        
+
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(PlayerCRUD.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (SQLException ex) {
@@ -255,20 +280,18 @@ public class PlayerCRUD extends javax.swing.JDialog {
                     dispose();
                     break;
                 case 3:
-                    try{
-                        if(jComboBox1.getSelectedItem().toString().equalsIgnoreCase("ninguno")){
-                            ViewController.updatePlayerNT(jTextField1.getText(),jTextField2.getText(),jComboBox2.getSelectedItem().toString(),BigDecimal.valueOf(Double.parseDouble(jFormattedTextField1.getText())),jTextField3.getText());
-                            
+                    try {
+                        if (jComboBox1.getSelectedItem().toString().equalsIgnoreCase("ninguno")) {
+                            ViewController.updatePlayerNT(jTextField1.getText(), jTextField2.getText(), jComboBox2.getSelectedItem().toString(), BigDecimal.valueOf(Double.parseDouble(jFormattedTextField1.getText())), jTextField3.getText());
+
+                        } else if (jComboBox1.getSelectedIndex() > -1) {
+                            ViewController.updatePlayerT(jTextField1.getText(), jTextField2.getText(), jComboBox2.getSelectedItem().toString(), BigDecimal.valueOf(Double.parseDouble(jFormattedTextField1.getText())), jTextField3.getText(), jComboBox1.getSelectedItem().toString());
+
+                        } else {
+                            ViewController.updatePlayer(jTextField1.getText(), jTextField2.getText(), jComboBox2.getSelectedItem().toString(), BigDecimal.valueOf(Double.parseDouble(jFormattedTextField1.getText())), jTextField3.getText());
+
                         }
-                        else if(jComboBox1.getSelectedIndex()>-1){
-                            ViewController.updatePlayerT(jTextField1.getText(),jTextField2.getText(),jComboBox2.getSelectedItem().toString(),BigDecimal.valueOf(Double.parseDouble(jFormattedTextField1.getText())),jTextField3.getText(),jComboBox1.getSelectedItem().toString());
-                        
-                        }
-                        else{
-                            ViewController.updatePlayer(jTextField1.getText(),jTextField2.getText(),jComboBox2.getSelectedItem().toString(),BigDecimal.valueOf(Double.parseDouble(jFormattedTextField1.getText())),jTextField3.getText());
-                        
-                        }
-                        JOptionPane.showMessageDialog(this,"Se ha actualizado el jugador");
+                        JOptionPane.showMessageDialog(this, "Se ha actualizado el jugador");
                         clear();
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(PlayerCRUD.class.getName()).log(Level.SEVERE, null, ex);
@@ -277,9 +300,8 @@ public class PlayerCRUD extends javax.swing.JDialog {
                     }
                     break;
             }
-        }
-        else{
-            JOptionPane.showMessageDialog(this,"Introduce datos por favor");
+        } else {
+            JOptionPane.showMessageDialog(this, "Introduce datos por favor");
         }
     }//GEN-LAST:event_okButtonActionPerformed
 
@@ -301,7 +323,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox2ActionPerformed
-    
+
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
@@ -326,20 +348,23 @@ public class PlayerCRUD extends javax.swing.JDialog {
             }
         });
     }
+
     /**
      * Valida que los campos obligatorios no esten vacios
+     *
      * @return devuelve true si estan llenos, false si alguno esta vacio
      */
-    private boolean validar(){
-        if(jTextField1.getText().isEmpty()||jTextField2.getText().isEmpty()||jTextField3.getText().isEmpty()||jFormattedTextField1.getText().isEmpty()){
+    private boolean validar() {
+        if (jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty() || jTextField3.getText().isEmpty() || jFormattedTextField1.getText().isEmpty()) {
             return false;
         }
         return true;
     }
+
     /**
      * Limpia los campos
      */
-    private void clear(){
+    private void clear() {
         jTextField1.setText("");
         jTextField2.setText("");
         jTextField3.setText("");

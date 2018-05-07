@@ -81,7 +81,7 @@ public class DBDBUser {
     public static ArrayList<DBUser> selectAllUsers(Connection con) throws SQLException {
         ArrayList<DBUser> users = new ArrayList();
         Statement sta = con.createStatement();
-        ResultSet resul = sta.executeQuery("SELECT * FROM DBUSER");
+        ResultSet resul = sta.executeQuery("SELECT * FROM DB_USER");
         while (resul.next()) {
             users.add(new DBUser(resul.getString(2), resul.getString(3).toCharArray()));
         }
