@@ -5,10 +5,12 @@
  */
 package View;
 
+import ModelUML.Player;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
@@ -39,6 +41,8 @@ public class PlayerCRUD extends javax.swing.JDialog {
      * realice.
      */
     private static byte mode;
+
+    private static ArrayList<Player> players;
 
     /**
      * Creates new form PlayerCRUD
@@ -77,7 +81,8 @@ public class PlayerCRUD extends javax.swing.JDialog {
         });
         try {
             if (mode != 0) {
-                ViewController.selectDBPlayers().forEach(e -> jComboBox2.addItem(e.getNickName()));
+                players = ViewController.selectDBPlayers();
+                players.forEach(e -> jComboBox2.addItem(e.getNickName()));
                 if (mode != 3) {
                     jFormattedTextField1.setEnabled(false);
                     jComboBox1.setEnabled(false);
@@ -321,7 +326,14 @@ public class PlayerCRUD extends javax.swing.JDialog {
     }//GEN-LAST:event_jFormattedTextField1ActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
+        players.stream().filter(p -> p.getNickName().equals((String) jComboBox2.getSelectedItem())).findFirst().ifPresent(c -> { //juro por todos los santos que esto no lo busqué en google
+            jTextField1.setText(c.getFullName());
+            jTextField2.setText(c.getNickName());
+            jFormattedTextField1.setText(c.getSalary().toString());
+            jTextField3.setText(c.getEmail());
+            String tn = (String) c.getTeam().getTeamName();
+            jComboBox1.setSelectedItem((tn == null) ? "Ninguno" : tn);
+        });
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void doClose(int retStatus) {
