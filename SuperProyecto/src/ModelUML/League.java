@@ -69,5 +69,15 @@ public class League {
     public void setMatchsets(ArrayList<MatchSet> matchsets) {
         this.matchsets = matchsets;
     }
+    /**
+     * Añade un MatchSet al objeto League
+     * @param mtx el MatchSet a añadir
+     */
+    public void addMatchSets(MatchSet mtx){
+        if(this.matchsets==null){
+            this.matchsets = new ArrayList();
+        }
+        this.matchsets.add(mtx);
+    }
 
 }

@@ -53,11 +53,15 @@ public class DBLeague {
      * @throws SQLException si se da alguna excepcion en SQL
      */
     public static int getLastLeagueID(Connection con) throws SQLException{
-        
+        int idLeague=1;
         Statement sta=con.createStatement();
         ResultSet resul= sta.executeQuery("SELECT * FROM LEAGUE");
-        resul.last();
-        int idLeague=resul.getInt(1);
+        while(resul.next()){
+            
+                idLeague=resul.getInt("ID_LG");
+            
+        }
+        
         resul.close();
         sta.close();
         return idLeague;
