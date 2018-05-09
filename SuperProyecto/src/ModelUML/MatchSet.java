@@ -20,7 +20,7 @@ public class MatchSet {
     /**
      * Construcion del atributo games.
      */
-    private ArrayList<Game> games;
+    private ArrayList<Game> games = new ArrayList<>();
 
     /**
      * Construtor lleno.
@@ -55,6 +55,23 @@ public class MatchSet {
      */
     public void setGames(ArrayList<Game> games) {
         this.games = games;
+    }
+
+    public void addGame(Game game) {
+        games.add(game);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public ArrayList<Game> myGames() {
+        return games;
+    }
+
+    @Override
+    public String toString() {
+        return "MatchSet{" + "games=" + games + '}';
     }
 
 }

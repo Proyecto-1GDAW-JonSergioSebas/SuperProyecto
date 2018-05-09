@@ -31,12 +31,12 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class SAXParserClassification extends DefaultHandler {
 
-    ArrayList myClassification;
+    ArrayList Classification;
 
     private String tempVal;
 
     //Para mantener el contexto
-    private Team team;
+    private TeamSax team;
     private String name;
     private int points;
 
@@ -44,7 +44,7 @@ public class SAXParserClassification extends DefaultHandler {
      * Inicializamos el ArrayList
      */
     public SAXParserClassification() {
-        myClassification = new ArrayList();
+        Classification = new ArrayList();
     }
 
     /**
@@ -83,8 +83,8 @@ public class SAXParserClassification extends DefaultHandler {
      * Iteramos a través de la lista y mostramos la información por pantalla
      */
     private void printData() {
-        System.out.println("Classification is: '" + myClassification.size() + "'.");
-        Iterator it = myClassification.iterator();
+        System.out.println("Classification is: '" + Classification.size() + "'.");
+        Iterator it = Classification.iterator();
         while (it.hasNext()) {
             System.out.println(it.next().toString());
         }
@@ -109,10 +109,10 @@ public class SAXParserClassification extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         //inicializamos
         tempVal = "";
-        if (qName.equalsIgnoreCase("Team")) {
-            team = new Team();
-            name = "";
-            points = 0;
+        if (qName.equalsIgnoreCase("team")) {
+            team = new TeamSax();
+            //name = "";
+            //points = 0;
         }
     }
 
@@ -143,14 +143,12 @@ public class SAXParserClassification extends DefaultHandler {
      * @throws SAXException si se da alguna excepcion SAX
      */
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        if (qName.equalsIgnoreCase("Team")) {
-            myClassification.add(team);
-        } else if (qName.equalsIgnoreCase("Name")) {
-            team.setTeamName(tempVal);
-        } else if (qName.equalsIgnoreCase("Points")) {
-            if (tempVal.equalsIgnoreCase("")) {
-                tempVal = "0";
-            }
+        if (qName.equalsIgnoreCase("team")) {
+            Classification.add(team);
+        } else if (qName.equalsIgnoreCase("name")) {
+            team.setName(tempVal);
+        } else if (qName.equalsIgnoreCase("points")) {
+            team.setPoints(Integer.parseInt(tempVal));
         }
     }
 

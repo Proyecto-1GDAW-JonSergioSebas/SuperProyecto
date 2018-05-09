@@ -31,26 +31,28 @@ import org.xml.sax.SAXException;
  */
 public class SAXParserLeague extends DefaultHandler {
 
-    ArrayList myLeague;
+    ArrayList matchset;
+    ArrayList updateDate;
 
     private String tempVal;
 
     //Para mantener el contexto
-    private League league;
-    private ArrayList<MatchSet> matchsets;
-    private Game game;
-    private Team team1;
+    private Date date;
+    private Game match;
+    private MatchSet matchSet;
+    private Team team;
+
+    /*private String team1;
     private Team team2;
     private int score1;
     private int score2;
-    private Date dateTime;
-    private MatchSet matchset;
-
+    private Date dateTime;*/
     /**
      * Inicializamos el ArrayList.
      */
     public SAXParserLeague() {
-        myLeague = new ArrayList();
+        matchset = new ArrayList();
+        updateDate = new ArrayList();
     }
 
     /**
@@ -88,10 +90,31 @@ public class SAXParserLeague extends DefaultHandler {
      * Iteramos a través de la lista y mostramos la información por pantalla
      */
     private void printData() {
-        System.out.println("Leagues'" + myLeague.size() + "'.");
-        Iterator it = myLeague.iterator();
-        while (it.hasNext()) {
-            System.out.println(it.next().toString());
+        System.out.println("Leagues'" + matchset.size() + "'.");
+
+        //bucle ++
+        int n = 0;
+        Boolean vControl = true;
+        while (vControl) {
+
+            try {
+
+                //for de los uypdateDate
+                for (int i = 0; i < 1; i++) {
+                    System.out.println(updateDate.get(n).toString());
+                    //for para coger la jornada
+                    for (int j = 0; j < 1; j++) {
+                        MatchSet m = (MatchSet) matchset.get(n);
+                        //de cada jornada mostrar sus games
+                        for (Object object : m.myGames()) {
+                            System.out.println(object.toString());
+                        }
+                    }
+                }
+                n++;
+            } catch (IndexOutOfBoundsException e) {
+                vControl = false;
+            }
         }
 
     }
@@ -114,15 +137,14 @@ public class SAXParserLeague extends DefaultHandler {
         //inicializamos
         tempVal = "";
         //Crear nuevas instancias de los objetos
-        if (qName.equalsIgnoreCase("League")) {
-            matchsets = new ArrayList<MatchSet>();
-            league.setMatchsets(matchsets);
-        } else if (qName.equalsIgnoreCase("UpdateDate")) {
-            
-        } else if (qName.equalsIgnoreCase("Matchset")) {
-            matchset = new MatchSet();
-        } else if (qName.equalsIgnoreCase("Match")) {
-            game = new Game();
+        /*if (qName.equalsIgnoreCase("updateDate")) {
+            date = new Date();
+        } else */
+        if (qName.equalsIgnoreCase("matchset")) {
+            matchSet = new MatchSet();
+        } else if (qName.equalsIgnoreCase("match")) {
+            match = new Game();
+            String id = attributes.getValue("id");
         }
     }
 
@@ -154,24 +176,29 @@ public class SAXParserLeague extends DefaultHandler {
      */
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        if (qName.equalsIgnoreCase("League")) {
-            //Añanadirlo a la lista
-            myLeague.add(league);
-        } else if (qName.equalsIgnoreCase("Matchsets")) {
-            matchset.setGames(myLeague);
-        } else if (qName.equalsIgnoreCase("Match")) {
 
-        } else if (qName.equalsIgnoreCase("Team1")) {
-            team1.setTeamName(tempVal);
-        } else if (qName.equalsIgnoreCase("Team2")) {
-            team2.setTeamName(tempVal);
-        } /*else if (qName.equalsIgnoreCase("Score1")) {
-            score1.setScore1(tempVal.charAt(0));
-        } else if (qName.equalsIgnoreCase("Score2")) {
-            score2                   
-        } else if (qName.equalsIgnoreCase("UpdateDate")) {
-            dateTime.setDateTime(Date.from(Instant.parse(tempVal)));
-        }*/
+        if (qName.equalsIgnoreCase("updateDate")) {
+            //Añanadirlo a la lista
+            updateDate.add(date = new Date(tempVal));
+        } else if (qName.equalsIgnoreCase("matchset")) {
+            matchset.add(matchSet);
+        } else if (qName.equalsIgnoreCase("match")) {
+            matchSet.addGame(match);
+        } else if (qName.equalsIgnoreCase("team1")) {
+            team = match.getTeam1();
+            team = new Team();
+            team.setTeamName(tempVal);
+            match.setTeam1(team);
+        } else if (qName.equalsIgnoreCase("team2")) {
+            team = match.getTeam2();
+            team = new Team();
+            team.setTeamName(tempVal);
+            match.setTeam2(team);
+        } else if (qName.equalsIgnoreCase("score1")) {
+            match.setScore1(Integer.parseInt(tempVal));
+        } else if (qName.equalsIgnoreCase("score2")) {
+            match.setScore2(Integer.parseInt(tempVal));
+        }
 
     }
 
