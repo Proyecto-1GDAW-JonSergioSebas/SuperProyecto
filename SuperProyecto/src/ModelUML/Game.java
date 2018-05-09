@@ -57,14 +57,18 @@ public class Game {
         this.dateTime = dateTime;
     }
 
+    /**
+     * Constructor vacio. (Para invocación por constructores de subclases,
+     * típicamente implícito.)
+     */
     public Game() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
-    
+
     /**
      * Es un Get que devuelve el nombre del equipo 1
      *
-     * @return team1  equipo devuelto
+     * @return team1 equipo devuelto
      */
     public Team getTeam1() {
         return team1;
@@ -73,25 +77,25 @@ public class Game {
     /**
      * Es un Set que establece el nombre del equipo 1
      *
-     * @param team1 establece el  equipo 1
+     * @param team1 establece el equipo 1
      */
     public void setTeam1(Team team1) {
         this.team1 = team1;
     }
 
     /**
-     * Es un Get que devuelve  equipo 2
+     * Es un Get que devuelve equipo 2
      *
-     * @return team2  equipo devuelto
+     * @return team2 equipo devuelto
      */
     public Team getTeam2() {
         return team2;
     }
 
     /**
-     * Es un Set que establece el  equipo 2
+     * Es un Set que establece el equipo 2
      *
-     * @param team2 establece el  equipo 2
+     * @param team2 establece el equipo 2
      */
     public void setTeam2(Team team2) {
         this.team2 = team2;

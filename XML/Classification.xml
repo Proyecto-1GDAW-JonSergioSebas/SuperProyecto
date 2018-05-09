@@ -3,7 +3,7 @@
 <classification xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="Classification.xsd">
     <team>
-        <name></name>
+        <name>hola</name>
         <points>0</points>
     </team>
     <team>

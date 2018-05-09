@@ -26,6 +26,7 @@ public class Team {
     private ArrayList<Player> players;
 
     /**
+     * Constructor lleno
      *
      * @param teamName El nombre del equipo
      * @param teamOwner El nombre del dueño del equipo
@@ -36,6 +37,7 @@ public class Team {
     }
 
     /**
+     * Constructor lleno.
      *
      * @param teamName El nombre del equipo
      * @param nationality El nombre del dueño del equipo
@@ -46,6 +48,8 @@ public class Team {
     }
 
     /**
+     * Constructor lleno.
+     *
      * @param teamName El nombre del equipo
      * @param nationality La nacionalidad del equipo
      * @param teamOwner El nombre del dueño del equipo

@@ -23,6 +23,7 @@ public class MatchSet {
     private ArrayList<Game> games;
 
     /**
+     * Construtor lleno.
      *
      * @param games (requiered)partidos que se van a jugar y que se han jugado
      */
@@ -30,13 +31,17 @@ public class MatchSet {
         this.games = games;
     }
 
+    /**
+     * Constructor vacio. (Para invocación por constructores de subclases,
+     * típicamente implícito.)
+     */
     public MatchSet() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     /**
      * Es un Get que devuelve los partidos
-     * 
+     *
      * @return games devuelve los partidos
      */
     public ArrayList<Game> getGames() {
@@ -45,7 +50,7 @@ public class MatchSet {
 
     /**
      * Es un Set que establece los partidos
-     * 
+     *
      * @param games establece los partidos
      */
     public void setGames(ArrayList<Game> games) {
