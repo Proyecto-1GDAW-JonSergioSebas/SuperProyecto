@@ -18,6 +18,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import ModelUML.DBUser;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -39,6 +40,8 @@ public class UserCRUD extends javax.swing.JDialog {
      * realice.
      */
     private static byte mode;
+
+    private static ArrayList<DBUser> users;
 
     /**
      * Creates new form UserCRUD
@@ -135,6 +138,11 @@ public class UserCRUD extends javax.swing.JDialog {
         jTextField2.setMaximumSize(new java.awt.Dimension(6, 20));
 
         jComboBox1.setMaximumRowCount(50);
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -260,6 +268,12 @@ public class UserCRUD extends javax.swing.JDialog {
         doClose(RET_CANCEL);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        users.stream().filter(p -> p.getUserName().equals((String) jComboBox1.getSelectedItem())).findFirst().ifPresent(c -> { //juro por todos los santos que esto no lo busqué en google
+            jTextField2.setText(c.getUserName());
+        });
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         dispose();
@@ -276,7 +290,8 @@ public class UserCRUD extends javax.swing.JDialog {
             pack();
         } else {
             try {
-                ViewController.selectDBUsers().forEach(e -> jComboBox1.addItem(e.getUserName()));
+                users = ViewController.selectDBUsers();
+                users.forEach(e -> jComboBox1.addItem(e.getUserName()));
             } catch (SQLException ex) {
                 Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -288,8 +303,7 @@ public class UserCRUD extends javax.swing.JDialog {
                 jLabel5.setVisible(false);
                 jLabel4.setVisible(false);
                 pack();
-            }
-            else {
+            } else {
                 jTextField2.setEnabled(false);
             }
         }

@@ -5,9 +5,11 @@
  */
 package View;
 
+import ModelUML.TeamOwner;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
@@ -38,6 +40,8 @@ public class OwnerCRUD extends javax.swing.JDialog {
      * realice.
      */
     private static byte mode;
+
+    private static ArrayList<TeamOwner> owners;
 
     /**
      * Creates new form OwnerCRUD
@@ -140,6 +144,11 @@ public class OwnerCRUD extends javax.swing.JDialog {
         jLabel5.setText("Contraseña otra vez");
 
         jComboBox1.setMaximumRowCount(50);
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -280,6 +289,14 @@ public class OwnerCRUD extends javax.swing.JDialog {
         doClose(RET_CANCEL);
     }//GEN-LAST:event_closeDialog
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        owners.stream().filter(p -> p.getUserName().equals((String) jComboBox1.getSelectedItem())).findFirst().ifPresent(c -> { //juro por todos los santos que esto no lo busqué en google
+            jTextField1.setText(c.getFullName());
+            jFormattedTextField1.setText(c.getTelephone());
+            jTextField2.setText(c.getUserName());
+        });
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
@@ -334,7 +351,8 @@ public class OwnerCRUD extends javax.swing.JDialog {
     private void mode() {
         try {
             if (mode != 0) {
-                ViewController.selectDBOwners().forEach(e -> jComboBox1.addItem(e.getUserName()));
+                owners = ViewController.selectDBOwners();
+                owners.forEach(e -> jComboBox1.addItem(e.getUserName()));
                 if (mode != 3) {
                     jPasswordField1.setVisible(false);
                     jPasswordField2.setVisible(false);

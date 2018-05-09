@@ -5,9 +5,11 @@
  */
 package View;
 
+import ModelUML.Team;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
@@ -38,6 +40,8 @@ public class TeamCRUD extends javax.swing.JDialog {
      * realice.
      */
     private static byte mode;
+
+    private static ArrayList<Team> teams;
 
     /**
      * Creates new form TeamCRUD
@@ -74,6 +78,28 @@ public class TeamCRUD extends javax.swing.JDialog {
                 doClose(RET_CANCEL);
             }
         });
+
+        try {
+            if (mode != 0) {
+                teams = ViewController.selectDBTeams();
+                teams.forEach(e -> jComboBox2.addItem(e.getTeamName()));
+                if (mode != 3) {
+                    jComboBox1.setEnabled(false);
+                    jTextField1.setEnabled(false);
+                    jTextField2.setEnabled(false);
+                }
+            } else {
+                jComboBox2.setVisible(false);
+                pack();
+            }
+            jComboBox1.addItem("Ninguno");
+            ViewController.selectDBOwners().forEach(e -> jComboBox1.addItem(e.getUserName()));
+            jComboBox1.setSelectedIndex(-1);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -131,6 +157,18 @@ public class TeamCRUD extends javax.swing.JDialog {
         jLabel4.setText("Nacionalidad (Opcional)");
 
         jLabel5.setText("Dueño");
+
+        jTextField2.setEnabled(false);
+
+        jComboBox1.setEnabled(false);
+
+        jTextField1.setEnabled(false);
+
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -246,6 +284,14 @@ public class TeamCRUD extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Por favor rellena todos los datos");
         }
     }//GEN-LAST:event_okButtonActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        teams.stream().filter(p -> p.getTeamName().equals((String) jComboBox2.getSelectedItem())).findFirst().ifPresent(c -> { //juro por todos los santos que esto no lo busqué en google
+            jTextField2.setText(c.getTeamName());
+            jComboBox1.setSelectedItem((String) c.getTeamOwner().getUserName());
+            jTextField1.setText(c.getNationality());
+        });
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void doClose(int retStatus) {
         returnStatus = retStatus;
