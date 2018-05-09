@@ -30,6 +30,7 @@ import ModelUML.TeamOwner;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,7 +52,7 @@ public class DBController {
      * @return la conexion a la base de datos
      */
     public static Connection createConnection() throws ClassNotFoundException, SQLException {
-
+        
         Class.forName("oracle.jdbc.OracleDriver");//Indicar el driver
         Connection con = DriverManager.getConnection("jdbc:oracle:thin:@SrvOracle:1521:orcl", "eqdaw01", "eqdaw01");//Crear la conexion
 
@@ -569,6 +570,11 @@ public class DBController {
      */
     public static void updateTeam(String teamname, String newTeamname, String newNationality, int teamownerid, Connection con) throws SQLException {
         DBTeam.updateTeam(teamname, newTeamname, newNationality, teamownerid, con);
+    }
+
+    public static ResultSet getClassification(int leagueid, Connection con) throws SQLException {
+        ResultSet rs = DBProcedures.getClassification(leagueid, con);
+        return rs;
     }
 
 }
