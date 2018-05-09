@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import oracle.jdbc.OracleCallableStatement;
+import oracle.jdbc.OracleTypes;
 
 /**
  *
@@ -37,7 +38,7 @@ public class DBProcedures {
      * Llama a un procedimiento almacenado en la base de datos que convenientemente
      * devuelve un REF_CURSOR con los equipos y su puntuacion, que serán transformados a 
      * ResultSet
-     * @param leaguename el nombre de la liga
+     * @param leagueid el id de la liga
      * @param con la conexion
      * @return un objeto ResultSet
      * @throws SQLException si se da alguna excepcion SQL
@@ -45,9 +46,9 @@ public class DBProcedures {
     public static ResultSet getClassification(int leagueid, Connection con) throws SQLException{
         CallableStatement cs = con.prepareCall("{CALL CLASSIFICATION.GET_CLASSIFICATION(?,?)}");//Magia oscura
         cs.setInt(1, leagueid);
-        cs.registerOutParameter(2,Types.REF_CURSOR);
+        cs.registerOutParameter(2,OracleTypes.CURSOR);
         cs.execute();
-        ResultSet rs = (ResultSet) cs.getObject(1);
+        ResultSet rs =cs.getResultSet();
         return rs;
     }
 }

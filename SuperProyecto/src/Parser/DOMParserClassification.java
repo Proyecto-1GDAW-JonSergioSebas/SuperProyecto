@@ -72,7 +72,7 @@ public class DOMParserClassification {
         }
     }
     
-    public static void executeDOMClassification(){
+    public static void main(String[] args){
         //Creamos una instancia
         DOMParserClassification dClassification = new DOMParserClassification();
         
@@ -86,6 +86,8 @@ public class DOMParserClassification {
         parseXMLFile();
         //Creamos los elementos y los agregamos al arbol DOM
         createDOMTree();
+        //Escribimos el Arbol DOM en el fichero XML
+        writeXMLFile();
     }
 
     private void parseXMLFile() {
@@ -97,7 +99,7 @@ public class DOMParserClassification {
             DocumentBuilder db = dbf.newDocumentBuilder();
 
             //parseamos utilizando el builder para obtener una instancia en DOM del XML
-            dom = db.parse("../XML/Classificationbase.xml");
+            dom = db.parse("../XML/Classification.xml");
 
         } catch (ParserConfigurationException pce) {
             pce.printStackTrace();
@@ -135,5 +137,22 @@ public class DOMParserClassification {
         teamEle.appendChild(pointEle);
         
         return teamEle;
+    }
+
+    private void writeXMLFile() {
+         try {
+            //Configuramos el formato de salida del fichero
+            OutputFormat format = new OutputFormat(dom);
+            format.setIndenting(true);
+
+            //to generate a file output use fileoutputstream instead of system.out
+            XMLSerializer serializer = new XMLSerializer(
+                    new FileOutputStream(new File("../XML/Classification.xml")), format);
+
+            serializer.serialize(dom);
+
+        } catch (IOException ie) {
+            ie.printStackTrace();
+        }
     }
 }

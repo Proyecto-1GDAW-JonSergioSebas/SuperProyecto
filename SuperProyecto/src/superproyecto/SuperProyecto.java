@@ -30,6 +30,7 @@ import ModelUML.MatchSet;
 import ModelUML.Player;
 import ModelUML.Team;
 import ModelUML.TeamOwner;
+import Parser.DOMParserLeague;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -62,8 +63,14 @@ public class SuperProyecto {
             Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
         }
         /*^^NO MODIFICAR ESTO^^*/
-        ViewController.login();
-
+            
+            
+            ViewController.login();
+              
+            
+            
+          
+                  
     }
 
     /**

@@ -14,8 +14,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,6 +31,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.xml.sax.SAXException;
+import superproyecto.SuperProyecto;
 import static superproyecto.SuperProyecto.askAllGamesID;
 import static superproyecto.SuperProyecto.askLastLeagueID;
 import static superproyecto.SuperProyecto.askMatchSetsID;
@@ -42,7 +46,7 @@ import static superproyecto.SuperProyecto.createMatchSets;
 public class DOMParserLeague {
     //
     League league;
-    Document dom;
+    static Document dom;
     int gameIDCounter=0;
     ArrayList<Integer> gamesID;
     /**
@@ -64,10 +68,11 @@ public class DOMParserLeague {
         ArrayList<Integer> matchSetsID =askMatchSetsID(idLeague,con);
         ArrayList<MatchSet> matchSets = new ArrayList();
         
-        for(int x:matchSetsID){
-            matchSets.add(createMatchSets(x,con));
+        for(Integer x:matchSetsID){
+            MatchSet tempMatchSet = SuperProyecto.createMatchSets(x,con);
+            league.addMatchSets(tempMatchSet);
         }
-        league.setMatchsets(matchSets);
+        
         gamesID=askAllGamesID(idLeague,con);
         con.close();
     }
@@ -113,6 +118,8 @@ public class DOMParserLeague {
         /*Ahora se va a recorrer el ArrayList de MatchSet que hay en league, creando cada
         objeto MatchSet, a su vez, para cada MatchSet, se recorrera el ArrayList de Game 
         creando los objetos cada uno con sus elementos y atributos */
+        Element dateEle = createupdatedateElement();
+        rootLeague.appendChild(dateEle);
         Iterator it = league.getMatchsets().iterator();
         while(it.hasNext()){
             MatchSet ms = (MatchSet)it.next();
@@ -169,11 +176,6 @@ public class DOMParserLeague {
             score2Ele.appendChild(score2Text);
             gameEle.appendChild(score2Ele);
         }
-        //Date
-        Element dateEle = dom.createElement("date");
-        Text dateText = dom.createTextNode(gm.getDateTime().toString());
-        dateEle.appendChild(dateText);
-        gameEle.appendChild(dateEle);
         
         return gameEle;
     }
@@ -190,7 +192,7 @@ public class DOMParserLeague {
             DocumentBuilder db = dbf.newDocumentBuilder();
 
             //parseamos utilizando el builder para obtener una instancia en DOM del XML
-            dom = db.parse("../XML/Leaguebase.xml");
+            dom = db.parse("../XML/League.xml");
 
         } catch (ParserConfigurationException pce) {
             pce.printStackTrace();
@@ -203,13 +205,52 @@ public class DOMParserLeague {
     /**
      * Ejecuta todo el parser
      */
-    public static void executeDOMLeague() throws ClassNotFoundException, SQLException{
-        
+    public static void main(String[] args) throws ClassNotFoundException, SQLException{
         //Creamos una instancia
         DOMParserLeague dLeague = new DOMParserLeague();
-        
+        if(updaterequired()){
         //Ejecutamos
         dLeague.execute();
+        }
+    }
+    /**
+     * Comprueba que la fecha de actualizacion sea menor que el dia actual y si es asi
+     * actualiza la fecha de actualizacion con la fecha del siguiente partido
+     * @return un Element
+     */
+    private Element createupdatedateElement() {
+        //El objeto a retornar
+        Element updatedateEle = dom.createElement("updatedate");
+        //Obtenemos el documento
+        Element docEle = dom.getDocumentElement();
+        //Obtenemos el nodo <updatedate>
+        NodeList nl = docEle.getElementsByTagName("updatedate");
+        //El Text que se le asignara a update date
+        Text updatedateText= dom.createTextNode(nl.item(1).getFirstChild().getTextContent());
+        //Pasamos el texto de ese nodo a date
+        String currentdateS = nl.item(1).getFirstChild().getTextContent();
+        Date currentdate = Date.valueOf(currentdateS);
+        //Obtenemos la fecha del sistema
+        Date systemdate =Date.valueOf( new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));//Estoy orgulloso de esta linea
+        if(currentdate.before(systemdate)){
+            for(MatchSet mts:league.getMatchsets()){
+                for(Game gms:mts.getGames()){
+                    if(gms.getDateTime().equals(systemdate)){
+                        updatedateText = dom.createTextNode(gms.getDateTime().toString());
+                    }
+                }
+            }
+        }
+        updatedateEle.appendChild(updatedateText);
+        return updatedateEle;
+    }
+    private static boolean updaterequired(){
+        Element docEle = dom.getDocumentElement();
+        NodeList nl = docEle.getElementsByTagName("updatedate");
+        if(Date.valueOf(nl.item(1).getFirstChild().getTextContent()).before(Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime())))){//Mas orgulloso aun
+            return true;
+        }
+        return false;
     }
     
 }
