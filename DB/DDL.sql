@@ -107,7 +107,7 @@ CREATE TABLE GAME_RESULT ( --GR
 );
 /
 
---ahora vamos con la creacion de triggers y procesos
+--ahora vamos con la creacion de triggers y vistas
 CREATE OR REPLACE PACKAGE TRIGGER_MT AS --este trigger existe solo para la creacion de las variable que contiene
   TEMP_PLAYER PLAYER%ROWTYPE := NULL; --las cuales existen solo para prevenir el error de tabla mutante en los triggers codificados mas adelante
   TEMP_ADMIN DB_ADMIN%ROWTYPE := NULL;
@@ -169,7 +169,7 @@ DECLARE
   CURSOR LIST IS SELECT USERNAME FROM USERNAMES; --aqui llamamos a la vista de nombres de usuario declarada antes, y hacemos un cursor con sus contenidos
 BEGIN
   FOR US IN LIST LOOP --por cada nombre de usuario en el cursor
-    IF UPPER(TRIGGER_MT.TEMP_ADMIN.USERNAME) IN UPPER(US.USERNAME) THEN --verificamos que no coincida con el nuevo nombre de usuario
+    IF UPPER(TRIGGER_MT.TEMP_ADMIN.USERNAME) = UPPER(US.USERNAME) THEN --verificamos que no coincida con el nuevo nombre de usuario
       RAISE_APPLICATION_ERROR(-20003, 'El nombre de usuario ya está utilizado.'); --y si coincide, salta esta excepcion
     END IF;
   END LOOP;
@@ -189,7 +189,7 @@ DECLARE
   CURSOR LIST IS SELECT USERNAME FROM USERNAMES;
 BEGIN
   FOR US IN LIST LOOP
-    IF UPPER(TRIGGER_MT.TEMP_USER.USERNAME) IN UPPER(US.USERNAME) THEN
+    IF UPPER(TRIGGER_MT.TEMP_USER.USERNAME) = UPPER(US.USERNAME) THEN
       RAISE_APPLICATION_ERROR(-20003, 'El nombre de usuario ya está utilizado.');
     END IF;
   END LOOP;
@@ -209,7 +209,7 @@ DECLARE
   CURSOR LIST IS SELECT USERNAME FROM USERNAMES;
 BEGIN
   FOR US IN LIST LOOP
-    IF UPPER(TRIGGER_MT.TEMP_OWNER.USERNAME) IN UPPER(US.USERNAME) THEN
+    IF UPPER(TRIGGER_MT.TEMP_OWNER.USERNAME) = UPPER(US.USERNAME) THEN
       RAISE_APPLICATION_ERROR(-20003, 'El nombre de usuario ya está utilizado.');
     END IF;
   END LOOP;
