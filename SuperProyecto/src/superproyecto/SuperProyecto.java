@@ -142,6 +142,15 @@ public class SuperProyecto {
                 MatchSet tempms = new MatchSet(tempGames);
                 league.add(tempms);
             }
+            
+            for(int x=0;x<league.size();x++){
+                for(Game mthc:league.get(x).getGames()){
+                    System.out.println(mthc.getTeam1().getTeamName()+"  "+mthc.getTeam2().getTeamName());
+                }
+            }
+                
+                
+            
             //Ahora creamos la Liga en la Base de Datos
             createLeague(leaguename, con);
 
@@ -235,10 +244,14 @@ public class SuperProyecto {
             ArrayList<Integer> teamID = obtainGameTeamID(id, con);
             ArrayList<Integer> scores = obtainScores(id, con);
             ArrayList<Team> teams = new ArrayList();
+            if(id<29){
             for (Integer tid : teamID) {
                 teams.add(obtainTeam(tid, con));
             }
-
+            }else{
+                teams.add(obtainTeam(teamID.get(1),con));
+                teams.add(obtainTeam(teamID.get(0),con));
+            }
             games.add(new Game(teams.get(0), teams.get(1), scores.get(0), scores.get(1), obtainGameDate(id, con)));
             x++;
         }

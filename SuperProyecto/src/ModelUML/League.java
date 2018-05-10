@@ -33,6 +33,13 @@ public class League {
         this.leagueName = leagueName;
         this.matchsets = matchsets;
     }
+    /**
+     * Constructor solo con el nombre
+     * @param leagueName el nombre de la liga
+     */
+    public League (String leagueName){
+        this.leagueName = leagueName;
+    }
 
     /**
      * Es un Get que devuelve el nombre de la liga

@@ -45,7 +45,7 @@ import static superproyecto.SuperProyecto.createMatchSets;
  */
 public class DOMParserLeague {
     //
-    League league;
+    League league= new League("tempname");
     static Document dom;
     int gameIDCounter=0;
     ArrayList<Integer> gamesID;
@@ -84,6 +84,8 @@ public class DOMParserLeague {
         System.out.println("Ejecutando..");
         //Volcamos el fichero XML en memoria como arbol de DOM
         parseXMLFile();
+        //Borramos el fichero desactualizado
+        deletePreviousContent();
         //Creamos los elementos y los agregamos al arbol de DOM
         createDOMTree();
         //Escribimos el arbol DOM en el fichero XML
@@ -152,6 +154,7 @@ public class DOMParserLeague {
         Element gameEle = dom.createElement("match");
         //Ahora creamos los elementos y el atributo y lo asociamos al Game
         gameEle.setAttribute("id",""+gamesID.get(gameIDCounter));//esa forma de convertir a String tan "Meh"
+        System.out.println(""+gamesID.get(gameIDCounter));
         gameIDCounter++;
         //Equipo1
         Element team1Ele=dom.createElement("team1");
@@ -164,6 +167,7 @@ public class DOMParserLeague {
         team2Ele.appendChild(team2Text);
         gameEle.appendChild(team2Ele);
         //Si no son nulos los score
+        System.out.println(gm.getTeam1().getTeamName()+" "+gm.getTeam2().getTeamName());
         if(Integer.valueOf(gm.getScore1())!=null||Integer.valueOf(gm.getScore2())!=null){
             //Score1
             Element score1Ele = dom.createElement("score1");
@@ -208,10 +212,10 @@ public class DOMParserLeague {
     public static void main(String[] args) throws ClassNotFoundException, SQLException{
         //Creamos una instancia
         DOMParserLeague dLeague = new DOMParserLeague();
-        if(updaterequired()){
+        
         //Ejecutamos
         dLeague.execute();
-        }
+        
     }
     /**
      * Comprueba que la fecha de actualizacion sea menor que el dia actual y si es asi
@@ -219,16 +223,23 @@ public class DOMParserLeague {
      * @return un Element
      */
     private Element createupdatedateElement() {
-        //El objeto a retornar
-        Element updatedateEle = dom.createElement("updatedate");
+        
         //Obtenemos el documento
         Element docEle = dom.getDocumentElement();
         //Obtenemos el nodo <updatedate>
         NodeList nl = docEle.getElementsByTagName("updatedate");
         //El Text que se le asignara a update date
-        Text updatedateText= dom.createTextNode(nl.item(1).getFirstChild().getTextContent());
+        /*
+        Tengo que CAMBIAR la forma en la que organiza todo esto, 
+        1-transformar lo que devuelve el node list en un elemento
+        2-sacar el dato que necesito de ese elemento, que es su texto
+        3- convertir el texto a Date, eso ya no tengo que cambiar casi nada
+        4- Para el String de currentDateS no le puedo dar directamente el objeto y el text value
+        */
+        Element ele =(Element) nl.item(0);
+        Text updatedateText= dom.createTextNode(ele.getTextContent());
         //Pasamos el texto de ese nodo a date
-        String currentdateS = nl.item(1).getFirstChild().getTextContent();
+        String currentdateS = ele.getTextContent();
         Date currentdate = Date.valueOf(currentdateS);
         //Obtenemos la fecha del sistema
         Date systemdate =Date.valueOf( new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));//Estoy orgulloso de esta linea
@@ -241,16 +252,23 @@ public class DOMParserLeague {
                 }
             }
         }
+        //El objeto a retornar
+        docEle.removeChild(ele);
+        Element updatedateEle = dom.createElement("updatedate");
         updatedateEle.appendChild(updatedateText);
         return updatedateEle;
     }
-    private static boolean updaterequired(){
-        Element docEle = dom.getDocumentElement();
-        NodeList nl = docEle.getElementsByTagName("updatedate");
-        if(Date.valueOf(nl.item(1).getFirstChild().getTextContent()).before(Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime())))){//Mas orgulloso aun
-            return true;
+
+    private void deletePreviousContent() {
+        Element docEle= dom.getDocumentElement();
+        for(int x=0;x<gamesID.size();x++){
+        NodeList nl = docEle.getElementsByTagName("matchset");
+            for (int i = 0; i < nl.getLength(); i++) {
+                Element matchSeto = (Element) nl.item(i);
+                    docEle.removeChild(matchSeto);
         }
-        return false;
+        }
     }
+    
     
 }
