@@ -143,8 +143,8 @@ public class ViewController {
      * @throws SQLException si se da alguna excepcion SQL
      * @throws ClassNotFoundException si no se encuentra la clase en la conexion
      */
-    public static void deleteUser(String us, char[] pw) throws SQLException, ClassNotFoundException {
-        SuperProyecto.deleteDBUser(us, pw);
+    public static void deleteUser(String us) throws SQLException, ClassNotFoundException {
+        SuperProyecto.deleteDBUser(us);
     }
 
     public static void selectUsers() {

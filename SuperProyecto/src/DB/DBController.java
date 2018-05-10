@@ -54,7 +54,7 @@ public class DBController {
      * @return la conexion a la base de datos
      */
     public static Connection createConnection() throws ClassNotFoundException, SQLException {
-        
+
         Class.forName("oracle.jdbc.OracleDriver");//Indicar el driver
         Connection con = DriverManager.getConnection("jdbc:oracle:thin:@SrvOracle:1521:orcl", "eqdaw01", "eqdaw01");//Crear la conexion
 
@@ -192,8 +192,8 @@ public class DBController {
      * @param con la conexion
      * @throws SQLException si se da alguna excepcion SQL
      */
-    public static void deleteDBDBUser(String username, char[] password, Connection con) throws SQLException {
-        DBDBUser.deleteDBUser(username, password, con);
+    public static void deleteDBDBUser(String username, Connection con) throws SQLException {
+        DBDBUser.deleteDBUser(username, con);
     }
 
     /**
