@@ -8,11 +8,12 @@ package Parser;
 import ModelUML.*;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -42,11 +43,6 @@ public class SAXParserLeague extends DefaultHandler {
     private MatchSet matchSet;
     private Team team;
 
-    /*private String team1;
-    private Team team2;
-    private int score1;
-    private int score2;
-    private Date dateTime;*/
     /**
      * Inicializamos el ArrayList.
      */
@@ -99,7 +95,7 @@ public class SAXParserLeague extends DefaultHandler {
 
             try {
 
-                //for de los uypdateDate
+                //for de los updateDate
                 for (int i = 0; i < 1; i++) {
                     System.out.println(updateDate.get(n).toString());
                     //for para coger la jornada
@@ -144,7 +140,7 @@ public class SAXParserLeague extends DefaultHandler {
             matchSet = new MatchSet();
         } else if (qName.equalsIgnoreCase("match")) {
             match = new Game();
-            String id = attributes.getValue("id");
+            String id = attributes.getValue("id");      
         }
     }
 
@@ -179,11 +175,11 @@ public class SAXParserLeague extends DefaultHandler {
 
         if (qName.equalsIgnoreCase("updateDate")) {
             //Añanadirlo a la lista
-            updateDate.add(date = new Date(tempVal));
+            updateDate.add(date = Date.valueOf(tempVal));
         } else if (qName.equalsIgnoreCase("matchset")) {
             matchset.add(matchSet);
         } else if (qName.equalsIgnoreCase("match")) {
-            matchSet.addGame(match);
+            matchSet.addGame(match);           
         } else if (qName.equalsIgnoreCase("team1")) {
             team = match.getTeam1();
             team = new Team();

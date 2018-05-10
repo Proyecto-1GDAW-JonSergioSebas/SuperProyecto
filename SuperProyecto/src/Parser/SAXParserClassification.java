@@ -37,9 +37,6 @@ public class SAXParserClassification extends DefaultHandler {
 
     //Para mantener el contexto
     private TeamSax team;
-    private String name;
-    private int points;
-
     /**
      * Inicializamos el ArrayList
      */
