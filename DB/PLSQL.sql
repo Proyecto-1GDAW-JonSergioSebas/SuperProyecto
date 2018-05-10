@@ -50,7 +50,7 @@ CREATE OR REPLACE PACKAGE BODY CLASSIFICATION AS
       END LOOP;
       GET_SCORE(ID_LG); --llamamos al proceso que eventualmente maneja las puntuaciones de los equipos
       OPEN CLASSIFICATION_OUT FOR SELECT * FROM CLASSIFICATION_TEMP;
-      --DELETE FROM CLASSIFICATION_TEMP;
+      DELETE FROM CLASSIFICATION_TEMP;
     END;
   
   PROCEDURE GET_SCORE (ID_LG NUMBER) IS --lo unico que hace este proceso es llamar a otro, enviandole los juegos de la liga como parametro
