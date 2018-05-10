@@ -36,6 +36,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
+ * Esta clase se encarga de gestionar las relaciones con las clases que se encuentren
+ * fuera del paquete DB y las que se encuentran dentro
  * @author Sebastián Zawisza
  * @author Sergio Zulueta
  * @author Jon Maneiro
