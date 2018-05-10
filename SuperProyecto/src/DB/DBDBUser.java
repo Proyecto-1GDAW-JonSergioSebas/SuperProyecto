@@ -47,10 +47,10 @@ public class DBDBUser {
      * @param con la conexion
      * @throws SQLException si se da una excepcion SQL
      */
-    public static void deleteDBUser(String username, char[] password, Connection con) throws SQLException {
+    public static void deleteDBUser(String username, Connection con) throws SQLException {
 
         Statement sta = con.createStatement();
-        sta.executeUpdate("DELETE FROM DB_USER WHERE USERNAME='" + username + "' AND PASSWD='" + String.valueOf(password) + "'");
+        sta.executeUpdate("DELETE FROM DB_USER WHERE USERNAME='" + username + "'");
         sta.close();
     }
 

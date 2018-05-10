@@ -135,6 +135,7 @@ public class UserCRUD extends javax.swing.JDialog {
             }
         });
 
+        jTextField2.setEnabled(false);
         jTextField2.setMaximumSize(new java.awt.Dimension(6, 20));
 
         jComboBox1.setMaximumRowCount(50);
@@ -207,13 +208,14 @@ public class UserCRUD extends javax.swing.JDialog {
     }//GEN-LAST:event_closeDialog
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        if (jPasswordField1.getPassword().equals(jPasswordField2.getPassword())) {
+        if (String.valueOf(jPasswordField1.getPassword()).equals(String.valueOf(jPasswordField2.getPassword()))) {
             switch (mode) { //cdru
                 case 0:
                     try {
 
                         ViewController.insertUser(jTextField2.getText(), jPasswordField1.getPassword());
                         JOptionPane.showMessageDialog(this, "Usuario insertado.");
+                        mode();
                         clean();
 
                     } catch (SQLException ex) {
@@ -226,8 +228,9 @@ public class UserCRUD extends javax.swing.JDialog {
                     try {
 
                         jComboBox1.setSelectedIndex(-1);
-                        ViewController.deleteUser(jTextField2.getText(), jPasswordField1.getPassword());
+                        ViewController.deleteUser(jTextField2.getText());
                         JOptionPane.showMessageDialog(this, "Usuario eliminado.");
+                        mode();
                         clean();
 
                     } catch (SQLException ex) {
@@ -284,12 +287,13 @@ public class UserCRUD extends javax.swing.JDialog {
      * dependiendo del modo de la ventana.
      */
     private void mode() {
-        System.out.println(mode);
         if (mode == 0) {
             jComboBox1.setVisible(false);
+            jTextField2.setEnabled(true);
             pack();
         } else {
             try {
+                jComboBox1.removeAllItems();
                 users = ViewController.selectDBUsers();
                 users.forEach(e -> jComboBox1.addItem(e.getUserName()));
             } catch (SQLException ex) {
@@ -303,9 +307,11 @@ public class UserCRUD extends javax.swing.JDialog {
                 jLabel5.setVisible(false);
                 jLabel4.setVisible(false);
                 pack();
-            } else {
-                jTextField2.setEnabled(false);
+            } else {                
+                jTextField2.setEnabled(true);
             }
+            jComboBox1.setSelectedIndex(-1);
+            clean();
         }
 
     }
