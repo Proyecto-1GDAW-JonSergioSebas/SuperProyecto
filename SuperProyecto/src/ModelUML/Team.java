@@ -147,6 +147,9 @@ public class Team {
      * @param player el jugador a añadir
      */
     public void addPlayer(Player player) {
+    if (players == null) {
+        players = new ArrayList();
+    }
         this.players.add(player);
     }
 

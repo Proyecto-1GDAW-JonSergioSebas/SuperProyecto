@@ -17,6 +17,8 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import ModelUML.DBUser;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -38,6 +40,8 @@ public class UserCRUD extends javax.swing.JDialog {
      * realice.
      */
     private static byte mode;
+
+    private static ArrayList<DBUser> users;
 
     /**
      * Creates new form UserCRUD
@@ -76,6 +80,7 @@ public class UserCRUD extends javax.swing.JDialog {
         });
         this.mode = mode;
         mode();
+
     }
 
     /**
@@ -110,10 +115,6 @@ public class UserCRUD extends javax.swing.JDialog {
             }
         });
 
-        jPasswordField1.setEnabled(false);
-
-        jPasswordField2.setEnabled(false);
-
         jLabel3.setText("Nombre de Usuario");
 
         jLabel4.setText("Contraseña");
@@ -135,6 +136,14 @@ public class UserCRUD extends javax.swing.JDialog {
         });
 
         jTextField2.setEnabled(false);
+        jTextField2.setMaximumSize(new java.awt.Dimension(6, 20));
+
+        jComboBox1.setMaximumRowCount(50);
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,18 +157,17 @@ public class UserCRUD extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPasswordField2)
-                            .addComponent(jPasswordField1)
-                            .addComponent(jTextField2)))
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(43, 43, 43)
+                        .addComponent(jLabel4))
                     .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -200,24 +208,53 @@ public class UserCRUD extends javax.swing.JDialog {
     }//GEN-LAST:event_closeDialog
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        if (jPasswordField1.getPassword().equals(jPasswordField2.getPassword())) {
+        if (String.valueOf(jPasswordField1.getPassword()).equals(String.valueOf(jPasswordField2.getPassword()))) {
             switch (mode) { //cdru
                 case 0:
-                    ViewController.insertUser(jTextField2.getText(), jPasswordField1.getPassword());
-                    JOptionPane.showMessageDialog(this, "Usuario insertado.");
-                    clean();
+                    try {
+
+                        ViewController.insertUser(jTextField2.getText(), jPasswordField1.getPassword());
+                        JOptionPane.showMessageDialog(this, "Usuario insertado.");
+                        mode();
+                        clean();
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     break;
                 case 1:
-                    jComboBox1.setSelectedIndex(-1);
+                    try {
 
-                    clean();
+                        jComboBox1.setSelectedIndex(-1);
+                        ViewController.deleteUser(jTextField2.getText());
+                        JOptionPane.showMessageDialog(this, "Usuario eliminado.");
+                        mode();
+                        clean();
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     break;
                 case 2:
                     dispose();
                     break;
                 case 3:
-                    jComboBox1.setSelectedIndex(-1);
-                    clean();
+                    try {
+
+                        jComboBox1.setSelectedIndex(-1);
+                        ViewController.updateUser(jTextField2.getText(), jPasswordField1.getPassword());
+                        JOptionPane.showMessageDialog(this, "Usuario actualizado");
+                        clean();
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     break;
             }
 
@@ -227,12 +264,18 @@ public class UserCRUD extends javax.swing.JDialog {
             jPasswordField2.setText("");
         }
 
-        
+
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         doClose(RET_CANCEL);
     }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        users.stream().filter(p -> p.getUserName().equals((String) jComboBox1.getSelectedItem())).findFirst().ifPresent(c -> { //juro por todos los santos que esto no lo busqué en google
+            jTextField2.setText(c.getUserName());
+        });
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void doClose(int retStatus) {
         returnStatus = retStatus;
@@ -247,11 +290,28 @@ public class UserCRUD extends javax.swing.JDialog {
         if (mode == 0) {
             jComboBox1.setVisible(false);
             jTextField2.setEnabled(true);
-            jPasswordField1.setEnabled(true);
-            jPasswordField2.setEnabled(true);
             pack();
         } else {
-            
+            try {
+                jComboBox1.removeAllItems();
+                users = ViewController.selectDBUsers();
+                users.forEach(e -> jComboBox1.addItem(e.getUserName()));
+            } catch (SQLException ex) {
+                Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (mode != 3) {
+                jPasswordField1.setVisible(false);
+                jPasswordField2.setVisible(false);
+                jLabel5.setVisible(false);
+                jLabel4.setVisible(false);
+                pack();
+            } else {                
+                jTextField2.setEnabled(true);
+            }
+            jComboBox1.setSelectedIndex(-1);
+            clean();
         }
 
     }

@@ -5,14 +5,18 @@
  */
 package View;
 
+import ModelUML.Team;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -32,18 +36,23 @@ public class TeamCRUD extends javax.swing.JDialog {
      */
     public static final int RET_OK = 1;
     /**
-     * El modo de la ventana, que determina qué función del CRUD se supone que realice.
+     * El modo de la ventana, que determina qué función del CRUD se supone que
+     * realice.
      */
     private static byte mode;
+
+    private static ArrayList<Team> teams;
+
     /**
      * Creates new form TeamCRUD
+     *
      * @param parent el elemento padre
      * @param modal modal
      * @param mode mode
      */
     public TeamCRUD(java.awt.Frame parent, boolean modal, byte mode) {
         super(parent, modal);
-        initComponents();        
+        initComponents();
         //<editor-fold defaultstate="collapsed" desc=" System look and feel setting code ">
         try {
             /* Set the System look and feel */
@@ -69,6 +78,28 @@ public class TeamCRUD extends javax.swing.JDialog {
                 doClose(RET_CANCEL);
             }
         });
+
+        try {
+            if (mode != 0) {
+                teams = ViewController.selectDBTeams();
+                teams.forEach(e -> jComboBox2.addItem(e.getTeamName()));
+                if (mode != 3) {
+                    jComboBox1.setEnabled(false);
+                    jTextField1.setEnabled(false);
+                    jTextField2.setEnabled(false);
+                }
+            } else {
+                jComboBox2.setVisible(false);
+                pack();
+            }
+            jComboBox1.addItem("Ninguno");
+            ViewController.selectDBOwners().forEach(e -> jComboBox1.addItem(e.getUserName()));
+            jComboBox1.setSelectedIndex(-1);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -126,6 +157,18 @@ public class TeamCRUD extends javax.swing.JDialog {
         jLabel4.setText("Nacionalidad (Opcional)");
 
         jLabel5.setText("Dueño");
+
+        jTextField2.setEnabled(false);
+
+        jComboBox1.setEnabled(false);
+
+        jTextField1.setEnabled(false);
+
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -192,9 +235,64 @@ public class TeamCRUD extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        doClose(RET_OK);
+        if (validar()) {
+            switch (mode) {//cdru
+                case 0:
+                    try {
+                        if (jTextField1.getText().isEmpty()) {
+                            ViewController.insertTeam(jTextField2.getText(), jComboBox1.getSelectedItem().toString());
+                        } else {
+                            ViewController.insertTeam(jTextField2.getText(), jTextField1.getText(), jComboBox1.getSelectedItem().toString());
+                        }
+                        clear();
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                case 1:
+                    try {
+                        ViewController.deleteTeam(jTextField2.getText());
+                        clear();
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                case 2:
+                    dispose();
+                    break;
+                case 3:
+                    try {
+                        if (jTextField1.getText().isEmpty()) {
+                            ViewController.updateTeam(jComboBox2.getSelectedItem().toString(), jTextField2.getText(), jComboBox1.getSelectedItem().toString());
+                        } else {
+                            ViewController.updateTeam(jComboBox2.getSelectedItem().toString(), jTextField2.getText(), jTextField1.getText(), jComboBox1.getSelectedItem().toString());
+                        }
+                        clear();
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor rellena todos los datos");
+        }
     }//GEN-LAST:event_okButtonActionPerformed
-    
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        teams.stream().filter(p -> p.getTeamName().equals((String) jComboBox2.getSelectedItem())).findFirst().ifPresent(c -> { //juro por todos los santos que esto no lo busqué en google
+            jTextField2.setText(c.getTeamName());
+            jComboBox1.setSelectedItem((String) c.getTeamOwner().getUserName());
+            jTextField1.setText(c.getNationality());
+        });
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
@@ -235,4 +333,22 @@ public class TeamCRUD extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private int returnStatus = RET_CANCEL;
+
+    /**
+     * Valida que los campos esten llenos
+     *
+     * @return true si estan llenos, false si estan vacios
+     */
+    private boolean validar() {
+        if (jTextField2.getText().isEmpty() || jComboBox1.getSelectedIndex() == -1) {
+            return false;
+        }
+        return true;
+    }
+
+    private void clear() {
+        jComboBox1.setSelectedIndex(-1);
+        jTextField1.setText("");
+        jTextField2.setText("");
+    }
 }

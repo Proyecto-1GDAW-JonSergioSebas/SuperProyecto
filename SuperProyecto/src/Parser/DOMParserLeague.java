@@ -14,8 +14,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,6 +31,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.xml.sax.SAXException;
+import superproyecto.SuperProyecto;
 import static superproyecto.SuperProyecto.askAllGamesID;
 import static superproyecto.SuperProyecto.askLastLeagueID;
 import static superproyecto.SuperProyecto.askMatchSetsID;
@@ -41,8 +45,8 @@ import static superproyecto.SuperProyecto.createMatchSets;
  */
 public class DOMParserLeague {
     //
-    League league;
-    Document dom;
+    League league= new League("tempname");
+    static Document dom;
     int gameIDCounter=0;
     ArrayList<Integer> gamesID;
     /**
@@ -64,10 +68,11 @@ public class DOMParserLeague {
         ArrayList<Integer> matchSetsID =askMatchSetsID(idLeague,con);
         ArrayList<MatchSet> matchSets = new ArrayList();
         
-        for(int x:matchSetsID){
-            matchSets.add(createMatchSets(x,con));
+        for(Integer x:matchSetsID){
+            MatchSet tempMatchSet = SuperProyecto.createMatchSets(x,con);
+            league.addMatchSets(tempMatchSet);
         }
-        league.setMatchsets(matchSets);
+        
         gamesID=askAllGamesID(idLeague,con);
         con.close();
     }
@@ -75,20 +80,22 @@ public class DOMParserLeague {
      * LLama a las funciones necesarias para parsear, crear el arbol de DOM, y
      * escribir en el fichero XML
      */
-    public void ejecutar(){
+    public void execute(){
         System.out.println("Ejecutando..");
         //Volcamos el fichero XML en memoria como arbol de DOM
-        parsearFicheroXML();
+        parseXMLFile();
+        //Borramos el fichero desactualizado
+        deletePreviousContent();
         //Creamos los elementos y los agregamos al arbol de DOM
-        crearArbolDOM();
+        createDOMTree();
         //Escribimos el arbol DOM en el fichero XML
-        escribirFicheroXML();
+        writeXMLFile();
         System.out.println("Fichero modificado correctamente");
     }
     /**
      * Escribe en el documento XML el arbol DOM
      */
-    private void escribirFicheroXML(){
+    private void writeXMLFile(){
         try {
             //Configuramos el formato de salida del fichero
             OutputFormat format = new OutputFormat(dom);
@@ -107,18 +114,20 @@ public class DOMParserLeague {
     /**
      * Crea el arbol DOM
      */
-    private void crearArbolDOM(){
+    private void createDOMTree(){
         //referencia al objeto raiz<league>
-        Element raizLeague = dom.getDocumentElement();
+        Element rootLeague = dom.getDocumentElement();
         /*Ahora se va a recorrer el ArrayList de MatchSet que hay en league, creando cada
         objeto MatchSet, a su vez, para cada MatchSet, se recorrera el ArrayList de Game 
         creando los objetos cada uno con sus elementos y atributos */
+        Element dateEle = createupdatedateElement();
+        rootLeague.appendChild(dateEle);
         Iterator it = league.getMatchsets().iterator();
         while(it.hasNext()){
             MatchSet ms = (MatchSet)it.next();
             //Cogemos la informacion almacenada y creamos
-            Element matchsetEle =crearElementoMatchSet(ms);
-            raizLeague.appendChild(matchsetEle);
+            Element matchsetEle =createMatchSetElement(ms);
+            rootLeague.appendChild(matchsetEle);
         }
         gameIDCounter=0;
     }
@@ -127,11 +136,11 @@ public class DOMParserLeague {
      * @param ms un MatchSet
      * @return un Element 
      */
-    private Element crearElementoMatchSet(MatchSet ms){
+    private Element createMatchSetElement(MatchSet ms){
         Element matchsetEle = dom.createElement("matchset");
         //Ahora creamos los Game del MatchSet correspondiente
         for(Game gm:ms.getGames()){
-            Element gameEle = crearElementoGame(gm);
+            Element gameEle = createGameElement(gm);
             matchsetEle.appendChild(gameEle);
         }
         return matchsetEle;
@@ -141,10 +150,11 @@ public class DOMParserLeague {
      * @param gm un Game
      * @return un Element
      */
-    private Element crearElementoGame(Game gm){
+    private Element createGameElement(Game gm){
         Element gameEle = dom.createElement("match");
         //Ahora creamos los elementos y el atributo y lo asociamos al Game
         gameEle.setAttribute("id",""+gamesID.get(gameIDCounter));//esa forma de convertir a String tan "Meh"
+        System.out.println(""+gamesID.get(gameIDCounter));
         gameIDCounter++;
         //Equipo1
         Element team1Ele=dom.createElement("team1");
@@ -157,6 +167,7 @@ public class DOMParserLeague {
         team2Ele.appendChild(team2Text);
         gameEle.appendChild(team2Ele);
         //Si no son nulos los score
+        System.out.println(gm.getTeam1().getTeamName()+" "+gm.getTeam2().getTeamName());
         if(Integer.valueOf(gm.getScore1())!=null||Integer.valueOf(gm.getScore2())!=null){
             //Score1
             Element score1Ele = dom.createElement("score1");
@@ -169,18 +180,13 @@ public class DOMParserLeague {
             score2Ele.appendChild(score2Text);
             gameEle.appendChild(score2Ele);
         }
-        //Date
-        Element dateEle = dom.createElement("date");
-        Text dateText = dom.createTextNode(gm.getDateTime().toString());
-        dateEle.appendChild(dateText);
-        gameEle.appendChild(dateEle);
         
         return gameEle;
     }
     /**
      * Parsea un documento XML 
      */
-    private void parsearFicheroXML(){
+    private void parseXMLFile(){
         //Creamos el DocumentBuilderFactory
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         
@@ -190,7 +196,7 @@ public class DOMParserLeague {
             DocumentBuilder db = dbf.newDocumentBuilder();
 
             //parseamos utilizando el builder para obtener una instancia en DOM del XML
-            dom = db.parse("../XML/Leaguebase.xml");
+            dom = db.parse("../XML/League.xml");
 
         } catch (ParserConfigurationException pce) {
             pce.printStackTrace();
@@ -202,15 +208,67 @@ public class DOMParserLeague {
     }
     /**
      * Ejecuta todo el parser
-     * @param args the command line arguments
      */
-    public static void main(String args[]) throws ClassNotFoundException, SQLException{
-        
+    public static void main(String[] args) throws ClassNotFoundException, SQLException{
         //Creamos una instancia
         DOMParserLeague dLeague = new DOMParserLeague();
         
         //Ejecutamos
-        dLeague.ejecutar();
+        dLeague.execute();
+        
     }
+    /**
+     * Comprueba que la fecha de actualizacion sea menor que el dia actual y si es asi
+     * actualiza la fecha de actualizacion con la fecha del siguiente partido
+     * @return un Element
+     */
+    private Element createupdatedateElement() {
+        
+        //Obtenemos el documento
+        Element docEle = dom.getDocumentElement();
+        //Obtenemos el nodo <updatedate>
+        NodeList nl = docEle.getElementsByTagName("updatedate");
+        //El Text que se le asignara a update date
+        /*
+        Tengo que CAMBIAR la forma en la que organiza todo esto, 
+        1-transformar lo que devuelve el node list en un elemento
+        2-sacar el dato que necesito de ese elemento, que es su texto
+        3- convertir el texto a Date, eso ya no tengo que cambiar casi nada
+        4- Para el String de currentDateS no le puedo dar directamente el objeto y el text value
+        */
+        Element ele =(Element) nl.item(0);
+        Text updatedateText= dom.createTextNode(ele.getTextContent());
+        //Pasamos el texto de ese nodo a date
+        String currentdateS = ele.getTextContent();
+        Date currentdate = Date.valueOf(currentdateS);
+        //Obtenemos la fecha del sistema
+        Date systemdate =Date.valueOf( new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));//Estoy orgulloso de esta linea
+        if(currentdate.before(systemdate)){
+            for(MatchSet mts:league.getMatchsets()){
+                for(Game gms:mts.getGames()){
+                    if(gms.getDateTime().equals(systemdate)){
+                        updatedateText = dom.createTextNode(gms.getDateTime().toString());
+                    }
+                }
+            }
+        }
+        //El objeto a retornar
+        docEle.removeChild(ele);
+        Element updatedateEle = dom.createElement("updatedate");
+        updatedateEle.appendChild(updatedateText);
+        return updatedateEle;
+    }
+
+    private void deletePreviousContent() {
+        Element docEle= dom.getDocumentElement();
+        for(int x=0;x<gamesID.size();x++){
+        NodeList nl = docEle.getElementsByTagName("matchset");
+            for (int i = 0; i < nl.getLength(); i++) {
+                Element matchSeto = (Element) nl.item(i);
+                    docEle.removeChild(matchSeto);
+        }
+        }
+    }
+    
     
 }
