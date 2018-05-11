@@ -46,6 +46,7 @@ public class Admin extends javax.swing.JFrame {
         if (child) {
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         }
+        cbLeague.addItem(temp);
     }
 
     /**
