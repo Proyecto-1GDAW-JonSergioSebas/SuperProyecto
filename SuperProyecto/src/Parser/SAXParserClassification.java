@@ -31,12 +31,14 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class SAXParserClassification extends DefaultHandler {
 
+    /**
+     * Creacion de los atributos Classification, tempVal, tema.
+     */
     ArrayList Classification;
-
     private String tempVal;
-
     //Para mantener el contexto
     private TeamSax team;
+
     /**
      * Inicializamos el ArrayList
      */
@@ -80,7 +82,7 @@ public class SAXParserClassification extends DefaultHandler {
      * Iteramos a través de la lista y mostramos la información por pantalla
      */
     private void printData() {
-        System.out.println("Classification is: '" + Classification.size() + "'.");
+        System.out.println("En la clasificacion estan : '" + Classification.size() + "' equipos.");
         Iterator it = Classification.iterator();
         while (it.hasNext()) {
             System.out.println(it.next().toString());
@@ -108,8 +110,6 @@ public class SAXParserClassification extends DefaultHandler {
         tempVal = "";
         if (qName.equalsIgnoreCase("team")) {
             team = new TeamSax();
-            //name = "";
-            //points = 0;
         }
     }
 

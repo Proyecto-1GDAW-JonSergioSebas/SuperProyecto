@@ -147,12 +147,17 @@ public class Team {
      * @param player el jugador a añadir
      */
     public void addPlayer(Player player) {
-    if (players == null) {
-        players = new ArrayList();
-    }
+        if (players == null) {
+            players = new ArrayList();
+        }
         this.players.add(player);
     }
 
+    /**
+     * Para sacar por pantalla los datos.
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "Team{" + "teamName=" + teamName + '}';
