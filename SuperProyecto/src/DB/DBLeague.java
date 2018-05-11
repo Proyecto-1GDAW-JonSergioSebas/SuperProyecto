@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -65,5 +66,24 @@ public class DBLeague {
         resul.close();
         sta.close();
         return idLeague;
+    }
+    /**
+     * Obtiene los nombres de todas las ligas 
+     * @param con la conexion
+     * @return un ArrayList de String con los nombres de las ligas
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    static ArrayList<String> getAllLeagueNames(Connection con) throws SQLException {
+       ArrayList<String> leaguenames = new ArrayList();
+       Statement sta = con.createStatement();
+       ResultSet rst = sta.executeQuery("SELECT LEAGUE_NAME FROM LEAGUE");
+       while(rst.next()){
+           
+           leaguenames.add(rst.getString("LEAGUE_NAME"));
+           
+       }
+       rst.close();
+       sta.close();
+       return leaguenames;
     }
 }

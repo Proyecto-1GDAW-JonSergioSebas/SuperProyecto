@@ -6,9 +6,11 @@
 package View;
 
 import ModelUML.DBUser;
+import ModelUML.MatchSet;
 import ModelUML.Player;
 import ModelUML.Team;
 import ModelUML.TeamOwner;
+import Parser.SAXParserLeague;
 import java.awt.Frame;
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -406,5 +408,20 @@ public class ViewController {
     static void updateTeam(String teamname, String newTeamname, String newNationality, String newTeamownername) throws ClassNotFoundException, SQLException {
         SuperProyecto.updateTeam(teamname, newTeamname, newNationality, newTeamownername);
     }
-
+    
+    public static ArrayList<MatchSet> executeSaxParserLeague(){
+        ArrayList<MatchSet> temparry = SAXParserLeague.executeSAXLeague();
+        
+        return temparry;
+    }
+    /**
+     * Obtiene los nombres de todas las ligas
+     * @return un ArrayList de String con los nombres de las ligas
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
+     */
+    static ArrayList<String> getLeagueNames() throws SQLException, ClassNotFoundException {
+        ArrayList<String> leaguenames = SuperProyecto.getAllLeagueNames();
+        return leaguenames;
+    }
 }

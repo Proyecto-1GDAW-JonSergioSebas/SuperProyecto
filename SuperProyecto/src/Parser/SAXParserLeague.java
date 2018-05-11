@@ -32,7 +32,7 @@ import org.xml.sax.SAXException;
  */
 public class SAXParserLeague extends DefaultHandler {
 
-    ArrayList matchset;
+    static ArrayList matchset;
     ArrayList updateDate;
 
     private String tempVal;
@@ -203,7 +203,7 @@ public class SAXParserLeague extends DefaultHandler {
      *
      * @param args Los argumentos de la linea de comandos
      */
-    public static void main(String[] args) {
+    public static ArrayList<MatchSet> executeSAXLeague() {
 
         System.out.println("SAX");
         System.out.println("---");
@@ -211,6 +211,7 @@ public class SAXParserLeague extends DefaultHandler {
         //Ejecutamos
         SAXParserLeague spe = new SAXParserLeague();
         spe.runExample();
+        return matchset;
     }
 
 }

@@ -578,5 +578,15 @@ public class DBController {
         ResultSet rs = DBProcedures.getClassification(leagueid, con);
         return rs;
     }
+    /**
+     * 
+     * @param con
+     * @return
+     * @throws SQLException 
+     */
+    public static ArrayList<String> getAllLeagueNames(Connection con) throws SQLException {
+        ArrayList<String> leaguenames = DBLeague.getAllLeagueNames(con);
+        return leaguenames;
+    }
 
 }
