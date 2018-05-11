@@ -155,6 +155,11 @@ public class Game {
         this.dateTime = dateTime;
     }
 
+    /**
+     * Para sacar por pantalla los datos.
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "Game{" + "team1=" + team1 + ", team2=" + team2 + ", score1=" + score1 + ", score2=" + score2 + '}';

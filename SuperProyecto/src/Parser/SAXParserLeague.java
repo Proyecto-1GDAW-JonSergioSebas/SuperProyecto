@@ -32,11 +32,13 @@ import org.xml.sax.SAXException;
  */
 public class SAXParserLeague extends DefaultHandler {
 
+    /**
+     * Creacion de los atributos matchset, updateDate, tempVal, date, match,
+     * matchSet, team.
+     */
     ArrayList matchset;
     ArrayList updateDate;
-
     private String tempVal;
-
     //Para mantener el contexto
     private Date date;
     private Game match;
@@ -133,14 +135,11 @@ public class SAXParserLeague extends DefaultHandler {
         //inicializamos
         tempVal = "";
         //Crear nuevas instancias de los objetos
-        /*if (qName.equalsIgnoreCase("updateDate")) {
-            date = new Date();
-        } else */
         if (qName.equalsIgnoreCase("matchset")) {
             matchSet = new MatchSet();
         } else if (qName.equalsIgnoreCase("match")) {
             match = new Game();
-            String id = attributes.getValue("id");      
+            String id = attributes.getValue("id");
         }
     }
 
@@ -172,14 +171,13 @@ public class SAXParserLeague extends DefaultHandler {
      */
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-
         if (qName.equalsIgnoreCase("updateDate")) {
             //Añanadirlo a la lista
             updateDate.add(date = Date.valueOf(tempVal));
         } else if (qName.equalsIgnoreCase("matchset")) {
             matchset.add(matchSet);
         } else if (qName.equalsIgnoreCase("match")) {
-            matchSet.addGame(match);           
+            matchSet.addGame(match);
         } else if (qName.equalsIgnoreCase("team1")) {
             team = match.getTeam1();
             team = new Team();
@@ -195,7 +193,6 @@ public class SAXParserLeague extends DefaultHandler {
         } else if (qName.equalsIgnoreCase("score2")) {
             match.setScore2(Integer.parseInt(tempVal));
         }
-
     }
 
     /**
