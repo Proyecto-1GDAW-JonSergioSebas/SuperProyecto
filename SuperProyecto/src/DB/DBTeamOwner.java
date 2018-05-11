@@ -32,7 +32,7 @@ public class DBTeamOwner {
         Statement stat = con.createStatement();
         ResultSet rs = stat.executeQuery("SELECT * FROM TEAM_OWNER WHERE ID_TO="+teamownerid);
         rs.next();
-        TeamOwner own= new TeamOwner(rs.getString(4),rs.getString(5));
+        TeamOwner own= new TeamOwner(rs.getString(2), rs.getString(4), rs.getString(5));
         rs.close();
         stat.close();
         return own;
@@ -60,10 +60,9 @@ public class DBTeamOwner {
      * @param con la conexion
      * @throws SQLException si se da alguna excepcion en SQL
      */
-    public static void deleteDBTeamOwner(String username,char[] password,Connection con) throws SQLException{
-        
+    public static void deleteDBTeamOwner(String username, Connection con) throws SQLException{        
         Statement sta = con.createStatement();
-        sta.executeUpdate("DELETE FROM TEAM_OWNER WHERE USERNAME='"+username+"' AND PASSWD='"+String.valueOf(password)+"'");
+        sta.executeUpdate("DELETE FROM TEAM_OWNER WHERE USERNAME='"+username+"'");
         sta.close();
     }
     /**
@@ -77,7 +76,8 @@ public class DBTeamOwner {
     public static void updateDBTeamOwner(String username,String newUsername,char[] newPassword,String newFullName,String newTelephone,Connection con) throws SQLException{
         
         Statement sta = con.createStatement();
-        sta.executeUpdate("UPDATE TEAM_OWNER SET USERNAME='"+newUsername+"',PASSWD='"+String.valueOf(newPassword)+"'"
+        sta.executeUpdate("UPDATE TEAM_OWNER SET USERNAME='"+newUsername+
+                ((newPassword.length==0) ? "'" : "',PASSWD='"+String.valueOf(newPassword)+"'" )
                 + ",FULL_NAME='"+newFullName+"',TELEPHONE='"+newTelephone+"' "
                 + " WHERE USERNAME='"+username+"' ");
         sta.close();

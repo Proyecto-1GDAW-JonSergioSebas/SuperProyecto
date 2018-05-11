@@ -146,9 +146,6 @@ public class PlayerCRUD extends javax.swing.JDialog {
 
         jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("######.##"))));
 
-        jComboBox1.setMaximumRowCount(50);
-
-        jComboBox2.setMaximumRowCount(50);
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);
@@ -228,11 +225,10 @@ public class PlayerCRUD extends javax.swing.JDialog {
                     try {
                         if (jComboBox1.getSelectedIndex() == -1 || jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Ninguno")) {
                             ViewController.insertPlayer(jTextField1.getText(), jTextField2.getText(), BigDecimal.valueOf(Double.parseDouble(jFormattedTextField1.getText())), jTextField3.getText());
-                            JOptionPane.showMessageDialog(this, "Jugador insertado");
                         } else {
                             ViewController.insertPlayerT(jTextField1.getText(), jTextField2.getText(), BigDecimal.valueOf(Double.parseDouble(jFormattedTextField1.getText())), jTextField3.getText(), jComboBox1.getSelectedItem().toString());
-                            JOptionPane.showMessageDialog(this, "Jugador insertado");
                         }
+                        JOptionPane.showMessageDialog(this, "Jugador insertado.");
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(PlayerCRUD.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (SQLException ex) {
@@ -247,7 +243,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
                         jComboBox2.setSelectedIndex(-1);
                         jComboBox1.setSelectedIndex(-1);
                         ViewController.deletePlayer(jTextField1.getText(), jTextField2.getText());
-                        JOptionPane.showMessageDialog(this, "Jugador Eliminado");
+                        JOptionPane.showMessageDialog(this, "Jugador'" + jComboBox2.getSelectedItem() + "' eliminado.");
                         mode();
                         clear();
 
@@ -272,7 +268,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
                             ViewController.updatePlayer(jTextField1.getText(), jTextField2.getText(), jComboBox2.getSelectedItem().toString(), BigDecimal.valueOf(Double.parseDouble(jFormattedTextField1.getText())), jTextField3.getText());
 
                         }
-                        JOptionPane.showMessageDialog(this, "Se ha actualizado el jugador");
+                        JOptionPane.showMessageDialog(this, "Jugador'" + jComboBox2.getSelectedItem() + "' actualizado.");
                         clear();
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(PlayerCRUD.class.getName()).log(Level.SEVERE, null, ex);

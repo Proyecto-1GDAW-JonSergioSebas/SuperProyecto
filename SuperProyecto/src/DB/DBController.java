@@ -329,8 +329,8 @@ public class DBController {
      * @param con la conexion
      * @throws SQLException si se da alguna excepcion SQL
      */
-    public static void deleteTeamOwner(String username, char[] password, Connection con) throws SQLException {
-        DBTeamOwner.deleteDBTeamOwner(username, password, con);
+    public static void deleteTeamOwner(String username, Connection con) throws SQLException {
+        DBTeamOwner.deleteDBTeamOwner(username, con);
     }
 
     /**
@@ -491,8 +491,8 @@ public class DBController {
      * @return La lista de Teams
      * @throws SQLException
      */
-    public static ArrayList<Team> selectDBTeams(Connection con) throws SQLException {
-        return DBTeam.selectAllTeams(con);
+    public static ArrayList<Team> selectDBTeams(Connection con) throws SQLException, ClassNotFoundException {
+        return DBTeam.getTeams(con);
     }
 
     /**

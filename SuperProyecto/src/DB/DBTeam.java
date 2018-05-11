@@ -38,10 +38,15 @@ public class DBTeam {
     public static ArrayList<Team> getTeams(Connection con) throws ClassNotFoundException, SQLException {
 
         ArrayList<Team> teams = new ArrayList();
+        ArrayList<Integer> owners = new ArrayList();
         Statement sent = con.createStatement();
         ResultSet resul = sent.executeQuery("SELECT * FROM TEAM");
         while (resul.next()) {
             teams.add(new Team(resul.getString(2), resul.getString(3)));
+            owners.add(resul.getInt(4));
+        }
+        for (int i = 0; i < teams.size(); i++) {
+            teams.get(i).setTeamOwner(DBController.obtainTeamOwner(owners.get(i), con));
         }
         resul.close();
         sent.close();

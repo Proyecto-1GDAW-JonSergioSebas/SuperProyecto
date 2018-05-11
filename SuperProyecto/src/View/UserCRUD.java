@@ -229,7 +229,7 @@ public class UserCRUD extends javax.swing.JDialog {
 
                         jComboBox1.setSelectedIndex(-1);
                         ViewController.deleteUser(jTextField2.getText());
-                        JOptionPane.showMessageDialog(this, "Usuario eliminado.");
+                        JOptionPane.showMessageDialog(this, "Usuario '"+jComboBox1.getSelectedItem()+"' eliminado.");
                         mode();
                         clean();
 
@@ -247,7 +247,7 @@ public class UserCRUD extends javax.swing.JDialog {
 
                         jComboBox1.setSelectedIndex(-1);
                         ViewController.updateUser(jTextField2.getText(), jPasswordField1.getPassword());
-                        JOptionPane.showMessageDialog(this, "Usuario actualizado");
+                        JOptionPane.showMessageDialog(this, "Usuario '"+jComboBox1.getSelectedItem()+"' actualizado.");
                         clean();
 
                     } catch (SQLException ex) {
