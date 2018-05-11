@@ -78,28 +78,8 @@ public class TeamCRUD extends javax.swing.JDialog {
                 doClose(RET_CANCEL);
             }
         });
-
-        try {
-            if (mode != 0) {
-                teams = ViewController.selectDBTeams();
-                teams.forEach(e -> jComboBox2.addItem(e.getTeamName()));
-                if (mode != 3) {
-                    jComboBox1.setEnabled(false);
-                    jTextField1.setEnabled(false);
-                    jTextField2.setEnabled(false);
-                }
-            } else {
-                jComboBox2.setVisible(false);
-                pack();
-            }
-            jComboBox1.addItem("Ninguno");
-            ViewController.selectDBOwners().forEach(e -> jComboBox1.addItem(e.getUserName()));
-            jComboBox1.setSelectedIndex(-1);
-        } catch (SQLException ex) {
-            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.mode = mode;
+        mode();
     }
 
     /**
@@ -157,12 +137,6 @@ public class TeamCRUD extends javax.swing.JDialog {
         jLabel4.setText("Nacionalidad (Opcional)");
 
         jLabel5.setText("Dueño");
-
-        jTextField2.setEnabled(false);
-
-        jComboBox1.setEnabled(false);
-
-        jTextField1.setEnabled(false);
 
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,6 +218,7 @@ public class TeamCRUD extends javax.swing.JDialog {
                         } else {
                             ViewController.insertTeam(jTextField2.getText(), jTextField1.getText(), jComboBox1.getSelectedItem().toString());
                         }
+                        JOptionPane.showMessageDialog(this, "Equipo insertado.");
                         clear();
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
@@ -254,7 +229,10 @@ public class TeamCRUD extends javax.swing.JDialog {
                 case 1:
                     try {
                         ViewController.deleteTeam(jTextField2.getText());
+                        JOptionPane.showMessageDialog(this, "Equipo '" + jComboBox2.getSelectedItem() + "' eliminado.");
                         clear();
+                        mode();
+                        jComboBox2.setSelectedIndex(-1);
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (SQLException ex) {
@@ -271,7 +249,10 @@ public class TeamCRUD extends javax.swing.JDialog {
                         } else {
                             ViewController.updateTeam(jComboBox2.getSelectedItem().toString(), jTextField2.getText(), jTextField1.getText(), jComboBox1.getSelectedItem().toString());
                         }
+                        JOptionPane.showMessageDialog(this, "Equipo '" + jComboBox2.getSelectedItem() + "' modificado.");
                         clear();
+                        mode();
+                        jComboBox2.setSelectedIndex(-1);
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (SQLException ex) {
@@ -288,7 +269,8 @@ public class TeamCRUD extends javax.swing.JDialog {
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         teams.stream().filter(p -> p.getTeamName().equals((String) jComboBox2.getSelectedItem())).findFirst().ifPresent(c -> { //juro por todos los santos que esto no lo busqué en google
             jTextField2.setText(c.getTeamName());
-            jComboBox1.setSelectedItem((String) c.getTeamOwner().getUserName());
+            String s = (String) c.getTeamOwner().getUserName();
+            jComboBox1.setSelectedItem(s);
             jTextField1.setText(c.getNationality());
         });
     }//GEN-LAST:event_jComboBox2ActionPerformed
@@ -350,5 +332,33 @@ public class TeamCRUD extends javax.swing.JDialog {
         jComboBox1.setSelectedIndex(-1);
         jTextField1.setText("");
         jTextField2.setText("");
+    }
+
+    private void mode() {
+        jComboBox2.removeAllItems();
+        try {
+            if (mode != 0) {
+                teams = ViewController.selectDBTeams();
+                teams.forEach(e -> jComboBox2.addItem(e.getTeamName()));
+                if (mode != 3) {
+                    jComboBox1.setEnabled(false);
+                    jTextField1.setEnabled(false);
+                    jTextField2.setEnabled(false);
+                }
+                jComboBox2.setSelectedIndex(-1);
+
+            } else {
+                jComboBox2.setVisible(false);
+                pack();
+            }
+            //jComboBox1.addItem("Ninguno");
+            ViewController.selectDBOwners().forEach(e -> jComboBox1.addItem(e.getUserName()));
+            jComboBox1.setSelectedIndex(-1);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        clear();
     }
 }
