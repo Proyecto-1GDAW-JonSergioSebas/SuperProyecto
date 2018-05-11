@@ -8,11 +8,12 @@ package Parser;
 import ModelUML.*;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -31,39 +32,45 @@ import org.xml.sax.SAXException;
  */
 public class SAXParserLeague extends DefaultHandler {
 
-    ArrayList myLeague;
+    ArrayList matchset;
+    ArrayList updateDate;
 
     private String tempVal;
 
     //Para mantener el contexto
-    private League league;
-    private ArrayList<MatchSet> matchsets;
-    private Game game;
-    private Team team1;
-    private Team team2;
-    private Game score1;
-    private Game score2;
-    private Game dateTime;
-    private MatchSet matchset;
+    private Date date;
+    private Game match;
+    private MatchSet matchSet;
+    private Team team;
 
+    /**
+     * Inicializamos el ArrayList.
+     */
     public SAXParserLeague() {
-        myLeague = new ArrayList();
+        matchset = new ArrayList();
+        updateDate = new ArrayList();
     }
 
+    /**
+     * Se encarga de llamar y ejecutar otras funciones.
+     */
     public void runExample() {
         parseDocument();
         printData();
     }
 
+    /**
+     * Parsea el documento XML.
+     */
     private void parseDocument() {
         //Creamos una nueva factoria de parsers SAX
         SAXParserFactory spf = SAXParserFactory.newInstance();
 
         try {
-            //instanciamos un nuevo parser SAX a partir de la factroría
+            //instanciamos un nuevo parser SAX a partir de la factoría
             SAXParser sp = spf.newSAXParser();
 
-            //parseamos el fichero xml y enviamos la clase para los call backs
+            //parseamos el fichero xml y enviamos la clase para los cuando la llamemos
             sp.parse("../XML/League.xml", this);
 
         } catch (SAXException se) {
@@ -73,72 +80,135 @@ public class SAXParserLeague extends DefaultHandler {
         } catch (IOException ie) {
             ie.printStackTrace();
         }
-
     }
 
     /**
      * Iteramos a través de la lista y mostramos la información por pantalla
      */
     private void printData() {
+        System.out.println("Leagues'" + matchset.size() + "'.");
 
-        System.out.println("Leagues'" + myLeague.size() + "'.");
+        //bucle ++
+        int n = 0;
+        Boolean vControl = true;
+        while (vControl) {
 
-        Iterator it = myLeague.iterator();
-        while (it.hasNext()) {
-            System.out.println(it.next().toString());
+            try {
+
+                //for de los updateDate
+                for (int i = 0; i < 1; i++) {
+                    System.out.println(updateDate.get(n).toString());
+                    //for para coger la jornada
+                    for (int j = 0; j < 1; j++) {
+                        MatchSet m = (MatchSet) matchset.get(n);
+                        //de cada jornada mostrar sus games
+                        for (Object object : m.myGames()) {
+                            System.out.println(object.toString());
+                        }
+                    }
+                }
+                n++;
+            } catch (IndexOutOfBoundsException e) {
+                vControl = false;
+            }
         }
 
     }
 
-    //Event Handlers
+    /**
+     * Controladora de eventos, recibe notificacion del inicio de un elemento
+     *
+     * @param uri El URI de espacio de nombres o la cadena vacia si el elemento
+     * no tiene URI de espacio de nombres o si el procesamiento del espacio no
+     * se este realizando
+     * @param localName Nombre local (sin prefijo), o la cadena vacia si no se
+     * esta procesando el espacio de nombres
+     * @param qName El nombre calificado (con prefijo) o la cadena vacia si los
+     * nombre calificados no estan disponibles
+     * @param attributes Los atributos unidos al elemento. Si no hay atributos,
+     * sera un objeto attributes vacio
+     * @throws SAXException si se da alguna excepcion SAX
+     */
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         //inicializamos
         tempVal = "";
         //Crear nuevas instancias de los objetos
-        if (qName.equalsIgnoreCase("League")) {
-            matchsets = new ArrayList<MatchSet>();
-            league.setMatchsets(matchsets);
-        } else if (qName.equalsIgnoreCase("Matchset")) {            
-            matchset = new MatchSet();
-        } else if (qName.equalsIgnoreCase("Match")) {
-            game = new Game();
+        /*if (qName.equalsIgnoreCase("updateDate")) {
+            date = new Date();
+        } else */
+        if (qName.equalsIgnoreCase("matchset")) {
+            matchSet = new MatchSet();
+        } else if (qName.equalsIgnoreCase("match")) {
+            match = new Game();
+            String id = attributes.getValue("id");      
         }
     }
-    
 
-
+    /**
+     *
+     * Recibe notificacion de datos de caracteres dentro de un elemento.
+     *
+     * @param ch Los caracteres
+     * @param start La posicion de inicio en el Array de caracteres
+     * @param length La cantidad de caracteres a usar en el Array de caracteres
+     * @throws SAXException si se da alguna excepcion SAX
+     */
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         tempVal = new String(ch, start, length);
     }
 
+    /**
+     * Recibe notificacion del final de un elemento
+     *
+     * @param uri El URI de espacio de nombres o la cadena vacia si el elemento
+     * no tiene URI de espacio de nombres o si el procesamiento del espacio no
+     * se este realizando
+     * @param localName Nombre local (sin prefijo), o la cadena vacia si no se
+     * esta procesando el espacio de nombres
+     * @param qName El nombre calificado (con prefijo) o la cadena vacia si los
+     * nombre calificados no estan disponibles
+     * @throws SAXException si se da alguna excepcion SAX
+     */
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        if (qName.equalsIgnoreCase("League")) {
+
+        if (qName.equalsIgnoreCase("updateDate")) {
             //Añanadirlo a la lista
-            myLeague.add(league);
-        } else if (qName.equalsIgnoreCase("Matchsets")) {
-            team1.setTeamName(tempVal);
-            team2.setTeamName(tempVal);
-        } else if (qName.equalsIgnoreCase("Team1")) {
-            team1.setTeamName(tempVal);
-        } else if (qName.equalsIgnoreCase("Team2")) {
-            team2.setTeamName(tempVal);
-        } else if (qName.equalsIgnoreCase("Score1")) {
-            score1.setScore1(tempVal.charAt(0));
-        } else if (qName.equalsIgnoreCase("Score2")) {
-            score1.setScore2(tempVal.charAt(0));
-        } else if (qName.equalsIgnoreCase("Date")) {
-            dateTime.setDateTime(Date.from(Instant.parse(tempVal)));
+            updateDate.add(date = Date.valueOf(tempVal));
+        } else if (qName.equalsIgnoreCase("matchset")) {
+            matchset.add(matchSet);
+        } else if (qName.equalsIgnoreCase("match")) {
+            matchSet.addGame(match);           
+        } else if (qName.equalsIgnoreCase("team1")) {
+            team = match.getTeam1();
+            team = new Team();
+            team.setTeamName(tempVal);
+            match.setTeam1(team);
+        } else if (qName.equalsIgnoreCase("team2")) {
+            team = match.getTeam2();
+            team = new Team();
+            team.setTeamName(tempVal);
+            match.setTeam2(team);
+        } else if (qName.equalsIgnoreCase("score1")) {
+            match.setScore1(Integer.parseInt(tempVal));
+        } else if (qName.equalsIgnoreCase("score2")) {
+            match.setScore2(Integer.parseInt(tempVal));
         }
 
     }
 
+    /**
+     * Se encarga de ejecutar todo el parser
+     *
+     * @param args Los argumentos de la linea de comandos
+     */
     public static void main(String[] args) {
 
         System.out.println("SAX");
         System.out.println("---");
 
+        //Ejecutamos
         SAXParserLeague spe = new SAXParserLeague();
         spe.runExample();
     }
