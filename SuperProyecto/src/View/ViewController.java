@@ -198,8 +198,8 @@ public class ViewController {
      * @throws ClassNotFoundException si no se encuentra la clase
      * @throws SQLException si se da alguna excepcion en SQL
      */
-    static void deleteTeamOwner(String username, char[] password) throws ClassNotFoundException, SQLException {
-        SuperProyecto.deleteTeamOwner(username, password);
+    static void deleteTeamOwner(String username) throws ClassNotFoundException, SQLException {
+        SuperProyecto.deleteTeamOwner(username);
     }
 
     /**

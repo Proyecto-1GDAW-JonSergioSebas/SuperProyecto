@@ -350,9 +350,9 @@ public class SuperProyecto {
      * @throws ClassNotFoundException si no se encuentra la clase
      * @throws SQLException si se da alguna excepcion SQL
      */
-    public static void deleteTeamOwner(String username, char[] password) throws ClassNotFoundException, SQLException {
+    public static void deleteTeamOwner(String username) throws ClassNotFoundException, SQLException {
         Connection con = createConnection();
-        DBController.deleteTeamOwner(username, password, con);
+        DBController.deleteTeamOwner(username, con);
         con.close();
     }
 
