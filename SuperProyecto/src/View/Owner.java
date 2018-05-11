@@ -193,6 +193,7 @@ public class Owner extends javax.swing.JFrame {
      */
     private void cbTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTeamActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_cbTeamActionPerformed
     /**
      * Abre una ventana de confirmación, y si el usuario está seguro, fija el

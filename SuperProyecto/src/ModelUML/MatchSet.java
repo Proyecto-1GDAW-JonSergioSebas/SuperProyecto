@@ -57,11 +57,17 @@ public class MatchSet {
         this.games = games;
     }
 
+    /**
+     * Funcion que añade partido a partidos.
+     * 
+     * @param game 
+     */
     public void addGame(Game game) {
         games.add(game);
     }
 
     /**
+     * Para devolver la lista de games.
      *
      * @return
      */
@@ -69,6 +75,10 @@ public class MatchSet {
         return games;
     }
 
+    /**
+     * para sacar por pantalla los datos.
+     * @return 
+     */
     @Override
     public String toString() {
         return "MatchSet{" + "games=" + games + '}';

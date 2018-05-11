@@ -143,7 +143,6 @@ public class OwnerCRUD extends javax.swing.JDialog {
 
         jLabel5.setText("Contraseña otra vez");
 
-        jComboBox1.setMaximumRowCount(50);
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -219,7 +218,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        if (jPasswordField1.getPassword().equals(jPasswordField2.getPassword())) {
+        if (String.valueOf(jPasswordField1.getPassword()).equals(String.valueOf(jPasswordField2.getPassword()))) {
             switch (mode) {//cdru
                 case 0: {
                     try {
@@ -235,12 +234,11 @@ public class OwnerCRUD extends javax.swing.JDialog {
                     }
                 }
                 break;
-                case 1: {
-                    jComboBox1.setSelectedIndex(-1);
+                case 1: {                    
                     try {
 
-                        ViewController.deleteTeamOwner(jTextField2.getText(), jPasswordField1.getPassword());
-                        JOptionPane.showMessageDialog(this, "Dueño de equipo" + jTextField2.getText() + "eliminado");
+                        ViewController.deleteTeamOwner(jTextField2.getText());
+                        JOptionPane.showMessageDialog(this, "Dueño de equipo '" + jTextField2.getText() + "' eliminado.");
                         clean();
 
                     } catch (ClassNotFoundException ex) {
@@ -248,6 +246,8 @@ public class OwnerCRUD extends javax.swing.JDialog {
                     } catch (SQLException ex) {
                         Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    mode();
+                    jComboBox1.setSelectedIndex(-1);
                 }
                 clean();
                 break;
@@ -255,11 +255,9 @@ public class OwnerCRUD extends javax.swing.JDialog {
                     dispose();
                     break;
                 case 3: {
-                    jComboBox1.setSelectedIndex(-1);
                     try {
-
                         ViewController.updateTeamOwner(jComboBox1.getSelectedItem().toString(), jTextField2.getText(), jPasswordField1.getPassword(), jTextField1.getText(), jFormattedTextField1.getText());
-                        JOptionPane.showMessageDialog(this, "Dueño de equipo" + jComboBox1.getSelectedItem().toString() + "actualizado");
+                        JOptionPane.showMessageDialog(this, "Dueño de equipo '" + jComboBox1.getSelectedItem().toString() + "' actualizado.");
                         clean();
 
                     } catch (ClassNotFoundException ex) {
@@ -269,6 +267,8 @@ public class OwnerCRUD extends javax.swing.JDialog {
                     }
                 }
                 clean();
+                mode();
+                jComboBox1.setSelectedIndex(-1);
                 break;
             }
         } else {
@@ -349,6 +349,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
     private int returnStatus = RET_CANCEL;
 
     private void mode() {
+        jComboBox1.removeAllItems();
         try {
             if (mode != 0) {
                 owners = ViewController.selectDBOwners();
