@@ -59,9 +59,10 @@ public class DBTeam {
     public static int searchTeam(String teamname, Connection con) throws SQLException {
         int x = -1;
         Statement sent = con.createStatement();
-        ResultSet resul = sent.executeQuery("SELECT ID_TM FROM TEAM WHERE TEAM_NAME='" + teamname + "'");
-        resul.next();
-        x = resul.getInt("ID_TM");
+        ResultSet resul = sent.executeQuery("SELECT ID_TM FROM TEAM WHERE TEAM_NAME='" + teamname + "'");        
+        while (resul.next()) {            
+            x = resul.getInt("ID_TM");
+        }
         resul.close();
         sent.close();
         return x;
@@ -181,8 +182,10 @@ public class DBTeam {
 
         Statement sta = con.createStatement();
         ResultSet resul = sta.executeQuery("SELECT * FROM TEAM WHERE ID_TM=" + tid + "");
-        resul.next();
-        Team team = new Team(resul.getString(2), resul.getString(3));
+        Team team = new Team();
+        while (resul.next()) {
+            team = new Team(resul.getString(2), resul.getString(3));
+        }
         resul.close();
         sta.close();
         return team;

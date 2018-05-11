@@ -54,6 +54,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
     public PlayerCRUD(java.awt.Frame parent, boolean modal, byte mode) {
         super(parent, modal);
         initComponents();
+        this.mode = mode;
         //<editor-fold defaultstate="collapsed" desc=" System look and feel setting code ">
         try {
             /* Set the System look and feel */
@@ -79,29 +80,8 @@ public class PlayerCRUD extends javax.swing.JDialog {
                 doClose(RET_CANCEL);
             }
         });
-        try {
-            if (mode != 0) {
-                players = ViewController.selectDBPlayers();
-                players.forEach(e -> jComboBox2.addItem(e.getNickName()));
-                if (mode != 3) {
-                    jFormattedTextField1.setEnabled(false);
-                    jComboBox1.setEnabled(false);
-                    jTextField1.setEnabled(false);
-                    jTextField2.setEnabled(false);
-                    jTextField3.setEnabled(false);
-                }
-            } else {
-                jComboBox2.setVisible(false);
-                pack();
-            }
-            jComboBox1.addItem("Ninguno");
-            ViewController.selectDBTeams().forEach(e -> jComboBox1.addItem(e.getTeamName()));
-            jComboBox1.setSelectedIndex(-1);
-        } catch (SQLException ex) {
-            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        mode();
+
     }
 
     /**
@@ -162,14 +142,9 @@ public class PlayerCRUD extends javax.swing.JDialog {
 
         jLabel4.setText("Dirección de e-mail");
 
-        jLabel5.setText("Equipo (Opcional)");
+        jLabel5.setText("Equipo");
 
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("€###,###.00"))));
-        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField1ActionPerformed(evt);
-            }
-        });
+        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("######.##"))));
 
         jComboBox1.setMaximumRowCount(50);
 
@@ -251,20 +226,20 @@ public class PlayerCRUD extends javax.swing.JDialog {
             switch (mode) {//cdru
                 case 0:
                     try {
-                        if (jComboBox1.getSelectedIndex() == -1) {
+                        if (jComboBox1.getSelectedIndex() == -1 || jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Ninguno")) {
                             ViewController.insertPlayer(jTextField1.getText(), jTextField2.getText(), BigDecimal.valueOf(Double.parseDouble(jFormattedTextField1.getText())), jTextField3.getText());
                             JOptionPane.showMessageDialog(this, "Jugador insertado");
-                            clear();
                         } else {
                             ViewController.insertPlayerT(jTextField1.getText(), jTextField2.getText(), BigDecimal.valueOf(Double.parseDouble(jFormattedTextField1.getText())), jTextField3.getText(), jComboBox1.getSelectedItem().toString());
                             JOptionPane.showMessageDialog(this, "Jugador insertado");
-                            clear();
                         }
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(PlayerCRUD.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (SQLException ex) {
                         Logger.getLogger(PlayerCRUD.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    mode();
+                    clear();
                     break;
                 case 1:
                     try {
@@ -273,6 +248,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
                         jComboBox1.setSelectedIndex(-1);
                         ViewController.deletePlayer(jTextField1.getText(), jTextField2.getText());
                         JOptionPane.showMessageDialog(this, "Jugador Eliminado");
+                        mode();
                         clear();
 
                     } catch (ClassNotFoundException ex) {
@@ -321,18 +297,14 @@ public class PlayerCRUD extends javax.swing.JDialog {
         doClose(RET_CANCEL);
     }//GEN-LAST:event_closeDialog
 
-    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
-
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         players.stream().filter(p -> p.getNickName().equals((String) jComboBox2.getSelectedItem())).findFirst().ifPresent(c -> { //juro por todos los santos que esto no lo busqué en google
             jTextField1.setText(c.getFullName());
             jTextField2.setText(c.getNickName());
             jFormattedTextField1.setText(c.getSalary().toString());
             jTextField3.setText(c.getEmail());
-            String tn = (String) c.getTeam().getTeamName();
-            jComboBox1.setSelectedItem((tn == null) ? "Ninguno" : tn);
+            String s = c.getTeam().getTeamName();
+            jComboBox1.setSelectedItem((s == null) ? "Ninguno" : s);
         });
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
@@ -340,6 +312,35 @@ public class PlayerCRUD extends javax.swing.JDialog {
         returnStatus = retStatus;
         setVisible(false);
         dispose();
+    }
+
+    private void mode() {
+        jComboBox2.removeAllItems();
+        try {
+            if (mode != 0) {
+                players = ViewController.selectDBPlayers();
+                players.forEach(e -> jComboBox2.addItem(e.getNickName()));
+                if (mode != 3) {
+                    jFormattedTextField1.setEnabled(false);
+                    jComboBox1.setEnabled(false);
+                    jTextField1.setEnabled(false);
+                    jTextField2.setEnabled(false);
+                    jTextField3.setEnabled(false);
+                }
+                jComboBox2.setSelectedIndex(-1);
+                clear();
+            } else {
+                jComboBox2.setVisible(false);
+                pack();
+            }
+            jComboBox1.addItem("Ninguno");
+            ViewController.selectDBTeams().forEach(e -> jComboBox1.addItem(e.getTeamName()));
+            jComboBox1.setSelectedIndex(-1);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -367,7 +368,9 @@ public class PlayerCRUD extends javax.swing.JDialog {
      * @return devuelve true si estan llenos, false si alguno esta vacio
      */
     private boolean validar() {
-        if (jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty() || jTextField3.getText().isEmpty() || jFormattedTextField1.getText().isEmpty()) {
+        if (mode == 2) {
+            return true;
+        } else if (jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty() || jTextField3.getText().isEmpty() || jFormattedTextField1.getText().isEmpty()) {
             return false;
         }
         return true;
@@ -381,6 +384,8 @@ public class PlayerCRUD extends javax.swing.JDialog {
         jTextField2.setText("");
         jTextField3.setText("");
         jFormattedTextField1.setText("");
+        jComboBox2.setSelectedIndex(-1);
+        jComboBox1.setSelectedIndex(-1);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;

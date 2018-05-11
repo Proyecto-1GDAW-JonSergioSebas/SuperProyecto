@@ -18,14 +18,16 @@ import oracle.jdbc.OracleTypes;
  * @author 1gdaw07
  */
 public class DBProcedures {
-/**
- * Retorna el tipo de cuenta, expresado en un int
- * @param us Usuario
- * @param pw Contraseña
- * @param con La conexión
- * @return el tipo de cuenta
- * @throws SQLException si sucede algun error de sql
- */
+
+    /**
+     * Retorna el tipo de cuenta, expresado en un int
+     *
+     * @param us Usuario
+     * @param pw Contraseña
+     * @param con La conexión
+     * @return el tipo de cuenta
+     * @throws SQLException si sucede algun error de sql
+     */
     public static int LoginGetType(String us, String pw, Connection con) throws SQLException {
         CallableStatement cs = con.prepareCall("{CALL LOGIN.GET_TYPE(?, ?, ?)}"); //todo esto es brujería        
         cs.setString(1, us);
@@ -34,21 +36,23 @@ public class DBProcedures {
         cs.execute();
         return cs.getInt(3);
     }
+
     /**
-     * Llama a un procedimiento almacenado en la base de datos que convenientemente
-     * devuelve un REF_CURSOR con los equipos y su puntuacion, que serán transformados a 
-     * ResultSet
+     * Llama a un procedimiento almacenado en la base de datos que
+     * convenientemente devuelve un REF_CURSOR con los equipos y su puntuacion,
+     * que serán transformados a ResultSet
+     *
      * @param leagueid el id de la liga
      * @param con la conexion
      * @return un objeto ResultSet
      * @throws SQLException si se da alguna excepcion SQL
      */
-    public static ResultSet getClassification(int leagueid, Connection con) throws SQLException{
+    public static ResultSet getClassification(int leagueid, Connection con) throws SQLException {
         CallableStatement cs = con.prepareCall("{CALL CLASSIFICATION.GET_CLASSIFICATION(?,?)}");//Magia oscura
         cs.setInt(1, leagueid);
-        cs.registerOutParameter(2,OracleTypes.CURSOR);
+        cs.registerOutParameter(2, OracleTypes.CURSOR);
         cs.execute();
-        ResultSet rs =cs.getResultSet();
+        ResultSet rs = ((OracleCallableStatement)cs).getCursor(2);
         return rs;
     }
 }

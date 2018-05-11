@@ -107,7 +107,7 @@ CREATE TABLE GAME_RESULT ( --GR
 );
 /
 
---ahora vamos con la creacion de triggers y procesos
+--ahora vamos con la creacion de triggers y vistas
 CREATE OR REPLACE PACKAGE TRIGGER_MT AS --este trigger existe solo para la creacion de las variable que contiene
   TEMP_PLAYER PLAYER%ROWTYPE := NULL; --las cuales existen solo para prevenir el error de tabla mutante en los triggers codificados mas adelante
   TEMP_ADMIN DB_ADMIN%ROWTYPE := NULL;

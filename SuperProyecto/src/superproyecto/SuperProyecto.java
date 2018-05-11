@@ -63,14 +63,9 @@ public class SuperProyecto {
             Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
         }
         /*^^NO MODIFICAR ESTO^^*/
-            
-            
-            ViewController.login();
-              
-            
-            
-          
-                  
+
+        ViewController.login();
+
     }
 
     /**
@@ -310,9 +305,9 @@ public class SuperProyecto {
      * @throws SQLException si se da alguna excepcion SQL
      * @throws ClassNotFoundException si no se encuentra la clase en la conexion
      */
-    public static void deleteDBUser(String username, char[] password) throws SQLException, ClassNotFoundException {
+    public static void deleteDBUser(String username) throws SQLException, ClassNotFoundException {
         Connection con = createConnection();
-        DBController.deleteDBDBUser(username, password, con);
+        DBController.deleteDBDBUser(username, con);
         con.close();
     }
 
@@ -542,7 +537,6 @@ public class SuperProyecto {
      * @throws ClassNotFoundException si no se encuentra la clase
      * @throws SQLException si se da alguna excepcion SQL
      */
-
     public static void insertTeam(String teamname, String teamownername) throws ClassNotFoundException, SQLException {
         Connection con = createConnection();
         int teamownerid = DBController.getTeamOwnerID(teamownername, con);
@@ -613,9 +607,8 @@ public class SuperProyecto {
     }
 
     public static ResultSet getClassification(int leagueid, Connection con) throws SQLException {
-        ResultSet rs = DBController.getClassification(leagueid,con);
+        ResultSet rs = DBController.getClassification(leagueid, con);
         return rs;
     }
 
-    
 }

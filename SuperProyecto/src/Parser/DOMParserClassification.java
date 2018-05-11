@@ -47,8 +47,8 @@ import static superproyecto.SuperProyecto.createMatchSets;
 public class DOMParserClassification {
     
     Document dom;
-    ArrayList<Integer> points;
-    ArrayList<String> names;
+    static ArrayList<Integer> points;
+    static ArrayList<String> names;
     public DOMParserClassification(){
         loadData();
     }
@@ -74,6 +74,8 @@ public class DOMParserClassification {
     
     public static void main(String[] args){
         //Creamos una instancia
+        points = new ArrayList();
+        names = new ArrayList();
         DOMParserClassification dClassification = new DOMParserClassification();
         
         //Ejecutamos
@@ -88,6 +90,7 @@ public class DOMParserClassification {
         createDOMTree();
         //Escribimos el Arbol DOM en el fichero XML
         writeXMLFile();
+        System.out.println("Fichero modificado correctamente.");
     }
 
     private void parseXMLFile() {
