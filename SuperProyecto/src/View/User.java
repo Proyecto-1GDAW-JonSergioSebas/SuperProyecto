@@ -5,6 +5,9 @@
  */
 package View;
 
+import ModelUML.MatchSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -18,7 +21,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @since 1.0
  */
 public class User extends javax.swing.JFrame {
-
+    ArrayList<MatchSet> league;
     private static boolean child;
 
     /**
@@ -67,12 +70,22 @@ public class User extends javax.swing.JFrame {
         jlClassification = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setText("Liga");
 
         jLabel2.setText("Jornada");
 
         cbLeague.setToolTipText("");
+        cbLeague.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbLeagueActionPerformed(evt);
+            }
+        });
 
         cbMatchset.setMaximumRowCount(40);
         cbMatchset.setEnabled(false);
@@ -166,6 +179,16 @@ public class User extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cbLeagueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLeagueActionPerformed
+        
+    }//GEN-LAST:event_cbLeagueActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        league = ViewController.executeSaxParserLeague();
+        cbLeague.addItem("Liga actual");
+        fillCbLeague();
+    }//GEN-LAST:event_formWindowActivated
+
     /**
      * @param args the command line arguments
      */
@@ -191,4 +214,18 @@ public class User extends javax.swing.JFrame {
     private javax.swing.JList<String> jlClassification;
     private javax.swing.JTable jtGames;
     // End of variables declaration//GEN-END:variables
+
+    private void fillCbLeague() {
+        try {
+            
+            ArrayList<String> leaguenames = ViewController.getLeagueNames();
+            leaguenames.remove(leaguenames.size()-1);
+            leaguenames.forEach(e -> cbLeague.addItem(e));
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

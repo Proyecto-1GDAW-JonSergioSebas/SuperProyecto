@@ -610,5 +610,17 @@ public class SuperProyecto {
         ResultSet rs = DBController.getClassification(leagueid, con);
         return rs;
     }
+    /**
+     * Obtiene los nombres de todas las ligas
+     * @return un ArrayList de String con los nombres de las ligas
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
+     */
+    public static ArrayList<String> getAllLeagueNames() throws SQLException, ClassNotFoundException {
+        Connection con = DBController.createConnection();
+        ArrayList<String> leaguenames = DBController.getAllLeagueNames(con);
+        con.close();
+        return leaguenames;
+    }
 
 }
