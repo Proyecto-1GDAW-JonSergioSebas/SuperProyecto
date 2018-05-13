@@ -5,11 +5,16 @@
  */
 package View;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import ModelUML.*;
+import DB.*;
+import java.sql.Connection;
+import java.util.ArrayList;
 
 /**
  * @author Sebastián Zawisza
@@ -22,6 +27,11 @@ public class Owner extends javax.swing.JFrame {
 
     private static byte mode, progress;
     private static boolean child;
+
+    //
+    Connection con;
+    private ArrayList<Team> teamList;
+    private ArrayList<Player> playersList;
 
     /**
      * Creates new form User
@@ -42,10 +52,30 @@ public class Owner extends javax.swing.JFrame {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         //</editor-fold>
+
         mode = 0;
         progress = 0;
         if (child) {
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        }
+
+        teamList = new ArrayList<>();
+        //query get teams, players. Despues llenar cbTeam
+        try {
+            con = DBController.createConnection();
+
+            teamList = DBTeam.getTeams(con);
+            playersList = DBPlayer.selectAllPlayers(con);
+            fillTeamBox();
+        } catch (Exception e) {
+            System.out.println("excep");
+        }
+
+    }
+
+    public void fillTeamBox() {
+        for (Team team : teamList) {
+            cbTeam.addItem(team.getTeamName());
         }
     }
 
@@ -99,6 +129,11 @@ public class Owner extends javax.swing.JFrame {
         cbPlayer.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbPlayerItemStateChanged(evt);
+            }
+        });
+        cbPlayer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbPlayerActionPerformed(evt);
             }
         });
 
@@ -193,7 +228,7 @@ public class Owner extends javax.swing.JFrame {
      */
     private void cbTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTeamActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_cbTeamActionPerformed
     /**
      * Abre una ventana de confirmación, y si el usuario está seguro, fija el
@@ -212,6 +247,32 @@ public class Owner extends javax.swing.JFrame {
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         mode = 1;
         refresh();
+        String equipo = "";
+        int equipoNum = cbTeam.getItemCount();
+        if (cbTeam.getSelectedIndex() != -1) {
+            equipo = (String) cbTeam.getSelectedItem();
+        }
+        //con el nombre del equipo comprobar cada equipo al que esta cada jugador
+        for (Player player : playersList) {
+            Boolean vControl = false;
+            int vControl2 = 0;
+            do {
+                //comprobar que no coincida con cualquier equipo
+                for (Team team : teamList) {
+                    if (player.getTeam().getTeamName().equalsIgnoreCase(equipo)) {
+                        vControl = true; //RIP 
+                    }
+                    vControl2++;
+                }
+            } while (!vControl && vControl2 < equipoNum);
+
+            if (!vControl) {
+                //añadir al comboBox
+                cbPlayer.addItem(player.getNickName());
+            }
+        }
+
+
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     /**
@@ -222,6 +283,37 @@ public class Owner extends javax.swing.JFrame {
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         mode = 2;
         refresh();
+        
+        String equipo = "";
+        int equipoNum = cbTeam.getItemCount();
+        if (cbTeam.getSelectedIndex() != -1) {
+            equipo = (String) cbTeam.getSelectedItem();
+        }
+        //con el nombre del equipo comprobar cada equipo al que esta cada jugador
+        for (Player player : playersList) {
+            Boolean vControl = false;
+            int vControl2 = 0;
+            do {
+                
+                //comprobar si coincida con cualquier equipo
+                for (Team team : teamList) {
+                    if (player.getTeam().getTeamName().equalsIgnoreCase(equipo)) {
+                        vControl = true; //RIP 
+                    }
+                    vControl2++;
+                }
+            } while (!vControl && vControl2 < equipoNum);
+
+            if (vControl) {
+                //añadir al comboBox
+                cbPlayer.addItem(player.getNickName());
+            }
+        }
+        
+        
+        
+        
+        
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void cbTeamItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTeamItemStateChanged
@@ -241,6 +333,10 @@ public class Owner extends javax.swing.JFrame {
     private void jbUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUserActionPerformed
         ViewController.user(true);
     }//GEN-LAST:event_jbUserActionPerformed
+
+    private void cbPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPlayerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbPlayerActionPerformed
 
     /**
      * Actualiza el estado de componentes en la ventana.
