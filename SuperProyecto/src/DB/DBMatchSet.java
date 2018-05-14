@@ -26,10 +26,19 @@ public class DBMatchSet {
      * @param con la conexion
      * @throws SQLException hay una excepcion SQL
      */
-    public static void insertMatchSet(int leaguenum,Connection con) throws SQLException{
+    public static int insertMatchSet(int leaguenum,Connection con) throws SQLException{
+        int lastmatchsetid = -1;
         Statement sta = con.createStatement();
-        sta.executeUpdate("INSERT INTO MATCHSET(LEAGUE) VALUES('"+leaguenum+"')");
+        sta.executeUpdate("INSERT INTO MATCHSET(LEAGUE) VALUES("+leaguenum+")");
         sta.close();
+        Statement sto = con.createStatement();
+        ResultSet resul = sto.executeQuery("SELECT ID_MS FROM MATCHSET WHERE LEAGUE = "+leaguenum+"");
+        while(resul.next()){
+            lastmatchsetid = resul.getInt("ID_MS");
+        }
+        resul.close();
+        sto.close();
+        return lastmatchsetid;
     }
     /**
      * Coge los id de los MatchSets correspondientes a la liga que se le pasa 
