@@ -53,6 +53,10 @@ public class Owner extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        //Para centrar la ventana
+        setLocationRelativeTo(null);
+        cbPlayer.setEnabled(true);
+
         mode = 0;
         progress = 0;
         if (child) {
@@ -155,6 +159,11 @@ public class Owner extends javax.swing.JFrame {
 
         jbConfirm.setText("Aceptar");
         jbConfirm.setEnabled(false);
+        jbConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbConfirmActionPerformed(evt);
+            }
+        });
 
         jbFix.setText("Fijar Equipo");
         jbFix.setEnabled(false);
@@ -247,7 +256,9 @@ public class Owner extends javax.swing.JFrame {
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         mode = 1;
         refresh();
+
         String equipo = "";
+        
         int equipoNum = cbTeam.getItemCount();
         if (cbTeam.getSelectedIndex() != -1) {
             equipo = (String) cbTeam.getSelectedItem();
@@ -283,8 +294,9 @@ public class Owner extends javax.swing.JFrame {
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         mode = 2;
         refresh();
-        
+
         String equipo = "";
+
         int equipoNum = cbTeam.getItemCount();
         if (cbTeam.getSelectedIndex() != -1) {
             equipo = (String) cbTeam.getSelectedItem();
@@ -294,7 +306,7 @@ public class Owner extends javax.swing.JFrame {
             Boolean vControl = false;
             int vControl2 = 0;
             do {
-                
+
                 //comprobar si coincida con cualquier equipo
                 for (Team team : teamList) {
                     if (player.getTeam().getTeamName().equalsIgnoreCase(equipo)) {
@@ -308,12 +320,9 @@ public class Owner extends javax.swing.JFrame {
                 //añadir al comboBox
                 cbPlayer.addItem(player.getNickName());
             }
+
         }
-        
-        
-        
-        
-        
+
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void cbTeamItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTeamItemStateChanged
@@ -337,6 +346,10 @@ public class Owner extends javax.swing.JFrame {
     private void cbPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPlayerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbPlayerActionPerformed
+
+    private void jbConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbConfirmActionPerformed
 
     /**
      * Actualiza el estado de componentes en la ventana.
@@ -362,6 +375,7 @@ public class Owner extends javax.swing.JFrame {
                 new Owner(child).setVisible(true);
             }
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
