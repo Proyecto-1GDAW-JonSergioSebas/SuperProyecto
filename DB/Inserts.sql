@@ -10,7 +10,6 @@ mismas reglas de estilo que el DDL
 INSERT INTO DB_ADMIN(USERNAME,PASSWD) VALUES
 ('root','abcde!2345');
 
-
 /*----DB_USER----
   estos serían los "default" */
 INSERT INTO DB_USER(USERNAME,PASSWD) 
