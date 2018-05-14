@@ -137,15 +137,13 @@ public class SuperProyecto {
                 MatchSet tempms = new MatchSet(tempGames);
                 league.add(tempms);
             }
-            
-            for(int x=0;x<league.size();x++){
-                for(Game mthc:league.get(x).getGames()){
-                    System.out.println(mthc.getTeam1().getTeamName()+"  "+mthc.getTeam2().getTeamName());
+
+            for (int x = 0; x < league.size(); x++) {
+                for (Game mthc : league.get(x).getGames()) {
+                    System.out.println(mthc.getTeam1().getTeamName() + "  " + mthc.getTeam2().getTeamName());
                 }
             }
-                
-                
-            
+
             //Ahora creamos la Liga en la Base de Datos
             createLeague(leaguename, con);
 
@@ -622,8 +620,10 @@ public class SuperProyecto {
         ResultSet rs = DBController.getClassification(leagueid, con);
         return rs;
     }
+
     /**
      * Obtiene los nombres de todas las ligas
+     *
      * @return un ArrayList de String con los nombres de las ligas
      * @throws SQLException si se da alguna excepcion SQL
      * @throws ClassNotFoundException si no se encuentra la clase
@@ -667,4 +667,16 @@ public class SuperProyecto {
         con.close();
     }
 */
+    /**
+     * Coge de la base de datos el Date más elevado última liga
+     *
+     * @return devuelve un objeto Date
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static Date getLeagueEndDate() throws SQLException, ClassNotFoundException {
+        Connection con = createConnection();
+        Date date = DBController.getLeagueEndDate(con);
+        con.close();
+        return date;
+    }
 }

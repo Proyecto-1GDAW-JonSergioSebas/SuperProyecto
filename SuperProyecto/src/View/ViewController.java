@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import superproyecto.SuperProyecto;
 
 /**
@@ -426,6 +427,7 @@ public class ViewController {
         ArrayList<String> leaguenames = SuperProyecto.getAllLeagueNames();
         return leaguenames;
     }
+
     /**
      * Obtiene el id de la liga de la cual se le pasa el nombre
      * @param leaguename el nombre de la liga
@@ -453,4 +455,19 @@ public class ViewController {
         ArrayList<Game> matchSetGames = SuperProyecto.getMatchSetGames(leaguenum,matchSetnum);
     }
 */
+   
+    public static void matchsetUpdate(Frame f) {
+        MatchsetUpdate mu = new MatchsetUpdate(f, true);
+        mu.setVisible(true);
+    }
+    
+    /**
+     * Coge de la base de datos el Date más elevado última liga
+     *
+     * @return devuelve un objeto Date
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static Date getLeagueEndDate() throws SQLException, ClassNotFoundException {
+        return SuperProyecto.getLeagueEndDate();
+    }
 }

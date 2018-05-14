@@ -36,8 +36,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Esta clase se encarga de gestionar las relaciones con las clases que se encuentren
- * fuera del paquete DB y las que se encuentran dentro
+ * Esta clase se encarga de gestionar las relaciones con las clases que se
+ * encuentren fuera del paquete DB y las que se encuentran dentro
+ *
  * @author Sebastián Zawisza
  * @author Sergio Zulueta
  * @author Jon Maneiro
@@ -579,7 +580,9 @@ public class DBController {
         ResultSet rs = DBProcedures.getClassification(leagueid, con);
         return rs;
     }
+
     /**
+
      * Obtiene los nombres de todas las ligas
      * @param con la conexion
      * @return devuelve un ArrayList con los nombres de todas las ligas
@@ -589,6 +592,7 @@ public class DBController {
         ArrayList<String> leaguenames = DBLeague.getAllLeagueNames(con);
         return leaguenames;
     }
+
     /**
      * Devuelve el ID de la liga de la cual se le pasa el nombre
      * @param leaguename el nombre de la liga
@@ -616,4 +620,17 @@ public class DBController {
         }
     }
 */
+
+
+    /**
+     * Coge de la base de datos el Date más elevado última liga
+     *
+     * @param leagueId el ID de la liga
+     * @param con la conexion
+     * @return devuelve un objeto Date
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static Date getLeagueEndDate(Connection con) throws SQLException {
+        return DBGame.getLeagueEndDate((getLastLeagueID(con)), con);
+    }
 }
