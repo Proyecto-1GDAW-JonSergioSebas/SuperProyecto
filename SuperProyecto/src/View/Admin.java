@@ -52,7 +52,6 @@ public class Admin extends javax.swing.JFrame {
         }
         try {
             ViewController.getLeagueNames().forEach(e -> cbLeague.addItem(e));
-            cbLeague.setSelectedIndex(-1);
         } catch (SQLException sQLException) {
         } catch (ClassNotFoundException classNotFoundException) {
         }
@@ -747,7 +746,8 @@ public class Admin extends javax.swing.JFrame {
 
     private void jbCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCalendarActionPerformed
         try {
-            if (ViewController.getLeagueEndDate().before(Date.from(Instant.now()))) {
+            Date led = ViewController.getLeagueEndDate();
+            if (led == null || led.before(Date.from(Instant.now()))) {
                 ViewController.league(this);
                 cbLeague.removeAllItems();
                 ViewController.getLeagueNames().forEach(e -> cbLeague.addItem(e));
@@ -755,15 +755,20 @@ public class Admin extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "La creación de nuevas ligas solo está permitida tras el fin de la liga actual.");
             }
+
         } catch (SQLException | ClassNotFoundException e) {
         }
     }//GEN-LAST:event_jbCalendarActionPerformed
 
     private void cbLeagueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLeagueActionPerformed
         if (cbLeague.getSelectedIndex() != -1) {
-            cbMatchet.setEnabled(true);
-            //TODO:
-            //todo
+            try {
+                cbMatchet.setEnabled(true);
+                cbMatchet.removeAllItems();
+                ViewController.getLeagueMatchSetsID(ViewController.getLeagueNum((String) cbLeague.getSelectedItem())).forEach(e -> cbMatchet.addItem(String.valueOf(e))); //cristo redentor  
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_cbLeagueActionPerformed
     /**
