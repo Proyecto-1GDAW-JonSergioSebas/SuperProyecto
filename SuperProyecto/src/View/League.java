@@ -125,7 +125,7 @@ public class League extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (JOptionPane.showConfirmDialog(this, "Una vez creadas, las ligas no pueden ser eliminadas sin acceso directo a la base de datos.\n¿Está completamente seguro de que quiere generar una liga?") == 0) {
-            Pattern p = Pattern.compile("^\\S{0,20}$");
+            Pattern p = Pattern.compile("^[A-Za-z]{0,20}$");
             Matcher match = p.matcher(jTextField1.getText());
             if (match.matches()) {
                 try {

@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import superproyecto.SuperProyecto;
 
 /**
@@ -423,5 +424,20 @@ public class ViewController {
     static ArrayList<String> getLeagueNames() throws SQLException, ClassNotFoundException {
         ArrayList<String> leaguenames = SuperProyecto.getAllLeagueNames();
         return leaguenames;
+    }
+    
+    public static void matchsetUpdate(Frame f) {
+        MatchsetUpdate mu = new MatchsetUpdate(f, true);
+        mu.setVisible(true);
+    }
+    
+    /**
+     * Coge de la base de datos el Date más elevado última liga
+     *
+     * @return devuelve un objeto Date
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static Date getLeagueEndDate() throws SQLException, ClassNotFoundException {
+        return SuperProyecto.getLeagueEndDate();
     }
 }
