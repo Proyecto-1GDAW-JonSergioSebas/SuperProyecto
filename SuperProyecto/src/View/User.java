@@ -5,6 +5,7 @@
  */
 package View;
 
+import ModelUML.Game;
 import ModelUML.MatchSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,8 +22,9 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @since 1.0
  */
 public class User extends javax.swing.JFrame {
-    ArrayList<MatchSet> league;
-    private static boolean child;
+    ArrayList<MatchSet> league; // El array de la liga que actualmente se esta jugando
+    private static boolean child; 
+    ArrayList<Integer> templeague= new ArrayList();//el array para usar con los id de los matchsets de la liga seleccionada
 
     /**
      * Creates new form User
@@ -46,7 +48,10 @@ public class User extends javax.swing.JFrame {
         if (child) {
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         }
-
+        league = ViewController.executeSaxParserLeague();
+        cbLeague.addItem("Liga actual");
+        fillCbLeague();
+        fillCbMatchSet();
     }
 
     /**
@@ -88,7 +93,11 @@ public class User extends javax.swing.JFrame {
         });
 
         cbMatchset.setMaximumRowCount(40);
-        cbMatchset.setEnabled(false);
+        cbMatchset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbMatchsetActionPerformed(evt);
+            }
+        });
 
         jtGames.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -180,20 +189,34 @@ public class User extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbLeagueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLeagueActionPerformed
-        
+        cbMatchset.removeAllItems();
+        String selectedleague = cbLeague.getSelectedItem().toString();
+        fillCbMatchSet(selectedleague);
     }//GEN-LAST:event_cbLeagueActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        league = ViewController.executeSaxParserLeague();
-        cbLeague.addItem("Liga actual");
-        fillCbLeague();
+        
     }//GEN-LAST:event_formWindowActivated
+
+    private void cbMatchsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMatchsetActionPerformed
+        try {
+            
+            int leaguenum = ViewController.getLeagueNum(cbLeague.getSelectedItem().toString());
+            //ArrayList<Game> selectedMSGames = ViewController.getMatchSetGames(leaguenum,Integer.parseInt(cbMatchset.getSelectedItem().toString()));
+        
+        
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cbMatchsetActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -214,7 +237,9 @@ public class User extends javax.swing.JFrame {
     private javax.swing.JList<String> jlClassification;
     private javax.swing.JTable jtGames;
     // End of variables declaration//GEN-END:variables
-
+    /**
+     * Rellena el ComboBox que contiene las ligas
+     */
     private void fillCbLeague() {
         try {
             
@@ -226,6 +251,32 @@ public class User extends javax.swing.JFrame {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    /**
+     * Rellena el ComboBox que contiene las jornadas con las de la liga actual
+     */
+    private void fillCbMatchSet(){
+        for(int x=0; x<league.size();x++){
+            cbMatchset.addItem(""+league.get(x));//Convirtiendo a String de forma super eficaz
+        }
+    }
+    
+    private void fillCbMatchSet(String leaguename){
+        if(leaguename.equalsIgnoreCase("Liga actual")){
+            fillCbMatchSet();
+        }
+        else{
+            try {
+                
+                int leaguenum = ViewController.getLeagueNum(leaguename);
+                templeague.addAll(ViewController.getLeagueMatchSetsID(leaguenum));
+                templeague.forEach(e -> cbMatchset.addItem(""+e));
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

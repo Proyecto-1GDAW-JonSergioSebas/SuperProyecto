@@ -36,8 +36,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Esta clase se encarga de gestionar las relaciones con las clases que se encuentren
- * fuera del paquete DB y las que se encuentran dentro
+ * Esta clase se encarga de gestionar las relaciones con las clases que se
+ * encuentren fuera del paquete DB y las que se encuentran dentro
+ *
  * @author Sebastián Zawisza
  * @author Sergio Zulueta
  * @author Jon Maneiro
@@ -123,9 +124,10 @@ public class DBController {
      * @param con la conexion
      * @throws SQLException hay una excepcion SQL
      */
-    public static void createMatchSet(String leaguename, Connection con) throws SQLException {
+    public static int createMatchSet(String leaguename, Connection con) throws SQLException {
         int temp = askForLeague(leaguename, con);
-        insertMatchSet(temp, con);
+        int lastmatchsetid = insertMatchSet(temp, con);
+        return lastmatchsetid;
     }
 
     /**
@@ -140,8 +142,8 @@ public class DBController {
      * @param con la conexion
      * @throws SQLException hay una excepcion SQL
      */
-    public static void createGames(Game gm, int gamenum, int matchsetnum, Connection con) throws SQLException {
-        insertGame(gm, matchsetnum, con);
+    public static void createGames(Game gm, int matchsetnum, Connection con) throws SQLException {
+        int gamenum = insertGame(gm, matchsetnum, con);
         int teamnum = searchTeam(gm.getTeam1().getTeamName(), con);
         insertGameResult(gamenum, teamnum, con);
         teamnum = searchTeam(gm.getTeam2().getTeamName(), con);
@@ -578,15 +580,57 @@ public class DBController {
         ResultSet rs = DBProcedures.getClassification(leagueid, con);
         return rs;
     }
+
     /**
-     * 
-     * @param con
-     * @return
-     * @throws SQLException 
+
+     * Obtiene los nombres de todas las ligas
+     * @param con la conexion
+     * @return devuelve un ArrayList con los nombres de todas las ligas
+     * @throws SQLException si se da alguna excepcion SQL
      */
     public static ArrayList<String> getAllLeagueNames(Connection con) throws SQLException {
         ArrayList<String> leaguenames = DBLeague.getAllLeagueNames(con);
         return leaguenames;
     }
 
+    /**
+     * Devuelve el ID de la liga de la cual se le pasa el nombre
+     * @param leaguename el nombre de la liga
+     * @param con la conexion
+     * @return devuelve un int con el id de la liga
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static int getLeagueID(String leaguename, Connection con) throws SQLException {
+        int x = DBLeague.askForLeague(leaguename, con);
+        return x ;
+    }
+/*
+    public static ArrayList<Game> getMatchSetGames(int leaguenum, int matchSetnum, Connection con) throws SQLException {
+        ArrayList<Game> matchSetGames= new ArrayList();
+        /*
+        Obtener id de Games correspondientes a la jornada
+        segun el id obtener los equipos que participan y las puntuaciones
+        crear un objeto Game con solo esos 4 datos
+        insertarlos en el ArrayList y devolverlo
+        *//*
+        ArrayList<Integer> gamesID = getGamesID(matchSetnum, con);
+        for(Integer e:gamesID){
+            Game tempgame = new Game();
+            obtainGameTeamID(e, con);
+        }
+    }
+*/
+
+
+    /**
+     * Coge de la base de datos el Date más elevado última liga
+     *
+     * @param leagueId el ID de la liga
+     * @param con la conexion
+     * @return devuelve un objeto Date
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static Date getLeagueEndDate(Connection con) throws SQLException {
+        return DBGame.getLeagueEndDate((getLastLeagueID(con)), con);
+    }
 }

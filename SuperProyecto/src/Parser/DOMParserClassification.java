@@ -46,9 +46,10 @@ import static superproyecto.SuperProyecto.createMatchSets;
  */
 public class DOMParserClassification {
     
-    Document dom;
-    static ArrayList<Integer> points;
-    static ArrayList<String> names;
+    private Document dom;
+    private static ArrayList<Integer> points;
+    private static ArrayList<String> names;
+    
     public DOMParserClassification(){
         loadData();
     }
@@ -72,7 +73,7 @@ public class DOMParserClassification {
         }
     }
     
-    public static void main(String[] args){
+    public static void executeDOMClassification(){
         //Creamos una instancia
         points = new ArrayList();
         names = new ArrayList();
@@ -86,6 +87,8 @@ public class DOMParserClassification {
         System.out.println("Ejecutando..");
         //Volcamos el Fichero XML en memoria como Arbol DOM
         parseXMLFile();
+        //borramos lo que hubiera antes
+        deletePreviousContent();
         //Creamos los elementos y los agregamos al arbol DOM
         createDOMTree();
         //Escribimos el Arbol DOM en el fichero XML
@@ -156,6 +159,18 @@ public class DOMParserClassification {
 
         } catch (IOException ie) {
             ie.printStackTrace();
+        }
+    }
+
+    private void deletePreviousContent() {
+        Element docEle= dom.getDocumentElement();
+        
+        for(int x = 0; x<names.size();x++){
+            NodeList nl = docEle.getElementsByTagName("team");
+            for(int i = 0 ; i<nl.getLength();i++){
+                Element teamito = (Element) nl.item(i);
+                docEle.removeChild(teamito);
+            }
         }
     }
 }

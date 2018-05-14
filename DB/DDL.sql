@@ -17,6 +17,7 @@ DROP TABLE GAME CASCADE CONSTRAINTS;
 DROP TABLE MATCHSET CASCADE CONSTRAINTS;
 DROP TABLE LEAGUE CASCADE CONSTRAINTS;
 DROP TABLE CLASSIFICATION_TEMP CASCADE CONSTRAINTS;
+DROP TABLE USERNAMES_TEMP;
 
 CREATE TABLE TEAM_OWNER ( --TO
   ID_TO NUMBER(5) GENERATED ALWAYS AS IDENTITY,
@@ -76,6 +77,7 @@ CREATE TABLE PLAYER ( --PL
 CREATE TABLE LEAGUE ( --LG
   ID_LG NUMBER(5) GENERATED ALWAYS AS IDENTITY,
   LEAGUE_NAME VARCHAR(20) NOT NULL,
+  OVER NUMBER(1) DEFAULT 0,
   
   CONSTRAINT LG_PK PRIMARY KEY (ID_LG)
 );  
@@ -150,68 +152,113 @@ BEGIN
   END IF;
 END;
 /
-CREATE OR REPLACE VIEW USERNAMES AS --vista que contiene los nombres de usuario para todos los tipos de cuenta en la base de datos, para los siguientes triggers
-SELECT USERNAME FROM DB_USER --simplemente selecciona el nombre de usuario de una tabla
-UNION
-SELECT USERNAME FROM DB_ADMIN --y los une con los de otra
-UNION
-SELECT USERNAME FROM TEAM_OWNER;
+CREATE TABLE USERNAMES_TEMP ( --tabla temporal, que durante la ejecución de los siguientes triggers contiene los nombres de usuario de todos las cuentas en el sistema
+  USERNAME VARCHAR2(12)
+);
+/
+CREATE OR REPLACE TRIGGER DBADMIN_USERNAMES_TABLE
+BEFORE INSERT OR UPDATE OF USERNAME ON DB_ADMIN
+DECLARE
+  CURSOR USERNAMES IS 
+    SELECT USERNAME FROM DB_USER --simplemente selecciona el nombre de usuario de una tabla
+    UNION
+    SELECT USERNAME FROM DB_ADMIN --y los une con los de otra
+    UNION
+    SELECT USERNAME FROM TEAM_OWNER;
+BEGIN
+  FOR US IN USERNAMES LOOP 
+    INSERT INTO USERNAMES_TEMP VALUES (US.USERNAME); --inserta en la tabla temporal cada nombre de usuario en existencia
+  END LOOP;
+END;
 /
 CREATE OR REPLACE TRIGGER ADMIN_MUTATING_TABLE --trigger para prevenir el error de table mutante en el siguiente trigger
-BEFORE INSERT OR UPDATE OF USERNAME ON DB_ADMIN
+AFTER INSERT OR UPDATE OF USERNAME ON DB_ADMIN
 FOR EACH ROW
 BEGIN
   TRIGGER_MT.TEMP_ADMIN.USERNAME := :NEW.USERNAME; --solo inserta el nuevo nombre de usuario en esta variable, declarada bastante antes en este fichero
 END;
 /
 CREATE OR REPLACE TRIGGER UNIQUE_USERNAME_ADMIN --este trigger se asegura de que el nombre de usuario de un administrador es unico entre todos los tipos de cuenta, independientemente de las mayusculas y minusculas
-BEFORE INSERT OR UPDATE OF USERNAME ON DB_ADMIN
+AFTER INSERT OR UPDATE OF USERNAME ON DB_ADMIN
 DECLARE
-  CURSOR LIST IS SELECT USERNAME FROM USERNAMES; --aqui llamamos a la vista de nombres de usuario declarada antes, y hacemos un cursor con sus contenidos
+  CURSOR LIST IS SELECT USERNAME FROM USERNAMES_TEMP; --aqui llamamos a la vista de nombres de usuario declarada antes, y hacemos un cursor con sus contenidos
 BEGIN
   FOR US IN LIST LOOP --por cada nombre de usuario en el cursor
     IF UPPER(TRIGGER_MT.TEMP_ADMIN.USERNAME) = UPPER(US.USERNAME) THEN --verificamos que no coincida con el nuevo nombre de usuario
       RAISE_APPLICATION_ERROR(-20003, 'El nombre de usuario ya está utilizado.'); --y si coincide, salta esta excepcion
     END IF;
   END LOOP;
+  DELETE FROM USERNAMES_TEMP; --al finalizar, borra el contenido de la tabla temporal con los nombres de usuario
 END; --los siguientes cuatro triggers son identicos a este y el anterior, solo para los otros tipos de cuenta, asi que los dejo sin comentar
 /
-CREATE OR REPLACE TRIGGER USER_MUTATING_TABLE 
+CREATE OR REPLACE TRIGGER DBUSER_USERNAMES_TABLE
 BEFORE INSERT OR UPDATE OF USERNAME ON DB_USER
+DECLARE
+  CURSOR USERNAMES IS 
+    SELECT USERNAME FROM DB_USER --simplemente selecciona el nombre de usuario de una tabla
+    UNION
+    SELECT USERNAME FROM DB_ADMIN --y los une con los de otra
+    UNION
+    SELECT USERNAME FROM TEAM_OWNER;
+BEGIN
+  FOR US IN USERNAMES LOOP 
+    INSERT INTO USERNAMES_TEMP VALUES (US.USERNAME); --inserta en la tabla temporal cada nombre de usuario en existencia
+  END LOOP;
+END;
+/
+CREATE OR REPLACE TRIGGER USER_MUTATING_TABLE 
+AFTER INSERT OR UPDATE OF USERNAME ON DB_USER
 FOR EACH ROW
 BEGIN
   TRIGGER_MT.TEMP_USER.USERNAME := :NEW.USERNAME;
 END;
 /
-CREATE OR REPLACE TRIGGER UNIQUE_USERNAME_USER
-BEFORE INSERT OR UPDATE OF USERNAME ON DB_USER
+CREATE OR REPLACE TRIGGER UNIQUE_USERNAME_DBUSER
+AFTER INSERT OR UPDATE OF USERNAME ON DB_USER
 DECLARE
-  CURSOR LIST IS SELECT USERNAME FROM USERNAMES;
+  CURSOR LIST IS SELECT USERNAME FROM USERNAMES_TEMP;
 BEGIN
   FOR US IN LIST LOOP
     IF UPPER(TRIGGER_MT.TEMP_USER.USERNAME) = UPPER(US.USERNAME) THEN
-      RAISE_APPLICATION_ERROR(-20003, 'El nombre de usuario ya está utilizado.');
+      RAISE_APPLICATION_ERROR(-20003, 'El nombre de usuario ya está utilizado.');       
     END IF;
+  END LOOP;
+  DELETE FROM USERNAMES_TEMP;
+END;
+/
+CREATE OR REPLACE TRIGGER OWNER_USERNAMES_TABLE
+BEFORE INSERT OR UPDATE OF USERNAME ON TEAM_OWNER
+DECLARE
+  CURSOR USERNAMES IS 
+    SELECT USERNAME FROM DB_USER --simplemente selecciona el nombre de usuario de una tabla
+    UNION
+    SELECT USERNAME FROM DB_ADMIN --y los une con los de otra
+    UNION
+    SELECT USERNAME FROM TEAM_OWNER;
+BEGIN
+  FOR US IN USERNAMES LOOP 
+    INSERT INTO USERNAMES_TEMP VALUES (US.USERNAME); --inserta en la tabla temporal cada nombre de usuario en existencia
   END LOOP;
 END;
 /
 CREATE OR REPLACE TRIGGER OWNER_MUTATING_TABLE
-BEFORE INSERT OR UPDATE OF USERNAME ON TEAM_OWNER
+AFTER INSERT OR UPDATE OF USERNAME ON TEAM_OWNER
 FOR EACH ROW
 BEGIN
   TRIGGER_MT.TEMP_OWNER.USERNAME := :NEW.USERNAME;
 END;
 /
 CREATE OR REPLACE TRIGGER UNIQUE_USERNAME_OWNER
-BEFORE INSERT OR UPDATE OF USERNAME ON TEAM_OWNER
+AFTER INSERT OR UPDATE OF USERNAME ON TEAM_OWNER
 DECLARE
-  CURSOR LIST IS SELECT USERNAME FROM USERNAMES;
+  CURSOR LIST IS SELECT USERNAME FROM USERNAMES_TEMP;
 BEGIN
   FOR US IN LIST LOOP
     IF UPPER(TRIGGER_MT.TEMP_OWNER.USERNAME) = UPPER(US.USERNAME) THEN
       RAISE_APPLICATION_ERROR(-20003, 'El nombre de usuario ya está utilizado.');
     END IF;
   END LOOP;
+  DELETE FROM USERNAMES_TEMP;
 END;
 /
 CREATE TABLE CLASSIFICATION_TEMP ( --tabla temporal, solo contiene datos durante la ejecucion de los procesos que generan los datos de clasificacion

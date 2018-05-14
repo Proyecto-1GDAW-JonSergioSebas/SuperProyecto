@@ -5,8 +5,12 @@
  */
 package View;
 
+import java.sql.SQLException;
+import java.time.Instant;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -45,6 +49,11 @@ public class Admin extends javax.swing.JFrame {
         mode = 0; //0 por defecto, 1 para jugadores, 2 para equipos, 3 para dueños, 4 para usuarios
         if (child) {
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        }
+        try {
+            ViewController.getLeagueNames().forEach(e -> cbLeague.addItem(e));
+        } catch (SQLException sQLException) {
+        } catch (ClassNotFoundException classNotFoundException) {
         }
     }
 
@@ -102,6 +111,12 @@ public class Admin extends javax.swing.JFrame {
         jmViewOwner = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        cbLeague.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbLeagueActionPerformed(evt);
+            }
+        });
 
         jbCalendar.setText("Generar Calendario");
         jbCalendar.addActionListener(new java.awt.event.ActionListener() {
@@ -451,7 +466,7 @@ public class Admin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbResultsActionPerformed
-        // TODO add your handling code here:
+        ViewController.matchsetUpdate(this);
     }//GEN-LAST:event_jbResultsActionPerformed
     /**
      * Actualiza el modo de la ventana para que los botones se apliquen a
@@ -730,8 +745,32 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jbUpdateActionPerformed
 
     private void jbCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCalendarActionPerformed
-        ViewController.league(this);
+        try {
+            Date led = ViewController.getLeagueEndDate();
+            if (led == null || led.before(Date.from(Instant.now()))) {
+                ViewController.league(this);
+                cbLeague.removeAllItems();
+                ViewController.getLeagueNames().forEach(e -> cbLeague.addItem(e));
+                cbLeague.setSelectedIndex(-1);
+            } else {
+                JOptionPane.showMessageDialog(this, "La creación de nuevas ligas solo está permitida tras el fin de la liga actual.");
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+        }
     }//GEN-LAST:event_jbCalendarActionPerformed
+
+    private void cbLeagueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLeagueActionPerformed
+        if (cbLeague.getSelectedIndex() != -1) {
+            try {
+                cbMatchet.setEnabled(true);
+                cbMatchet.removeAllItems();
+                ViewController.getLeagueMatchSetsID(ViewController.getLeagueNum((String) cbLeague.getSelectedItem())).forEach(e -> cbMatchet.addItem(String.valueOf(e))); //cristo redentor  
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_cbLeagueActionPerformed
     /**
      * Abre la ventana de creación de usuario.
      */
