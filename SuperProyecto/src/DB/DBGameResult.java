@@ -68,5 +68,17 @@ public class DBGameResult {
         sta.close();
         return scores;
     }
+
+    static int getTeamScore(Integer id, Integer teamID, Connection con) throws SQLException {
+        int x =-1;
+        Statement sta = con.createStatement();
+        ResultSet resul = sta.executeQuery("SELECT SCORE FROM GAME_RESULT WHERE GAME="+id+" AND TEAM="+teamID+"");
+        while(resul.next()){
+            x=resul.getInt("SCORE");
+        }
+        resul.close();
+        sta.close();
+        return x;
+    }
     
 }

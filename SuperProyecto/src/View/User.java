@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * @author Sebastián Zawisza
@@ -192,6 +193,7 @@ public class User extends javax.swing.JFrame {
         cbMatchset.removeAllItems();
         String selectedleague = cbLeague.getSelectedItem().toString();
         fillCbMatchSet(selectedleague);
+        
     }//GEN-LAST:event_cbLeagueActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -200,10 +202,26 @@ public class User extends javax.swing.JFrame {
 
     private void cbMatchsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMatchsetActionPerformed
         try {
-            
+            jtGames.removeAll();
             int leaguenum = ViewController.getLeagueNum(cbLeague.getSelectedItem().toString());
-            //ArrayList<Game> selectedMSGames = ViewController.getMatchSetGames(leaguenum,Integer.parseInt(cbMatchset.getSelectedItem().toString()));
-        
+            ArrayList<Game> selectedMSGames = ViewController.getMatchSetGames(leaguenum,Integer.parseInt(cbMatchset.getSelectedItem().toString()));
+            DefaultTableModel model = (DefaultTableModel) jtGames.getModel();
+            for(int x =0;x<selectedMSGames.size();x++){
+                String winner="";
+                if(selectedMSGames.get(x).getScore1()>selectedMSGames.get(x).getScore2()){
+                    winner=""+selectedMSGames.get(x).getTeam1().getTeamName();
+                }
+                else if(selectedMSGames.get(x).getScore1()<selectedMSGames.get(x).getScore2()){
+                    winner=""+selectedMSGames.get(x).getTeam2().getTeamName();
+                }
+                else{
+                    winner="Empate";
+                }
+                Object[] row ={selectedMSGames.get(x).getTeam1(),selectedMSGames.get(x).getScore1(),selectedMSGames.get(x).getTeam2(),selectedMSGames.get(x).getScore2(),winner};
+                
+                model.addRow(row);
+            } 
+            jtGames.setModel(model);
         
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);

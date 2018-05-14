@@ -34,7 +34,7 @@ public class SAXParserClassification extends DefaultHandler {
     /**
      * Creacion de los atributos Classification, tempVal, tema.
      */
-    ArrayList Classification;
+    static ArrayList Classification;
     private String tempVal;
     //Para mantener el contexto
     private TeamSax team;
@@ -154,12 +154,13 @@ public class SAXParserClassification extends DefaultHandler {
      *
      * @param args Los argumentos de la linea de comandos
      */
-    public static void main(String[] args) {
+    public static ArrayList executeSAXClassification() {
 
         System.out.println("SAX");
         System.out.println("---");
 
         SAXParserClassification spe = new SAXParserClassification();
         spe.runExample();
+        return Classification;
     }
 }
