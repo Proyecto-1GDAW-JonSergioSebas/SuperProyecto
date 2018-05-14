@@ -5,7 +5,9 @@
  */
 package View;
 
+import java.sql.Date;
 import java.text.ParseException;
+import java.time.Instant;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -124,22 +126,25 @@ public class League extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (JOptionPane.showConfirmDialog(this, "Una vez creadas, las ligas no pueden ser eliminadas sin acceso directo a la base de datos.\n¿Está completamente seguro de que quiere generar una liga?") == 0) {
-            Pattern p = Pattern.compile("^[A-Za-z]{0,20}$");
-            Matcher match = p.matcher(jTextField1.getText());
-            if (match.matches()) {
-                try {
-                    ViewController.createCalendar(jTextField1.getText(), jFormattedTextField1.getText());
-                } catch (ParseException ex) {
-                    Logger.getLogger(League.class.getName()).log(Level.SEVERE, null, ex);
+        Pattern p = Pattern.compile("^[A-Za-z]{0,20}$");
+        Matcher match = p.matcher(jTextField1.getText());
+        if (match.matches()) {
+            if (Date.valueOf(jFormattedTextField1.getText()).after(Date.from(Instant.now()))) {
+                if (JOptionPane.showConfirmDialog(this, "Una vez creadas, las ligas no pueden ser eliminadas sin acceso directo a la base de datos.\n¿Está completamente seguro de que quiere generar una liga?") == 0) {
+                    try {
+                        ViewController.createCalendar(jTextField1.getText(), jFormattedTextField1.getText());
+                    } catch (ParseException ex) {
+                        Logger.getLogger(League.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    JOptionPane.showMessageDialog(this, "Liga creada.");
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "El nombre de la liga debe ser de menos de 20 caracteres.");
                 }
-                JOptionPane.showMessageDialog(this, "Liga creada.");
-                dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "El nombre de la liga debe ser de menos de 20 caracteres.");
+                JOptionPane.showMessageDialog(rootPane, "La fecha de inicio de una liga debe ser posterior a la fecha actual.");
             }
         }
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
