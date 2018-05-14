@@ -411,7 +411,10 @@ public class ViewController {
     static void updateTeam(String teamname, String newTeamname, String newNationality, String newTeamownername) throws ClassNotFoundException, SQLException {
         SuperProyecto.updateTeam(teamname, newTeamname, newNationality, newTeamownername);
     }
-    
+    /**
+     * Ejecuta el SAXPArser de liga y devuelve un arrayList con todos los matchsets, y games
+     * @return un ArrayList con todos los MatchSet de una liga
+     */
     public static ArrayList<MatchSet> executeSaxParserLeague(){
         ArrayList<MatchSet> temparry = SAXParserLeague.executeSAXLeague();
         
@@ -450,11 +453,19 @@ public class ViewController {
         ArrayList<Integer> temparry = SuperProyecto.getLeagueMatchSetsID(leaguenum);
         return temparry;
     }
-/*
+    /**
+     * Obtiene todos los Game que haya dentro de un MatchSet
+     * @param leaguenum el id de la liga
+     * @param matchSetnum el id del MatchSet
+     * @return un ArrayList con Game
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
     static ArrayList<Game> getMatchSetGames(int leaguenum, int matchSetnum) throws ClassNotFoundException, SQLException {
         ArrayList<Game> matchSetGames = SuperProyecto.getMatchSetGames(leaguenum,matchSetnum);
+        return matchSetGames;
     }
-*/
+
    
     public static void matchsetUpdate(Frame f) {
         MatchsetUpdate mu = new MatchsetUpdate(f, true);
