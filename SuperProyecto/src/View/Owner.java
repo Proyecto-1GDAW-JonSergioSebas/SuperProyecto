@@ -256,31 +256,30 @@ public class Owner extends javax.swing.JFrame {
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         mode = 1;
         refresh();
+        cbPlayer.removeAllItems();
 
         String equipo = "";
-        
+
         int equipoNum = cbTeam.getItemCount();
         if (cbTeam.getSelectedIndex() != -1) {
             equipo = (String) cbTeam.getSelectedItem();
         }
         //con el nombre del equipo comprobar cada equipo al que esta cada jugador
         for (Player player : playersList) {
-            Boolean vControl = false;
-            int vControl2 = 0;
-            do {
-                //comprobar que no coincida con cualquier equipo
-                for (Team team : teamList) {
-                    if (player.getTeam().getTeamName().equalsIgnoreCase(equipo)) {
-                        vControl = true; //RIP 
-                    }
-                    vControl2++;
-                }
-            } while (!vControl && vControl2 < equipoNum);
 
-            if (!vControl) {
-                //añadir al comboBox
+            String equipoDelPlayer = "";
+
+            try {
+                equipoDelPlayer = player.getTeam().getTeamName();
+                if (equipoDelPlayer.equalsIgnoreCase("")) {
+                    cbPlayer.addItem(player.getNickName());
+                }
+            } catch (NullPointerException e) {
+                //equipoDelPlayer = "";
+                System.out.println("Null");
                 cbPlayer.addItem(player.getNickName());
             }
+
         }
 
 
@@ -294,6 +293,7 @@ public class Owner extends javax.swing.JFrame {
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         mode = 2;
         refresh();
+        cbPlayer.removeAllItems();
 
         String equipo = "";
 
@@ -303,22 +303,16 @@ public class Owner extends javax.swing.JFrame {
         }
         //con el nombre del equipo comprobar cada equipo al que esta cada jugador
         for (Player player : playersList) {
-            Boolean vControl = false;
-            int vControl2 = 0;
-            do {
+            String equipoDelPlayer = "";
 
-                //comprobar si coincida con cualquier equipo
-                for (Team team : teamList) {
-                    if (player.getTeam().getTeamName().equalsIgnoreCase(equipo)) {
-                        vControl = true; //RIP 
-                    }
-                    vControl2++;
+            try {
+                equipoDelPlayer = player.getTeam().getTeamName();
+
+                if (equipoDelPlayer.equalsIgnoreCase(equipo)) {
+                    cbPlayer.addItem(player.getNickName());
                 }
-            } while (!vControl && vControl2 < equipoNum);
-
-            if (vControl) {
-                //añadir al comboBox
-                cbPlayer.addItem(player.getNickName());
+            } catch (Exception e) {
+                equipoDelPlayer = "";
             }
 
         }
