@@ -46,8 +46,8 @@ import static superproyecto.SuperProyecto.createMatchSets;
 public class DOMParserLeague {
     //
     League league= new League("tempname");
-    static Document dom;
-    int gameIDCounter=0;
+    private static Document dom;
+    private int gameIDCounter=0;
     ArrayList<Integer> gamesID;
     /**
      * Constructor de DOM, llama a la funcion de cargar datos
@@ -84,6 +84,7 @@ public class DOMParserLeague {
         System.out.println("Ejecutando..");
         //Volcamos el fichero XML en memoria como arbol de DOM
         parseXMLFile();
+        if(updateneeded()){//Se comprueba que sea necesario actualizar
         //Borramos el fichero desactualizado
         deletePreviousContent();
         //Creamos los elementos y los agregamos al arbol de DOM
@@ -91,6 +92,12 @@ public class DOMParserLeague {
         //Escribimos el arbol DOM en el fichero XML
         writeXMLFile();
         System.out.println("Fichero modificado correctamente");
+        //Y finalmente ejecutamos el DOM de la clasificacion
+        DOMParserClassification.executeDOMClassification();
+        }
+        else{
+            System.out.println("No habia necesidad de modificar..");
+        }
     }
     /**
      * Escribe en el documento XML el arbol DOM
@@ -209,7 +216,7 @@ public class DOMParserLeague {
     /**
      * Ejecuta todo el parser
      */
-    public static void main(String[] args) throws ClassNotFoundException, SQLException{
+    public static void executeDOMLeague () throws ClassNotFoundException, SQLException{
         //Creamos una instancia
         DOMParserLeague dLeague = new DOMParserLeague();
         
@@ -267,6 +274,26 @@ public class DOMParserLeague {
                 Element matchSeto = (Element) nl.item(i);
                     docEle.removeChild(matchSeto);
         }
+        }
+    }
+
+    private boolean updateneeded() {
+         //Obtenemos el documento
+        Element docEle = dom.getDocumentElement();
+        //Obtenemos el nodo <updatedate>
+        NodeList nl = docEle.getElementsByTagName("updatedate");
+        //El Text que se le asignara a update date
+        Element ele =(Element) nl.item(0);
+        //Pasamos el texto de ese nodo a date
+        String currentdateS = ele.getTextContent();
+        Date currentdate = Date.valueOf(currentdateS);
+        //Obtenemos la fecha del sistema
+        Date systemdate =Date.valueOf( new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));//Estoy orgulloso de esta linea
+        if(currentdate.before(systemdate)){
+            return true;
+        }
+        else{
+            return false;
         }
     }
     

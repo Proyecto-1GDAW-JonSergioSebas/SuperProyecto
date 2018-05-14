@@ -6,6 +6,7 @@
 package View;
 
 import ModelUML.DBUser;
+import ModelUML.Game;
 import ModelUML.MatchSet;
 import ModelUML.Player;
 import ModelUML.Team;
@@ -16,6 +17,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collection;
 import superproyecto.SuperProyecto;
 
 /**
@@ -424,4 +426,31 @@ public class ViewController {
         ArrayList<String> leaguenames = SuperProyecto.getAllLeagueNames();
         return leaguenames;
     }
+    /**
+     * Obtiene el id de la liga de la cual se le pasa el nombre
+     * @param leaguename el nombre de la liga
+     * @return el id de la liga
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    static int getLeagueNum(String leaguename) throws ClassNotFoundException, SQLException {
+        int x = SuperProyecto.getLeagueID(leaguename);
+        return x;
+    }
+    /**
+     * Devuelve un ArrayList con los id de los MatchSets de la liga la cual se le pasa el id
+     * @param leaguenum el id de la liga
+     * @return un ArrayList con los id de los MatchSets
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    static ArrayList<Integer> getLeagueMatchSetsID(int leaguenum) throws ClassNotFoundException, SQLException {
+        ArrayList<Integer> temparry = SuperProyecto.getLeagueMatchSetsID(leaguenum);
+        return temparry;
+    }
+/*
+    static ArrayList<Game> getMatchSetGames(int leaguenum, int matchSetnum) throws ClassNotFoundException, SQLException {
+        ArrayList<Game> matchSetGames = SuperProyecto.getMatchSetGames(leaguenum,matchSetnum);
+    }
+*/
 }

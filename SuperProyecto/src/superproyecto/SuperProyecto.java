@@ -83,7 +83,7 @@ public class SuperProyecto {
             Connection con = createConnection();//Se crea la conexion..
 
             ArrayList<Team> completeTeams = teams(con);//Los equipos..
-            ArrayList<Calendar> dates;//Las fechas..WIP IGUAL NO ES NECESARIO
+            //ArrayList<Calendar> dates;//Las fechas..WIP IGUAL NO ES NECESARIO
             ArrayList<Game> games;//Los partidos..
             ArrayList<MatchSet> league = new ArrayList();//Las jornadas..
             Calendar cal = Calendar.getInstance();//Instancia de calendario, para organizar los partidos
@@ -151,18 +151,21 @@ public class SuperProyecto {
 
             //Insertamos las jornadas
             int x = 0;
+            ArrayList<Integer> matchsetsid = new ArrayList();
             while (x < league.size()) {
-                createMatchSet(leaguename, con);
+                
+                matchsetsid.add(createMatchSet(leaguename, con));
+                
                 x++;
             }
 
             //Insertamos los juegos
-            int y = 1;
-            int z = 0;
+            int y = 0;
+            
             for (MatchSet m : league) {
                 for (Game gm : m.getGames()) {
-                    z++;
-                    createGames(gm, z, y, con);
+                    
+                    createGames(gm, matchsetsid.get(y), con);
 
                 }
                 y++;
@@ -231,21 +234,30 @@ public class SuperProyecto {
      * @return un MatchSet
      * @throws SQLException si se da alguna excepcion SQL
      */
-    public static MatchSet createMatchSets(int matchSetId, Connection con) throws SQLException {
+    public static MatchSet createMatchSets(int matchSetId, Connection con) throws SQLException, ClassNotFoundException {
         ArrayList<Integer> gameID = obtainGamesID(matchSetId, con);
         ArrayList<Game> games = new ArrayList();
+        ArrayList<Team> completeTeams = teams(con);
+        int numDays = (completeTeams.size() - 1);
+        int tempito = (numDays*2*completeTeams.size())/2;
         int x = 0;
         for (Integer id : gameID) {
             ArrayList<Integer> teamID = obtainGameTeamID(id, con);
-            ArrayList<Integer> scores = obtainScores(id, con);
+            ArrayList<Integer> compScores = obtainScores(id, con);
+            ArrayList<Integer> scores= new ArrayList();
             ArrayList<Team> teams = new ArrayList();
-            if(id<29){
+            if(x<tempito){
             for (Integer tid : teamID) {
                 teams.add(obtainTeam(tid, con));
+                
             }
+                scores.add(compScores.get(0));
+                scores.add(compScores.get(1));
             }else{
                 teams.add(obtainTeam(teamID.get(1),con));
                 teams.add(obtainTeam(teamID.get(0),con));
+                scores.add(compScores.get(1));
+                scores.add(compScores.get(0));
             }
             games.add(new Game(teams.get(0), teams.get(1), scores.get(0), scores.get(1), obtainGameDate(id, con)));
             x++;
@@ -622,5 +634,37 @@ public class SuperProyecto {
         con.close();
         return leaguenames;
     }
-
+    /**
+     * Obtiene el id de la liga de la cual se le pasa el nombre
+     * @param leaguename el nombre de la liga
+     * @return el id de la liga
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static int getLeagueID(String leaguename) throws ClassNotFoundException, SQLException {
+        Connection con = createConnection();
+        int x = DBController.getLeagueID(leaguename,con);
+        con.close();
+        return x;
+    }
+    /**
+     * Devuelve un ArrayList con los id de los MatchSets de una liga
+     * @param leaguenum el id de la liga
+     * @return un ArrayList con los id de los MatchSets
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static ArrayList<Integer> getLeagueMatchSetsID(int leaguenum) throws ClassNotFoundException, SQLException {
+        Connection con = createConnection();
+        ArrayList<Integer> tempmatchnum = DBController.obtainMatchSetsID(leaguenum, con);
+        con.close();
+        return tempmatchnum;
+    }
+/*
+    public static ArrayList<Game> getMatchSetGames(int leaguenum, int matchSetnum) throws ClassNotFoundException, SQLException {
+        Connection con = createConnection();
+        ArrayList<Game> matchSetGames = DBController.getMatchSetGames(leaguenum,matchSetnum,con);
+        con.close();
+    }
+*/
 }

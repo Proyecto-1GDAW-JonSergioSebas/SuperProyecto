@@ -30,12 +30,21 @@ public class DBGame {
      * @param con la conexion
      * @throws SQLException hay una excepcion SQL
      */
-    public static void insertGame(Game gm,int matchsetnum,Connection con) throws SQLException{
+    public static int insertGame(Game gm,int matchsetnum,Connection con) throws SQLException{
+        int gamenum = -1;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date gameday = new Date(gm.getDateTime().getTime());
         Statement sta=con.createStatement();
         sta.executeUpdate("INSERT INTO GAME(MATCHSET,DATE_TIME) VALUES("+matchsetnum+",TO_DATE('"+gameday+"','YYYY-MM-DD'))");
         sta.close();
+        Statement sto = con.createStatement();
+        ResultSet resul = sto.executeQuery("SELECT ID_GA FROM GAME WHERE MATCHSET = "+matchsetnum+" AND DATE_TIME = TO_DATE('"+gameday+"','YYYY-MM-DD')");
+        while(resul.next()){
+            gamenum = resul.getInt("ID_GA");
+        }
+        resul.close();
+        sta.close();
+        return gamenum;
     }
     /**
      * Coge los ID de los Game que correspondan con el ID de MatchSet que se le pasa
