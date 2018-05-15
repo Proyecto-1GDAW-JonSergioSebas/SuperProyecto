@@ -137,6 +137,13 @@ public class DBPlayer {
         sta.close();
     }
 
+    public static void updatePlayerTeamEmpty(String nickname,  Connection con) throws SQLException {
+
+        Statement sta = con.createStatement();
+        sta.executeUpdate("UPDATE PLAYER SET TEAM=(" + null + ")" + "WHERE  NICKNAME='" + nickname + "'");
+        sta.close();
+    }
+
     /**
      * Actualiza un Player y le quita el TEAM
      *
@@ -174,7 +181,7 @@ public class DBPlayer {
         }
         resul.close();
         sta.close();
-        for (int i = 0; i<players.size(); i++){
+        for (int i = 0; i < players.size(); i++) {
             players.get(i).setTeam(DBController.obtainTeam(teamIds.get(i), con));
         }
         return players;

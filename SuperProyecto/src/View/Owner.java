@@ -14,6 +14,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import ModelUML.*;
 import DB.*;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.ButtonModel;
 import superproyecto.*;
@@ -250,6 +251,35 @@ public class Owner extends javax.swing.JFrame {
     private void jbFixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFixActionPerformed
         JOptionPane.showConfirmDialog(rootPane, "Si desea revertir éste cambio necesitará contactar a su administrador.\n¿Está completamente seguro de que quiere fijar su equpo?");
 
+        //llamar a a base de datos para UPDATE a ese jugador
+        String playerName = cbPlayer.getSelectedItem().toString();
+        Player player1 = new Player();
+        String teamName = cbTeam.getSelectedItem().toString();
+        Team team = new Team();
+        int teamID;
+        try {
+            teamID = DBTeam.searchTeam(teamName, con);
+        } catch (SQLException ex) {
+            System.out.println("excepcion searchtema, team = 0");
+            teamID = 0;
+        }
+
+        for (Player player : playersList) {
+            if (player.getNickName().equalsIgnoreCase(playerName)) {
+                player1 = player;
+            }
+        }
+
+        //se va a ir a un nuevo equipo
+        try {
+            DBPlayer.updatePlayerT(player1.getFullName(), player1.getNickName(), player1.getNickName(), player1.getSalary(), player1.getEmail(), teamID, con);
+
+        } catch (Exception e) {
+            System.out.println("excepcion ");
+        }
+
+        //RESET SELECT BD
+
     }//GEN-LAST:event_jbFixActionPerformed
     /**
      * Actualiza el estado de la ventana de acuerdo al radiobutton seleccionado.
@@ -263,6 +293,14 @@ public class Owner extends javax.swing.JFrame {
         blockBox();
 
         String team = "";
+
+        if (jRadioButton1.isSelected()) {
+            cbPlayer.setEnabled(true);
+
+        } else {
+            cbPlayer.setEnabled(false);
+
+        }
 
         int teamNum = cbTeam.getItemCount();
         if (cbTeam.getSelectedIndex() != -1) {
@@ -300,13 +338,12 @@ public class Owner extends javax.swing.JFrame {
         blockBox();
 
         String team = "";
-        /*ButtonModel m = null;
-        
-        if(buttonGroup1.isSelected(m)){
+
+        if (jRadioButton2.isSelected()) {
             cbPlayer.setEnabled(true);
         } else {
             cbPlayer.setEnabled(false);
-        }*/
+        }
 
         int teamNum = cbTeam.getItemCount();
         if (cbTeam.getSelectedIndex() != -1) {
@@ -334,6 +371,8 @@ public class Owner extends javax.swing.JFrame {
             progress = 1;
             refresh();
         }
+        cbPlayer.setEnabled(false);
+
     }//GEN-LAST:event_cbTeamItemStateChanged
 
     private void cbPlayerItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbPlayerItemStateChanged
@@ -356,6 +395,24 @@ public class Owner extends javax.swing.JFrame {
     private void jbConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(this, "Los equipos han sido modificados correctamente.");
+
+        //llamar a a base de datos para UPDATE a ese jugador
+        String playerName = cbPlayer.getSelectedItem().toString();
+        Player player1 = new Player();
+
+        for (Player player : playersList) {
+            if (player.getNickName().equalsIgnoreCase(playerName)) {
+                player1 = player;
+            }
+        }
+
+        //se va a ir del equipo
+        try {
+            DBPlayer.updatePlayerTeamEmpty(player1.getNickName(), con);
+        } catch (Exception e) {
+            System.out.println("excepcion ");
+        }
+
         this.dispose();
     }//GEN-LAST:event_jbConfirmActionPerformed
 
