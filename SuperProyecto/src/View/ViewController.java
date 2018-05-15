@@ -19,6 +19,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.TreeMap;
 import superproyecto.SuperProyecto;
 
 /**
@@ -456,8 +457,8 @@ public class ViewController {
     }
 */
    
-    public static void matchsetUpdate(Frame f) {
-        MatchsetUpdate mu = new MatchsetUpdate(f, true);
+    public static void matchsetUpdate(Frame f, int matchset) throws ClassNotFoundException, SQLException {
+        MatchsetUpdate mu = new MatchsetUpdate(f, true, getGames(matchset));
         mu.setVisible(true);
     }
     
@@ -469,5 +470,9 @@ public class ViewController {
      */
     public static Date getLeagueEndDate() throws SQLException, ClassNotFoundException {
         return SuperProyecto.getLeagueEndDate();
+    }
+    
+    public static TreeMap<Integer, Game> getGames(int id) throws SQLException, ClassNotFoundException{
+        return SuperProyecto.getGames(id);
     }
 }

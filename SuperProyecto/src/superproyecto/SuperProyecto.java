@@ -39,6 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TreeMap;
 
 /**
  *
@@ -65,7 +66,6 @@ public class SuperProyecto {
         /*^^NO MODIFICAR ESTO^^*/
 
         ViewController.login();
-
     }
 
     /**
@@ -678,5 +678,21 @@ public class SuperProyecto {
         Date date = DBController.getLeagueEndDate(con);
         con.close();
         return date;
+    }
+    
+    
+    /**
+     * Coge todos los Game con todos sus datos que se correspondan con el ID del
+     * Matchset
+     *
+     * @param matchSetId el ID del matchset
+     * @return un treemap de Games, en el que la key es el ID del juego
+     * @throws SQLException cuando caen rayos y truenos por todos los cielos
+     */
+    public static TreeMap<Integer, Game> getGames(int matchSetId) throws SQLException, ClassNotFoundException {
+        Connection con = createConnection();
+        TreeMap<Integer, Game> games = DBController.getGames(matchSetId, con);
+        con.close();
+        return games;
     }
 }
