@@ -76,7 +76,8 @@ public class DBGame {
     }
 
     /**
-     * Coge todos los Game con todos sus datos que se correspondan con el ID del Matchset
+     * Coge todos los Game con todos sus datos que se correspondan con el ID del
+     * Matchset
      *
      * @param matchSetId el ID del matchset
      * @param con la conexion
@@ -96,7 +97,7 @@ public class DBGame {
             try {
                 ArrayList<Integer> teamids = new ArrayList(); //en este bloque obtenemos las IDs de los dos equipos que juegan en el partido
                 ArrayList<Integer> scores = new ArrayList(); //y ya que estamos aquí, también las puntuaciones preexistentes
-                ResultSet rs2 = sta.executeQuery("SELECT TEAM, NVL(SCORE, -1) FROM GAME_RESULT WHERE GAME = " + i);
+                ResultSet rs2 = sta.executeQuery("SELECT TEAM, NVL(SCORE, -1) FROM GAME_RESULT WHERE GAME = " + i); //ya que java toma nulos numericos como 0, uso un NVL para que la puntuación de -1 si no se ha introducido, para manejarlo luego a nivel de interfaz
                 while (rs2.next()) {
                     teamids.add(rs2.getInt(1));
                     scores.add(rs2.getInt(2));
@@ -107,7 +108,7 @@ public class DBGame {
                 teamids.forEach(e -> {
                     try {
                         ResultSet rs3 = sta.executeQuery("SELECT TEAM_NAME, NATIONALITY FROM TEAM WHERE ID_TM = " + e);
-                        while (rs3.next()) {                            
+                        while (rs3.next()) {
                             teams.add(new Team(rs3.getString(1), rs3.getString(2))); //y con ellos, creamos objetos Team
                         }
                         rs3.close();
@@ -127,6 +128,30 @@ public class DBGame {
         });
         con.close();
         return games; //no me fastidies onegai
+    }
+
+    /**
+     * Introduce a la base de datos la información contenida en el TreeMap
+     *
+     * @param games el TreeMap con todos los juegos, puntuaciones, y equipos
+     * @param con la conección
+     */
+    public static void setGames(TreeMap<Integer, Game> games, Connection con) throws SQLException {
+        Statement st = con.createStatement();
+        games.forEach((k, v) -> {
+            try {
+                if (v.getScore1() != -1) {
+                    st.executeUpdate("UPDATE GAME_RESULT SET SCORE = " + v.getScore1() + " WHERE GAME = " + k + " AND TEAM = " + v.getTeam1());
+                }
+                if (v.getScore2() != -1) {
+                    st.executeUpdate("UPDATE GAME_RESULT SET SCORE = " + v.getScore2() + " WHERE GAME = " + k + " AND TEAM = " + v.getTeam2());
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DBGame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        st.close();
+        con.close();
     }
 
     /**

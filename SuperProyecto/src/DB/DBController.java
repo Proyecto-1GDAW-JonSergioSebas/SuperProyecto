@@ -625,7 +625,6 @@ public class DBController {
     }
      */
 
-
     /**
      * Coge de la base de datos el Date más elevado última liga
      *
@@ -650,4 +649,15 @@ public class DBController {
     public static TreeMap<Integer, Game> getGames(int matchSetId, Connection con) throws SQLException {
         return DBGame.getGames(matchSetId, con);
     }
+
+    /**
+     * Introduce a la base de datos la información contenida en el TreeMap
+     *
+     * @param games el TreeMap con todos los juegos, puntuaciones, y equipos
+     * @param con la conección
+     */
+    public static void setGames(TreeMap<Integer, Game> games, Connection con) throws SQLException {
+        DBGame.setGames(games, con);
+    }
+
 }

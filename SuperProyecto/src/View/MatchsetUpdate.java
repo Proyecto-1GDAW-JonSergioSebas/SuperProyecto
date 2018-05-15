@@ -6,7 +6,11 @@
 package View;
 
 import ModelUML.Game;
+import java.sql.SQLException;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -112,7 +116,7 @@ public class MatchsetUpdate extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2)
@@ -128,20 +132,38 @@ public class MatchsetUpdate extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        if (jTable1.isEditing()) {
+            JOptionPane.showMessageDialog(this, "Por favor deja de editar la celda seleccionada.");
+        } else {
+            games.forEach((k, v) -> {
+                if (jTable1.getValueAt(k - 1, 1) != null) {
+                    v.setScore1((Integer) jTable1.getValueAt(k - 1, 1));
+                }
+                if (jTable1.getValueAt(k - 1, 3) != null) {
+                    v.setScore2((Integer) jTable1.getValueAt(k - 1, 3));
+                }
+            });            
+        }
+        try {
+            ViewController.setGames(games);
+        } catch (SQLException ex) {
+            Logger.getLogger(MatchsetUpdate.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MatchsetUpdate.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
-     * Rellena la tabla con los valores del parametro games
+     * Rellena la tabla con los valores del campo games
      */
     private void fill() {
         DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
         games.forEach((k, v) -> {
             dtm.addRow(new Object[4]);
-            dtm.setValueAt(v.getTeam1().getTeamName(), k-1, 0);
-            dtm.setValueAt(((v.getScore1()==-1) ? null : v.getScore1()), k-1, 1);
-            dtm.setValueAt(v.getTeam2().getTeamName(), k-1, 2);
-            dtm.setValueAt(((v.getScore2()==-1) ? null : v.getScore2()), k-1, 3);
+            dtm.setValueAt(v.getTeam1().getTeamName(), k - 1, 0);
+            dtm.setValueAt(((v.getScore1() == -1) ? null : v.getScore1()), k - 1, 1);
+            dtm.setValueAt(v.getTeam2().getTeamName(), k - 1, 2);
+            dtm.setValueAt(((v.getScore2() == -1) ? null : v.getScore2()), k - 1, 3);
         });
         jTable1.setModel(dtm);
     }
