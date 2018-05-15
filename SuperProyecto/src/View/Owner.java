@@ -15,6 +15,8 @@ import ModelUML.*;
 import DB.*;
 import java.sql.Connection;
 import java.util.ArrayList;
+import javax.swing.ButtonModel;
+import superproyecto.*;
 
 /**
  * @author Sebastián Zawisza
@@ -55,7 +57,6 @@ public class Owner extends javax.swing.JFrame {
 
         //Para centrar la ventana
         setLocationRelativeTo(null);
-        cbPlayer.setEnabled(true);
 
         mode = 0;
         progress = 0;
@@ -236,8 +237,9 @@ public class Owner extends javax.swing.JFrame {
      * @param evt Generado automáticamente.
      */
     private void cbTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTeamActionPerformed
-        // TODO add your handling code here:
-
+        // TODO add your handling code here:        
+        buttonGroup1.clearSelection();
+        refresh();
     }//GEN-LAST:event_cbTeamActionPerformed
     /**
      * Abre una ventana de confirmación, y si el usuario está seguro, fija el
@@ -247,6 +249,7 @@ public class Owner extends javax.swing.JFrame {
      */
     private void jbFixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFixActionPerformed
         JOptionPane.showConfirmDialog(rootPane, "Si desea revertir éste cambio necesitará contactar a su administrador.\n¿Está completamente seguro de que quiere fijar su equpo?");
+
     }//GEN-LAST:event_jbFixActionPerformed
     /**
      * Actualiza el estado de la ventana de acuerdo al radiobutton seleccionado.
@@ -257,26 +260,26 @@ public class Owner extends javax.swing.JFrame {
         mode = 1;
         refresh();
         cbPlayer.removeAllItems();
+        blockBox();
 
-        String equipo = "";
+        String team = "";
 
-        int equipoNum = cbTeam.getItemCount();
+        int teamNum = cbTeam.getItemCount();
         if (cbTeam.getSelectedIndex() != -1) {
-            equipo = (String) cbTeam.getSelectedItem();
+            team = (String) cbTeam.getSelectedItem();
         }
         //con el nombre del equipo comprobar cada equipo al que esta cada jugador
         for (Player player : playersList) {
 
-            String equipoDelPlayer = "";
+            String playersTeam = "";
 
             try {
-                equipoDelPlayer = player.getTeam().getTeamName();
-                if (equipoDelPlayer.equalsIgnoreCase("")) {
+                playersTeam = player.getTeam().getTeamName();
+                if (playersTeam.equalsIgnoreCase("")) {
                     cbPlayer.addItem(player.getNickName());
                 }
             } catch (NullPointerException e) {
                 //equipoDelPlayer = "";
-                System.out.println("Null");
                 cbPlayer.addItem(player.getNickName());
             }
 
@@ -294,27 +297,34 @@ public class Owner extends javax.swing.JFrame {
         mode = 2;
         refresh();
         cbPlayer.removeAllItems();
+        blockBox();
 
-        String equipo = "";
+        String team = "";
+        /*ButtonModel m = null;
+        
+        if(buttonGroup1.isSelected(m)){
+            cbPlayer.setEnabled(true);
+        } else {
+            cbPlayer.setEnabled(false);
+        }*/
 
-        int equipoNum = cbTeam.getItemCount();
+        int teamNum = cbTeam.getItemCount();
         if (cbTeam.getSelectedIndex() != -1) {
-            equipo = (String) cbTeam.getSelectedItem();
+            team = (String) cbTeam.getSelectedItem();
         }
         //con el nombre del equipo comprobar cada equipo al que esta cada jugador
         for (Player player : playersList) {
-            String equipoDelPlayer = "";
+            String playersTeam = "";
 
             try {
-                equipoDelPlayer = player.getTeam().getTeamName();
+                playersTeam = player.getTeam().getTeamName();
 
-                if (equipoDelPlayer.equalsIgnoreCase(equipo)) {
+                if (playersTeam.equalsIgnoreCase(team)) {
                     cbPlayer.addItem(player.getNickName());
                 }
             } catch (Exception e) {
-                equipoDelPlayer = "";
+                playersTeam = "";
             }
-
         }
 
     }//GEN-LAST:event_jRadioButton2ActionPerformed
@@ -339,10 +349,14 @@ public class Owner extends javax.swing.JFrame {
 
     private void cbPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPlayerActionPerformed
         // TODO add your handling code here:
+
+
     }//GEN-LAST:event_cbPlayerActionPerformed
 
     private void jbConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmActionPerformed
         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "Los equipos han sido modificados correctamente.");
+        this.dispose();
     }//GEN-LAST:event_jbConfirmActionPerformed
 
     /**
@@ -354,6 +368,17 @@ public class Owner extends javax.swing.JFrame {
             jbFix.setEnabled(true);
             if (progress == 2) {
                 jbConfirm.setEnabled(true);
+            }
+        }
+    }
+
+    private void blockBox() {
+        if (jRadioButton1.isSelected()) {
+            cbPlayer.setEnabled(true);
+            if (jRadioButton2.isSelected()) {
+                cbPlayer.setEnabled(true);
+            } else {
+                cbPlayer.setEnabled(false);
             }
         }
     }

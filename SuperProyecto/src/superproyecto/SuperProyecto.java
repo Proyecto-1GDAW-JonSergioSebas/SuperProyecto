@@ -8,6 +8,7 @@ package superproyecto;
 import static DB.DBController.createConnection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import View.ViewController;
@@ -24,6 +25,8 @@ import static DB.DBController.obtainScores;
 import static DB.DBController.obtainTeam;
 import static DB.DBController.teams;
 import static DB.DBController.obtainTeamOwner;
+import DB.*;
+import View.*;
 import ModelUML.DBUser;
 import ModelUML.Game;
 import ModelUML.MatchSet;
@@ -678,5 +681,5 @@ public class SuperProyecto {
         Date date = DBController.getLeagueEndDate(con);
         con.close();
         return date;
-    }
+    }      
 }
