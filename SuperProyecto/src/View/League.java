@@ -18,13 +18,17 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- *
- * @author 1gdaw07
+ * Esta clase genera el calendario
+ * @author Sebastián Zawisza
+ * @version %I% %G%
+ * @since 1.0
  */
 public class League extends javax.swing.JDialog {
     private static boolean errors = false;
     /**
      * Creates new form League
+     * @param parent Generado automáticamente
+     * @param modal Generado automáticamente
      */
     public League(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -131,7 +135,11 @@ public class League extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Comprueba que se han introducido los datos correctamente y inicia la generacion de calendario
+     * @param evt Generado automáticamente
+     * @see superproyecto.SuperProyecto#createCalendar(java.lang.String, java.lang.String) 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (jTextField1.getBackground()!=Color.RED) {
             if (Date.valueOf(jFormattedTextField1.getText()).after(Date.from(Instant.now()))) {
@@ -151,7 +159,10 @@ public class League extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "El nombre de la liga debe ser de menos de 20 caracteres.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    /**
+     * Cierra la ventana
+     * @param evt Generado automáticamente
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -165,6 +176,7 @@ public class League extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
+     * El main de la clase
      * @param args the command line arguments
      */
     public static void main(String args[]) {

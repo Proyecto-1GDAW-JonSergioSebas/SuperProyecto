@@ -42,7 +42,7 @@ import java.util.Date;
 import java.util.TreeMap;
 
 /**
- *
+ * Esta es la madre de todas las clases, la que las sujeta en el sitio
  * @author Jon Maneiro
  * @author Sebastián Zawisza
  * @author Sergio Zulueta
@@ -285,7 +285,12 @@ public class SuperProyecto {
         }
         return allGamesID;
     }
-
+    /**
+     * Selecciona todos los User de la base de datos
+     * @return un ArrayList de User que contiene todos los User de la base de datos
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
+     */
     public static ArrayList<DBUser> selectAllDBUsers() throws SQLException, ClassNotFoundException {
 
         Connection con = createConnection();
@@ -312,7 +317,6 @@ public class SuperProyecto {
      * Elimina un DBUser de la base de datos
      *
      * @param username el nombre de usuario
-     * @param password la contraseña
      * @throws SQLException si se da alguna excepcion SQL
      * @throws ClassNotFoundException si no se encuentra la clase en la conexion
      */
@@ -357,7 +361,6 @@ public class SuperProyecto {
      * Elimina un TeamOwner de la Base de datos
      *
      * @param username el nombre de usuario
-     * @param password la contraseña
      * @throws ClassNotFoundException si no se encuentra la clase
      * @throws SQLException si se da alguna excepcion SQL
      */
@@ -489,7 +492,8 @@ public class SuperProyecto {
      * Realiza una consulta a la base de datos y devuelve todos los Users
      *
      * @return La lista de Users
-     * @throws SQLException
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static ArrayList<DBUser> selectDBUsers() throws SQLException, ClassNotFoundException {
         ArrayList arry = new ArrayList();
@@ -503,7 +507,8 @@ public class SuperProyecto {
      * Realiza una consulta a la base de datos y devuelve todos los Admins
      *
      * @return La lista de Admins
-     * @throws SQLException
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static ArrayList<TeamOwner> selectDBOwners() throws SQLException, ClassNotFoundException {
         ArrayList arry = new ArrayList();
@@ -517,7 +522,8 @@ public class SuperProyecto {
      * Realiza una consulta a la base de datos y devuelve todos los Players
      *
      * @return La lista de Players
-     * @throws SQLException
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static ArrayList<Player> selectDBPlayers() throws SQLException, ClassNotFoundException {
         ArrayList arry = new ArrayList();
@@ -531,7 +537,8 @@ public class SuperProyecto {
      * Realiza una consulta a la base de datos y devuelve todos los Teams
      *
      * @return La lista de Teams
-     * @throws SQLException
+     * @throws SQLException s se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static ArrayList<Team> selectDBTeams() throws SQLException, ClassNotFoundException {
         ArrayList arry = new ArrayList();
@@ -695,6 +702,7 @@ public class SuperProyecto {
      *
      * @return devuelve un objeto Date
      * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static Date getLeagueEndDate() throws SQLException, ClassNotFoundException {
         Connection con = createConnection();
@@ -709,7 +717,8 @@ public class SuperProyecto {
      *
      * @param matchSetId el ID del matchset
      * @return un treemap de Games, en el que la key es el ID del juego
-     * @throws SQLException cuando caen rayos y truenos por todos los cielos
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static TreeMap<Integer, Game> getGames(int matchSetId) throws SQLException, ClassNotFoundException {
         Connection con = createConnection();
@@ -722,6 +731,8 @@ public class SuperProyecto {
      * Introduce a la base de datos la información contenida en el TreeMap
      *
      * @param games el TreeMap con todos los juegos, puntuaciones, y equipos
+     * @throws SQLException si se da alguna excepcion SLQ
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static void setGames(TreeMap<Integer, Game> games) throws SQLException, ClassNotFoundException {
         Connection con = createConnection();

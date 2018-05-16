@@ -20,8 +20,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 
 /**
+ * Esta clase se encarga de gestionar las operaciones de la vista del Usuario
  * @author Sebastián Zawisza
- * @author Sergio Zulueta
  * @author Jon Maneiro
  * @version %I% %G%
  * @since 1.0
@@ -34,6 +34,7 @@ public class User extends javax.swing.JFrame {
 
     /**
      * Creates new form User
+     * @param child Generado automáticamente
      */
     public User(boolean child) {
         initComponents();
@@ -201,7 +202,10 @@ public class User extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Actualiza la clasificacion y los MatchSet disponibles en funcion de la League seleccionada
+     * @param evt Generado automáticamente
+     */
     private void cbLeagueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLeagueActionPerformed
         cbMatchset.removeAllItems();
         String selectedleague = cbLeague.getSelectedItem().toString();
@@ -210,11 +214,18 @@ public class User extends javax.swing.JFrame {
         fillJlClassification();
 
     }//GEN-LAST:event_cbLeagueActionPerformed
-
+    /**
+     * Vacio
+     * @param evt Generado automáticamente
+     */
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
 
     }//GEN-LAST:event_formWindowActivated
-
+    /**
+     * Actualiza la tabla en la que se muestran las puntuaciones de los partidos
+     * en funcion del MatchSet seleccionado
+     * @param evt Generado automáticamente
+     */
     private void cbMatchsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMatchsetActionPerformed
         try {
             DefaultTableModel dtm = (DefaultTableModel) jtGames.getModel();
@@ -246,6 +257,7 @@ public class User extends javax.swing.JFrame {
     }//GEN-LAST:event_cbMatchsetActionPerformed
 
     /**
+     * El main de la clase
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -307,7 +319,10 @@ public class User extends javax.swing.JFrame {
         }
 
     }
-
+    /**
+     * Rellena el comboBox que contiene los MatchSet
+     * @param leaguename el nombre de la liga seleccionada
+     */
     private void fillCbMatchSet(String leaguename) {
         if (leaguename.equalsIgnoreCase("Liga actual")) {
             fillCbMatchSet();
@@ -324,7 +339,9 @@ public class User extends javax.swing.JFrame {
             }
         }
     }
-
+    /**
+     * Llena la lista de Clasificacion de la liga actual
+     */
     private void fillJlClassification() {
         ArrayList<TeamSax> Classification = SAXParserClassification.executeSAXClassification();
         String[] raw = new String[(Classification.size())];

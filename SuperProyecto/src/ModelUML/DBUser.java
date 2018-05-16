@@ -6,12 +6,13 @@
 package ModelUML;
 
 /**
- *
+ * Esta clase contiene los metodos y constructores de los objetos DBUser
  * @author Sergio Zulueta
  * @author Sebastián Zawisza
  * @author Jon Maneiro
  * @version %I% %G%
  * @since 1.0
+ * @see Accounts
  */
 
 public class DBUser extends Accounts {

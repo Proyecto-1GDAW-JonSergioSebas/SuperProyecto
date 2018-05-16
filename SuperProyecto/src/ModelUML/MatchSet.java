@@ -8,7 +8,7 @@ package ModelUML;
 import java.util.ArrayList;
 
 /**
- *
+ * Esta clase contiene los metodos y constuctores de los objetos MatchSet
  * @author Sergio Zulueta
  * @author Sebastián Zawisza
  * @author Jon Maneiro
@@ -60,7 +60,7 @@ public class MatchSet {
     /**
      * Funcion que añade partido a partidos.
      * 
-     * @param game 
+     * @param game el objeto Game a añadir
      */
     public void addGame(Game game) {
         games.add(game);
@@ -69,7 +69,7 @@ public class MatchSet {
     /**
      * Para devolver la lista de games.
      *
-     * @return
+     * @return un ArrayList con los Game contenidos en este MatchSet
      */
     public ArrayList<Game> myGames() {
         return games;
@@ -77,7 +77,7 @@ public class MatchSet {
 
     /**
      * para sacar por pantalla los datos.
-     * @return 
+     * @return un String con los datos del MatchSet
      */
     @Override
     public String toString() {
