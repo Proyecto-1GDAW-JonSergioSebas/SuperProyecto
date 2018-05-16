@@ -8,8 +8,6 @@ package DB;
 /**
  * Esta clase gestiona las acciones necesarias en la base de datos sobre los objetos Account
  * @author Sergio Zulueta
- * @author Sebastián Zawisza
- * @author Jon Maneiro
  * @version %I% %G%
  * @since 1.0
  */
