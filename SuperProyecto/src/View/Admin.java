@@ -72,7 +72,7 @@ public class Admin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
-        cbMatchet = new javax.swing.JComboBox<>();
+        cbMatchset = new javax.swing.JComboBox<>();
         jbResults = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
@@ -129,7 +129,12 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel2.setText("Jornada");
 
-        cbMatchet.setEnabled(false);
+        cbMatchset.setEnabled(false);
+        cbMatchset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbMatchsetActionPerformed(evt);
+            }
+        });
 
         jbResults.setText("Introducir Resultados");
         jbResults.setEnabled(false);
@@ -399,7 +404,7 @@ public class Admin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cbLeague, 0, 100, Short.MAX_VALUE)
-                            .addComponent(cbMatchet, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(cbMatchset, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jbResults, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -437,7 +442,7 @@ public class Admin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbResults)
-                    .addComponent(cbMatchet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbMatchset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -466,7 +471,13 @@ public class Admin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbResultsActionPerformed
-        ViewController.matchsetUpdate(this);
+        try {
+            ViewController.matchsetUpdate(this, Integer.parseInt((String)cbMatchset.getSelectedItem()));
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jbResultsActionPerformed
     /**
      * Actualiza el modo de la ventana para que los botones se apliquen a
@@ -763,14 +774,20 @@ public class Admin extends javax.swing.JFrame {
     private void cbLeagueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLeagueActionPerformed
         if (cbLeague.getSelectedIndex() != -1) {
             try {
-                cbMatchet.setEnabled(true);
-                cbMatchet.removeAllItems();
-                ViewController.getLeagueMatchSetsID(ViewController.getLeagueNum((String) cbLeague.getSelectedItem())).forEach(e -> cbMatchet.addItem(String.valueOf(e))); //cristo redentor  
+                cbMatchset.setEnabled(true);
+                cbMatchset.removeAllItems();
+                ViewController.getLeagueMatchSetsID(ViewController.getLeagueNum((String) cbLeague.getSelectedItem())).forEach(e -> cbMatchset.addItem(String.valueOf(e))); //cristo redentor  
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_cbLeagueActionPerformed
+
+    private void cbMatchsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMatchsetActionPerformed
+        if (cbMatchset.getSelectedIndex()!=-1){
+            jbResults.setEnabled(true);
+        }
+    }//GEN-LAST:event_cbMatchsetActionPerformed
     /**
      * Abre la ventana de creación de usuario.
      */
@@ -895,11 +912,11 @@ public class Admin extends javax.swing.JFrame {
         }
 
         if (cbLeague.getSelectedIndex() != -1) {
-            cbMatchet.setEnabled(true);
+            cbMatchset.setEnabled(true);
             //aquí deberíamos hacer un if para habilitar la creacion de calendario si se cumplen ciertas condiciones
         }
 
-        if (cbMatchet.getSelectedIndex() != -1) {
+        if (cbMatchset.getSelectedIndex() != -1) {
             jbResults.setEnabled(true);
         }
     }
@@ -920,7 +937,7 @@ public class Admin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbLeague;
-    private javax.swing.JComboBox<String> cbMatchet;
+    private javax.swing.JComboBox<String> cbMatchset;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;

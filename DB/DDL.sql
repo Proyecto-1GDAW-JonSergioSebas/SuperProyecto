@@ -119,7 +119,7 @@ CREATE OR REPLACE PACKAGE TRIGGER_MT AS --este trigger existe solo para la creac
 END;
 /
 CREATE OR REPLACE TRIGGER PLAYER_MUTATING_TABLE --este trigger existe solo para resolver el problema de tabla mutante en los siguientes dos triggers
-BEFORE INSERT OR UPDATE OF TEAM --se ejecuta antes que los dos siguientes triggers
+AFTER INSERT OR UPDATE OF TEAM --se ejecuta antes que los dos siguientes triggers
 ON PLAYER
 FOR EACH ROW
 BEGIN
@@ -128,7 +128,7 @@ BEGIN
 END;
 /
 CREATE OR REPLACE TRIGGER PLAYERS_PER_TEAM --este trigger limita la cantidad de miembros por equipo
-BEFORE INSERT OR UPDATE OF TEAM
+AFTER INSERT OR UPDATE OF TEAM
 ON PLAYER
 DECLARE
   MEMBERS NUMBER;
@@ -140,7 +140,7 @@ BEGIN
 END;
 /
 CREATE OR REPLACE TRIGGER TOTAL_TEAM_SALARY --este trigger limita el salario total de los miembros del equipo
-BEFORE INSERT OR UPDATE OF TEAM
+AFTER INSERT OR UPDATE OF TEAM
 ON PLAYER
 DECLARE
   TEAM_SALARY NUMBER;

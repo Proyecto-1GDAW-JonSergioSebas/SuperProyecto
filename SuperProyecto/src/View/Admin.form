@@ -224,7 +224,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="cbLeague" pref="100" max="32767" attributes="0"/>
-                          <Component id="cbMatchet" max="32767" attributes="0"/>
+                          <Component id="cbMatchset" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -275,7 +275,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jbResults" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cbMatchet" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbMatchset" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -340,13 +340,16 @@
         <Property name="text" type="java.lang.String" value="Jornada"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cbMatchet">
+    <Component class="javax.swing.JComboBox" name="cbMatchset">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbMatchsetActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>

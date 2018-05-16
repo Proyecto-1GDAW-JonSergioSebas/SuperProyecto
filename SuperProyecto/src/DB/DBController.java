@@ -34,6 +34,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TreeMap;
 
 /**
  * Esta clase se encarga de gestionar las relaciones con las clases que se
@@ -582,8 +583,9 @@ public class DBController {
     }
 
     /**
-
+     *
      * Obtiene los nombres de todas las ligas
+     *
      * @param con la conexion
      * @return devuelve un ArrayList con los nombres de todas las ligas
      * @throws SQLException si se da alguna excepcion SQL
@@ -595,6 +597,7 @@ public class DBController {
 
     /**
      * Devuelve el ID de la liga de la cual se le pasa el nombre
+     *
      * @param leaguename el nombre de la liga
      * @param con la conexion
      * @return devuelve un int con el id de la liga
@@ -602,9 +605,9 @@ public class DBController {
      */
     public static int getLeagueID(String leaguename, Connection con) throws SQLException {
         int x = DBLeague.askForLeague(leaguename, con);
-        return x ;
+        return x;
     }
-    
+
     public static ArrayList<Game> getMatchSetGames(int leaguenum, int matchSetnum, Connection con) throws SQLException {
         ArrayList<Game> matchSetGames= new ArrayList();
         /*
@@ -612,7 +615,7 @@ public class DBController {
         segun el id obtener los equipos que participan y las puntuaciones
         crear un objeto Game con solo esos 4 datos
         insertarlos en el ArrayList y devolverlo
-        */
+     */       
         ArrayList<Integer> gamesID = getGamesID(matchSetnum, con);
         for(Integer e:gamesID){
             Game tempgame = new Game();
@@ -627,7 +630,6 @@ public class DBController {
     }
 
 
-
     /**
      * Coge de la base de datos el Date más elevado última liga
      *
@@ -638,6 +640,29 @@ public class DBController {
      */
     public static Date getLeagueEndDate(Connection con) throws SQLException {
         return DBGame.getLeagueEndDate((getLastLeagueID(con)), con);
+    }
+
+    /**
+     * Coge todos los Game con todos sus datos que se correspondan con el ID del
+     * Matchset
+     *
+     * @param matchSetId el ID del matchset
+     * @param con la conexion
+     * @return un treemap de Games, en el que la key es el ID del juego
+     * @throws SQLException cuando caen rayos y truenos por todos los cielos
+     */
+    public static TreeMap<Integer, Game> getGames(int matchSetId, Connection con) throws SQLException {
+        return DBGame.getGames(matchSetId, con);
+    }
+
+    /**
+     * Introduce a la base de datos la información contenida en el TreeMap
+     *
+     * @param games el TreeMap con todos los juegos, puntuaciones, y equipos
+     * @param con la conección
+     */
+    public static void setGames(TreeMap<Integer, Game> games, Connection con) throws SQLException {
+        DBGame.setGames(games, con);
     }
 
     public static Integer getTeamGameScore(Integer id, Integer teamID, Connection con) throws SQLException {
