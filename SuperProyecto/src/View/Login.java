@@ -119,7 +119,7 @@ public class Login extends javax.swing.JFrame {
         try {
             switch (ViewController.LoginAccountQuery(tfUsername.getText(), pfPassword.getPassword())) {
                 case 0:
-                    JOptionPane.showMessageDialog(this, "Datos incorrectos introducidos.");
+                    JOptionPane.showMessageDialog(this, "El nombre de usuario no coincide con la contraseña.\nIntentelo de nuevo.");
                     break;
                 case 1:
                     System.out.println("Abriendo panel de usuario.");
