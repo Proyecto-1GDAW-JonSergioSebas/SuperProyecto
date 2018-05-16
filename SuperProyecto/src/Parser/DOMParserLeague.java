@@ -40,7 +40,7 @@ import static superproyecto.SuperProyecto.createMatchSets;
  * Esta clase se encarga de obtener la informacion de la base de datos y de 
  * construir un arbol DOM con esa información(League,MatchSet,Game,Game_result)
  * y de introducir el arbol DOM en el fichero xml League.xml
- * @author Jon
+ * @author Jon Maneiro
  * @version %I% %G%
  */
 public class DOMParserLeague {
@@ -244,13 +244,6 @@ public class DOMParserLeague {
         //Obtenemos el nodo <updatedate>
         NodeList nl = docEle.getElementsByTagName("updatedate");
         //El Text que se le asignara a update date
-        /*
-        Tengo que CAMBIAR la forma en la que organiza todo esto, 
-        1-transformar lo que devuelve el node list en un elemento
-        2-sacar el dato que necesito de ese elemento, que es su texto
-        3- convertir el texto a Date, eso ya no tengo que cambiar casi nada
-        4- Para el String de currentDateS no le puedo dar directamente el objeto y el text value
-        */
         Element ele =(Element) nl.item(0);
         Text updatedateText= dom.createTextNode(ele.getTextContent());
         //Pasamos el texto de ese nodo a date
@@ -273,7 +266,9 @@ public class DOMParserLeague {
         updatedateEle.appendChild(updatedateText);
         return updatedateEle;
     }
-
+    /**
+     * Elimina todo el contenido previo del XML
+     */
     private void deletePreviousContent() {
         Element docEle= dom.getDocumentElement();
         for(int x=0;x<gamesID.size();x++){
@@ -284,7 +279,10 @@ public class DOMParserLeague {
         }
         }
     }
-
+    /**
+     * Comprueba si es necesario consultar a la base de datos para actualizar el XML
+     * @return true si es necesario false si no
+     */
     private boolean updateneeded() {
          //Obtenemos el documento
         Element docEle = dom.getDocumentElement();

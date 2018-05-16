@@ -13,9 +13,9 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- * @author Sergio Zulueta
+ * Esta es la clase de acceso al resto del programa, donde se introducen los 
+ * datos del usuario como el que se desea ingresar
  * @author Sebastián Zawisza
- * @author Jon Maneiro
  * @version %I% %G%
  * @since 1.0
  */
@@ -157,6 +157,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
+     * El main de la clase
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -168,7 +169,9 @@ public class Login extends javax.swing.JFrame {
             }
         });
     }
-
+    /**
+     * Vacía el campo de contraseña
+     */
     public void clean() {
         pfPassword.setText("");
     }

@@ -14,8 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author seb
+ * Esta clase muestra una tabla la cual se podra editar para actualizar las puntuaciones
+ * @author Sebastián Zawisza
  */
 public class MatchsetUpdate extends javax.swing.JDialog {
 
@@ -23,6 +23,9 @@ public class MatchsetUpdate extends javax.swing.JDialog {
 
     /**
      * Creates new form MatchsetUpdate
+     * @param parent Generado automáticamente
+     * @param modal Generado automáticamente
+     * @param games Generado automáticamente
      */
     public MatchsetUpdate(java.awt.Frame parent, boolean modal, TreeMap<Integer, Game> games) {
         super(parent, modal);
@@ -126,11 +129,17 @@ public class MatchsetUpdate extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Cierra la ventana
+     * @param evt Generado automáticamente
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    /**
+     * Actualiza los partidos con la informacion introducida en las celdas
+     * @param evt Generado automáticamente
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (jTable1.isEditing()) {
             JOptionPane.showMessageDialog(this, "Por favor deja de editar la celda seleccionada.");
@@ -171,6 +180,7 @@ public class MatchsetUpdate extends javax.swing.JDialog {
     }
 
     /**
+     * El main de la clase
      * @param args the command line arguments
      */
     public static void main(String args[]) {

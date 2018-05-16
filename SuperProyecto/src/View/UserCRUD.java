@@ -22,8 +22,9 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Sebas
+ * Esta clase se encarga de las operaciones CRUD de los User
+ * @author Sebastián Zawisza
+ * @author Jon Maneiro
  */
 public class UserCRUD extends javax.swing.JDialog {
 
@@ -46,9 +47,9 @@ public class UserCRUD extends javax.swing.JDialog {
     /**
      * Creates new form UserCRUD
      *
-     * @param parent el padre del elemento
-     * @param modal modal
-     * @param mode mode
+     * @param parent Generado automáticamente
+     * @param modal Generado automáticamente
+     * @param mode Generado automáticamente
      */
     public UserCRUD(java.awt.Frame parent, boolean modal, byte mode) {
         super(parent, modal);
@@ -84,6 +85,7 @@ public class UserCRUD extends javax.swing.JDialog {
     }
 
     /**
+     * the return status of this dialog - one of RET_OK or RET_CANCEL
      * @return the return status of this dialog - one of RET_OK or RET_CANCEL
      */
     public int getReturnStatus() {
@@ -202,11 +204,15 @@ public class UserCRUD extends javax.swing.JDialog {
 
     /**
      * Closes the dialog
+     * @param evt Generado automáticamente
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         doClose(RET_CANCEL);
     }//GEN-LAST:event_closeDialog
-
+    /**
+     * Ejecuta la operacion CRUD que este seleccionada
+     * @param evt Generado automáticamente
+     */
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         if (String.valueOf(jPasswordField1.getPassword()).equals(String.valueOf(jPasswordField2.getPassword()))) {
             switch (mode) { //cdru
@@ -266,17 +272,26 @@ public class UserCRUD extends javax.swing.JDialog {
 
 
     }//GEN-LAST:event_okButtonActionPerformed
-
+    /**
+     * Cierra la ventana
+     * @param evt Generado automáticamente
+     */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         doClose(RET_CANCEL);
     }//GEN-LAST:event_cancelButtonActionPerformed
-
+    /**
+     * Rellena los campos con los datos del User seleccionado
+     * @param evt Generado automáticamente
+     */
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         users.stream().filter(p -> p.getUserName().equals((String) jComboBox1.getSelectedItem())).findFirst().ifPresent(c -> { //juro por todos los santos que esto no lo busqué en google
             jTextField2.setText(c.getUserName());
         });
     }//GEN-LAST:event_jComboBox1ActionPerformed
-
+    /**
+     * Cierra la ventana
+     * @param retStatus Generado automáticamente
+     */
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         dispose();
@@ -315,7 +330,9 @@ public class UserCRUD extends javax.swing.JDialog {
         }
 
     }
-
+    /**
+     * Vacia los campos
+     */
     private void clean() {
         jTextField2.setText("");
         jPasswordField1.setText("");
@@ -323,6 +340,7 @@ public class UserCRUD extends javax.swing.JDialog {
     }
 
     /**
+     * El main de la clase
      * @param args the command line arguments
      */
     public static void main(String args[]) {

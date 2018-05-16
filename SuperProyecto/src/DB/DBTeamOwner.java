@@ -13,7 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- *
+ * Esta clase gestiona las acciones necesarias en la base de datos sobre los objetos TeamOwner
  * @author Sergio Zulueta
  * @author Sebastián Zawisza
  * @author Jon Maneiro
@@ -56,7 +56,6 @@ public class DBTeamOwner {
     /**
      * Elimina un Team_Owner de la base de datos
      * @param username el nombre de usuario
-     * @param password la contraseña
      * @param con la conexion
      * @throws SQLException si se da alguna excepcion en SQL
      */
@@ -69,7 +68,6 @@ public class DBTeamOwner {
      * Cambia la contraseña de un TeamOwner
      * @param username nombre de usuario
      * @param newPassword la nueva contraseña
-     * @param password la contraseña actual
      * @param con la conexion
      * @throws SQLException si se da alguna excepcion en SQL 
      */

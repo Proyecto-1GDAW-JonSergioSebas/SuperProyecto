@@ -22,8 +22,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- *
- * @author Sebas
+ * Esta clase gestiona las operaciones CRUD de los Owner
+ * @author Sebastián Zawisza 
  */
 public class OwnerCRUD extends javax.swing.JDialog {
 
@@ -46,9 +46,9 @@ public class OwnerCRUD extends javax.swing.JDialog {
     /**
      * Creates new form OwnerCRUD
      *
-     * @param parent el padre del elemento
-     * @param modal modal
-     * @param mode mode
+     * @param parent Generado automáticamente
+     * @param modal Generado automáticamente
+     * @param mode Generado automáticamente
      */
     public OwnerCRUD(java.awt.Frame parent, boolean modal, byte mode) {
         super(parent, modal);
@@ -84,6 +84,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
     }
 
     /**
+     * the return status of this dialog - one of RET_OK or RET_CANCEL
      * @return the return status of this dialog - one of RET_OK or RET_CANCEL
      */
     public int getReturnStatus() {
@@ -216,7 +217,10 @@ public class OwnerCRUD extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Ejecuta la operacion CRUD que este seleccionada
+     * @param evt Generado automáticamente
+     */
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         if (String.valueOf(jPasswordField1.getPassword()).equals(String.valueOf(jPasswordField2.getPassword()))) {
             switch (mode) {//cdru
@@ -277,18 +281,25 @@ public class OwnerCRUD extends javax.swing.JDialog {
             jPasswordField2.setText("");
         }
     }//GEN-LAST:event_okButtonActionPerformed
-
+    /**
+     * Cierra la ventana
+     * @param evt Generado automáticamente
+     */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         doClose(RET_CANCEL);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     /**
      * Closes the dialog
+     * @param evt Generado automáticamente
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         doClose(RET_CANCEL);
     }//GEN-LAST:event_closeDialog
-
+    /**
+     * Rellena los campos con los datos del Owner seleccionado
+     * @param evt Generado automáticamente
+     */
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         owners.stream().filter(p -> p.getUserName().equals((String) jComboBox1.getSelectedItem())).findFirst().ifPresent(c -> { //juro por todos los santos que esto no lo busqué en google
             jTextField1.setText(c.getFullName());
@@ -296,13 +307,18 @@ public class OwnerCRUD extends javax.swing.JDialog {
             jTextField2.setText(c.getUserName());
         });
     }//GEN-LAST:event_jComboBox1ActionPerformed
-
+    /**
+     * Cierra la ventana
+     * @param retStatus Generado automáticamente
+     */
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
         dispose();
     }
-
+    /**
+     * Vacia los campos
+     */
     private void clean() {
         jTextField1.setText("");
         jTextField2.setText("");
@@ -312,6 +328,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
     }
 
     /**
+     * El main de la clase
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -347,7 +364,9 @@ public class OwnerCRUD extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private int returnStatus = RET_CANCEL;
-
+    /**
+     * Actualiza la funcionalidad de la ventana en base al modo con el que se inicia
+     */
     private void mode() {
         jComboBox1.removeAllItems();
         try {

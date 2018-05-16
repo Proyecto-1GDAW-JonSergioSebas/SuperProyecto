@@ -576,7 +576,13 @@ public class DBController {
     public static void updateTeam(String teamname, String newTeamname, String newNationality, int teamownerid, Connection con) throws SQLException {
         DBTeam.updateTeam(teamname, newTeamname, newNationality, teamownerid, con);
     }
-
+    /**
+     * Obtiene la clasificacion en forma de un objeto ResultSet
+     * @param leagueid el id de la liga de la cual se quiere obtener la clasificacion
+     * @param con la conexion
+     * @return un ResultSet con la clasificacion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
     public static ResultSet getClassification(int leagueid, Connection con) throws SQLException {
         ResultSet rs = DBProcedures.getClassification(leagueid, con);
         return rs;
@@ -607,15 +613,17 @@ public class DBController {
         int x = DBLeague.askForLeague(leaguename, con);
         return x;
     }
-
+    /**
+     * Obtiene los Game que hay dentro de un MatchSet del cual se pasa el ID
+     * @param leaguenum el id del League
+     * @param matchSetnum el id del MatchSet
+     * @param con la conexion
+     * @return un ArrayList de Game con los Game que hay dentro de un MatchSet
+     * @throws SQLException si se da alguna excepcion SQL
+     */
     public static ArrayList<Game> getMatchSetGames(int leaguenum, int matchSetnum, Connection con) throws SQLException {
         ArrayList<Game> matchSetGames= new ArrayList();
-        /*
-        Obtener id de Games correspondientes a la jornada
-        segun el id obtener los equipos que participan y las puntuaciones
-        crear un objeto Game con solo esos 4 datos
-        insertarlos en el ArrayList y devolverlo
-     */       
+              
         ArrayList<Integer> gamesID = getGamesID(matchSetnum, con);
         for(Integer e:gamesID){
             Game tempgame = new Game();
@@ -664,7 +672,14 @@ public class DBController {
     public static void setGames(TreeMap<Integer, Game> games, Connection con) throws SQLException {
         DBGame.setGames(games, con);
     }
-
+    /**
+     * Obtiene el Score de un Team dentro de un GameResult
+     * @param id el id del Game
+     * @param teamID El id del Team
+     * @param con la conexion
+     * @return un Integer que contiene el numero de puntos que ha logrado un equipo en un partido
+     * @throws SQLException si se da alguna excepcion SQL
+     */
     public static Integer getTeamGameScore(Integer id, Integer teamID, Connection con) throws SQLException {
         int x = DBGameResult.getTeamScore(id,teamID,con);
         return x;

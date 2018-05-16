@@ -23,8 +23,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- *
- * @author Sebas
+ * Esta clase se encarga de las operaciones CRUD de los Player
+ * @author Sebastián Zawisza
  */
 public class PlayerCRUD extends javax.swing.JDialog {
 
@@ -47,9 +47,9 @@ public class PlayerCRUD extends javax.swing.JDialog {
     /**
      * Creates new form PlayerCRUD
      *
-     * @param parent el padre del elemento
-     * @param modal modal
-     * @param mode mode
+     * @param parent Generado automáticamente
+     * @param modal Generado automáticamente
+     * @param mode Generado automáticamente
      */
     public PlayerCRUD(java.awt.Frame parent, boolean modal, byte mode) {
         super(parent, modal);
@@ -85,6 +85,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
     }
 
     /**
+     * the return status of this dialog - one of RET_OK or RET_CANCEL
      * @return the return status of this dialog - one of RET_OK or RET_CANCEL
      */
     public int getReturnStatus() {
@@ -217,7 +218,10 @@ public class PlayerCRUD extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Ejecuta la operacion CRUD que este seleccionada
+     * @param evt Generado automáticamente
+     */
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         if (validar()) {
             switch (mode) {//cdru
@@ -281,18 +285,25 @@ public class PlayerCRUD extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Introduce datos por favor");
         }
     }//GEN-LAST:event_okButtonActionPerformed
-
+    /**
+     * Cierra la ventana
+     * @param evt Generado automáticamente
+     */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         doClose(RET_CANCEL);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     /**
      * Closes the dialog
+     * @param evt Generado automáticamente
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         doClose(RET_CANCEL);
     }//GEN-LAST:event_closeDialog
-
+    /**
+     * Rellena los campos con los datos del Player seleccionado
+     * @param evt Generado automáticamente
+     */
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         players.stream().filter(p -> p.getNickName().equals((String) jComboBox2.getSelectedItem())).findFirst().ifPresent(c -> { //juro por todos los santos que esto no lo busqué en google
             jTextField1.setText(c.getFullName());
@@ -303,13 +314,18 @@ public class PlayerCRUD extends javax.swing.JDialog {
             jComboBox1.setSelectedItem((s == null) ? "Ninguno" : s);
         });
     }//GEN-LAST:event_jComboBox2ActionPerformed
-
+    /**
+     * Cierra la ventana
+     * @param retStatus Generado automáticamente
+     */
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
         dispose();
     }
-
+    /**
+     * Actualiza la funcionalidad de la ventana en funcion del modo con el que se ha iniciado
+     */
     private void mode() {
         jComboBox2.removeAllItems();
         try {
@@ -340,6 +356,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
     }
 
     /**
+     * El main de la clase
      * @param args the command line arguments
      */
     public static void main(String args[]) {
