@@ -16,7 +16,6 @@ import DB.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.ButtonModel;
 import superproyecto.*;
 
 /**
@@ -145,6 +144,11 @@ public class Owner extends javax.swing.JFrame {
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Añadir");
+        jRadioButton1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jRadioButton1ItemStateChanged(evt);
+            }
+        });
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton1ActionPerformed(evt);
@@ -250,7 +254,15 @@ public class Owner extends javax.swing.JFrame {
      */
     private void jbFixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFixActionPerformed
         JOptionPane.showConfirmDialog(rootPane, "Si desea revertir éste cambio necesitará contactar a su administrador.\n¿Está completamente seguro de que quiere fijar su equpo?");
+        updatePlayerAdd();
 
+
+    }//GEN-LAST:event_jbFixActionPerformed
+
+    /**
+     * El update para añadir un jugador a un equipo
+     */
+    private void updatePlayerAdd() {
         //llamar a a base de datos para UPDATE a ese jugador
         String playerName = cbPlayer.getSelectedItem().toString();
         Player player1 = new Player();
@@ -277,10 +289,8 @@ public class Owner extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("excepcion ");
         }
+    }
 
-        //RESET SELECT BD
-
-    }//GEN-LAST:event_jbFixActionPerformed
     /**
      * Actualiza el estado de la ventana de acuerdo al radiobutton seleccionado.
      *
@@ -290,9 +300,13 @@ public class Owner extends javax.swing.JFrame {
         mode = 1;
         refresh();
         cbPlayer.removeAllItems();
-        blockBox();
 
         String team = "";
+        if (jRadioButton1.isSelected()) {
+            jbFix.setEnabled(true);
+        } else {
+            jbConfirm.setEnabled(false);
+        }
 
         if (jRadioButton1.isSelected()) {
             cbPlayer.setEnabled(true);
@@ -335,9 +349,13 @@ public class Owner extends javax.swing.JFrame {
         mode = 2;
         refresh();
         cbPlayer.removeAllItems();
-        blockBox();
 
         String team = "";
+        if (jRadioButton2.isSelected()) {
+            jbConfirm.setEnabled(true);
+        } else {
+            jbFix.setEnabled(false);
+        }
 
         if (jRadioButton2.isSelected()) {
             cbPlayer.setEnabled(true);
@@ -364,22 +382,23 @@ public class Owner extends javax.swing.JFrame {
             }
         }
 
+
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void cbTeamItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTeamItemStateChanged
-        if (cbTeam.getSelectedIndex() != -1) {
+        /*if (cbTeam.getSelectedIndex() != -1) {
             progress = 1;
             refresh();
-        }
+        }*/
         cbPlayer.setEnabled(false);
-
     }//GEN-LAST:event_cbTeamItemStateChanged
 
     private void cbPlayerItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbPlayerItemStateChanged
-        if (cbPlayer.getSelectedIndex() != -1) {
+        /*if (cbPlayer.getSelectedIndex() != -1) {
             progress = 2;
             refresh();
-        }
+        }*/
+
     }//GEN-LAST:event_cbPlayerItemStateChanged
 
     private void jbUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUserActionPerformed
@@ -389,13 +408,27 @@ public class Owner extends javax.swing.JFrame {
     private void cbPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPlayerActionPerformed
         // TODO add your handling code here:
 
-
     }//GEN-LAST:event_cbPlayerActionPerformed
+
 
     private void jbConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(this, "Los equipos han sido modificados correctamente.");
+        updatePlayerRest();
 
+
+    }//GEN-LAST:event_jbConfirmActionPerformed
+
+    private void jRadioButton1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButton1ItemStateChanged
+        // TODO add your handling code here:
+        jbConfirm.setEnabled(false);
+        jbFix.setEnabled(false);
+    }//GEN-LAST:event_jRadioButton1ItemStateChanged
+
+    /**
+     * El update para elminar al jugador del equipo
+     */
+    private void updatePlayerRest() {
         //llamar a a base de datos para UPDATE a ese jugador
         String playerName = cbPlayer.getSelectedItem().toString();
         Player player1 = new Player();
@@ -413,8 +446,7 @@ public class Owner extends javax.swing.JFrame {
             System.out.println("excepcion ");
         }
 
-        this.dispose();
-    }//GEN-LAST:event_jbConfirmActionPerformed
+    }
 
     /**
      * Actualiza el estado de componentes en la ventana.
@@ -427,17 +459,7 @@ public class Owner extends javax.swing.JFrame {
                 jbConfirm.setEnabled(true);
             }
         }
-    }
 
-    private void blockBox() {
-        if (jRadioButton1.isSelected()) {
-            cbPlayer.setEnabled(true);
-            if (jRadioButton2.isSelected()) {
-                cbPlayer.setEnabled(true);
-            } else {
-                cbPlayer.setEnabled(false);
-            }
-        }
     }
 
     /**
