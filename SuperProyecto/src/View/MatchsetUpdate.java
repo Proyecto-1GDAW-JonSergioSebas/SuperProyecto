@@ -151,6 +151,8 @@ public class MatchsetUpdate extends javax.swing.JDialog {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MatchsetUpdate.class.getName()).log(Level.SEVERE, null, ex);
         }
+        JOptionPane.showMessageDialog(this, "Datos insertados.");
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

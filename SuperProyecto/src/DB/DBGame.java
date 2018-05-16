@@ -141,10 +141,10 @@ public class DBGame {
         games.forEach((k, v) -> {
             try {
                 if (v.getScore1() != -1) {
-                    st.executeUpdate("UPDATE GAME_RESULT SET SCORE = " + v.getScore1() + " WHERE GAME = " + k + " AND TEAM = " + v.getTeam1());
+                    st.executeUpdate("UPDATE GAME_RESULT SET SCORE = " + v.getScore1() + " WHERE GAME = " + k + " AND TEAM IN (SELECT ID_TM FROM TEAM WHERE TEAM_NAME = '" + v.getTeam1().getTeamName() + "')");
                 }
                 if (v.getScore2() != -1) {
-                    st.executeUpdate("UPDATE GAME_RESULT SET SCORE = " + v.getScore2() + " WHERE GAME = " + k + " AND TEAM = " + v.getTeam2());
+                    st.executeUpdate("UPDATE GAME_RESULT SET SCORE = " + v.getScore2() + " WHERE GAME = " + k + " AND TEAM IN (SELECT ID_TM FROM TEAM WHERE TEAM_NAME = '" + v.getTeam2().getTeamName() + "')");
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(DBGame.class.getName()).log(Level.SEVERE, null, ex);
