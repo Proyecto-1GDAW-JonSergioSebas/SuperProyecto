@@ -152,7 +152,6 @@ public class SAXParserClassification extends DefaultHandler {
     /**
      * Se encarga de ejecutar todo el parser
      *
-     * @param args Los argumentos de la linea de comandos
      */
     public static ArrayList executeSAXClassification() {
 
