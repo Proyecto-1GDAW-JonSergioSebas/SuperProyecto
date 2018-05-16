@@ -142,7 +142,7 @@ public class MatchsetUpdate extends javax.swing.JDialog {
                 if (jTable1.getValueAt(k - 1, 3) != null) {
                     v.setScore2((Integer) jTable1.getValueAt(k - 1, 3));
                 }
-            });            
+            });
         }
         try {
             ViewController.setGames(games);
@@ -160,13 +160,15 @@ public class MatchsetUpdate extends javax.swing.JDialog {
      */
     private void fill() {
         DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
-        games.forEach((k, v) -> {
-            dtm.addRow(new Object[4]);
-            dtm.setValueAt(v.getTeam1().getTeamName(), k - 1, 0);
-            dtm.setValueAt(((v.getScore1() == -1) ? null : v.getScore1()), k - 1, 1);
-            dtm.setValueAt(v.getTeam2().getTeamName(), k - 1, 2);
-            dtm.setValueAt(((v.getScore2() == -1) ? null : v.getScore2()), k - 1, 3);
-        });
+        int i = 0;
+        for (Game g : games.values()) {
+            dtm.addRow(new Object[5]);
+            dtm.setValueAt(g.getTeam1().getTeamName(), i, 0);
+            dtm.setValueAt(((g.getScore1() == -1) ? null : g.getScore1()), i, 1);
+            dtm.setValueAt(g.getTeam2().getTeamName(), i, 2);
+            dtm.setValueAt(((g.getScore2() == -1) ? null : g.getScore2()), i, 3);
+            i++;
+        }
         jTable1.setModel(dtm);
     }
 
