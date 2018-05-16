@@ -14,8 +14,10 @@ import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
 
 /**
- *
- * @author 1gdaw07
+ * Esta clase gestiona la activacion de las sentencias PL/SQL dentro de la base de datos
+ * @author Sebastián Zawisza
+ * @version %I% %G%
+ * @since 1.0
  */
 public class DBProcedures {
 

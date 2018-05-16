@@ -42,7 +42,7 @@ import static superproyecto.SuperProyecto.createMatchSets;
  * crear un arbol de DOM, para despues introducir esa informacion en el fichero
  * xml Classification.xml
  * @version %I% %G%
- * @author Jon
+ * @author Jon Maneiro
  */
 public class DOMParserClassification {
     

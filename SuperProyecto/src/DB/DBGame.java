@@ -19,7 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Esta clase gestiona las acciones necesarias en la base de datos sobre los objetos Game
  * @author Sergio Zulueta
  * @author Sebastián Zawisza
  * @author Jon Maneiro

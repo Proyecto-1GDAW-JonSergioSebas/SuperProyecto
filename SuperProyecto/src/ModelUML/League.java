@@ -8,7 +8,7 @@ package ModelUML;
 import java.util.ArrayList;
 
 /**
- *
+ * Esta clase contiene los metodos y constructores de los objetos League
  * @author Sergio Zulueta
  * @author Sebastián Zawisza
  * @author Jon Maneiro

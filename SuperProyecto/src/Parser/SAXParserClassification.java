@@ -22,10 +22,9 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- *
+ * Esta clase se encarga de parsear el documento Classification.xml y de devolver
+ * un ArrayList que contiene objetos TeamSax
  * @author Sergio Zulueta
- * @author Sebastián Zawisza
- * @author Jon Maneiro
  * @version %I% %G%
  * @since 1.0
  */
@@ -105,6 +104,7 @@ public class SAXParserClassification extends DefaultHandler {
      * sera un objeto attributes vacio
      * @throws SAXException si se da alguna excepcion SAX
      */
+    @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         //inicializamos
         tempVal = "";
@@ -122,6 +122,7 @@ public class SAXParserClassification extends DefaultHandler {
      * @param length La cantidad de caracteres a usar en el Array de caracteres
      * @throws SAXException si se da alguna excepcion SAX
      */
+    @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         tempVal = new String(ch, start, length);
     }
@@ -139,6 +140,7 @@ public class SAXParserClassification extends DefaultHandler {
      * nombre calificados no estan disponibles
      * @throws SAXException si se da alguna excepcion SAX
      */
+    @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         if (qName.equalsIgnoreCase("team")) {
             Classification.add(team);
@@ -152,6 +154,7 @@ public class SAXParserClassification extends DefaultHandler {
     /**
      * Se encarga de ejecutar todo el parser
      *
+     * @return un ArrayList compuesto de objetos TeamSax
      */
     public static ArrayList executeSAXClassification() {
 

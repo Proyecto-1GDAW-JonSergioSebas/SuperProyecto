@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- *
+ * Esta clase contiene los metodos y constructores de los objetos Game
  * @author Sergio Zulueta
  * @author Sebastián Zawisza
  * @author Jon Maneiro
@@ -171,7 +171,7 @@ public class Game {
     /**
      * Para sacar por pantalla los datos.
      *
-     * @return
+     * @return un string con los datos del Game 
      */
     @Override
     public String toString() {

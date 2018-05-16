@@ -6,8 +6,8 @@
 package Parser;
 
 /**
- *
- * @author Serzulu
+ * Esta clase contiene los metodos y constructores de los objetos TeamSax
+ * @author Sergio Zulueta
  */
 public class TeamSax {
 
@@ -25,7 +25,7 @@ public class TeamSax {
     }
 
     /**
-     * 
+     * Constructor lleno
      * @param name (requerido) Nombre recibido del XML
      * @param points (requerido) Puntos recibidos del XML
      */
@@ -73,7 +73,7 @@ public class TeamSax {
     /**
      * Para sacar por pantalla los datos.
      * 
-     * @return 
+     * @return un String con los datos de TeamSax
      */
     @Override
     public String toString() {

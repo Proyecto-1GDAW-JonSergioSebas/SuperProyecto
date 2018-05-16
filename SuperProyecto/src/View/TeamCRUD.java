@@ -23,8 +23,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- *
- * @author Sebas
+ * Esta clase se encarga de las operaciones CRUD de los Team
+ * @author Sebastián Zawisza
  */
 public class TeamCRUD extends javax.swing.JDialog {
 
@@ -48,9 +48,9 @@ public class TeamCRUD extends javax.swing.JDialog {
     /**
      * Creates new form TeamCRUD
      *
-     * @param parent el elemento padre
-     * @param modal modal
-     * @param mode mode
+     * @param parent Generado automáticamente
+     * @param modal Generado automáticamente
+     * @param mode Generado automáticamente
      */
     public TeamCRUD(java.awt.Frame parent, boolean modal, byte mode) {
         super(parent, modal);
@@ -85,6 +85,7 @@ public class TeamCRUD extends javax.swing.JDialog {
     }
 
     /**
+     * the return status of this dialog - one of RET_OK or RET_CANCEL
      * @return the return status of this dialog - one of RET_OK or RET_CANCEL
      */
     public int getReturnStatus() {
@@ -212,16 +213,23 @@ public class TeamCRUD extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Closes the dialog
+     * Cierra la ventana
+     * @param evt Generado automáticamente
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         doClose(RET_CANCEL);
     }//GEN-LAST:event_closeDialog
-
+    /**
+     * Cierra la ventana
+     * @param evt Generado automáticamente
+     */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         doClose(RET_CANCEL);
     }//GEN-LAST:event_cancelButtonActionPerformed
-
+    /**
+     * Ejecuta la operacion CRUD que esta seleccionada
+     * @param evt Generado automáticamente
+     */
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
 
         if (!errors[0] || !errors[1]) {
@@ -285,10 +293,10 @@ public class TeamCRUD extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_okButtonActionPerformed
+    
     /**
-     * Verifica la validez del campo.
-     *
-     * @param evt
+     * Rellena los campos con los datos del Team seleccionado
+     * @param evt Generado automáticamente
      */
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         teams.stream().filter(p -> p.getTeamName().equals((String) jComboBox2.getSelectedItem())).findFirst().ifPresent(c -> { //juro por todos los santos que esto no lo busqué en google
@@ -299,6 +307,10 @@ public class TeamCRUD extends javax.swing.JDialog {
         });
     }//GEN-LAST:event_jComboBox2ActionPerformed
     /**
+     * Cierra la ventana
+     * @param retStatus Generado automáticamente
+     */
+
      * Verifica la validez del campo.
      *
      * @param evt
@@ -326,14 +338,18 @@ public class TeamCRUD extends javax.swing.JDialog {
             errors[1] = false;
         }
     }//GEN-LAST:event_jTextField1CaretUpdate
-
-    private void doClose(int retStatus) {
+  
+  /** Cierra la ventana
+     * @param retStatus Generado automáticamente
+     */  
+  private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
         dispose();
     }
 
     /**
+     * El main de la clase
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -379,13 +395,17 @@ public class TeamCRUD extends javax.swing.JDialog {
         }
         return true;
     }
-
+    /**
+     * Vacia los campos
+     */
     private void clear() {
         jComboBox1.setSelectedIndex(-1);
         jTextField1.setText("");
         jTextField2.setText("");
     }
-
+    /**
+     * Actualiza la funcionalidad de la ventana en funcion del modo en el que se ha iniciado
+     */
     private void mode() {
         jComboBox2.removeAllItems();
         try {
