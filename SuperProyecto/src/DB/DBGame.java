@@ -87,6 +87,19 @@ public class DBGame {
     public static TreeMap<Integer, Game> getGames(int matchSetId, Connection con) throws SQLException {
         TreeMap<Integer, Game> games = new TreeMap();
         Statement sta = con.createStatement();
+
+        ResultSet rs0 = sta.executeQuery("SELECT COUNT(*) FROM MATCHSET WHERE ID_MS IN (SELECT ID_MS FROM MATCHSET WHERE LEAGUE = (SELECT LEAGUE FROM MATCHSET WHERE ID_MS = " + matchSetId + "))"); //primero seleccionamos la cantidad de matchsets que comparten liga con éste
+        int ms = 0;
+        while (rs0.next()) {
+            ms = rs0.getInt(1);
+        }
+        final int currentMatchSets = ms;
+        rs0 = sta.executeQuery("SELECT COUNT(*) FROM MATCHSET WHERE ID_MS IN (SELECT ID_MS FROM MATCHSET WHERE LEAGUE < (SELECT LEAGUE FROM MATCHSET WHERE ID_MS = " + matchSetId + "))"); //luego tenemos que seleccionar la cantidad de jornadas en ligas previas
+        while (rs0.next()) {
+            ms = rs0.getInt(1);
+        }
+        final int positionInLeague = matchSetId - ms; //y ese numero lo restamos a la ID del matchset para obtener su posición en su liga (Jon Maneiro©)
+
         ResultSet rs1 = sta.executeQuery("SELECT * FROM GAME WHERE MATCHSET = " + matchSetId); //seleccionamos todos los partidos correspondientes a la jornada
         while (rs1.next()) {
             games.put(rs1.getInt(1), new Game());
@@ -117,11 +130,18 @@ public class DBGame {
                     }
                 });
 
-                g.setTeam1(teams.get(0)); //añadimos los Team al Game
-                g.setTeam2(teams.get(1));
-                g.setScore1(scores.get(0)); //y luego las puntuaciones
-                g.setScore2(scores.get(1));
-
+                //System.out.println(matchSetId + " " + matchsets);
+                if (positionInLeague > (currentMatchSets / 2)) {
+                    g.setTeam2(teams.get(0)); //añadimos los Team al Game
+                    g.setTeam1(teams.get(1));
+                    g.setScore2(scores.get(0)); //y luego las puntuaciones
+                    g.setScore1(scores.get(1));
+                } else {
+                    g.setTeam1(teams.get(0));
+                    g.setTeam2(teams.get(1));
+                    g.setScore1(scores.get(0));
+                    g.setScore2(scores.get(1));
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(DBGame.class.getName()).log(Level.SEVERE, null, ex);
             }

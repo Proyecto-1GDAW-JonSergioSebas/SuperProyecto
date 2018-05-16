@@ -17,6 +17,7 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import ModelUML.DBUser;
+import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -43,6 +44,7 @@ public class UserCRUD extends javax.swing.JDialog {
     private static byte mode;
 
     private static ArrayList<DBUser> users;
+    private static boolean[] errors = {false, false, false};
 
     /**
      * Creates new form UserCRUD
@@ -117,6 +119,18 @@ public class UserCRUD extends javax.swing.JDialog {
             }
         });
 
+        jPasswordField1.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jPasswordField1CaretUpdate(evt);
+            }
+        });
+
+        jPasswordField2.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jPasswordField2CaretUpdate(evt);
+            }
+        });
+
         jLabel3.setText("Nombre de Usuario");
 
         jLabel4.setText("Contraseña");
@@ -139,6 +153,11 @@ public class UserCRUD extends javax.swing.JDialog {
 
         jTextField2.setEnabled(false);
         jTextField2.setMaximumSize(new java.awt.Dimension(6, 20));
+        jTextField2.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jTextField2CaretUpdate(evt);
+            }
+        });
 
         jComboBox1.setMaximumRowCount(50);
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -214,63 +233,71 @@ public class UserCRUD extends javax.swing.JDialog {
      * @param evt Generado automáticamente
      */
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        if (String.valueOf(jPasswordField1.getPassword()).equals(String.valueOf(jPasswordField2.getPassword()))) {
-            switch (mode) { //cdru
-                case 0:
-                    try {
-
-                        ViewController.insertUser(jTextField2.getText(), jPasswordField1.getPassword());
-                        JOptionPane.showMessageDialog(this, "Usuario insertado.");
-                        mode();
-                        clean();
-
-                    } catch (SQLException ex) {
-                        Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    break;
-                case 1:
-                    try {
-
-                        jComboBox1.setSelectedIndex(-1);
-                        ViewController.deleteUser(jTextField2.getText());
-                        JOptionPane.showMessageDialog(this, "Usuario '"+jComboBox1.getSelectedItem()+"' eliminado.");
-                        mode();
-                        clean();
-
-                    } catch (SQLException ex) {
-                        Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    break;
-                case 2:
-                    dispose();
-                    break;
-                case 3:
-                    try {
-
-                        jComboBox1.setSelectedIndex(-1);
-                        ViewController.updateUser(jTextField2.getText(), jPasswordField1.getPassword());
-                        JOptionPane.showMessageDialog(this, "Usuario '"+jComboBox1.getSelectedItem()+"' actualizado.");
-                        clean();
-
-                    } catch (SQLException ex) {
-                        Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    break;
+        boolean good = true;
+        for (boolean b : errors) {
+            if (!b) {
+                good = false;
             }
-
-        } else {
-            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.");
-            jPasswordField1.setText("");
-            jPasswordField2.setText("");
         }
+        if (good) {
+            if (String.valueOf(jPasswordField1.getPassword()).equals(String.valueOf(jPasswordField2.getPassword()))) {
+                switch (mode) { //cdru
+                    case 0:
+                        try {
 
+                            ViewController.insertUser(jTextField2.getText(), jPasswordField1.getPassword());
+                            JOptionPane.showMessageDialog(this, "Usuario insertado.");
+                            mode();
+                            clean();
 
+                        } catch (SQLException ex) {
+                            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        break;
+                    case 1:
+                        try {
+
+                            jComboBox1.setSelectedIndex(-1);
+                            ViewController.deleteUser(jTextField2.getText());
+                            JOptionPane.showMessageDialog(this, "Usuario '" + jComboBox1.getSelectedItem() + "' eliminado.");
+                            mode();
+                            clean();
+
+                        } catch (SQLException ex) {
+                            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        break;
+                    case 2:
+                        dispose();
+                        break;
+                    case 3:
+                        try {
+
+                            jComboBox1.setSelectedIndex(-1);
+                            ViewController.updateUser(jTextField2.getText(), jPasswordField1.getPassword());
+                            JOptionPane.showMessageDialog(this, "Usuario '" + jComboBox1.getSelectedItem() + "' actualizado.");
+                            clean();
+
+                        } catch (SQLException ex) {
+                            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        break;
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.");
+                jPasswordField1.setText("");
+                jPasswordField2.setText("");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Uno de los campos es demasiado largo.");
+        }
     }//GEN-LAST:event_okButtonActionPerformed
     /**
      * Cierra la ventana
@@ -289,10 +316,52 @@ public class UserCRUD extends javax.swing.JDialog {
         });
     }//GEN-LAST:event_jComboBox1ActionPerformed
     /**
-     * Cierra la ventana
-     * @param retStatus Generado automáticamente
+
+     * Verifica la validez del campo.
+     *
+     * @param evt
      */
-    private void doClose(int retStatus) {
+    private void jTextField2CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextField2CaretUpdate
+        if (jTextField2.getText().length() > 12) {
+            jTextField2.setBackground(Color.RED);
+            errors[0] = true;
+        } else {
+            jTextField2.setBackground(Color.WHITE);
+            errors[0] = false;
+        }
+    }//GEN-LAST:event_jTextField2CaretUpdate
+    /**
+     * Verifica la validez del campo.
+     *
+     * @param evt
+     */
+    private void jPasswordField1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jPasswordField1CaretUpdate
+        if (jPasswordField1.getPassword().length > 12) {
+            jPasswordField1.setBackground(Color.RED);
+            errors[1] = true;
+        } else {
+            jPasswordField1.setBackground(Color.WHITE);
+            errors[1] = false;
+        }
+    }//GEN-LAST:event_jPasswordField1CaretUpdate
+    /**
+     * Verifica la validez del campo.
+     *
+     * @param evt
+     */
+    private void jPasswordField2CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jPasswordField2CaretUpdate
+        if (jPasswordField2.getPassword().length > 12) {
+            jPasswordField2.setBackground(Color.RED);
+            errors[2] = true;
+        } else {
+            jPasswordField2.setBackground(Color.WHITE);
+            errors[2] = false;
+        }
+    }//GEN-LAST:event_jPasswordField2CaretUpdate
+  /** Cierra la ventana
+     * @param retStatus Generado automáticamente
+     */  
+  private void doClose(int retStatus) {
         returnStatus = retStatus;
         dispose();
     }
@@ -322,7 +391,7 @@ public class UserCRUD extends javax.swing.JDialog {
                 jLabel5.setVisible(false);
                 jLabel4.setVisible(false);
                 pack();
-            } else {                
+            } else {
                 jTextField2.setEnabled(true);
             }
             jComboBox1.setSelectedIndex(-1);
