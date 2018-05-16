@@ -62,15 +62,23 @@ public class DOMParserLeague {
      * @throws ClassNotFoundException si no se encuentra la clase
      * @throws SQLException si se da alguna excepcion SQL 
      */
-    private void loadData() throws ClassNotFoundException, SQLException{
+     private void loadData() throws ClassNotFoundException, SQLException{
         Connection con =createConnection();
         int idLeague = askLastLeagueID(con);
         ArrayList<Integer> matchSetsID =askMatchSetsID(idLeague,con);
         ArrayList<MatchSet> matchSets = new ArrayList();
-        
+        int magic = (matchSetsID.size()/2);
+        int flippy = 0;
         for(Integer x:matchSetsID){
-            MatchSet tempMatchSet = SuperProyecto.createMatchSets(x,con);
+            if(flippy<magic){
+            MatchSet tempMatchSet = SuperProyecto.createMatchSets(false,x,con);
             league.addMatchSets(tempMatchSet);
+            }
+            else{
+            MatchSet tempMatchSet = SuperProyecto.createMatchSets(true,x,con);
+            league.addMatchSets(tempMatchSet);
+            }
+            flippy++;
         }
         
         gamesID=askAllGamesID(idLeague,con);
@@ -216,7 +224,7 @@ public class DOMParserLeague {
     /**
      * Ejecuta todo el parser
      */
-    public static void executeDOMLeague () throws ClassNotFoundException, SQLException{
+    public static void executeDOMLeague() throws ClassNotFoundException, SQLException{
         //Creamos una instancia
         DOMParserLeague dLeague = new DOMParserLeague();
         

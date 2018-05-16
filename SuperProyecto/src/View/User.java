@@ -7,10 +7,13 @@ package View;
 
 import ModelUML.Game;
 import ModelUML.MatchSet;
+import Parser.SAXParserClassification;
+import Parser.TeamSax;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
@@ -23,10 +26,11 @@ import javax.swing.table.DefaultTableModel;
  * @since 1.0
  */
 public class User extends javax.swing.JFrame {
-    ArrayList<MatchSet> league; // El array de la liga que actualmente se esta jugando
-    private static boolean child; 
-    ArrayList<Integer> templeague= new ArrayList();//el array para usar con los id de los matchsets de la liga seleccionada
 
+    ArrayList<MatchSet> league; // El array de la liga que actualmente se esta jugando
+    private static boolean child;
+    ArrayList<Integer> templeague = new ArrayList();//el array para usar con los id de los matchsets de la liga seleccionada
+    
     /**
      * Creates new form User
      */
@@ -52,7 +56,7 @@ public class User extends javax.swing.JFrame {
         league = ViewController.executeSaxParserLeague();
         cbLeague.addItem("Liga actual");
         fillCbLeague();
-        fillCbMatchSet();
+        
     }
 
     /**
@@ -192,37 +196,45 @@ public class User extends javax.swing.JFrame {
     private void cbLeagueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLeagueActionPerformed
         cbMatchset.removeAllItems();
         String selectedleague = cbLeague.getSelectedItem().toString();
-        fillCbMatchSet(selectedleague);
         
+        fillCbMatchSet(selectedleague);
+        fillJlClassification();
+
     }//GEN-LAST:event_cbLeagueActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        
+
     }//GEN-LAST:event_formWindowActivated
 
     private void cbMatchsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMatchsetActionPerformed
         try {
-            jtGames.removeAll();
+            
             int leaguenum = ViewController.getLeagueNum(cbLeague.getSelectedItem().toString());
-            ArrayList<Game> selectedMSGames = ViewController.getMatchSetGames(leaguenum,Integer.parseInt(cbMatchset.getSelectedItem().toString()));
+            ArrayList<Game> selectedMSGames = ViewController.getMatchSetGames(leaguenum, Integer.parseInt(cbMatchset.getSelectedItem().toString()));
             DefaultTableModel model = (DefaultTableModel) jtGames.getModel();
-            for(int x =0;x<selectedMSGames.size();x++){
-                String winner="";
-                if(selectedMSGames.get(x).getScore1()>selectedMSGames.get(x).getScore2()){
-                    winner=""+selectedMSGames.get(x).getTeam1().getTeamName();
+            model.setRowCount(0);
+            for (int x = 0; x < selectedMSGames.size(); x++) {
+                String winner = "";
+                if (selectedMSGames.get(x).getScore1() > selectedMSGames.get(x).getScore2()) {
+                    winner = "" + selectedMSGames.get(x).getTeam1().getTeamName();
+                } else if (selectedMSGames.get(x).getScore1() < selectedMSGames.get(x).getScore2()) {
+                    winner = "" + selectedMSGames.get(x).getTeam2().getTeamName();
+                } else {
+                    winner = "Empate";
                 }
-                else if(selectedMSGames.get(x).getScore1()<selectedMSGames.get(x).getScore2()){
-                    winner=""+selectedMSGames.get(x).getTeam2().getTeamName();
+                if(cbMatchset.getSelectedIndex()<=cbMatchset.getItemCount()/2){
+                    Object[] row = {selectedMSGames.get(x).getTeam1().getTeamName(), selectedMSGames.get(x).getScore1(), selectedMSGames.get(x).getTeam2().getTeamName(), selectedMSGames.get(x).getScore2(), winner};    
+                    model.addRow(row);
+                }else{
+                    Object[] row = {selectedMSGames.get(x).getTeam2().getTeamName(), selectedMSGames.get(x).getScore2(), selectedMSGames.get(x).getTeam1().getTeamName(), selectedMSGames.get(x).getScore1(), winner};
+                    model.addRow(row);
                 }
-                else{
-                    winner="Empate";
-                }
-                Object[] row ={selectedMSGames.get(x).getTeam1(),selectedMSGames.get(x).getScore1(),selectedMSGames.get(x).getTeam2(),selectedMSGames.get(x).getScore2(),winner};
                 
-                model.addRow(row);
-            } 
+
+                
+            }
             jtGames.setModel(model);
-        
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -234,7 +246,7 @@ public class User extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -260,41 +272,63 @@ public class User extends javax.swing.JFrame {
      */
     private void fillCbLeague() {
         try {
-            
+
             ArrayList<String> leaguenames = ViewController.getLeagueNames();
-            leaguenames.remove(leaguenames.size()-1);
+            leaguenames.remove(leaguenames.size() - 1);
             leaguenames.forEach(e -> cbLeague.addItem(e));
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
+
     /**
      * Rellena el ComboBox que contiene las jornadas con las de la liga actual
      */
-    private void fillCbMatchSet(){
-        for(int x=0; x<league.size();x++){
-            cbMatchset.addItem(""+league.get(x));//Convirtiendo a String de forma super eficaz
+    private void fillCbMatchSet() {
+        try {
+            ArrayList<String> temparr = ViewController.getLeagueNames();
+            int templeagnumb = ViewController.getLeagueNum(temparr.get(temparr.size()-1));
+            ArrayList<Integer> tempmatch = ViewController.getLeagueMatchSetsID(templeagnumb);
+            
+            for (int x = 0; x < tempmatch.size(); x++) {
+                cbMatchset.addItem(tempmatch.get(x).toString());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
-    
-    private void fillCbMatchSet(String leaguename){
-        if(leaguename.equalsIgnoreCase("Liga actual")){
+
+    private void fillCbMatchSet(String leaguename) {
+        if (leaguename.equalsIgnoreCase("Liga actual")) {
             fillCbMatchSet();
-        }
-        else{
+        } else {
             try {
-                
+
                 int leaguenum = ViewController.getLeagueNum(leaguename);
                 templeague.addAll(ViewController.getLeagueMatchSetsID(leaguenum));
-                templeague.forEach(e -> cbMatchset.addItem(""+e));
+                templeague.forEach(e -> cbMatchset.addItem("" + e));
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    private void fillJlClassification() {
+        ArrayList<TeamSax> Classification = SAXParserClassification.executeSAXClassification();
+        String[] raw = new String[(Classification.size())];
+        for (int x = 0; x < Classification.size(); x++) {
+            raw[x] = Classification.get(x).getName() + "  " + Classification.get(x).getPoints();
+
+        }
+        jlClassification.setListData(raw);
     }
 }

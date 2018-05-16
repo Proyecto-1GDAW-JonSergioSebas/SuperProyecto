@@ -227,26 +227,25 @@ public class SuperProyecto {
      * Recoge los datos necesario para crear un objeto MatchSet en relacion a la
      * id que se le envie
      *
+     * @param flip si se tiene que dar la vuelta al equipo o no
      * @param matchSetId el id del MatchSet a crear
      * @param con la conexion
      * @return un MatchSet
      * @throws SQLException si se da alguna excepcion SQL
      */
-    public static MatchSet createMatchSets(int matchSetId, Connection con) throws SQLException, ClassNotFoundException {
+    public static MatchSet createMatchSets(boolean flip, int matchSetId, Connection con) throws SQLException, ClassNotFoundException {
         ArrayList<Integer> gameID = obtainGamesID(matchSetId, con);
         ArrayList<Game> games = new ArrayList();
-        ArrayList<Team> completeTeams = teams(con);
-        int numDays = (completeTeams.size() - 1);
-        int tempito = (numDays * 2 * completeTeams.size()) / 2;
+
         int x = 0;
         for (Integer id : gameID) {
             ArrayList<Integer> teamID = obtainGameTeamID(id, con);
             ArrayList<Integer> compScores = new ArrayList();
-            compScores.add(DBController.getTeamGameScore(id,teamID.get(0),con));
-            compScores.add(DBController.getTeamGameScore(id,teamID.get(1),con));
-            ArrayList<Integer> scores= new ArrayList();
+            compScores.add(DBController.getTeamGameScore(id, teamID.get(0), con));
+            compScores.add(DBController.getTeamGameScore(id, teamID.get(1), con));
+            ArrayList<Integer> scores = new ArrayList();
             ArrayList<Team> teams = new ArrayList();
-            if (x < tempito) {
+            if (flip) {
                 for (Integer tid : teamID) {
                     teams.add(obtainTeam(tid, con));
 
@@ -617,8 +616,10 @@ public class SuperProyecto {
         DBController.updateTeam(teamname, newTeamname, newNationality, teamownerid, con);
         con.close();
     }
+
     /**
      * Devuelve un ResultSet que contiene la clasificacion
+     *
      * @param leagueid el id de la liga de la cual se quiere la clasificacion
      * @param con la conexion
      * @return un ResultSet con la clasificacion
@@ -675,6 +676,7 @@ public class SuperProyecto {
 
     /**
      * Obtiene los Game que estan en un MatchSet del cual se pasa el id
+     *
      * @param leaguenum el id de la liga
      * @param matchSetnum el id del MatchSet
      * @return un ArrayList con los games del MatchSet
@@ -683,7 +685,7 @@ public class SuperProyecto {
      */
     public static ArrayList<Game> getMatchSetGames(int leaguenum, int matchSetnum) throws ClassNotFoundException, SQLException {
         Connection con = createConnection();
-        ArrayList<Game> matchSetGames = DBController.getMatchSetGames(leaguenum,matchSetnum,con);
+        ArrayList<Game> matchSetGames = DBController.getMatchSetGames(leaguenum, matchSetnum, con);
         con.close();
         return matchSetGames;
     }
