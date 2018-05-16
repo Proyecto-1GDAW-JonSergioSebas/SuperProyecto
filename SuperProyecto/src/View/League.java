@@ -5,6 +5,7 @@
  */
 package View;
 
+import java.awt.Color;
 import java.sql.Date;
 import java.text.ParseException;
 import java.time.Instant;
@@ -21,7 +22,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author 1gdaw07
  */
 public class League extends javax.swing.JDialog {
-
+    private static boolean errors = false;
     /**
      * Creates new form League
      */
@@ -78,6 +79,12 @@ public class League extends javax.swing.JDialog {
 
         jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
 
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
         jLabel1.setText("Nombre de la Liga");
 
         jLabel2.setText("Fecha de inicio");
@@ -126,9 +133,7 @@ public class League extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Pattern p = Pattern.compile("^[A-Za-z0-9]{0,20}$");
-        Matcher match = p.matcher(jTextField1.getText());
-        if (match.matches()) {
+        if (jTextField1.getBackground()!=Color.RED) {
             if (Date.valueOf(jFormattedTextField1.getText()).after(Date.from(Instant.now()))) {
                 if (JOptionPane.showConfirmDialog(this, "Una vez creadas, las ligas no pueden ser eliminadas sin acceso directo a la base de datos.\n¿Está completamente seguro de que quiere generar una liga?") == 0) {
                     try {
@@ -150,6 +155,14 @@ public class League extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        if (jTextField1.getText().length() > 20) {
+            jTextField1.setBackground(Color.RED);
+        } else {
+            jTextField1.setBackground(Color.WHITE);
+        }
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments

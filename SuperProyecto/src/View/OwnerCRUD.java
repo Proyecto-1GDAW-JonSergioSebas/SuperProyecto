@@ -6,6 +6,7 @@
 package View;
 
 import ModelUML.TeamOwner;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
@@ -27,6 +28,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class OwnerCRUD extends javax.swing.JDialog {
 
+    private static boolean[] errors = {false, false, false, false, false};
     /**
      * A return status code - returned if Cancel button has been pressed
      */
@@ -107,11 +109,11 @@ public class OwnerCRUD extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jTextField2 = new javax.swing.JTextField();
         jPasswordField1 = new javax.swing.JPasswordField();
         jPasswordField2 = new javax.swing.JPasswordField();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jTextField3 = new javax.swing.JTextField();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -143,9 +145,39 @@ public class OwnerCRUD extends javax.swing.JDialog {
 
         jLabel5.setText("Contraseña otra vez");
 
+        jTextField1.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jTextField1CaretUpdate(evt);
+            }
+        });
+
+        jTextField2.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jTextField2CaretUpdate(evt);
+            }
+        });
+
+        jPasswordField1.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jPasswordField1CaretUpdate(evt);
+            }
+        });
+
+        jPasswordField2.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jPasswordField2CaretUpdate(evt);
+            }
+        });
+
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jTextField3.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField3FocusLost(evt);
             }
         });
 
@@ -166,10 +198,10 @@ public class OwnerCRUD extends javax.swing.JDialog {
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jFormattedTextField1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -192,7 +224,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -218,63 +250,74 @@ public class OwnerCRUD extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        if (String.valueOf(jPasswordField1.getPassword()).equals(String.valueOf(jPasswordField2.getPassword()))) {
-            switch (mode) {//cdru
-                case 0: {
-                    try {
+        boolean good = true;
+        for (boolean b : errors) {
+            if (!b) {
+                good = false;
+            }
+        }
 
-                        ViewController.insertTeamOwner(jTextField2.getText(), jPasswordField1.getPassword(), jTextField1.getText(), jFormattedTextField1.getText());
-                        JOptionPane.showMessageDialog(this, "Dueño de equipo insertado.");
-                        clean();
+        if (good) {
+            if (String.valueOf(jPasswordField1.getPassword()).equals(String.valueOf(jPasswordField2.getPassword()))) {
+                switch (mode) {//cdru
+                    case 0: {
+                        try {
 
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                            ViewController.insertTeamOwner(jTextField2.getText(), jPasswordField1.getPassword(), jTextField1.getText(), jTextField3.getText());
+                            JOptionPane.showMessageDialog(this, "Dueño de equipo insertado.");
+                            clean();
+
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
-                }
-                break;
-                case 1: {                    
-                    try {
+                    break;
+                    case 1: {
+                        try {
 
-                        ViewController.deleteTeamOwner(jTextField2.getText());
-                        JOptionPane.showMessageDialog(this, "Dueño de equipo '" + jTextField2.getText() + "' eliminado.");
-                        clean();
+                            ViewController.deleteTeamOwner(jTextField2.getText());
+                            JOptionPane.showMessageDialog(this, "Dueño de equipo '" + jTextField2.getText() + "' eliminado.");
+                            clean();
 
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        mode();
+                        jComboBox1.setSelectedIndex(-1);
                     }
+                    clean();
+                    break;
+                    case 2:
+                        dispose();
+                        break;
+                    case 3: {
+                        try {
+                            ViewController.updateTeamOwner(jComboBox1.getSelectedItem().toString(), jTextField2.getText(), jPasswordField1.getPassword(), jTextField1.getText(), jTextField3.getText());
+                            JOptionPane.showMessageDialog(this, "Dueño de equipo '" + jComboBox1.getSelectedItem().toString() + "' actualizado.");
+                            clean();
+
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    clean();
                     mode();
                     jComboBox1.setSelectedIndex(-1);
-                }
-                clean();
-                break;
-                case 2:
-                    dispose();
                     break;
-                case 3: {
-                    try {
-                        ViewController.updateTeamOwner(jComboBox1.getSelectedItem().toString(), jTextField2.getText(), jPasswordField1.getPassword(), jTextField1.getText(), jFormattedTextField1.getText());
-                        JOptionPane.showMessageDialog(this, "Dueño de equipo '" + jComboBox1.getSelectedItem().toString() + "' actualizado.");
-                        clean();
-
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                    }
                 }
-                clean();
-                mode();
-                jComboBox1.setSelectedIndex(-1);
-                break;
+            } else {
+                JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.");
+                jPasswordField1.setText("");
+                jPasswordField2.setText("");
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.");
-            jPasswordField1.setText("");
-            jPasswordField2.setText("");
+            JOptionPane.showMessageDialog(this, "Uno de los campos es demasiado largo, o el número de teléfono incluye caracteres no numéricos..");
         }
     }//GEN-LAST:event_okButtonActionPerformed
 
@@ -292,10 +335,80 @@ public class OwnerCRUD extends javax.swing.JDialog {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         owners.stream().filter(p -> p.getUserName().equals((String) jComboBox1.getSelectedItem())).findFirst().ifPresent(c -> { //juro por todos los santos que esto no lo busqué en google
             jTextField1.setText(c.getFullName());
-            jFormattedTextField1.setText(c.getTelephone());
+            jTextField3.setText(c.getTelephone());
             jTextField2.setText(c.getUserName());
         });
     }//GEN-LAST:event_jComboBox1ActionPerformed
+    /**
+     * Verifica la validez del campo.
+     *
+     * @param evt
+     */
+    private void jTextField3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField3FocusLost
+        if (jTextField3.getText().matches("^[0-9]{9}$")) {
+            jTextField3.setBackground(Color.red);
+            errors[1] = true;
+        } else {
+            jTextField3.setBackground(Color.WHITE);
+            errors[1] = false;
+        }
+    }//GEN-LAST:event_jTextField3FocusLost
+    /**
+     * Verifica la validez del campo.
+     *
+     * @param evt
+     */
+    private void jTextField1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextField1CaretUpdate
+        if (jTextField1.getText().length() > 30) {
+            jTextField1.setBackground(Color.red);
+            errors[0] = true;
+        } else {
+            jTextField1.setBackground(Color.WHITE);
+            errors[0] = false;
+        }
+    }//GEN-LAST:event_jTextField1CaretUpdate
+    /**
+     * Verifica la validez del campo.
+     *
+     * @param evt
+     */
+    private void jTextField2CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextField2CaretUpdate
+        if (jTextField2.getText().length() > 12) {
+            jTextField2.setBackground(Color.red);
+            errors[2] = true;
+        } else {
+            jTextField2.setBackground(Color.WHITE);
+            errors[2] = false;
+        }
+    }//GEN-LAST:event_jTextField2CaretUpdate
+    /**
+     * Verifica la validez del campo.
+     *
+     * @param evt
+     */
+    private void jPasswordField1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jPasswordField1CaretUpdate
+        if (jPasswordField1.getPassword().length > 12) {
+            jPasswordField1.setBackground(Color.red);
+            errors[3] = true;
+        } else {
+            jPasswordField1.setBackground(Color.WHITE);
+            errors[3] = false;
+        }
+    }//GEN-LAST:event_jPasswordField1CaretUpdate
+    /**
+     * Verifica la validez del campo.
+     *
+     * @param evt
+     */
+    private void jPasswordField2CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jPasswordField2CaretUpdate
+        if (jPasswordField2.getPassword().length > 12) {
+            jPasswordField2.setBackground(Color.red);
+            errors[4] = true;
+        } else {
+            jPasswordField2.setBackground(Color.WHITE);
+            errors[4] = false;
+        }
+    }//GEN-LAST:event_jPasswordField2CaretUpdate
 
     private void doClose(int retStatus) {
         returnStatus = retStatus;
@@ -306,7 +419,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
     private void clean() {
         jTextField1.setText("");
         jTextField2.setText("");
-        jFormattedTextField1.setText("");
+        jTextField3.setText("");
         jPasswordField1.setText("");
         jPasswordField2.setText("");
     }
@@ -333,7 +446,6 @@ public class OwnerCRUD extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -343,6 +455,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JButton okButton;
     // End of variables declaration//GEN-END:variables
 
@@ -360,7 +473,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
                     jLabel4.setVisible(false);
                     jLabel5.setVisible(false);
                     pack();
-                    jFormattedTextField1.setEnabled(false);
+                    jTextField3.setEnabled(false);
                     jTextField1.setEnabled(false);
                     jTextField2.setEnabled(false);
                 }
