@@ -51,9 +51,10 @@ public class DBController {
     /**
      * Este metodo crea la conexión a la base de datos
      *
+     * @return la conexion a la base de datos
+     *
      * @throws ClassNotFoundException no encuentra la clase
      * @throws SQLException hay una excepcion SQL
-     * @return la conexion a la base de datos
      */
     public static Connection createConnection() throws ClassNotFoundException, SQLException {
 
@@ -138,7 +139,6 @@ public class DBController {
      * correspondiente
      *
      * @param gm el juego
-     * @param gamenum el id del juego
      * @param matchsetnum el id de la jornada
      * @param con la conexion
      * @throws SQLException hay una excepcion SQL
@@ -608,7 +608,6 @@ public class DBController {
         return x;
     }
 
-    /*
     public static ArrayList<Game> getMatchSetGames(int leaguenum, int matchSetnum, Connection con) throws SQLException {
         ArrayList<Game> matchSetGames= new ArrayList();
         /*
@@ -616,14 +615,20 @@ public class DBController {
         segun el id obtener los equipos que participan y las puntuaciones
         crear un objeto Game con solo esos 4 datos
         insertarlos en el ArrayList y devolverlo
-     *//*
+     */       
         ArrayList<Integer> gamesID = getGamesID(matchSetnum, con);
         for(Integer e:gamesID){
             Game tempgame = new Game();
-            obtainGameTeamID(e, con);
+            ArrayList<Integer> tempgameteamid = obtainGameTeamID(e.intValue(), con);
+            tempgame.setTeam1(DBTeam.getGameTeam(tempgameteamid.get(0), con));
+            tempgame.setScore1(DBGameResult.getTeamScore(e.intValue(),tempgameteamid.get(0), con));
+            tempgame.setTeam2(DBTeam.getGameTeam(tempgameteamid.get(1), con));
+            tempgame.setScore2(DBGameResult.getTeamScore(e.intValue(),tempgameteamid.get(1), con));
+            matchSetGames.add(tempgame);
         }
+        return matchSetGames;
     }
-     */
+
 
     /**
      * Coge de la base de datos el Date más elevado última liga
@@ -660,4 +665,8 @@ public class DBController {
         DBGame.setGames(games, con);
     }
 
+    public static Integer getTeamGameScore(Integer id, Integer teamID, Connection con) throws SQLException {
+        int x = DBGameResult.getTeamScore(id,teamID,con);
+        return x;
+    }
 }

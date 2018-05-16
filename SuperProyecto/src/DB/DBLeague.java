@@ -41,8 +41,10 @@ public class DBLeague {
     public static int askForLeague(String leaguename,Connection con) throws SQLException{
         Statement est = con.createStatement();
         ResultSet resul= est.executeQuery("SELECT ID_LG FROM LEAGUE WHERE LEAGUE_NAME='"+leaguename+"'");
-        resul.next();
-        int temp = resul.getInt("ID_LG");
+        int temp=-1;
+        while(resul.next()){
+        temp = resul.getInt("ID_LG");
+        }
         resul.close();
         est.close();
         return temp;

@@ -241,8 +241,10 @@ public class SuperProyecto {
         int x = 0;
         for (Integer id : gameID) {
             ArrayList<Integer> teamID = obtainGameTeamID(id, con);
-            ArrayList<Integer> compScores = obtainScores(id, con);
-            ArrayList<Integer> scores = new ArrayList();
+            ArrayList<Integer> compScores = new ArrayList();
+            compScores.add(DBController.getTeamGameScore(id,teamID.get(0),con));
+            compScores.add(DBController.getTeamGameScore(id,teamID.get(1),con));
+            ArrayList<Integer> scores= new ArrayList();
             ArrayList<Team> teams = new ArrayList();
             if (x < tempito) {
                 for (Integer tid : teamID) {
@@ -615,7 +617,13 @@ public class SuperProyecto {
         DBController.updateTeam(teamname, newTeamname, newNationality, teamownerid, con);
         con.close();
     }
-
+    /**
+     * Devuelve un ResultSet que contiene la clasificacion
+     * @param leagueid el id de la liga de la cual se quiere la clasificacion
+     * @param con la conexion
+     * @return un ResultSet con la clasificacion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
     public static ResultSet getClassification(int leagueid, Connection con) throws SQLException {
         ResultSet rs = DBController.getClassification(leagueid, con);
         return rs;
@@ -665,13 +673,21 @@ public class SuperProyecto {
         return tempmatchnum;
     }
 
-    /*
+    /**
+     * Obtiene los Game que estan en un MatchSet del cual se pasa el id
+     * @param leaguenum el id de la liga
+     * @param matchSetnum el id del MatchSet
+     * @return un ArrayList con los games del MatchSet
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
     public static ArrayList<Game> getMatchSetGames(int leaguenum, int matchSetnum) throws ClassNotFoundException, SQLException {
         Connection con = createConnection();
         ArrayList<Game> matchSetGames = DBController.getMatchSetGames(leaguenum,matchSetnum,con);
         con.close();
+        return matchSetGames;
     }
-     */
+
     /**
      * Coge de la base de datos el Date más elevado última liga
      *
