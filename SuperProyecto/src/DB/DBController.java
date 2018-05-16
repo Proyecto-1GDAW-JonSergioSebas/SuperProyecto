@@ -581,8 +581,9 @@ public class DBController {
     }
 
     /**
-
+     *
      * Obtiene los nombres de todas las ligas
+     *
      * @param con la conexion
      * @return devuelve un ArrayList con los nombres de todas las ligas
      * @throws SQLException si se da alguna excepcion SQL
@@ -594,6 +595,7 @@ public class DBController {
 
     /**
      * Devuelve el ID de la liga de la cual se le pasa el nombre
+     *
      * @param leaguename el nombre de la liga
      * @param con la conexion
      * @return devuelve un int con el id de la liga
@@ -601,9 +603,10 @@ public class DBController {
      */
     public static int getLeagueID(String leaguename, Connection con) throws SQLException {
         int x = DBLeague.askForLeague(leaguename, con);
-        return x ;
+        return x;
     }
-/*
+
+    /*
     public static ArrayList<Game> getMatchSetGames(int leaguenum, int matchSetnum, Connection con) throws SQLException {
         ArrayList<Game> matchSetGames= new ArrayList();
         /*
@@ -611,14 +614,14 @@ public class DBController {
         segun el id obtener los equipos que participan y las puntuaciones
         crear un objeto Game con solo esos 4 datos
         insertarlos en el ArrayList y devolverlo
-        *//*
+     *//*
         ArrayList<Integer> gamesID = getGamesID(matchSetnum, con);
         for(Integer e:gamesID){
             Game tempgame = new Game();
             obtainGameTeamID(e, con);
         }
     }
-*/
+     */
 
 
     /**

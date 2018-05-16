@@ -76,6 +76,7 @@ public class Owner extends javax.swing.JFrame {
             System.out.println("excep");
         }
 
+        jbConfirm.setEnabled(true);
     }
 
     public void fillTeamBox() {
@@ -254,11 +255,81 @@ public class Owner extends javax.swing.JFrame {
      */
     private void jbFixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFixActionPerformed
         JOptionPane.showConfirmDialog(rootPane, "Si desea revertir éste cambio necesitará contactar a su administrador.\n¿Está completamente seguro de que quiere fijar su equpo?");
-        updatePlayerAdd();
 
 
     }//GEN-LAST:event_jbFixActionPerformed
 
+    private void buttonConfirm(String buttonMode) {
+
+        switch (buttonMode) {
+            case "add":
+                updatePlayerAdd();
+
+                break;
+            case "remove":
+                updatePlayerRest();
+
+        }
+
+    }
+
+    /**
+     * El update para elminar al jugador del equipo
+     */
+    private void updatePlayerRest() {
+        //llamar a a base de datos para UPDATE a ese jugador
+        String playerName = cbPlayer.getSelectedItem().toString();
+        Player player1 = new Player();
+        String teamName = cbTeam.getSelectedItem().toString();
+
+        Team team = new Team();
+
+        for (Team tema : teamList) {
+            if (tema.getTeamName().equalsIgnoreCase(teamName)) {
+                team = tema;
+            }
+        }
+
+        for (Player player : playersList) {
+            if (player.getNickName().equalsIgnoreCase(playerName)) {
+                player1 = player;
+            }
+        }
+        //se va a ir del equipo
+        try {
+            DBPlayer.updatePlayerTeamEmpty(player1.getNickName(), con);
+            //update arraylist team y player
+            for (Player player : playersList) {
+                if (player.getNickName().equalsIgnoreCase(playerName)) {
+                    player.setTeam(new Team());
+                }
+            }
+            for (Team t : teamList) {
+                if (t.getTeamName().equalsIgnoreCase(teamName)) {
+                    ArrayList<Player> p = t.getPlayers();
+                    try {
+
+                        for (int i = 0; i < t.getPlayers().size(); i++) {
+                            if (p.get(i).getNickName().equalsIgnoreCase(playerName)) {
+                                p.remove(i);
+
+                                t.setPlayers(p);
+                            }
+
+                        }
+                    } catch (NullPointerException e) {
+                        System.out.println("");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("excepcion ");
+        }
+        cbPlayer.removeAllItems();
+
+    }
+
+    
     /**
      * El update para añadir un jugador a un equipo
      */
@@ -267,7 +338,14 @@ public class Owner extends javax.swing.JFrame {
         String playerName = cbPlayer.getSelectedItem().toString();
         Player player1 = new Player();
         String teamName = cbTeam.getSelectedItem().toString();
+
         Team team = new Team();
+
+        for (Team tema : teamList) {
+            if (tema.getTeamName().equalsIgnoreCase(teamName)) {
+                team = tema;
+            }
+        }
         int teamID;
         try {
             teamID = DBTeam.searchTeam(teamName, con);
@@ -285,10 +363,23 @@ public class Owner extends javax.swing.JFrame {
         //se va a ir a un nuevo equipo
         try {
             DBPlayer.updatePlayerT(player1.getFullName(), player1.getNickName(), player1.getNickName(), player1.getSalary(), player1.getEmail(), teamID, con);
+            //update arraylist team y player
+            for (Player player : playersList) {
+                if (player.getNickName().equalsIgnoreCase(playerName)) {
+                    player.setTeam(team);
+                }
+            }
+            for (Team t : teamList) {
+                if (t.getTeamName().equalsIgnoreCase(teamName)) {
+                    t.addPlayer(player1);
+                }
+            }
 
         } catch (Exception e) {
             System.out.println("excepcion ");
         }
+        cbPlayer.removeAllItems();
+
     }
 
     /**
@@ -302,11 +393,6 @@ public class Owner extends javax.swing.JFrame {
         cbPlayer.removeAllItems();
 
         String team = "";
-        if (jRadioButton1.isSelected()) {
-            jbFix.setEnabled(true);
-        } else {
-            jbConfirm.setEnabled(false);
-        }
 
         if (jRadioButton1.isSelected()) {
             cbPlayer.setEnabled(true);
@@ -351,11 +437,6 @@ public class Owner extends javax.swing.JFrame {
         cbPlayer.removeAllItems();
 
         String team = "";
-        if (jRadioButton2.isSelected()) {
-            jbConfirm.setEnabled(true);
-        } else {
-            jbFix.setEnabled(false);
-        }
 
         if (jRadioButton2.isSelected()) {
             cbPlayer.setEnabled(true);
@@ -386,18 +467,18 @@ public class Owner extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void cbTeamItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTeamItemStateChanged
-        /*if (cbTeam.getSelectedIndex() != -1) {
+        if (cbTeam.getSelectedIndex() != -1) {
             progress = 1;
             refresh();
-        }*/
+        }
         cbPlayer.setEnabled(false);
     }//GEN-LAST:event_cbTeamItemStateChanged
 
     private void cbPlayerItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbPlayerItemStateChanged
-        /*if (cbPlayer.getSelectedIndex() != -1) {
+        if (cbPlayer.getSelectedIndex() != -1) {
             progress = 2;
             refresh();
-        }*/
+        }
 
     }//GEN-LAST:event_cbPlayerItemStateChanged
 
@@ -412,42 +493,23 @@ public class Owner extends javax.swing.JFrame {
 
 
     private void jbConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmActionPerformed
-        // TODO add your handling code here:
+        if (jRadioButton1.isSelected()) {
+            buttonConfirm("add");
+        } else if (jRadioButton2.isSelected()) {
+            buttonConfirm("remove");
+        }
+
         JOptionPane.showMessageDialog(this, "Los equipos han sido modificados correctamente.");
-        updatePlayerRest();
-
-
     }//GEN-LAST:event_jbConfirmActionPerformed
 
     private void jRadioButton1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButton1ItemStateChanged
         // TODO add your handling code here:
-        jbConfirm.setEnabled(false);
-        jbFix.setEnabled(false);
+
     }//GEN-LAST:event_jRadioButton1ItemStateChanged
 
     /**
      * El update para elminar al jugador del equipo
      */
-    private void updatePlayerRest() {
-        //llamar a a base de datos para UPDATE a ese jugador
-        String playerName = cbPlayer.getSelectedItem().toString();
-        Player player1 = new Player();
-
-        for (Player player : playersList) {
-            if (player.getNickName().equalsIgnoreCase(playerName)) {
-                player1 = player;
-            }
-        }
-
-        //se va a ir del equipo
-        try {
-            DBPlayer.updatePlayerTeamEmpty(player1.getNickName(), con);
-        } catch (Exception e) {
-            System.out.println("excepcion ");
-        }
-
-    }
-
     /**
      * Actualiza el estado de componentes en la ventana.
      */
