@@ -126,7 +126,7 @@ public class League extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Pattern p = Pattern.compile("^[A-Za-z]{0,20}$");
+        Pattern p = Pattern.compile("^[A-Za-z0-9]{0,20}$");
         Matcher match = p.matcher(jTextField1.getText());
         if (match.matches()) {
             if (Date.valueOf(jFormattedTextField1.getText()).after(Date.from(Instant.now()))) {
@@ -139,11 +139,11 @@ public class League extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, "Liga creada.");
                     dispose();
                 } else {
-                    JOptionPane.showMessageDialog(this, "El nombre de la liga debe ser de menos de 20 caracteres.");
+                    JOptionPane.showMessageDialog(rootPane, "La fecha de inicio de una liga debe ser posterior a la fecha actual.");
                 }
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "La fecha de inicio de una liga debe ser posterior a la fecha actual.");
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "El nombre de la liga debe ser de menos de 20 caracteres.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -39,6 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TreeMap;
 
 /**
  *
@@ -65,7 +66,6 @@ public class SuperProyecto {
         /*^^NO MODIFICAR ESTO^^*/
 
         ViewController.login();
-
     }
 
     /**
@@ -151,18 +151,18 @@ public class SuperProyecto {
             int x = 0;
             ArrayList<Integer> matchsetsid = new ArrayList();
             while (x < league.size()) {
-                
+
                 matchsetsid.add(createMatchSet(leaguename, con));
-                
+
                 x++;
             }
 
             //Insertamos los juegos
             int y = 0;
-            
+
             for (MatchSet m : league) {
                 for (Game gm : m.getGames()) {
-                    
+
                     createGames(gm, matchsetsid.get(y), con);
 
                 }
@@ -237,7 +237,7 @@ public class SuperProyecto {
         ArrayList<Game> games = new ArrayList();
         ArrayList<Team> completeTeams = teams(con);
         int numDays = (completeTeams.size() - 1);
-        int tempito = (numDays*2*completeTeams.size())/2;
+        int tempito = (numDays * 2 * completeTeams.size()) / 2;
         int x = 0;
         for (Integer id : gameID) {
             ArrayList<Integer> teamID = obtainGameTeamID(id, con);
@@ -246,16 +246,16 @@ public class SuperProyecto {
             compScores.add(DBController.getTeamGameScore(id,teamID.get(1),con));
             ArrayList<Integer> scores= new ArrayList();
             ArrayList<Team> teams = new ArrayList();
-            if(x<tempito){
-            for (Integer tid : teamID) {
-                teams.add(obtainTeam(tid, con));
-                
-            }
+            if (x < tempito) {
+                for (Integer tid : teamID) {
+                    teams.add(obtainTeam(tid, con));
+
+                }
                 scores.add(compScores.get(0));
                 scores.add(compScores.get(1));
-            }else{
-                teams.add(obtainTeam(teamID.get(1),con));
-                teams.add(obtainTeam(teamID.get(0),con));
+            } else {
+                teams.add(obtainTeam(teamID.get(1), con));
+                teams.add(obtainTeam(teamID.get(0), con));
                 scores.add(compScores.get(1));
                 scores.add(compScores.get(0));
             }
@@ -642,8 +642,10 @@ public class SuperProyecto {
         con.close();
         return leaguenames;
     }
+
     /**
      * Obtiene el id de la liga de la cual se le pasa el nombre
+     *
      * @param leaguename el nombre de la liga
      * @return el id de la liga
      * @throws ClassNotFoundException si no se encuentra la clase
@@ -651,12 +653,14 @@ public class SuperProyecto {
      */
     public static int getLeagueID(String leaguename) throws ClassNotFoundException, SQLException {
         Connection con = createConnection();
-        int x = DBController.getLeagueID(leaguename,con);
+        int x = DBController.getLeagueID(leaguename, con);
         con.close();
         return x;
     }
+
     /**
      * Devuelve un ArrayList con los id de los MatchSets de una liga
+     *
      * @param leaguenum el id de la liga
      * @return un ArrayList con los id de los MatchSets
      * @throws ClassNotFoundException si no se encuentra la clase
@@ -668,6 +672,7 @@ public class SuperProyecto {
         con.close();
         return tempmatchnum;
     }
+
     /**
      * Obtiene los Game que estan en un MatchSet del cual se pasa el id
      * @param leaguenum el id de la liga
@@ -695,4 +700,31 @@ public class SuperProyecto {
         con.close();
         return date;
     }
+
+    /**
+     * Coge todos los Game con todos sus datos que se correspondan con el ID del
+     * Matchset
+     *
+     * @param matchSetId el ID del matchset
+     * @return un treemap de Games, en el que la key es el ID del juego
+     * @throws SQLException cuando caen rayos y truenos por todos los cielos
+     */
+    public static TreeMap<Integer, Game> getGames(int matchSetId) throws SQLException, ClassNotFoundException {
+        Connection con = createConnection();
+        TreeMap<Integer, Game> games = DBController.getGames(matchSetId, con);
+        con.close();
+        return games;
+    }
+
+    /**
+     * Introduce a la base de datos la información contenida en el TreeMap
+     *
+     * @param games el TreeMap con todos los juegos, puntuaciones, y equipos
+     */
+    public static void setGames(TreeMap<Integer, Game> games) throws SQLException, ClassNotFoundException {
+        Connection con = createConnection();
+        DBController.setGames(games, con);
+        con.close();
+    }
+
 }

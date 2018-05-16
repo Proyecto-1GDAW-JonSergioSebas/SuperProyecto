@@ -43,6 +43,19 @@ public class Game {
         this.score2 = score2;
         this.dateTime = dateTime;
     }
+    /**
+     * Constructor
+     * @param team1 (requerido) Equipo 1 que juega
+     * @param team2 (requerido) Equipo 2 que juega
+     * @param score1 (requerido) Puntos del primer equipo
+     * @param score2 (requerido) Puntos del segundo equipo
+     */
+    public Game(Team team1, Team team2, int score1, int score2) {
+        this.team1 = team1;
+        this.team2 = team2;
+        this.score1 = score1;
+        this.score2 = score2;
+    }
 
     /**
      * Constructor lleno
