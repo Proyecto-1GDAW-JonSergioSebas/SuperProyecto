@@ -71,11 +71,11 @@ public class DOMParserLeague {
         int flippy = 0;
         for(Integer x:matchSetsID){
             if(flippy<magic){
-            MatchSet tempMatchSet = SuperProyecto.createMatchSets(false,x,con);
+            MatchSet tempMatchSet = SuperProyecto.createMatchSets(true,x,con);
             league.addMatchSets(tempMatchSet);
             }
             else{
-            MatchSet tempMatchSet = SuperProyecto.createMatchSets(true,x,con);
+            MatchSet tempMatchSet = SuperProyecto.createMatchSets(false,x,con);
             league.addMatchSets(tempMatchSet);
             }
             flippy++;
@@ -96,7 +96,7 @@ public class DOMParserLeague {
         //Borramos el fichero desactualizado
         deletePreviousContent();
         //Creamos los elementos y los agregamos al arbol de DOM
-        createDOMTree();
+        createDOMTree(createupdatedateElement());
         //Escribimos el arbol DOM en el fichero XML
         writeXMLFile();
         System.out.println("Fichero modificado correctamente");
@@ -129,13 +129,13 @@ public class DOMParserLeague {
     /**
      * Crea el arbol DOM
      */
-    private void createDOMTree(){
+    private void createDOMTree(Element updateele){
         //referencia al objeto raiz<league>
         Element rootLeague = dom.getDocumentElement();
         /*Ahora se va a recorrer el ArrayList de MatchSet que hay en league, creando cada
         objeto MatchSet, a su vez, para cada MatchSet, se recorrera el ArrayList de Game 
         creando los objetos cada uno con sus elementos y atributos */
-        Element dateEle = createupdatedateElement();
+        Element dateEle = updateele;
         rootLeague.appendChild(dateEle);
         Iterator it = league.getMatchsets().iterator();
         while(it.hasNext()){

@@ -138,10 +138,10 @@ public class League extends javax.swing.JDialog {
                     }
                     JOptionPane.showMessageDialog(this, "Liga creada.");
                     dispose();
-                } else {
+                } 
+            }else {
                     JOptionPane.showMessageDialog(rootPane, "La fecha de inicio de una liga debe ser posterior a la fecha actual.");
                 }
-            }
         } else {
             JOptionPane.showMessageDialog(this, "El nombre de la liga debe ser de menos de 20 caracteres.");
         }
