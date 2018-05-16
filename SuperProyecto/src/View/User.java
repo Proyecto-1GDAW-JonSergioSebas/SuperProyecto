@@ -11,6 +11,7 @@ import Parser.SAXParserClassification;
 import Parser.TeamSax;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -30,7 +31,7 @@ public class User extends javax.swing.JFrame {
     ArrayList<MatchSet> league; // El array de la liga que actualmente se esta jugando
     private static boolean child;
     ArrayList<Integer> templeague = new ArrayList();//el array para usar con los id de los matchsets de la liga seleccionada
-    
+
     /**
      * Creates new form User
      * @param child Generado automáticamente
@@ -57,7 +58,7 @@ public class User extends javax.swing.JFrame {
         league = ViewController.executeSaxParserLeague();
         cbLeague.addItem("Liga actual");
         fillCbLeague();
-        
+
     }
 
     /**
@@ -98,7 +99,6 @@ public class User extends javax.swing.JFrame {
             }
         });
 
-        cbMatchset.setMaximumRowCount(40);
         cbMatchset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbMatchsetActionPerformed(evt);
@@ -110,11 +110,11 @@ public class User extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Local", "Puntuación", "Visitante", "Puntuación", "Ganador"
+                "Local", "Puntuación(L)", "Visitante", "Puntuación(V)", "Ganador"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
@@ -128,7 +128,15 @@ public class User extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtGames.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jtGames);
+        if (jtGames.getColumnModel().getColumnCount() > 0) {
+            jtGames.getColumnModel().getColumn(0).setResizable(false);
+            jtGames.getColumnModel().getColumn(1).setResizable(false);
+            jtGames.getColumnModel().getColumn(2).setResizable(false);
+            jtGames.getColumnModel().getColumn(3).setResizable(false);
+            jtGames.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -157,9 +165,9 @@ public class User extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbMatchset, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbLeague, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -173,7 +181,7 @@ public class User extends javax.swing.JFrame {
             .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -183,12 +191,13 @@ public class User extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(cbMatchset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
@@ -200,7 +209,7 @@ public class User extends javax.swing.JFrame {
     private void cbLeagueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLeagueActionPerformed
         cbMatchset.removeAllItems();
         String selectedleague = cbLeague.getSelectedItem().toString();
-        
+
         fillCbMatchSet(selectedleague);
         fillJlClassification();
 
@@ -219,32 +228,26 @@ public class User extends javax.swing.JFrame {
      */
     private void cbMatchsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMatchsetActionPerformed
         try {
-            
-            int leaguenum = ViewController.getLeagueNum(cbLeague.getSelectedItem().toString());
-            ArrayList<Game> selectedMSGames = ViewController.getMatchSetGames(leaguenum, Integer.parseInt(cbMatchset.getSelectedItem().toString()));
-            DefaultTableModel model = (DefaultTableModel) jtGames.getModel();
-            model.setRowCount(0);
-            for (int x = 0; x < selectedMSGames.size(); x++) {
-                String winner = "";
-                if (selectedMSGames.get(x).getScore1() > selectedMSGames.get(x).getScore2()) {
-                    winner = "" + selectedMSGames.get(x).getTeam1().getTeamName();
-                } else if (selectedMSGames.get(x).getScore1() < selectedMSGames.get(x).getScore2()) {
-                    winner = "" + selectedMSGames.get(x).getTeam2().getTeamName();
+            DefaultTableModel dtm = (DefaultTableModel) jtGames.getModel();
+            dtm.setRowCount(0);
+            TreeMap<Integer, Game> games = ViewController.getGames(Integer.parseInt((String) cbMatchset.getSelectedItem()));
+            int i = 0;
+            for (Game g : games.values()) {
+                dtm.addRow(new Object[5]);
+                dtm.setValueAt(g.getTeam1().getTeamName(), i, 0);
+                dtm.setValueAt(((g.getScore1() == -1) ? null : g.getScore1()), i, 1);
+                dtm.setValueAt(g.getTeam2().getTeamName(), i, 2);
+                dtm.setValueAt(((g.getScore2() == -1) ? null : g.getScore2()), i, 3);
+                if (g.getScore1() == g.getScore2()) {
+                    dtm.setValueAt("Empate", i, 4);
+                } else if (g.getScore1() > g.getScore2()) {
+                    dtm.setValueAt(g.getTeam1().getTeamName(), i, 4);
                 } else {
-                    winner = "Empate";
+                    dtm.setValueAt(g.getTeam2().getTeamName(), i, 4);
                 }
-                if(cbMatchset.getSelectedIndex()<=cbMatchset.getItemCount()/2){
-                    Object[] row = {selectedMSGames.get(x).getTeam1().getTeamName(), selectedMSGames.get(x).getScore1(), selectedMSGames.get(x).getTeam2().getTeamName(), selectedMSGames.get(x).getScore2(), winner};    
-                    model.addRow(row);
-                }else{
-                    Object[] row = {selectedMSGames.get(x).getTeam2().getTeamName(), selectedMSGames.get(x).getScore2(), selectedMSGames.get(x).getTeam1().getTeamName(), selectedMSGames.get(x).getScore1(), winner};
-                    model.addRow(row);
-                }
-                
-
-                
+                i++;
             }
-            jtGames.setModel(model);
+            jtGames.setModel(dtm);
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
@@ -303,9 +306,9 @@ public class User extends javax.swing.JFrame {
     private void fillCbMatchSet() {
         try {
             ArrayList<String> temparr = ViewController.getLeagueNames();
-            int templeagnumb = ViewController.getLeagueNum(temparr.get(temparr.size()-1));
+            int templeagnumb = ViewController.getLeagueNum(temparr.get(temparr.size() - 1));
             ArrayList<Integer> tempmatch = ViewController.getLeagueMatchSetsID(templeagnumb);
-            
+
             for (int x = 0; x < tempmatch.size(); x++) {
                 cbMatchset.addItem(tempmatch.get(x).toString());
             }
@@ -314,7 +317,7 @@ public class User extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
     /**
      * Rellena el comboBox que contiene los MatchSet
