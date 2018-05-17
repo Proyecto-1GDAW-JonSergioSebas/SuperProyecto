@@ -63,8 +63,14 @@ public class SuperProyecto {
         } catch (SQLException ex) {
             Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
         }
-        /*^^NO MODIFICAR ESTO^^*/
-
+        try {
+            /*^^NO MODIFICAR ESTO^^*/
+            DOMParserLeague.executeDOMLeague();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
+        }
         ViewController.login();
     }
 
