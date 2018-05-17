@@ -55,19 +55,31 @@ public class DBDBUser {
     }
 
     /**
-     * Cambia la contraseña de un usuario
+     * Cambia el nombre de usuario de un usuario
      *
-     * @param username el nombre del usuario
-     * @param newPassword la nueva contraseña
-     * @param password la contraseña
+     * @param newUsername nuevo nombre de usuario, a insertar
+     * @param oldUsername viejo nombre de usuario, para identificar
+     * @param password contraseña, a insertar
      * @param con la conexion
      * @throws SQLException si hay alguna excepcion SQL
      */
-    public static void updateDBUserPassword(String username, char[] password, Connection con) throws SQLException {
-
+    public static void updateDBUser(String newUsername, String oldUsername, char[] password, Connection con) throws SQLException {
         Statement sta = con.createStatement();
-        sta.executeUpdate("UPDATE DB_USER SET PASSWD='" + String.valueOf(password) + "'"
-                + " WHERE USERNAME='" + username + "'");
+        sta.executeUpdate("UPDATE DB_USER SET PASSWD='" + String.valueOf(password) + "', USERNAME ='" + newUsername + "' WHERE USERNAME='" + oldUsername + "'");
+        sta.close();
+    }
+
+    /**
+     * Cambia el nombre de usuario de un usuario
+     *
+     * @param newUsername nuevo nombre de usuario, a insertar
+     * @param oldUsername viejo nombre de usuario, para identificar
+     * @param con la conexion
+     * @throws SQLException si hay alguna excepcion SQL
+     */
+    public static void updateDBUser(String newUsername, String oldUsername, Connection con) throws SQLException {
+        Statement sta = con.createStatement();
+        sta.executeUpdate("UPDATE DB_USER SET USERNAME='" + newUsername + "' WHERE USERNAME='" + oldUsername + "'");
         sta.close();
     }
 

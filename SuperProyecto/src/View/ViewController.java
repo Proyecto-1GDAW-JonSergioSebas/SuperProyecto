@@ -179,15 +179,30 @@ public class ViewController {
     }
 
     /**
-     * Actualiza un DBUser de la base de datos
+     * Cambia los datos de un usuario
      *
-     * @param us el nombre de usuario
-     * @param pw la contraseña
+     * @param newUsername nuevo nombre de usuario, a insertar
+     * @param oldUsername viejo nombre de usuario, para identificar
+     * @param password contraseña, a insertar
      * @throws SQLException si se da alguna excepcion SQL
      * @throws ClassNotFoundException si no se encuentra la clase en la conexion
+     *
      */
-    public static void updateUser(String us, char[] pw) throws SQLException, ClassNotFoundException {
-        SuperProyecto.updateDBuser(us, pw);
+    public static void updateDBUser(String newUsername, String oldUsername, char[] password) throws SQLException, ClassNotFoundException {
+        SuperProyecto.updateDBUser(newUsername, oldUsername, password);
+    }
+
+    /**
+     * Cambia el nombre de usuario de un usuario
+     *
+     * @param newUsername nuevo nombre de usuario, a insertar
+     * @param oldUsername viejo nombre de usuario, para identificar
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase en la conexion
+     *
+     */
+    public static void updateDBUser(String newUsername, String oldUsername) throws SQLException, ClassNotFoundException {
+        SuperProyecto.updateDBUser(newUsername, oldUsername);
     }
 
     /**
@@ -551,4 +566,14 @@ public class ViewController {
         SuperProyecto.setGames(games);
     }
 
+    /**
+     * Método que verifica si la última liga ha terminado, y si lo ha hecho,
+     * desbloquea los equipos.
+     *
+     * @param con la conexión
+     * @throws SQLException si ocurre un error de SQL
+     */
+    public static void updateLastLeagueStatus() throws SQLException, ClassNotFoundException {
+        SuperProyecto.updateLastLeagueStatus();
+    }
 }

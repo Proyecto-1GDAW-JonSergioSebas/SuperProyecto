@@ -43,6 +43,7 @@ import java.util.TreeMap;
 
 /**
  * Esta es la madre de todas las clases, la que las sujeta en el sitio
+ *
  * @author Jon Maneiro
  * @author Sebastián Zawisza
  * @author Sergio Zulueta
@@ -293,9 +294,12 @@ public class SuperProyecto {
         }
         return allGamesID;
     }
+
     /**
      * Selecciona todos los User de la base de datos
-     * @return un ArrayList de User que contiene todos los User de la base de datos
+     *
+     * @return un ArrayList de User que contiene todos los User de la base de
+     * datos
      * @throws SQLException si se da alguna excepcion SQL
      * @throws ClassNotFoundException si no se encuentra la clase
      */
@@ -335,16 +339,33 @@ public class SuperProyecto {
     }
 
     /**
-     * Actualiza un DBUser de la base de datos
+     * Cambia los datos de un usuario
      *
-     * @param username el nombre de usuario
-     * @param password la conetraseña
-     * @throws SQLException si se da algune aexcepcion SQL
+     * @param newUsername nuevo nombre de usuario, a insertar
+     * @param oldUsername viejo nombre de usuario, para identificar
+     * @param password contraseña, a insertar
+     * @throws SQLException si se da alguna excepcion SQL
      * @throws ClassNotFoundException si no se encuentra la clase en la conexion
+     *
      */
-    public static void updateDBuser(String username, char[] password) throws SQLException, ClassNotFoundException {
+    public static void updateDBUser(String newUsername, String oldUsername, char[] password) throws SQLException, ClassNotFoundException {
         Connection con = createConnection();
-        DBController.updateDBDBUser(username, password, con);
+        DBController.updateDBUser(newUsername, oldUsername, password, con);
+        con.close();
+    }
+
+    /**
+     * Cambia el nombre de usuario de un usuario
+     *
+     * @param newUsername nuevo nombre de usuario, a insertar
+     * @param oldUsername viejo nombre de usuario, para identificar
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase en la conexion
+     *
+     */
+    public static void updateDBUser(String newUsername, String oldUsername) throws SQLException, ClassNotFoundException {
+        Connection con = createConnection();
+        DBController.updateDBUser(newUsername, oldUsername, con);
         con.close();
     }
 
@@ -748,4 +769,16 @@ public class SuperProyecto {
         con.close();
     }
 
+    /**
+     * Método que verifica si la última liga ha terminado, y si lo ha hecho,
+     * desbloquea los equipos.
+     *
+     * @param con la conexión
+     * @throws SQLException si ocurre un error de SQL
+     */
+    public static void updateLastLeagueStatus() throws SQLException, ClassNotFoundException {
+        Connection con = createConnection();
+        DBController.updateLastLeagueStatus(con);
+        con.close();
+    }
 }

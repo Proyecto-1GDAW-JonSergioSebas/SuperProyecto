@@ -477,7 +477,7 @@ public class Admin extends javax.swing.JFrame {
      */
     private void jbResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbResultsActionPerformed
         try {
-            ViewController.matchsetUpdate(this, Integer.parseInt((String)cbMatchset.getSelectedItem()));
+            ViewController.matchsetUpdate(this, Integer.parseInt((String) cbMatchset.getSelectedItem()));
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -828,7 +828,7 @@ public class Admin extends javax.swing.JFrame {
      * @param evt Generado automáticamente.
      */
     private void cbMatchsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMatchsetActionPerformed
-        if (cbMatchset.getSelectedIndex()!=-1){
+        if (cbMatchset.getSelectedIndex() != -1) {
             jbResults.setEnabled(true);
         }
     }//GEN-LAST:event_cbMatchsetActionPerformed
