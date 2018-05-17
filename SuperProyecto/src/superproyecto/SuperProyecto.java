@@ -65,7 +65,9 @@ public class SuperProyecto {
         }
         try {
             /*^^NO MODIFICAR ESTO^^*/
+            if(getAllLeagueNames().size()!=0){
             DOMParserLeague.executeDOMLeague();
+            }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
