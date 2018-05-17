@@ -323,16 +323,31 @@ public class SuperProyecto {
     }
 
     /**
-     * Actualiza un DBUser de la base de datos
+     * Cambia los datos de un usuario
      *
-     * @param username el nombre de usuario
-     * @param password la conetraseña
-     * @throws SQLException si se da algune aexcepcion SQL
+     * @param newUsername nuevo nombre de usuario, a insertar
+     * @param oldUsername viejo nombre de usuario, para identificar
+     * @param password contraseña, a insertar
+     * @throws SQLException si se da alguna excepcion SQL
      * @throws ClassNotFoundException si no se encuentra la clase en la conexion
-     */
-    public static void updateDBuser(String username, char[] password) throws SQLException, ClassNotFoundException {
+     **/
+    public static void updateDBUser(String newUsername, String oldUsername, char[] password) throws SQLException, ClassNotFoundException {
         Connection con = createConnection();
-        DBController.updateDBDBUser(username, password, con);
+        DBController.updateDBUser(newUsername, oldUsername, password, con);
+        con.close();
+    }
+    
+    /**
+     * Cambia el nombre de usuario de un usuario
+     *
+     * @param newUsername nuevo nombre de usuario, a insertar
+     * @param oldUsername viejo nombre de usuario, para identificar
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase en la conexion
+     **/
+    public static void updateDBUser(String newUsername, String oldUsername) throws SQLException, ClassNotFoundException {
+        Connection con = createConnection();
+        DBController.updateDBUser(newUsername, oldUsername, con);
         con.close();
     }
 

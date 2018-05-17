@@ -199,15 +199,28 @@ public class DBController {
     }
 
     /**
-     * Actualiza un DBUserd de la base de datos
+     * Cambia los datos de un usuario
      *
-     * @param username el nombre de usuario
-     * @param password la contraseña
+     * @param newUsername nuevo nombre de usuario, a insertar
+     * @param oldUsername viejo nombre de usuario, para identificar
+     * @param password contraseña, a insertar
      * @param con la conexion
-     * @throws SQLException si se da alguna excepcion SQL
+     * @throws SQLException si hay alguna excepcion SQL
      */
-    public static void updateDBDBUser(String username, char[] password, Connection con) throws SQLException {
-        DBDBUser.updateDBUserPassword(username, password, con);
+    public static void updateDBUser(String newUsername, String oldUsername, char[] password, Connection con) throws SQLException {
+        DBDBUser.updateDBUser(newUsername, oldUsername, password, con);
+    }
+    
+    /**
+     * Cambia el nombre de usuario de un usuario
+     *
+     * @param newUsername nuevo nombre de usuario, a insertar
+     * @param oldUsername viejo nombre de usuario, para identificar
+     * @param con la conexion
+     * @throws SQLException si hay alguna excepcion SQL
+     */
+    public static void updateDBUser(String newUsername, String oldUsername, Connection con) throws SQLException {
+        DBDBUser.updateDBUser(newUsername, oldUsername, con);
     }
 
     /**

@@ -240,6 +240,7 @@ public class TeamCRUD extends javax.swing.JDialog {
                             Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (SQLException ex) {
                             Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(this, "Error no controlado:\n" + ex.toString());
                         }
                         break;
                     case 1:
@@ -253,6 +254,7 @@ public class TeamCRUD extends javax.swing.JDialog {
                             Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (SQLException ex) {
                             Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(this, "Error no controlado:\n" + ex.toString());
                         }
                         break;
                     case 2:
@@ -273,6 +275,7 @@ public class TeamCRUD extends javax.swing.JDialog {
                             Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (SQLException ex) {
                             Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(this, "Error no controlado:\n" + ex.toString());
                         }
                         break;
                 }
