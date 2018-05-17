@@ -339,7 +339,9 @@ public class TeamCRUD extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jTextField1CaretUpdate
   
-        /**
+
+
+    /** 
      * Cierra la ventana
      * @param retStatus Generado automáticamente
      */
