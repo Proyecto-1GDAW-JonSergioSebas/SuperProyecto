@@ -254,10 +254,18 @@ public class Owner extends javax.swing.JFrame {
      * @param evt Generado automáticamente.
      */
     private void jbFixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFixActionPerformed
+        //fixTeam();
         JOptionPane.showConfirmDialog(rootPane, "Si desea revertir éste cambio necesitará contactar a su administrador.\n¿Está completamente seguro de que quiere fijar su equpo?");
 
 
     }//GEN-LAST:event_jbFixActionPerformed
+
+    /*private void fixTeam() {
+        if (cbTeam.getSelectedIndex() != -1) {
+            //SuperProyecto.m1(cbTeam.getSelectedItem().toString());
+
+        }
+    }*/
 
     private void buttonConfirm(String buttonMode) {
 
@@ -312,10 +320,8 @@ public class Owner extends javax.swing.JFrame {
                         for (int i = 0; i < t.getPlayers().size(); i++) {
                             if (p.get(i).getNickName().equalsIgnoreCase(playerName)) {
                                 p.remove(i);
-
                                 t.setPlayers(p);
                             }
-
                         }
                     } catch (NullPointerException e) {
                         System.out.println("");
@@ -329,7 +335,6 @@ public class Owner extends javax.swing.JFrame {
 
     }
 
-    
     /**
      * El update para añadir un jugador a un equipo
      */
