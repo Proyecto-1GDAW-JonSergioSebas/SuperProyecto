@@ -8,7 +8,7 @@ package ModelUML;
 import java.util.ArrayList;
 
 /**
- *
+ * Esta clase contiene los metodos y constructores de los objetos Team
  * @author Sergio Zulueta
  * @author Sebastián Zawisza
  * @author Jon Maneiro
@@ -156,7 +156,7 @@ public class Team {
     /**
      * Para sacar por pantalla los datos.
      *
-     * @return
+     * @return un String con los datos de Team
      */
     @Override
     public String toString() {

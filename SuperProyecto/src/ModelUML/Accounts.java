@@ -6,7 +6,7 @@
 package ModelUML;
 
 /**
- *
+ * Esta clase contiene los metodos y constructores de los objetos Accounts
  * @author Sergio Zulueta
  * @author Sebastián Zawisza
  * @author Jon Maneiro

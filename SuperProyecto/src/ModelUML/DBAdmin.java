@@ -6,12 +6,13 @@
 package ModelUML;
 
 /**
- *
+ * Esta clase contiene los metodos y consructores de los objetos DBAdmin
  * @author Sergio Zulueta
  * @author Sebastián Zawisza
  * @author Jon Maneiro
  * @version %I% %G%
  * @since 1.0
+ * @see Accounts
  */
 public class DBAdmin extends Accounts {
 

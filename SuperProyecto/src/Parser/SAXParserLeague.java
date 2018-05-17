@@ -23,10 +23,10 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 /**
- *
+ * Esta clase se encarga de parsear el documento League.xml y de devolver un ArrayList 
+ * con todos los MatchSet llenos de sus respectivos Game, que a su vez estan llenos
+ * de sus respectivos datos
  * @author Sergio Zulueta
- * @author Sebastián Zawisza
- * @author Jon Maneiro
  * @version %I% %G%
  * @since 1.0
  */
@@ -133,6 +133,7 @@ public class SAXParserLeague extends DefaultHandler {
      * sera un objeto attributes vacio
      * @throws SAXException si se da alguna excepcion SAX
      */
+    @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         //inicializamos
         tempVal = "";
@@ -200,7 +201,7 @@ public class SAXParserLeague extends DefaultHandler {
     /**
      * Se encarga de ejecutar todo el parser
      *
-     * @param args Los argumentos de la linea de comandos
+     * @return un ArrayList con todos los objetos MatchSet llenos
      */
     public static ArrayList<MatchSet> executeSAXLeague() {
 

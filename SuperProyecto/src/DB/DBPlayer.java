@@ -15,7 +15,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- *
+ * Esta clase gestiona las acciones necesarias en labase de datos sobre los objetos Player
  * @author Sergio Zulueta
  * @author Sebastián Zawisza
  * @author Jon Maneiro

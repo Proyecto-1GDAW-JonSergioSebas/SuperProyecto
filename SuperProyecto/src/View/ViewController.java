@@ -41,6 +41,7 @@ public class ViewController {
 
     /**
      * Abre la ventana de User.
+     * @param child Generado automáticamente
      */
     public static void user(boolean child) {
         User user = new User(child);
@@ -49,6 +50,7 @@ public class ViewController {
 
     /**
      * Abre la ventana de Owner.
+     * @param child Generado automáticamente
      */
     public static void owner(boolean child) {
         Owner owner = new Owner(child);
@@ -57,6 +59,7 @@ public class ViewController {
 
     /**
      * Abre la ventana de Admin.
+     * @param child Generado automáticamente
      */
     public static void admin(boolean child) {
         Admin admin = new Admin(child);
@@ -110,7 +113,10 @@ public class ViewController {
         TeamCRUD tc = new TeamCRUD(f, true, mode);
         tc.setVisible(true);
     }
-
+    /**
+     * Abre la ventana de League
+     * @param f La ventana que ejecuta este metodo
+     */
     public static void league(Frame f) {
         League league = new League(f, true);
         league.setVisible(true);
@@ -145,14 +151,15 @@ public class ViewController {
      * Elimina un DBUser de la base de datos
      *
      * @param us el nombre de usuario
-     * @param pw la contraseña
      * @throws SQLException si se da alguna excepcion SQL
      * @throws ClassNotFoundException si no se encuentra la clase en la conexion
      */
     public static void deleteUser(String us) throws SQLException, ClassNotFoundException {
         SuperProyecto.deleteDBUser(us);
     }
-
+    /**
+     * Vacio
+     */
     public static void selectUsers() {
 
     }
@@ -327,7 +334,8 @@ public class ViewController {
      * Realiza una consulta a la base de datos y devuelve todos los Users
      *
      * @return La lista de Users
-     * @throws SQLException
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static ArrayList<DBUser> selectDBUsers() throws SQLException, ClassNotFoundException {
         return SuperProyecto.selectDBUsers();
@@ -337,7 +345,8 @@ public class ViewController {
      * Realiza una consulta a la base de datos y devuelve todos los Admins
      *
      * @return La lista de Admins
-     * @throws SQLException
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static ArrayList<TeamOwner> selectDBOwners() throws SQLException, ClassNotFoundException {
         return SuperProyecto.selectDBOwners();
@@ -347,7 +356,8 @@ public class ViewController {
      * Realiza una consulta a la base de datos y devuelve todos los Players
      *
      * @return La lista de Players
-     * @throws SQLException
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static ArrayList<Player> selectDBPlayers() throws SQLException, ClassNotFoundException {
         return SuperProyecto.selectDBPlayers();
@@ -357,7 +367,8 @@ public class ViewController {
      * Realiza una consulta a la base de datos y devuelve todos los Teams
      *
      * @return La lista de Teams
-     * @throws SQLException
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static ArrayList<Team> selectDBTeams() throws SQLException, ClassNotFoundException {
         return SuperProyecto.selectDBTeams();
@@ -480,7 +491,13 @@ public class ViewController {
         return matchSetGames;
     }
 
-   
+   /**
+    * Abre la ventana de matchsetUpdate
+    * @param f la ventana que se ejecuta
+    * @param matchset el id del MatchSet correspondiente
+    * @throws ClassNotFoundException si no se encuentra la clase
+    * @throws SQLException si se da alguna excepcion SQL
+    */
     public static void matchsetUpdate(Frame f, int matchset) throws ClassNotFoundException, SQLException {
         MatchsetUpdate mu = new MatchsetUpdate(f, true, getGames(matchset));
         mu.setVisible(true);
@@ -491,6 +508,7 @@ public class ViewController {
      *
      * @return devuelve un objeto Date
      * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static Date getLeagueEndDate() throws SQLException, ClassNotFoundException {
         return SuperProyecto.getLeagueEndDate();
@@ -502,7 +520,8 @@ public class ViewController {
      *
      * @param id el ID del matchset
      * @return un treemap de Games, en el que la key es el ID del juego
-     * @throws SQLException cuando caen rayos y truenos por todos los cielos
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static TreeMap<Integer, Game> getGames(int id) throws SQLException, ClassNotFoundException{
         return SuperProyecto.getGames(id);
@@ -512,6 +531,8 @@ public class ViewController {
      * Introduce a la base de datos la información contenida en el TreeMap
      *
      * @param games el TreeMap con todos los juegos, puntuaciones, y equipos
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static void setGames(TreeMap<Integer, Game> games) throws SQLException, ClassNotFoundException {
         SuperProyecto.setGames(games);
