@@ -227,6 +227,23 @@ public class User extends javax.swing.JFrame {
      * @param evt Generado automáticamente
      */
     private void cbMatchsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMatchsetActionPerformed
+        if(cbLeague.getSelectedItem().toString().equalsIgnoreCase("Liga actual")){
+            int selMatch = cbMatchset.getSelectedIndex();
+            DefaultTableModel dtml = (DefaultTableModel) jtGames.getModel();
+            dtml.setRowCount(0);
+            for(Game g:league.get(selMatch).getGames()){
+                String winner="";
+                if(g.getScore1()==g.getScore2()) winner="Empate";
+                else if(g.getScore1()>g.getScore2()) winner = ""+ g.getTeam1().getTeamName();
+                else winner= ""+g.getTeam2().getTeamName();
+                
+                Object[] raw={g.getTeam1().getTeamName(),(g.getScore1()==-1) ? null :g.getScore1()
+                ,g.getTeam2().getTeamName(),(g.getScore2()==-1) ? null:g.getScore2(),winner};
+                dtml.addRow(raw);
+                
+            }
+            jtGames.setModel(dtml);
+        } else{
         try {
             DefaultTableModel dtm = (DefaultTableModel) jtGames.getModel();
             dtm.setRowCount(0);
@@ -253,6 +270,7 @@ public class User extends javax.swing.JFrame {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
     }//GEN-LAST:event_cbMatchsetActionPerformed
 
