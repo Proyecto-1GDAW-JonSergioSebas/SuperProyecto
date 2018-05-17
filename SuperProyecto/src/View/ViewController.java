@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.TreeMap;
+import javax.swing.JOptionPane;
 import superproyecto.SuperProyecto;
 
 /**
@@ -43,10 +44,17 @@ public class ViewController {
      * Abre la ventana de User.
      *
      * @param child Generado automáticamente
+     * @throws java.sql.SQLException si se da alguna excepcion SQL
+     * @throws java.lang.ClassNotFoundException si no se encuentra la clase
      */
-    public static void user(boolean child) {
-        User user = new User(child);
-        user.setVisible(true);
+    public static void user(boolean child) throws SQLException, ClassNotFoundException {
+        if (ViewController.getLeagueNames().size() == 0) {
+            JOptionPane.showMessageDialog(null, "Se debe crear un calendario antes de poder acceder a esta funcionalidad.\nContacta con el administrador para mas información.");
+
+        } else {
+            User user = new User(child);
+            user.setVisible(true);
+        }
     }
 
     /**
