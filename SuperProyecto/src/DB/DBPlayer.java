@@ -138,6 +138,21 @@ public class DBPlayer {
     }
 
     /**
+     * Actualiza el Player y cambial el valor de TEAM al ser eliminado de un
+     * equipo
+     *
+     * @param nickname
+     * @param con
+     * @throws SQLException
+     */
+    public static void updatePlayerTeamEmpty(String nickname, Connection con) throws SQLException {
+
+        Statement sta = con.createStatement();
+        sta.executeUpdate("UPDATE PLAYER SET TEAM=(" + null + ")" + "WHERE  NICKNAME='" + nickname + "'");
+        sta.close();
+    }
+
+    /**
      * Actualiza un Player y le quita el TEAM
      *
      * @param newFullName nuevo nombre completo
@@ -174,7 +189,7 @@ public class DBPlayer {
         }
         resul.close();
         sta.close();
-        for (int i = 0; i<players.size(); i++){
+        for (int i = 0; i < players.size(); i++) {
             players.get(i).setTeam(DBController.obtainTeam(teamIds.get(i), con));
         }
         return players;
