@@ -55,6 +55,7 @@ public class User extends javax.swing.JFrame {
         if (child) {
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         }
+        
         league = ViewController.executeSaxParserLeague();
         cbLeague.addItem("Liga actual");
         fillCbLeague();

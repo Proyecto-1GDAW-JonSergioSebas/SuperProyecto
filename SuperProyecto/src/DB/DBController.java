@@ -59,7 +59,7 @@ public class DBController {
     public static Connection createConnection() throws ClassNotFoundException, SQLException {
 
         Class.forName("oracle.jdbc.OracleDriver");//Indicar el driver
-        Connection con = DriverManager.getConnection("jdbc:oracle:thin:@SrvOracle:1521:orcl", "eqdaw01", "eqdaw01");//Crear la conexion 
+        Connection con = DriverManager.getConnection("jdbc:oracle:thin:@SrvOracle:1521:orcl", "eqdaw01", "eqdaw01");//Crear la conexion
         return con;
     }
 
@@ -629,6 +629,7 @@ public class DBController {
         return x;
     }
 
+
     /**
      * Obtiene los Game que hay dentro de un MatchSet del cual se pasa el ID
      *
@@ -640,7 +641,6 @@ public class DBController {
      */
     public static ArrayList<Game> getMatchSetGames(int leaguenum, int matchSetnum, Connection con) throws SQLException {
         ArrayList<Game> matchSetGames = new ArrayList();
-
         ArrayList<Integer> gamesID = getGamesID(matchSetnum, con);
         for (Integer e : gamesID) {
             Game tempgame = new Game();

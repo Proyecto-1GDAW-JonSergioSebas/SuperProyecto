@@ -550,7 +550,13 @@ public class Admin extends javax.swing.JFrame {
      * @param evt Generado automáticamente.
      */
     private void jbUserViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUserViewActionPerformed
-        ViewController.user(true);
+        try {
+            ViewController.user(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jbUserViewActionPerformed
     /**
      * Abre la ventana de Dueño llamando al metodo correspondiente.
@@ -707,7 +713,13 @@ public class Admin extends javax.swing.JFrame {
      * @param evt Generado automáticamente.
      */
     private void jmViewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmViewUserActionPerformed
-        ViewController.user(true);
+        try {
+            ViewController.user(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jmViewUserActionPerformed
     /**
      * Abre la vista de dueño

@@ -8,6 +8,7 @@ package superproyecto;
 import static DB.DBController.createConnection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import View.ViewController;
@@ -24,6 +25,8 @@ import static DB.DBController.obtainScores;
 import static DB.DBController.obtainTeam;
 import static DB.DBController.teams;
 import static DB.DBController.obtainTeamOwner;
+import DB.*;
+import View.*;
 import ModelUML.DBUser;
 import ModelUML.Game;
 import ModelUML.MatchSet;
@@ -66,7 +69,9 @@ public class SuperProyecto {
         }
         try {
             /*^^NO MODIFICAR ESTO^^*/
+            if(getAllLeagueNames().size()!=0){
             DOMParserLeague.executeDOMLeague();
+            }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -736,7 +741,8 @@ public class SuperProyecto {
         Date date = DBController.getLeagueEndDate(con);
         con.close();
         return date;
-    }
+    }      
+    
 
     /**
      * Coge todos los Game con todos sus datos que se correspondan con el ID del
