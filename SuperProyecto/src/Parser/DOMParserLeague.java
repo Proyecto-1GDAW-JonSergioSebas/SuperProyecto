@@ -299,7 +299,14 @@ public class DOMParserLeague {
             return true;
         }
         else{
-            return false;
+            Date initialDate = Date.valueOf("1997-01-01");
+            if(currentdate.compareTo(initialDate)==0){
+                DOMParserClassification.executeDOMClassification();
+                return false;
+            }
+            else{
+                return false;
+            }
         }
     }
     
