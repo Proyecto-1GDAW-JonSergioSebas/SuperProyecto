@@ -24,7 +24,9 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @since 1.0
  */
 public class League extends javax.swing.JDialog {
+
     private static boolean errors = false;
+
     /**
      * Creates new form League
      * @param parent Generado automáticamente
@@ -83,9 +85,9 @@ public class League extends javax.swing.JDialog {
 
         jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField1FocusLost(evt);
             }
         });
 
@@ -141,7 +143,7 @@ public class League extends javax.swing.JDialog {
      * @see superproyecto.SuperProyecto#createCalendar(java.lang.String, java.lang.String) 
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (jTextField1.getBackground()!=Color.RED) {
+        if (errors) {
             if (Date.valueOf(jFormattedTextField1.getText()).after(Date.from(Instant.now()))) {
                 if (JOptionPane.showConfirmDialog(this, "Una vez creadas, las ligas no pueden ser eliminadas sin acceso directo a la base de datos.\n¿Está completamente seguro de que quiere generar una liga?") == 0) {
                     try {
@@ -167,13 +169,15 @@ public class League extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
         if (jTextField1.getText().length() > 20) {
             jTextField1.setBackground(Color.RED);
+            errors=true;
         } else {
             jTextField1.setBackground(Color.WHITE);
+            errors=false;
         }
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTextField1FocusLost
 
     /**
      * El main de la clase

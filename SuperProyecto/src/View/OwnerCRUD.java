@@ -256,7 +256,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         boolean good = true;
         for (boolean b : errors) {
-            if (!b) {
+            if (b) {
                 good = false;
             }
         }
@@ -275,6 +275,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
                             Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (SQLException ex) {
                             Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(this, "Error no controlado:\n" + ex.toString());
                         }
                     }
                     break;
@@ -289,6 +290,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
                             Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (SQLException ex) {
                             Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(this, "Error no controlado:\n" + ex.toString());
                         }
                         mode();
                         jComboBox1.setSelectedIndex(-1);
@@ -308,6 +310,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
                             Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (SQLException ex) {
                             Logger.getLogger(OwnerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(this, "Error no controlado:\n" + ex.toString());
                         }
                     }
                     clean();

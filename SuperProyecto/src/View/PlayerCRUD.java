@@ -155,9 +155,9 @@ public class PlayerCRUD extends javax.swing.JDialog {
             }
         });
 
-        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField2KeyTyped(evt);
+        jTextField2.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jTextField2CaretUpdate(evt);
             }
         });
 
@@ -247,7 +247,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         boolean gud = true;
         for (boolean b : errors) {
-            if (!b) {
+            if (b) {
                 gud = false;
             }
         }
@@ -267,6 +267,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
                             Logger.getLogger(PlayerCRUD.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (SQLException ex) {
                             Logger.getLogger(PlayerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(this, "Error no controlado:\n" + ex.toString());
                         }
                         mode();
                         clear();
@@ -285,6 +286,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
                             Logger.getLogger(PlayerCRUD.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (SQLException ex) {
                             Logger.getLogger(PlayerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(this, "Error no controlado:\n" + ex.toString());
                         }
                         break;
                     case 2:
@@ -308,6 +310,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
                             Logger.getLogger(PlayerCRUD.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (SQLException ex) {
                             Logger.getLogger(PlayerCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(this, "Error no controlado:\n"+ex.toString());
                         }
                         break;
                 }
@@ -353,20 +356,6 @@ public class PlayerCRUD extends javax.swing.JDialog {
      *
      * @param evt
      */
-    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
-        if (jTextField2.getText().length() > 12) {
-            jTextField2.setBackground(Color.RED);
-            errors[1] = true;
-        } else {
-            jTextField2.setBackground(Color.WHITE);
-            errors[1] = false;
-        }
-    }//GEN-LAST:event_jTextField2KeyTyped
-    /**
-     * Verifica la validez del campo.
-     *
-     * @param evt
-     */
     private void jTextField3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField3FocusLost
         //gracias, google
         if (!jTextField3.getText().matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")) {
@@ -390,6 +379,19 @@ public class PlayerCRUD extends javax.swing.JDialog {
             jTextField1.setBackground(Color.WHITE);
             errors[0] = false;
         }    }//GEN-LAST:event_jTextField1CaretUpdate
+    /**
+     * Verifica la validez del campo.
+     *
+     * @param evt
+     */
+    private void jTextField2CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextField2CaretUpdate
+        if (jTextField2.getText().length() > 12) {
+            jTextField2.setBackground(Color.RED);
+            errors[1] = true;
+        } else {
+            jTextField2.setBackground(Color.WHITE);
+            errors[1] = false;
+        }    }//GEN-LAST:event_jTextField2CaretUpdate
 
     /**
      * Cierra la ventana

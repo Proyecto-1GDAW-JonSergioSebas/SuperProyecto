@@ -235,7 +235,7 @@ public class UserCRUD extends javax.swing.JDialog {
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         boolean good = true;
         for (boolean b : errors) {
-            if (!b) {
+            if (b) {
                 good = false;
             }
         }
@@ -252,6 +252,7 @@ public class UserCRUD extends javax.swing.JDialog {
 
                         } catch (SQLException ex) {
                             Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(this, "Error no controlado:\n" + ex.toString());
                         } catch (ClassNotFoundException ex) {
                             Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -267,6 +268,7 @@ public class UserCRUD extends javax.swing.JDialog {
 
                         } catch (SQLException ex) {
                             Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(this, "Error no controlado:\n" + ex.toString());
                         } catch (ClassNotFoundException ex) {
                             Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -276,14 +278,19 @@ public class UserCRUD extends javax.swing.JDialog {
                         break;
                     case 3:
                         try {
+                            if (jPasswordField1.getPassword().length != 0) {
+                                ViewController.updateDBUser(jTextField2.getText(), (String) jComboBox1.getSelectedItem(), jPasswordField1.getPassword());
+                            } else {
+                                ViewController.updateDBUser(jTextField2.getText(), (String) jComboBox1.getSelectedItem());
+                            }
 
-                            jComboBox1.setSelectedIndex(-1);
-                            ViewController.updateUser(jTextField2.getText(), jPasswordField1.getPassword());
                             JOptionPane.showMessageDialog(this, "Usuario '" + jComboBox1.getSelectedItem() + "' actualizado.");
+                            jComboBox1.setSelectedIndex(-1);
                             clean();
 
                         } catch (SQLException ex) {
                             Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(this, "Error no controlado:\n" + ex.toString());
                         } catch (ClassNotFoundException ex) {
                             Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
                         }
