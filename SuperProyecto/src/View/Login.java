@@ -13,9 +13,10 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- * @author Sergio Zulueta
+ * Esta es la clase de acceso al resto del programa, donde se introducen los
+ * datos del usuario como el que se desea ingresar
+ *
  * @author Sebastián Zawisza
- * @author Jon Maneiro
  * @version %I% %G%
  * @since 1.0
  */
@@ -119,7 +120,7 @@ public class Login extends javax.swing.JFrame {
         try {
             switch (ViewController.LoginAccountQuery(tfUsername.getText(), pfPassword.getPassword())) {
                 case 0:
-                    JOptionPane.showMessageDialog(this, "Datos incorrectos introducidos.");
+                    JOptionPane.showMessageDialog(this, "El nombre de usuario no coincide con la contraseña.\nIntentelo de nuevo.");
                     break;
                 case 1:
                     System.out.println("Abriendo panel de usuario.");
@@ -143,20 +144,19 @@ public class Login extends javax.swing.JFrame {
             El proceso para desbloquear los equipos tiene que ser automático, y normalmente esto sucedería enteramente al nivel del servidor.
             Esto requeriría un trigger de sistema, que no hemos visto, y tras consultar con Blanca, hemos llegado a la conclusión de que la única solución rasonable es hacerlo a nivel de aplicación.
             Por supuesto, ésta no es la solución ideal, pero es lo mejor que podemos hacer con las herramientas que nos han dado.
-            */
-            if (true) {//si la ultima liga NO está marcada como terminada
-                if (true){//si su fecha fin ya ha pasado
-                    //la marcamos como terminada y desbloqueamos todos los equipos
-                }
-            }
+             */
+            ViewController.updateLastLeagueStatus();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error no controlado:\n" + ex.toString());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
+     * El main de la clase
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -169,6 +169,9 @@ public class Login extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Vacía el campo de contraseña
+     */
     public void clean() {
         pfPassword.setText("");
     }

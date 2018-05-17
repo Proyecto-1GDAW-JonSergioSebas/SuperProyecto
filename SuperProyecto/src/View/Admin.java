@@ -15,9 +15,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
+ * Esta clase gestiona todas la operaciones que ejecuta la vista de administrador
  * @author Sebastián Zawisza
- * @author Sergio Zulueta
- * @author Jon Maneiro
  * @version %I% %G%
  * @since 1.0
  */
@@ -29,6 +28,7 @@ public class Admin extends javax.swing.JFrame {
 
     /**
      * Creates new form User
+     * @param child generado automaticamente
      */
     public Admin(boolean child) {
         initComponents();
@@ -52,8 +52,10 @@ public class Admin extends javax.swing.JFrame {
         }
         try {
             ViewController.getLeagueNames().forEach(e -> cbLeague.addItem(e));
-        } catch (SQLException sQLException) {
-        } catch (ClassNotFoundException classNotFoundException) {
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -72,7 +74,7 @@ public class Admin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
-        cbMatchet = new javax.swing.JComboBox<>();
+        cbMatchset = new javax.swing.JComboBox<>();
         jbResults = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
@@ -129,7 +131,12 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel2.setText("Jornada");
 
-        cbMatchet.setEnabled(false);
+        cbMatchset.setEnabled(false);
+        cbMatchset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbMatchsetActionPerformed(evt);
+            }
+        });
 
         jbResults.setText("Introducir Resultados");
         jbResults.setEnabled(false);
@@ -399,7 +406,7 @@ public class Admin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cbLeague, 0, 100, Short.MAX_VALUE)
-                            .addComponent(cbMatchet, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(cbMatchset, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jbResults, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -437,7 +444,7 @@ public class Admin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbResults)
-                    .addComponent(cbMatchet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbMatchset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -464,9 +471,18 @@ public class Admin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Inicia la vista MatchsetUpdate
+     * @param evt Generado automáticamente
+     */
     private void jbResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbResultsActionPerformed
-        ViewController.matchsetUpdate(this);
+        try {
+            ViewController.matchsetUpdate(this, Integer.parseInt((String) cbMatchset.getSelectedItem()));
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jbResultsActionPerformed
     /**
      * Actualiza el modo de la ventana para que los botones se apliquen a
@@ -508,7 +524,10 @@ public class Admin extends javax.swing.JFrame {
         mode = 2;
         refresh();
     }//GEN-LAST:event_jRadioButton2ActionPerformed
-
+    /**
+     * Inicia la ventana correspondiente al modo seleccionado para Crear
+     * @param evt Generado automáticamente
+     */
     private void jbCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCreateActionPerformed
         switch (mode) {
             case 1:
@@ -531,7 +550,13 @@ public class Admin extends javax.swing.JFrame {
      * @param evt Generado automáticamente.
      */
     private void jbUserViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUserViewActionPerformed
-        ViewController.user(true);
+        try {
+            ViewController.user(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jbUserViewActionPerformed
     /**
      * Abre la ventana de Dueño llamando al metodo correspondiente.
@@ -545,7 +570,7 @@ public class Admin extends javax.swing.JFrame {
      * Abre la ventana de creación de jugador llamando al metodo
      * correspondiente.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jmPlayerCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPlayerCreateActionPerformed
         PlayerCreate();
@@ -554,7 +579,7 @@ public class Admin extends javax.swing.JFrame {
      * Abre la ventana de eliminación de jugador llamando al metodo
      * correspondiente.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jmPlayerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPlayerDeleteActionPerformed
         PlayerDelete();
@@ -563,7 +588,7 @@ public class Admin extends javax.swing.JFrame {
      * Abre la ventana de visualización de jugador llamando al metodo
      * correspondiente.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jmPlayerReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPlayerReadActionPerformed
         PlayerRead();
@@ -572,7 +597,7 @@ public class Admin extends javax.swing.JFrame {
      * Abre la ventana de eliminación de jugador llamando al metodo
      * correspondiente.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jmPlayerUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPlayerUpdateActionPerformed
         PlayerUpdate();
@@ -580,7 +605,7 @@ public class Admin extends javax.swing.JFrame {
     /**
      * Abre la ventana de creación de equipo llamando al metodo correspondiente.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jmTeamCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTeamCreateActionPerformed
         TeamCreate();
@@ -589,7 +614,7 @@ public class Admin extends javax.swing.JFrame {
      * Abre la ventana de eliminación de equipo llamando al metodo
      * correspondiente.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jmTeamDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTeamDeleteActionPerformed
         TeamDelete();
@@ -598,7 +623,7 @@ public class Admin extends javax.swing.JFrame {
      * Abre la ventana de visualización de equipo llamando al metodo
      * correspondiente.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jmTeamReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTeamReadActionPerformed
         TeamRead();
@@ -607,7 +632,7 @@ public class Admin extends javax.swing.JFrame {
      * Abre la ventana de actualización de equipo llamando al metodo
      * correspondiente.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jmTeamUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTeamUpdateActionPerformed
         TeamUpdate();
@@ -615,7 +640,7 @@ public class Admin extends javax.swing.JFrame {
     /**
      * Abre la ventana de creación de dueño llamando al metodo correspondiente.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jmOwnerCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOwnerCreateActionPerformed
         OwnerCreate();
@@ -624,7 +649,7 @@ public class Admin extends javax.swing.JFrame {
      * Abre la ventana de eliminación de dueño llamando al metodo
      * correspondiente.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jmOwnerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOwnerDeleteActionPerformed
         OwnerDelete();
@@ -633,7 +658,7 @@ public class Admin extends javax.swing.JFrame {
      * Abre la ventana de visualización de dueño llamando al metodo
      * correspondiente.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jmOwnerReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOwnerReadActionPerformed
         OwnerRead();
@@ -642,7 +667,7 @@ public class Admin extends javax.swing.JFrame {
      * Abre la ventana de actualización de dueño llamando al metodo
      * correspondiente.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jmOwnerUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmOwnerUpdateActionPerformed
         OwnerUpdate();
@@ -651,7 +676,7 @@ public class Admin extends javax.swing.JFrame {
      * Abre la ventana de creación de usuario llamando al metodo
      * correspondiente.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jmUserCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserCreateActionPerformed
         UserCreate();
@@ -660,7 +685,7 @@ public class Admin extends javax.swing.JFrame {
      * Abre la ventana de eliminación de usuario llamando al metodo
      * correspondiente.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jmUserDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserDeleteActionPerformed
         UserDelete();
@@ -669,7 +694,7 @@ public class Admin extends javax.swing.JFrame {
      * Abre la ventana de visualización de usuario llamando al metodo
      * correspondiente.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jmUserReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserReadActionPerformed
         UserRead();
@@ -678,21 +703,35 @@ public class Admin extends javax.swing.JFrame {
      * Abre la ventana de actualización de usuario llamando al metodo
      * correspondiente.
      *
-     * @param evt
-     * @see
+     * @param evt Generado automáticamente.
      */
     private void jmUserUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserUpdateActionPerformed
         UserUpdate();
     }//GEN-LAST:event_jmUserUpdateActionPerformed
-
+    /**
+     * Abre la vista de usuario
+     * @param evt Generado automáticamente.
+     */
     private void jmViewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmViewUserActionPerformed
-        ViewController.user(true);
+        try {
+            ViewController.user(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jmViewUserActionPerformed
-
+    /**
+     * Abre la vista de dueño
+     * @param evt Generado automáticamente.
+     */
     private void jmViewOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmViewOwnerActionPerformed
         ViewController.owner(true);
     }//GEN-LAST:event_jmViewOwnerActionPerformed
-
+    /**
+     * Abre la ventana de visualización de el tipo seleccionado
+     * @param evt Generado automáticamente.
+     */
     private void jbReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbReadActionPerformed
         switch (mode) {
             case 1:
@@ -709,7 +748,10 @@ public class Admin extends javax.swing.JFrame {
                 break;
         }
     }//GEN-LAST:event_jbReadActionPerformed
-
+    /**
+     * Abre la ventana de eliminación del tipo correspondiente
+     * @param evt Generado automáticamente.
+     */
     private void jbDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDeleteActionPerformed
         switch (mode) {
             case 1:
@@ -726,7 +768,10 @@ public class Admin extends javax.swing.JFrame {
                 break;
         }
     }//GEN-LAST:event_jbDeleteActionPerformed
-
+    /**
+     * Abre la ventana de actualización del tipo correspondiente
+     * @param evt Generado automáticamente.
+     */
     private void jbUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUpdateActionPerformed
         switch (mode) {
             case 1:
@@ -743,7 +788,11 @@ public class Admin extends javax.swing.JFrame {
                 break;
         }
     }//GEN-LAST:event_jbUpdateActionPerformed
-
+    /**
+     * Crea el calendario
+     * @param evt Generado automáticamente.
+     * @see superproyecto.SuperProyecto#createCalendar(java.lang.String, java.lang.String) 
+     */
     private void jbCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCalendarActionPerformed
         try {
             Date led = ViewController.getLeagueEndDate();
@@ -759,18 +808,30 @@ public class Admin extends javax.swing.JFrame {
         } catch (SQLException | ClassNotFoundException e) {
         }
     }//GEN-LAST:event_jbCalendarActionPerformed
-
+    /**
+     * Cambia el contenido de cbMatchset en relacion al objeto seleccionado
+     * @param evt Generado automáticamente.
+     */
     private void cbLeagueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLeagueActionPerformed
         if (cbLeague.getSelectedIndex() != -1) {
             try {
-                cbMatchet.setEnabled(true);
-                cbMatchet.removeAllItems();
-                ViewController.getLeagueMatchSetsID(ViewController.getLeagueNum((String) cbLeague.getSelectedItem())).forEach(e -> cbMatchet.addItem(String.valueOf(e))); //cristo redentor  
+                cbMatchset.setEnabled(true);
+                cbMatchset.removeAllItems();
+                ViewController.getLeagueMatchSetsID(ViewController.getLeagueNum((String) cbLeague.getSelectedItem())).forEach(e -> cbMatchset.addItem(String.valueOf(e))); //cristo redentor  
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_cbLeagueActionPerformed
+    /**
+     * Premite el cambio de los resultados del MatchSet seleccionado
+     * @param evt Generado automáticamente.
+     */
+    private void cbMatchsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMatchsetActionPerformed
+        if (cbMatchset.getSelectedIndex() != -1) {
+            jbResults.setEnabled(true);
+        }
+    }//GEN-LAST:event_cbMatchsetActionPerformed
     /**
      * Abre la ventana de creación de usuario.
      */
@@ -895,16 +956,17 @@ public class Admin extends javax.swing.JFrame {
         }
 
         if (cbLeague.getSelectedIndex() != -1) {
-            cbMatchet.setEnabled(true);
+            cbMatchset.setEnabled(true);
             //aquí deberíamos hacer un if para habilitar la creacion de calendario si se cumplen ciertas condiciones
         }
 
-        if (cbMatchet.getSelectedIndex() != -1) {
+        if (cbMatchset.getSelectedIndex() != -1) {
             jbResults.setEnabled(true);
         }
     }
 
     /**
+     * El main de la clase
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -917,10 +979,11 @@ public class Admin extends javax.swing.JFrame {
         });
     }
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbLeague;
-    private javax.swing.JComboBox<String> cbMatchet;
+    private javax.swing.JComboBox<String> cbMatchset;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;

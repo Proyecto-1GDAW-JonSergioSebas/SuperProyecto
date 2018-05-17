@@ -6,6 +6,7 @@
 package View;
 
 import ModelUML.Team;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
@@ -22,8 +23,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- *
- * @author Sebas
+ * Esta clase se encarga de las operaciones CRUD de los Team
+ * @author Sebastián Zawisza
  */
 public class TeamCRUD extends javax.swing.JDialog {
 
@@ -42,13 +43,14 @@ public class TeamCRUD extends javax.swing.JDialog {
     private static byte mode;
 
     private static ArrayList<Team> teams;
+    private static boolean[] errors = {false, false};
 
     /**
      * Creates new form TeamCRUD
      *
-     * @param parent el elemento padre
-     * @param modal modal
-     * @param mode mode
+     * @param parent Generado automáticamente
+     * @param modal Generado automáticamente
+     * @param mode Generado automáticamente
      */
     public TeamCRUD(java.awt.Frame parent, boolean modal, byte mode) {
         super(parent, modal);
@@ -83,6 +85,7 @@ public class TeamCRUD extends javax.swing.JDialog {
     }
 
     /**
+     * the return status of this dialog - one of RET_OK or RET_CANCEL
      * @return the return status of this dialog - one of RET_OK or RET_CANCEL
      */
     public int getReturnStatus() {
@@ -137,6 +140,18 @@ public class TeamCRUD extends javax.swing.JDialog {
         jLabel4.setText("Nacionalidad (Opcional)");
 
         jLabel5.setText("Dueño");
+
+        jTextField2.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jTextField2CaretUpdate(evt);
+            }
+        });
+
+        jTextField1.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jTextField1CaretUpdate(evt);
+            }
+        });
 
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,74 +213,94 @@ public class TeamCRUD extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Closes the dialog
+     * Cierra la ventana
+     * @param evt Generado automáticamente
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         doClose(RET_CANCEL);
     }//GEN-LAST:event_closeDialog
-
+    /**
+     * Cierra la ventana
+     * @param evt Generado automáticamente
+     */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         doClose(RET_CANCEL);
     }//GEN-LAST:event_cancelButtonActionPerformed
-
+    /**
+     * Ejecuta la operacion CRUD que esta seleccionada
+     * @param evt Generado automáticamente
+     */
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        if (validar()) {
-            switch (mode) {//cdru
-                case 0:
-                    try {
-                        if (jTextField1.getText().isEmpty()) {
-                            ViewController.insertTeam(jTextField2.getText(), jComboBox1.getSelectedItem().toString());
-                        } else {
-                            ViewController.insertTeam(jTextField2.getText(), jTextField1.getText(), jComboBox1.getSelectedItem().toString());
+
+        if (!errors[0] || !errors[1]) {
+            if (validar()) {
+                switch (mode) {//cdru
+                    case 0:
+                        try {
+                            if (jTextField1.getText().isEmpty()) {
+                                ViewController.insertTeam(jTextField2.getText(), jComboBox1.getSelectedItem().toString());
+                            } else {
+                                ViewController.insertTeam(jTextField2.getText(), jTextField1.getText().toUpperCase(), jComboBox1.getSelectedItem().toString());
+                            }
+                            JOptionPane.showMessageDialog(this, "Equipo insertado.");
+                            clear();
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(this, "Error no controlado:\n" + ex.toString());
                         }
-                        JOptionPane.showMessageDialog(this, "Equipo insertado.");
-                        clear();
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    break;
-                case 1:
-                    try {
-                        ViewController.deleteTeam(jTextField2.getText());
-                        JOptionPane.showMessageDialog(this, "Equipo '" + jComboBox2.getSelectedItem() + "' eliminado.");
-                        clear();
-                        mode();
-                        jComboBox2.setSelectedIndex(-1);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    break;
-                case 2:
-                    dispose();
-                    break;
-                case 3:
-                    try {
-                        if (jTextField1.getText().isEmpty()) {
-                            ViewController.updateTeam(jComboBox2.getSelectedItem().toString(), jTextField2.getText(), jComboBox1.getSelectedItem().toString());
-                        } else {
-                            ViewController.updateTeam(jComboBox2.getSelectedItem().toString(), jTextField2.getText(), jTextField1.getText(), jComboBox1.getSelectedItem().toString());
+                        break;
+                    case 1:
+                        try {
+                            ViewController.deleteTeam(jTextField2.getText());
+                            JOptionPane.showMessageDialog(this, "Equipo '" + jComboBox2.getSelectedItem() + "' eliminado.");
+                            clear();
+                            mode();
+                            jComboBox2.setSelectedIndex(-1);
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(this, "Error no controlado:\n" + ex.toString());
                         }
-                        JOptionPane.showMessageDialog(this, "Equipo '" + jComboBox2.getSelectedItem() + "' modificado.");
-                        clear();
-                        mode();
-                        jComboBox2.setSelectedIndex(-1);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    break;
+                        break;
+                    case 2:
+                        dispose();
+                        break;
+                    case 3:
+                        try {
+                            if (jTextField1.getText().isEmpty()) {
+                                ViewController.updateTeam(jComboBox2.getSelectedItem().toString(), jTextField2.getText(), jComboBox1.getSelectedItem().toString());
+                            } else {
+                                ViewController.updateTeam(jComboBox2.getSelectedItem().toString(), jTextField2.getText(), jTextField1.getText().toUpperCase(), jComboBox1.getSelectedItem().toString());
+                            }
+                            JOptionPane.showMessageDialog(this, "Equipo '" + jComboBox2.getSelectedItem() + "' modificado.");
+                            clear();
+                            mode();
+                            jComboBox2.setSelectedIndex(-1);
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(TeamCRUD.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(this, "Error no controlado:\n" + ex.toString());
+                        }
+                        break;
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor rellena todos los datos");
             }
-
         } else {
-            JOptionPane.showMessageDialog(this, "Por favor rellena todos los datos");
+            JOptionPane.showMessageDialog(this, "Uno de los campos es demasiado largo.");
         }
-    }//GEN-LAST:event_okButtonActionPerformed
 
+    }//GEN-LAST:event_okButtonActionPerformed
+    
+    /**
+     * Rellena los campos con los datos del Team seleccionado
+     * @param evt Generado automáticamente
+     */
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         teams.stream().filter(p -> p.getTeamName().equals((String) jComboBox2.getSelectedItem())).findFirst().ifPresent(c -> { //juro por todos los santos que esto no lo busqué en google
             jTextField2.setText(c.getTeamName());
@@ -275,13 +310,49 @@ public class TeamCRUD extends javax.swing.JDialog {
         });
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
-    private void doClose(int retStatus) {
+    /**
+     * Verifica la validez del campo.
+     *
+     * @param evt
+     */
+    private void jTextField2CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextField2CaretUpdate
+        if (jTextField2.getText().length() > 12) {
+            jTextField2.setBackground(Color.RED);
+            errors[0] = true;
+        } else {
+            jTextField2.setBackground(Color.WHITE);
+            errors[0] = false;
+        }
+    }//GEN-LAST:event_jTextField2CaretUpdate
+    /**
+     * Verifica la validez del campo.
+     *
+     * @param evt
+     */
+    private void jTextField1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextField1CaretUpdate
+        if (jTextField1.getText().length() > 2) {
+            jTextField1.setBackground(Color.RED);
+            errors[1] = true;
+        } else {
+            jTextField1.setBackground(Color.WHITE);
+            errors[1] = false;
+        }
+    }//GEN-LAST:event_jTextField1CaretUpdate
+  
+
+
+    /** 
+     * Cierra la ventana
+     * @param retStatus Generado automáticamente
+     */
+  private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
         dispose();
     }
 
     /**
+     * El main de la clase
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -327,13 +398,17 @@ public class TeamCRUD extends javax.swing.JDialog {
         }
         return true;
     }
-
+    /**
+     * Vacia los campos
+     */
     private void clear() {
         jComboBox1.setSelectedIndex(-1);
         jTextField1.setText("");
         jTextField2.setText("");
     }
-
+    /**
+     * Actualiza la funcionalidad de la ventana en funcion del modo en el que se ha iniciado
+     */
     private void mode() {
         jComboBox2.removeAllItems();
         try {

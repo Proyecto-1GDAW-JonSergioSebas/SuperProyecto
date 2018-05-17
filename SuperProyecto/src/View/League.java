@@ -5,6 +5,7 @@
  */
 package View;
 
+import java.awt.Color;
 import java.sql.Date;
 import java.text.ParseException;
 import java.time.Instant;
@@ -17,13 +18,19 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- *
- * @author 1gdaw07
+ * Esta clase genera el calendario
+ * @author Sebastián Zawisza
+ * @version %I% %G%
+ * @since 1.0
  */
 public class League extends javax.swing.JDialog {
 
+    private static boolean errors = false;
+
     /**
      * Creates new form League
+     * @param parent Generado automáticamente
+     * @param modal Generado automáticamente
      */
     public League(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -78,6 +85,12 @@ public class League extends javax.swing.JDialog {
 
         jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
 
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField1FocusLost(evt);
+            }
+        });
+
         jLabel1.setText("Nombre de la Liga");
 
         jLabel2.setText("Fecha de inicio");
@@ -124,11 +137,13 @@ public class League extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Comprueba que se han introducido los datos correctamente y inicia la generacion de calendario
+     * @param evt Generado automáticamente
+     * @see superproyecto.SuperProyecto#createCalendar(java.lang.String, java.lang.String) 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Pattern p = Pattern.compile("^[A-Za-z]{0,20}$");
-        Matcher match = p.matcher(jTextField1.getText());
-        if (match.matches()) {
+        if (errors) {
             if (Date.valueOf(jFormattedTextField1.getText()).after(Date.from(Instant.now()))) {
                 if (JOptionPane.showConfirmDialog(this, "Una vez creadas, las ligas no pueden ser eliminadas sin acceso directo a la base de datos.\n¿Está completamente seguro de que quiere generar una liga?") == 0) {
                     try {
@@ -138,20 +153,34 @@ public class League extends javax.swing.JDialog {
                     }
                     JOptionPane.showMessageDialog(this, "Liga creada.");
                     dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, "El nombre de la liga debe ser de menos de 20 caracteres.");
+                } 
+            }else {
+                    JOptionPane.showMessageDialog(rootPane, "La fecha de inicio de una liga debe ser posterior a la fecha actual.");
                 }
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "La fecha de inicio de una liga debe ser posterior a la fecha actual.");
-            }
+        } else {
+            JOptionPane.showMessageDialog(this, "El nombre de la liga debe ser de menos de 20 caracteres.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    /**
+     * Cierra la ventana
+     * @param evt Generado automáticamente
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
+        if (jTextField1.getText().length() > 20) {
+            jTextField1.setBackground(Color.RED);
+            errors=true;
+        } else {
+            jTextField1.setBackground(Color.WHITE);
+            errors=false;
+        }
+    }//GEN-LAST:event_jTextField1FocusLost
+
     /**
+     * El main de la clase
      * @param args the command line arguments
      */
     public static void main(String args[]) {

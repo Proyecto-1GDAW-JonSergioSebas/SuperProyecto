@@ -7,27 +7,34 @@ package View;
 
 import ModelUML.Game;
 import ModelUML.MatchSet;
+import Parser.SAXParserClassification;
+import Parser.TeamSax;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.table.DefaultTableModel;
 
 /**
+ * Esta clase se encarga de gestionar las operaciones de la vista del Usuario
  * @author Sebastián Zawisza
- * @author Sergio Zulueta
  * @author Jon Maneiro
  * @version %I% %G%
  * @since 1.0
  */
 public class User extends javax.swing.JFrame {
+
     ArrayList<MatchSet> league; // El array de la liga que actualmente se esta jugando
-    private static boolean child; 
-    ArrayList<Integer> templeague= new ArrayList();//el array para usar con los id de los matchsets de la liga seleccionada
+    private static boolean child;
+    ArrayList<Integer> templeague = new ArrayList();//el array para usar con los id de los matchsets de la liga seleccionada
 
     /**
      * Creates new form User
+     * @param child Generado automáticamente
      */
     public User(boolean child) {
         initComponents();
@@ -48,10 +55,11 @@ public class User extends javax.swing.JFrame {
         if (child) {
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         }
+        
         league = ViewController.executeSaxParserLeague();
         cbLeague.addItem("Liga actual");
         fillCbLeague();
-        fillCbMatchSet();
+
     }
 
     /**
@@ -92,7 +100,6 @@ public class User extends javax.swing.JFrame {
             }
         });
 
-        cbMatchset.setMaximumRowCount(40);
         cbMatchset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbMatchsetActionPerformed(evt);
@@ -104,11 +111,11 @@ public class User extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Local", "Puntuación", "Visitante", "Puntuación", "Ganador"
+                "Local", "Puntuación(L)", "Visitante", "Puntuación(V)", "Ganador"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
@@ -122,7 +129,15 @@ public class User extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtGames.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jtGames);
+        if (jtGames.getColumnModel().getColumnCount() > 0) {
+            jtGames.getColumnModel().getColumn(0).setResizable(false);
+            jtGames.getColumnModel().getColumn(1).setResizable(false);
+            jtGames.getColumnModel().getColumn(2).setResizable(false);
+            jtGames.getColumnModel().getColumn(3).setResizable(false);
+            jtGames.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -151,9 +166,9 @@ public class User extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbMatchset, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbLeague, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -167,7 +182,7 @@ public class User extends javax.swing.JFrame {
             .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -177,46 +192,95 @@ public class User extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(cbMatchset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Actualiza la clasificacion y los MatchSet disponibles en funcion de la League seleccionada
+     * @param evt Generado automáticamente
+     */
     private void cbLeagueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLeagueActionPerformed
         cbMatchset.removeAllItems();
         String selectedleague = cbLeague.getSelectedItem().toString();
+
         fillCbMatchSet(selectedleague);
+        fillJlClassification();
+
     }//GEN-LAST:event_cbLeagueActionPerformed
-
+    /**
+     * Vacio
+     * @param evt Generado automáticamente
+     */
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        
-    }//GEN-LAST:event_formWindowActivated
 
+    }//GEN-LAST:event_formWindowActivated
+    /**
+     * Actualiza la tabla en la que se muestran las puntuaciones de los partidos
+     * en funcion del MatchSet seleccionado
+     * @param evt Generado automáticamente
+     */
     private void cbMatchsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMatchsetActionPerformed
+        if(cbLeague.getSelectedItem().toString().equalsIgnoreCase("Liga actual")){
+            int selMatch = cbMatchset.getSelectedIndex();
+            DefaultTableModel dtml = (DefaultTableModel) jtGames.getModel();
+            dtml.setRowCount(0);
+            for(Game g:league.get(selMatch).getGames()){
+                String winner="";
+                if(g.getScore1()==g.getScore2()) winner="Empate";
+                else if(g.getScore1()>g.getScore2()) winner = ""+ g.getTeam1().getTeamName();
+                else winner= ""+g.getTeam2().getTeamName();
+                
+                Object[] raw={g.getTeam1().getTeamName(),(g.getScore1()==-1) ? null :g.getScore1()
+                ,g.getTeam2().getTeamName(),(g.getScore2()==-1) ? null:g.getScore2(),winner};
+                dtml.addRow(raw);
+                
+            }
+            jtGames.setModel(dtml);
+        } else{
         try {
-            
-            int leaguenum = ViewController.getLeagueNum(cbLeague.getSelectedItem().toString());
-            //ArrayList<Game> selectedMSGames = ViewController.getMatchSetGames(leaguenum,Integer.parseInt(cbMatchset.getSelectedItem().toString()));
-        
-        
+            DefaultTableModel dtm = (DefaultTableModel) jtGames.getModel();
+            dtm.setRowCount(0);
+            TreeMap<Integer, Game> games = ViewController.getGames(Integer.parseInt((String) cbMatchset.getSelectedItem()));
+            int i = 0;
+            for (Game g : games.values()) {
+                dtm.addRow(new Object[5]);
+                dtm.setValueAt(g.getTeam1().getTeamName(), i, 0);
+                dtm.setValueAt(((g.getScore1() == -1) ? null : g.getScore1()), i, 1);
+                dtm.setValueAt(g.getTeam2().getTeamName(), i, 2);
+                dtm.setValueAt(((g.getScore2() == -1) ? null : g.getScore2()), i, 3);
+                if (g.getScore1() == g.getScore2()) {
+                    dtm.setValueAt("Empate", i, 4);
+                } else if (g.getScore1() > g.getScore2()) {
+                    dtm.setValueAt(g.getTeam1().getTeamName(), i, 4);
+                } else {
+                    dtm.setValueAt(g.getTeam2().getTeamName(), i, 4);
+                }
+                i++;
+            }
+            jtGames.setModel(dtm);
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }
     }//GEN-LAST:event_cbMatchsetActionPerformed
 
     /**
+     * El main de la clase
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -242,41 +306,68 @@ public class User extends javax.swing.JFrame {
      */
     private void fillCbLeague() {
         try {
-            
+
             ArrayList<String> leaguenames = ViewController.getLeagueNames();
-            leaguenames.remove(leaguenames.size()-1);
+            leaguenames.remove(leaguenames.size() - 1);
             leaguenames.forEach(e -> cbLeague.addItem(e));
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
+
     /**
      * Rellena el ComboBox que contiene las jornadas con las de la liga actual
      */
-    private void fillCbMatchSet(){
-        for(int x=0; x<league.size();x++){
-            cbMatchset.addItem(""+league.get(x));//Convirtiendo a String de forma super eficaz
+    private void fillCbMatchSet() {
+        try {
+            ArrayList<String> temparr = ViewController.getLeagueNames();
+            int templeagnumb = ViewController.getLeagueNum(temparr.get(temparr.size() - 1));
+            ArrayList<Integer> tempmatch = ViewController.getLeagueMatchSetsID(templeagnumb);
+
+            for (int x = 0; x < tempmatch.size(); x++) {
+                cbMatchset.addItem(tempmatch.get(x).toString());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
-    
-    private void fillCbMatchSet(String leaguename){
-        if(leaguename.equalsIgnoreCase("Liga actual")){
+    /**
+     * Rellena el comboBox que contiene los MatchSet
+     * @param leaguename el nombre de la liga seleccionada
+     */
+    private void fillCbMatchSet(String leaguename) {
+        if (leaguename.equalsIgnoreCase("Liga actual")) {
             fillCbMatchSet();
-        }
-        else{
+        } else {
             try {
-                
+
                 int leaguenum = ViewController.getLeagueNum(leaguename);
                 templeague.addAll(ViewController.getLeagueMatchSetsID(leaguenum));
-                templeague.forEach(e -> cbMatchset.addItem(""+e));
+                templeague.forEach(e -> cbMatchset.addItem("" + e));
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    /**
+     * Llena la lista de Clasificacion de la liga actual
+     */
+    private void fillJlClassification() {
+        ArrayList<TeamSax> Classification = SAXParserClassification.executeSAXClassification();
+        String[] raw = new String[(Classification.size())];
+        for (int x = 0; x < Classification.size(); x++) {
+            raw[x] = Classification.get(x).getName() + "  " + Classification.get(x).getPoints();
+
+        }
+        jlClassification.setListData(raw);
     }
 }

@@ -5,18 +5,34 @@
  */
 package View;
 
+import ModelUML.Game;
+import java.sql.SQLException;
+import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
- *
- * @author 1gdaw07
+ * Esta clase muestra una tabla la cual se podra editar para actualizar las puntuaciones
+ * @author Sebastián Zawisza
  */
 public class MatchsetUpdate extends javax.swing.JDialog {
 
+    public static TreeMap<Integer, Game> games;
+
     /**
      * Creates new form MatchsetUpdate
+     * @param parent Generado automáticamente
+     * @param modal Generado automáticamente
+     * @param games Generado automáticamente
      */
-    public MatchsetUpdate(java.awt.Frame parent, boolean modal) {
+    public MatchsetUpdate(java.awt.Frame parent, boolean modal, TreeMap<Integer, Game> games) {
         super(parent, modal);
         initComponents();
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        this.games = games;
+        fill();
     }
 
     /**
@@ -40,58 +56,133 @@ public class MatchsetUpdate extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Equipo 1", "Puntuación", "Equipo 2", "Puntuación"
+                "Equipo 1", "Puntos (1)", "Equipo 2", "Puntos (2)"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, true, false, true
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
+        jTable1.setColumnSelectionAllowed(true);
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         jButton1.setText("Aceptar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    /**
+     * Cierra la ventana
+     * @param evt Generado automáticamente
+     */
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+    /**
+     * Actualiza los partidos con la informacion introducida en las celdas
+     * @param evt Generado automáticamente
+     */
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (jTable1.isEditing()) {
+            JOptionPane.showMessageDialog(this, "Por favor deja de editar la celda seleccionada.");
+        } else {
+            games.forEach((k, v) -> {
+                if (jTable1.getValueAt(k - 1, 1) != null) {
+                    v.setScore1((Integer) jTable1.getValueAt(k - 1, 1));
+                }
+                if (jTable1.getValueAt(k - 1, 3) != null) {
+                    v.setScore2((Integer) jTable1.getValueAt(k - 1, 3));
+                }
+            });
+        }
+        try {
+            ViewController.setGames(games);
+        } catch (SQLException ex) {
+            Logger.getLogger(MatchsetUpdate.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MatchsetUpdate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showMessageDialog(this, "Datos insertados.");
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
+     * Rellena la tabla con los valores del campo games
+     */
+    private void fill() {
+        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+        int i = 0;
+        for (Game g : games.values()) {
+            dtm.addRow(new Object[5]);
+            dtm.setValueAt(g.getTeam1().getTeamName(), i, 0);
+            dtm.setValueAt(((g.getScore1() == -1) ? null : g.getScore1()), i, 1);
+            dtm.setValueAt(g.getTeam2().getTeamName(), i, 2);
+            dtm.setValueAt(((g.getScore2() == -1) ? null : g.getScore2()), i, 3);
+            i++;
+        }
+        jTable1.setModel(dtm);
+    }
+
+    /**
+     * El main de la clase
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -121,7 +212,7 @@ public class MatchsetUpdate extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                MatchsetUpdate dialog = new MatchsetUpdate(new javax.swing.JFrame(), true);
+                MatchsetUpdate dialog = new MatchsetUpdate(new javax.swing.JFrame(), true, games);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

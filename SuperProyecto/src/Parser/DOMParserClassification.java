@@ -42,18 +42,22 @@ import static superproyecto.SuperProyecto.createMatchSets;
  * crear un arbol de DOM, para despues introducir esa informacion en el fichero
  * xml Classification.xml
  * @version %I% %G%
- * @author Jon
+ * @author Jon Maneiro
  */
 public class DOMParserClassification {
     
     private Document dom;
     private static ArrayList<Integer> points;
     private static ArrayList<String> names;
-    
+    /**
+     * Un constructor
+     */
     public DOMParserClassification(){
         loadData();
     }
-
+    /**
+     * Carga los datos de la base de datos
+     */
     private void loadData(){
         try {
             
@@ -72,7 +76,9 @@ public class DOMParserClassification {
             Logger.getLogger(DOMParserClassification.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    /**
+     * Ejecuta el parser
+     */
     public static void executeDOMClassification(){
         //Creamos una instancia
         points = new ArrayList();
@@ -82,7 +88,9 @@ public class DOMParserClassification {
         //Ejecutamos
         dClassification.execute();
     }
-
+    /**
+     * Ejecuta las funcionalidades del parser
+     */
     public void execute() {
         System.out.println("Ejecutando..");
         //Volcamos el Fichero XML en memoria como Arbol DOM
@@ -95,7 +103,9 @@ public class DOMParserClassification {
         writeXMLFile();
         System.out.println("Fichero modificado correctamente.");
     }
-
+    /**
+     * Parsea el fichero Classification.xml 
+     */
     private void parseXMLFile() {
         //Creamos el DocumentBuilderFactory
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -115,7 +125,9 @@ public class DOMParserClassification {
             ioe.printStackTrace();
         }
     }
-
+    /**
+     * Vuelca los datos guardados dentro del Arbol DOM
+     */
     private void createDOMTree() {
         //referencia al objeto raiz<classification>
         Element rootClassification = dom.getDocumentElement();
@@ -127,7 +139,11 @@ public class DOMParserClassification {
         }
         
     }
-
+    /**
+     * Crea el elemento TEAM
+     * @param y contador para saber que Team se debe crear
+     * @return un Element que tiene un equipo
+     */
     private Element createTeamEle(int y) {
         Element teamEle = dom.createElement("team");
         
@@ -144,7 +160,9 @@ public class DOMParserClassification {
         
         return teamEle;
     }
-
+    /**
+     * Escribe los datos del Arbol DOM en el fichero XML
+     */
     private void writeXMLFile() {
          try {
             //Configuramos el formato de salida del fichero
@@ -161,7 +179,9 @@ public class DOMParserClassification {
             ie.printStackTrace();
         }
     }
-
+    /**
+     * Elimina el contenido anterior
+     */
     private void deletePreviousContent() {
         Element docEle= dom.getDocumentElement();
         

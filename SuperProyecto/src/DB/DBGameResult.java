@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
+ * Esta clase gestiona las acciones necesarias en la base de datos sobre los objetos GameResult
  * @author Jon Maneiro
  * @author Sergio Zulueta
  * @author Sebastián Zawisza
@@ -67,6 +68,25 @@ public class DBGameResult {
         resul.close();
         sta.close();
         return scores;
+    }
+    /**
+     * Obtiene la puntuacion de un Team en un Game
+     * @param id la id del Game
+     * @param teamID la id del Team
+     * @param con la conexion
+     * @return un int con la puntuacion que ha obtenido un Team en un Game
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    static int getTeamScore(Integer id, Integer teamID, Connection con) throws SQLException {
+        int x =-1;
+        Statement sta = con.createStatement();
+        ResultSet resul = sta.executeQuery("SELECT SCORE FROM GAME_RESULT WHERE GAME="+id+" AND TEAM="+teamID+"");
+        while(resul.next()){
+            x=resul.getInt("SCORE");
+        }
+        resul.close();
+        sta.close();
+        return x;
     }
     
 }

@@ -40,7 +40,7 @@ import static superproyecto.SuperProyecto.createMatchSets;
  * Esta clase se encarga de obtener la informacion de la base de datos y de 
  * construir un arbol DOM con esa información(League,MatchSet,Game,Game_result)
  * y de introducir el arbol DOM en el fichero xml League.xml
- * @author Jon
+ * @author Jon Maneiro
  * @version %I% %G%
  */
 public class DOMParserLeague {
@@ -62,15 +62,23 @@ public class DOMParserLeague {
      * @throws ClassNotFoundException si no se encuentra la clase
      * @throws SQLException si se da alguna excepcion SQL 
      */
-    private void loadData() throws ClassNotFoundException, SQLException{
+     private void loadData() throws ClassNotFoundException, SQLException{
         Connection con =createConnection();
         int idLeague = askLastLeagueID(con);
         ArrayList<Integer> matchSetsID =askMatchSetsID(idLeague,con);
         ArrayList<MatchSet> matchSets = new ArrayList();
-        
+        int magic = (matchSetsID.size()/2);
+        int flippy = 0;
         for(Integer x:matchSetsID){
-            MatchSet tempMatchSet = SuperProyecto.createMatchSets(x,con);
+            if(flippy<magic){
+            MatchSet tempMatchSet = SuperProyecto.createMatchSets(true,x,con);
             league.addMatchSets(tempMatchSet);
+            }
+            else{
+            MatchSet tempMatchSet = SuperProyecto.createMatchSets(false,x,con);
+            league.addMatchSets(tempMatchSet);
+            }
+            flippy++;
         }
         
         gamesID=askAllGamesID(idLeague,con);
@@ -88,7 +96,7 @@ public class DOMParserLeague {
         //Borramos el fichero desactualizado
         deletePreviousContent();
         //Creamos los elementos y los agregamos al arbol de DOM
-        createDOMTree();
+        createDOMTree(createupdatedateElement());
         //Escribimos el arbol DOM en el fichero XML
         writeXMLFile();
         System.out.println("Fichero modificado correctamente");
@@ -121,13 +129,13 @@ public class DOMParserLeague {
     /**
      * Crea el arbol DOM
      */
-    private void createDOMTree(){
+    private void createDOMTree(Element updateele){
         //referencia al objeto raiz<league>
         Element rootLeague = dom.getDocumentElement();
         /*Ahora se va a recorrer el ArrayList de MatchSet que hay en league, creando cada
         objeto MatchSet, a su vez, para cada MatchSet, se recorrera el ArrayList de Game 
         creando los objetos cada uno con sus elementos y atributos */
-        Element dateEle = createupdatedateElement();
+        Element dateEle = updateele;
         rootLeague.appendChild(dateEle);
         Iterator it = league.getMatchsets().iterator();
         while(it.hasNext()){
@@ -216,7 +224,7 @@ public class DOMParserLeague {
     /**
      * Ejecuta todo el parser
      */
-    public static void executeDOMLeague () throws ClassNotFoundException, SQLException{
+    public static void executeDOMLeague() throws ClassNotFoundException, SQLException{
         //Creamos una instancia
         DOMParserLeague dLeague = new DOMParserLeague();
         
@@ -236,13 +244,6 @@ public class DOMParserLeague {
         //Obtenemos el nodo <updatedate>
         NodeList nl = docEle.getElementsByTagName("updatedate");
         //El Text que se le asignara a update date
-        /*
-        Tengo que CAMBIAR la forma en la que organiza todo esto, 
-        1-transformar lo que devuelve el node list en un elemento
-        2-sacar el dato que necesito de ese elemento, que es su texto
-        3- convertir el texto a Date, eso ya no tengo que cambiar casi nada
-        4- Para el String de currentDateS no le puedo dar directamente el objeto y el text value
-        */
         Element ele =(Element) nl.item(0);
         Text updatedateText= dom.createTextNode(ele.getTextContent());
         //Pasamos el texto de ese nodo a date
@@ -265,7 +266,9 @@ public class DOMParserLeague {
         updatedateEle.appendChild(updatedateText);
         return updatedateEle;
     }
-
+    /**
+     * Elimina todo el contenido previo del XML
+     */
     private void deletePreviousContent() {
         Element docEle= dom.getDocumentElement();
         for(int x=0;x<gamesID.size();x++){
@@ -276,7 +279,10 @@ public class DOMParserLeague {
         }
         }
     }
-
+    /**
+     * Comprueba si es necesario consultar a la base de datos para actualizar el XML
+     * @return true si es necesario false si no
+     */
     private boolean updateneeded() {
          //Obtenemos el documento
         Element docEle = dom.getDocumentElement();
@@ -293,7 +299,14 @@ public class DOMParserLeague {
             return true;
         }
         else{
-            return false;
+            Date initialDate = Date.valueOf("1997-01-01");
+            if(currentdate.compareTo(initialDate)==0){
+                DOMParserClassification.executeDOMClassification();
+                return false;
+            }
+            else{
+                return false;
+            }
         }
     }
     

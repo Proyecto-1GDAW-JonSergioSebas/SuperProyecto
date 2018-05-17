@@ -18,7 +18,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- *
+ * Esta clase gestiona las acciones necesarias en la base de datos sobre los objetos Team
  * @author Sergio Zulueta
  * @author Sebastián Zawisza
  * @author Jon Maneiro
@@ -40,7 +40,7 @@ public class DBTeam {
         ArrayList<Team> teams = new ArrayList();
         ArrayList<Integer> owners = new ArrayList();
         Statement sent = con.createStatement();
-        ResultSet resul = sent.executeQuery("SELECT * FROM TEAM");
+        ResultSet resul = sent.executeQuery("SELECT * FROM TEAM WHERE BLOCKED = 1");
         while (resul.next()) {
             teams.add(new Team(resul.getString(2), resul.getString(3)));
             owners.add(resul.getInt(4));

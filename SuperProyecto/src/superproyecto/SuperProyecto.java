@@ -42,8 +42,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TreeMap;
 
 /**
+ * Esta es la madre de todas las clases, la que las sujeta en el sitio
  *
  * @author Jon Maneiro
  * @author Sebastián Zawisza
@@ -65,10 +67,17 @@ public class SuperProyecto {
         } catch (SQLException ex) {
             Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
         }
-        /*^^NO MODIFICAR ESTO^^*/
-
+        try {
+            /*^^NO MODIFICAR ESTO^^*/
+            if(getAllLeagueNames().size()!=0){
+            DOMParserLeague.executeDOMLeague();
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
+        }
         ViewController.login();
-
     }
 
     /**
@@ -154,18 +163,18 @@ public class SuperProyecto {
             int x = 0;
             ArrayList<Integer> matchsetsid = new ArrayList();
             while (x < league.size()) {
-                
+
                 matchsetsid.add(createMatchSet(leaguename, con));
-                
+
                 x++;
             }
 
             //Insertamos los juegos
             int y = 0;
-            
+
             for (MatchSet m : league) {
                 for (Game gm : m.getGames()) {
-                    
+
                     createGames(gm, matchsetsid.get(y), con);
 
                 }
@@ -230,33 +239,34 @@ public class SuperProyecto {
      * Recoge los datos necesario para crear un objeto MatchSet en relacion a la
      * id que se le envie
      *
+     * @param flip si se tiene que dar la vuelta al equipo o no
      * @param matchSetId el id del MatchSet a crear
      * @param con la conexion
      * @return un MatchSet
      * @throws SQLException si se da alguna excepcion SQL
      */
-    public static MatchSet createMatchSets(int matchSetId, Connection con) throws SQLException, ClassNotFoundException {
+    public static MatchSet createMatchSets(boolean flip, int matchSetId, Connection con) throws SQLException, ClassNotFoundException {
         ArrayList<Integer> gameID = obtainGamesID(matchSetId, con);
         ArrayList<Game> games = new ArrayList();
-        ArrayList<Team> completeTeams = teams(con);
-        int numDays = (completeTeams.size() - 1);
-        int tempito = (numDays*2*completeTeams.size())/2;
+
         int x = 0;
         for (Integer id : gameID) {
             ArrayList<Integer> teamID = obtainGameTeamID(id, con);
-            ArrayList<Integer> compScores = obtainScores(id, con);
-            ArrayList<Integer> scores= new ArrayList();
+            ArrayList<Integer> compScores = new ArrayList();
+            compScores.add(DBController.getTeamGameScore(id, teamID.get(0), con));
+            compScores.add(DBController.getTeamGameScore(id, teamID.get(1), con));
+            ArrayList<Integer> scores = new ArrayList();
             ArrayList<Team> teams = new ArrayList();
-            if(x<tempito){
-            for (Integer tid : teamID) {
-                teams.add(obtainTeam(tid, con));
-                
-            }
+            if (flip) {
+                for (Integer tid : teamID) {
+                    teams.add(obtainTeam(tid, con));
+
+                }
                 scores.add(compScores.get(0));
                 scores.add(compScores.get(1));
-            }else{
-                teams.add(obtainTeam(teamID.get(1),con));
-                teams.add(obtainTeam(teamID.get(0),con));
+            } else {
+                teams.add(obtainTeam(teamID.get(1), con));
+                teams.add(obtainTeam(teamID.get(0), con));
                 scores.add(compScores.get(1));
                 scores.add(compScores.get(0));
             }
@@ -288,6 +298,14 @@ public class SuperProyecto {
         return allGamesID;
     }
 
+    /**
+     * Selecciona todos los User de la base de datos
+     *
+     * @return un ArrayList de User que contiene todos los User de la base de
+     * datos
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
+     */
     public static ArrayList<DBUser> selectAllDBUsers() throws SQLException, ClassNotFoundException {
 
         Connection con = createConnection();
@@ -314,7 +332,6 @@ public class SuperProyecto {
      * Elimina un DBUser de la base de datos
      *
      * @param username el nombre de usuario
-     * @param password la contraseña
      * @throws SQLException si se da alguna excepcion SQL
      * @throws ClassNotFoundException si no se encuentra la clase en la conexion
      */
@@ -325,16 +342,33 @@ public class SuperProyecto {
     }
 
     /**
-     * Actualiza un DBUser de la base de datos
+     * Cambia los datos de un usuario
      *
-     * @param username el nombre de usuario
-     * @param password la conetraseña
-     * @throws SQLException si se da algune aexcepcion SQL
+     * @param newUsername nuevo nombre de usuario, a insertar
+     * @param oldUsername viejo nombre de usuario, para identificar
+     * @param password contraseña, a insertar
+     * @throws SQLException si se da alguna excepcion SQL
      * @throws ClassNotFoundException si no se encuentra la clase en la conexion
+     *
      */
-    public static void updateDBuser(String username, char[] password) throws SQLException, ClassNotFoundException {
+    public static void updateDBUser(String newUsername, String oldUsername, char[] password) throws SQLException, ClassNotFoundException {
         Connection con = createConnection();
-        DBController.updateDBDBUser(username, password, con);
+        DBController.updateDBUser(newUsername, oldUsername, password, con);
+        con.close();
+    }
+
+    /**
+     * Cambia el nombre de usuario de un usuario
+     *
+     * @param newUsername nuevo nombre de usuario, a insertar
+     * @param oldUsername viejo nombre de usuario, para identificar
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase en la conexion
+     *
+     */
+    public static void updateDBUser(String newUsername, String oldUsername) throws SQLException, ClassNotFoundException {
+        Connection con = createConnection();
+        DBController.updateDBUser(newUsername, oldUsername, con);
         con.close();
     }
 
@@ -359,7 +393,6 @@ public class SuperProyecto {
      * Elimina un TeamOwner de la Base de datos
      *
      * @param username el nombre de usuario
-     * @param password la contraseña
      * @throws ClassNotFoundException si no se encuentra la clase
      * @throws SQLException si se da alguna excepcion SQL
      */
@@ -491,7 +524,8 @@ public class SuperProyecto {
      * Realiza una consulta a la base de datos y devuelve todos los Users
      *
      * @return La lista de Users
-     * @throws SQLException
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static ArrayList<DBUser> selectDBUsers() throws SQLException, ClassNotFoundException {
         ArrayList arry = new ArrayList();
@@ -505,7 +539,8 @@ public class SuperProyecto {
      * Realiza una consulta a la base de datos y devuelve todos los Admins
      *
      * @return La lista de Admins
-     * @throws SQLException
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static ArrayList<TeamOwner> selectDBOwners() throws SQLException, ClassNotFoundException {
         ArrayList arry = new ArrayList();
@@ -519,7 +554,8 @@ public class SuperProyecto {
      * Realiza una consulta a la base de datos y devuelve todos los Players
      *
      * @return La lista de Players
-     * @throws SQLException
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static ArrayList<Player> selectDBPlayers() throws SQLException, ClassNotFoundException {
         ArrayList arry = new ArrayList();
@@ -533,7 +569,8 @@ public class SuperProyecto {
      * Realiza una consulta a la base de datos y devuelve todos los Teams
      *
      * @return La lista de Teams
-     * @throws SQLException
+     * @throws SQLException s se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static ArrayList<Team> selectDBTeams() throws SQLException, ClassNotFoundException {
         ArrayList arry = new ArrayList();
@@ -619,6 +656,14 @@ public class SuperProyecto {
         con.close();
     }
 
+    /**
+     * Devuelve un ResultSet que contiene la clasificacion
+     *
+     * @param leagueid el id de la liga de la cual se quiere la clasificacion
+     * @param con la conexion
+     * @return un ResultSet con la clasificacion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
     public static ResultSet getClassification(int leagueid, Connection con) throws SQLException {
         ResultSet rs = DBController.getClassification(leagueid, con);
         return rs;
@@ -637,8 +682,10 @@ public class SuperProyecto {
         con.close();
         return leaguenames;
     }
+
     /**
      * Obtiene el id de la liga de la cual se le pasa el nombre
+     *
      * @param leaguename el nombre de la liga
      * @return el id de la liga
      * @throws ClassNotFoundException si no se encuentra la clase
@@ -646,12 +693,14 @@ public class SuperProyecto {
      */
     public static int getLeagueID(String leaguename) throws ClassNotFoundException, SQLException {
         Connection con = createConnection();
-        int x = DBController.getLeagueID(leaguename,con);
+        int x = DBController.getLeagueID(leaguename, con);
         con.close();
         return x;
     }
+
     /**
      * Devuelve un ArrayList con los id de los MatchSets de una liga
+     *
      * @param leaguenum el id de la liga
      * @return un ArrayList con los id de los MatchSets
      * @throws ClassNotFoundException si no se encuentra la clase
@@ -663,18 +712,29 @@ public class SuperProyecto {
         con.close();
         return tempmatchnum;
     }
-/*
+
+    /**
+     * Obtiene los Game que estan en un MatchSet del cual se pasa el id
+     *
+     * @param leaguenum el id de la liga
+     * @param matchSetnum el id del MatchSet
+     * @return un ArrayList con los games del MatchSet
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
     public static ArrayList<Game> getMatchSetGames(int leaguenum, int matchSetnum) throws ClassNotFoundException, SQLException {
         Connection con = createConnection();
-        ArrayList<Game> matchSetGames = DBController.getMatchSetGames(leaguenum,matchSetnum,con);
+        ArrayList<Game> matchSetGames = DBController.getMatchSetGames(leaguenum, matchSetnum, con);
         con.close();
+        return matchSetGames;
     }
-*/
+
     /**
      * Coge de la base de datos el Date más elevado última liga
      *
      * @return devuelve un objeto Date
      * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static Date getLeagueEndDate() throws SQLException, ClassNotFoundException {
         Connection con = createConnection();
@@ -682,4 +742,47 @@ public class SuperProyecto {
         con.close();
         return date;
     }      
+    
+
+    /**
+     * Coge todos los Game con todos sus datos que se correspondan con el ID del
+     * Matchset
+     *
+     * @param matchSetId el ID del matchset
+     * @return un treemap de Games, en el que la key es el ID del juego
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
+     */
+    public static TreeMap<Integer, Game> getGames(int matchSetId) throws SQLException, ClassNotFoundException {
+        Connection con = createConnection();
+        TreeMap<Integer, Game> games = DBController.getGames(matchSetId, con);
+        con.close();
+        return games;
+    }
+
+    /**
+     * Introduce a la base de datos la información contenida en el TreeMap
+     *
+     * @param games el TreeMap con todos los juegos, puntuaciones, y equipos
+     * @throws SQLException si se da alguna excepcion SLQ
+     * @throws ClassNotFoundException si no se encuentra la clase
+     */
+    public static void setGames(TreeMap<Integer, Game> games) throws SQLException, ClassNotFoundException {
+        Connection con = createConnection();
+        DBController.setGames(games, con);
+        con.close();
+    }
+
+    /**
+     * Método que verifica si la última liga ha terminado, y si lo ha hecho,
+     * desbloquea los equipos.
+     *
+     * @param con la conexión
+     * @throws SQLException si ocurre un error de SQL
+     */
+    public static void updateLastLeagueStatus() throws SQLException, ClassNotFoundException {
+        Connection con = createConnection();
+        DBController.updateLastLeagueStatus(con);
+        con.close();
+    }
 }

@@ -6,6 +6,7 @@
 package View;
 
 import java.util.List;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -488,7 +489,13 @@ public class Owner extends javax.swing.JFrame {
     }//GEN-LAST:event_cbPlayerItemStateChanged
 
     private void jbUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUserActionPerformed
-        ViewController.user(true);
+        try {
+            ViewController.user(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Owner.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Owner.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jbUserActionPerformed
 
     private void cbPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPlayerActionPerformed
