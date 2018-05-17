@@ -210,7 +210,7 @@ public class DBController {
     public static void updateDBUser(String newUsername, String oldUsername, char[] password, Connection con) throws SQLException {
         DBDBUser.updateDBUser(newUsername, oldUsername, password, con);
     }
-    
+
     /**
      * Cambia el nombre de usuario de un usuario
      *
@@ -588,9 +588,12 @@ public class DBController {
     public static void updateTeam(String teamname, String newTeamname, String newNationality, int teamownerid, Connection con) throws SQLException {
         DBTeam.updateTeam(teamname, newTeamname, newNationality, teamownerid, con);
     }
+
     /**
      * Obtiene la clasificacion en forma de un objeto ResultSet
-     * @param leagueid el id de la liga de la cual se quiere obtener la clasificacion
+     *
+     * @param leagueid el id de la liga de la cual se quiere obtener la
+     * clasificacion
      * @param con la conexion
      * @return un ResultSet con la clasificacion
      * @throws SQLException si se da alguna excepcion SQL
@@ -625,8 +628,10 @@ public class DBController {
         int x = DBLeague.askForLeague(leaguename, con);
         return x;
     }
+
     /**
      * Obtiene los Game que hay dentro de un MatchSet del cual se pasa el ID
+     *
      * @param leaguenum el id del League
      * @param matchSetnum el id del MatchSet
      * @param con la conexion
@@ -634,7 +639,7 @@ public class DBController {
      * @throws SQLException si se da alguna excepcion SQL
      */
     public static ArrayList<Game> getMatchSetGames(int leaguenum, int matchSetnum, Connection con) throws SQLException {
-        ArrayList<Game> matchSetGames= new ArrayList();
+        ArrayList<Game> matchSetGames = new ArrayList();
 
         ArrayList<Integer> gamesID = getGamesID(matchSetnum, con);
         for (Integer e : gamesID) {
@@ -683,16 +688,30 @@ public class DBController {
     public static void setGames(TreeMap<Integer, Game> games, Connection con) throws SQLException {
         DBGame.setGames(games, con);
     }
+
     /**
      * Obtiene el Score de un Team dentro de un GameResult
+     *
      * @param id el id del Game
      * @param teamID El id del Team
      * @param con la conexion
-     * @return un Integer que contiene el numero de puntos que ha logrado un equipo en un partido
+     * @return un Integer que contiene el numero de puntos que ha logrado un
+     * equipo en un partido
      * @throws SQLException si se da alguna excepcion SQL
      */
     public static Integer getTeamGameScore(Integer id, Integer teamID, Connection con) throws SQLException {
         int x = DBGameResult.getTeamScore(id, teamID, con);
         return x;
+    }
+
+    /**
+     * Método que verifica si la última liga ha terminado, y si lo ha hecho,
+     * desbloquea los equipos.
+     *
+     * @param con la conexión
+     * @throws SQLException si ocurre un error de SQL
+     */
+    public static void updateLastLeagueStatus(Connection con) throws SQLException {
+        DBLeague.updateLastLeagueStatus(con);
     }
 }

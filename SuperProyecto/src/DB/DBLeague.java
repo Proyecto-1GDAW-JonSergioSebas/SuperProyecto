@@ -9,10 +9,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
- * Esta clase gestiona las acciones necesarias en la base de datos sobre los objetos League
+ * Esta clase gestiona las acciones necesarias en la base de datos sobre los
+ * objetos League
+ *
  * @author Sergio Zulueta
  * @author Sebastián Zawisza
  * @author Jon Maneiro
@@ -101,5 +105,34 @@ public class DBLeague {
         rst.close();
         sta.close();
         return leaguenames;
+    }
+
+    /**
+     * Método que verifica si la última liga ha terminado, y si lo ha hecho,
+     * desbloquea los equipos.
+     *
+     * @param con la conexión
+     * @throws SQLException si ocurre un error de SQL
+     */
+    public static void updateLastLeagueStatus(Connection con) throws SQLException {
+        int leagueId = getLastLeagueID(con);
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery("SELECT OVER FROM LEAGUE WHERE ID_LG = " + leagueId);
+        boolean over = true;
+        while (rs.next()) {
+            over = rs.getInt(1) != 0;
+        }
+        if (!over) {
+            boolean shouldBeOver = true;
+            rs = st.executeQuery("SELECT MAX(DATE_TIME) FROM GAME WHERE MATCHSET IN (SELECT ID_MS FROM MATCHSET WHERE LEAGUE = " + leagueId + ")");
+            while (rs.next()) {
+                shouldBeOver = rs.getDate(1).before(Date.from(Instant.now()));
+            }
+
+            if (shouldBeOver) {
+                st.executeUpdate("UPDATE LEAGUE SET OVER = 1 WHERE ID_LG = " + leagueId);
+                st.executeUpdate("UPDATE TEAM SET BLOCKED = 0");
+            }
+        }
     }
 }

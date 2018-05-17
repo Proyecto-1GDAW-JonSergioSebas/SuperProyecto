@@ -309,11 +309,8 @@ public class TeamCRUD extends javax.swing.JDialog {
             jTextField1.setText(c.getNationality());
         });
     }//GEN-LAST:event_jComboBox2ActionPerformed
-    /**
-     * Cierra la ventana
-     * @param retStatus Generado automáticamente
-     */
 
+    /**
      * Verifica la validez del campo.
      *
      * @param evt
@@ -342,9 +339,10 @@ public class TeamCRUD extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jTextField1CaretUpdate
   
-  /** Cierra la ventana
+        /**
+     * Cierra la ventana
      * @param retStatus Generado automáticamente
-     */  
+     */
   private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
