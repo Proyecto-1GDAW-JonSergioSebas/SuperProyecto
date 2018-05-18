@@ -2,11 +2,11 @@
 <classification xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Classification.xsd">
     <team>
         <name>Aon</name>
-        <points>14</points>
+        <points>12</points>
     </team>
     <team>
         <name>Rua</name>
-        <points>14</points>
+        <points>15</points>
     </team>
     <team>
         <name>Kolme</name>
@@ -14,23 +14,23 @@
     </team>
     <team>
         <name>Papat</name>
-        <points>14</points>
+        <points>13</points>
     </team>
     <team>
         <name>Bost</name>
-        <points>14</points>
+        <points>13</points>
     </team>
     <team>
         <name>Isii</name>
-        <points>14</points>
+        <points>15</points>
     </team>
     <team>
         <name>Seachd</name>
-        <points>14</points>
+        <points>15</points>
     </team>
     <team>
         <name>Eight</name>
-        <points>14</points>
+        <points>15</points>
     </team>
 </classification>
 <!--<!DOCTYPE classification SYSTEM "Classification.dtd">-->

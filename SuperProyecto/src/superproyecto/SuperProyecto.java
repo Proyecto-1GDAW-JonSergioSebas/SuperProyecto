@@ -69,8 +69,8 @@ public class SuperProyecto {
         }
         try {
             /*^^NO MODIFICAR ESTO^^*/
-            if(getAllLeagueNames().size()!=0){
-            DOMParserLeague.executeDOMLeague();
+            if (getAllLeagueNames().size() != 0) {
+                DOMParserLeague.executeDOMLeague();
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
@@ -741,8 +741,7 @@ public class SuperProyecto {
         Date date = DBController.getLeagueEndDate(con);
         con.close();
         return date;
-    }      
-    
+    }
 
     /**
      * Coge todos los Game con todos sus datos que se correspondan con el ID del
@@ -784,5 +783,49 @@ public class SuperProyecto {
         Connection con = createConnection();
         DBController.updateLastLeagueStatus(con);
         con.close();
+    }
+
+    /**
+     * Devuelve los equipos no bloqueados que se corresponden a un dueño Si el
+     * string de username es vacío, devuelve todos los equipos
+     *
+     * @param ownerUsername el nombre de usuario del dueño
+     * @throws ClassNotFoundException no se encuentra la clase
+     * @throws SQLException hay una excepcion SQL
+     * @return lista con los equipos
+     */
+    public static ArrayList<Team> getTeamsByOwner(String ownerUsername) throws ClassNotFoundException, SQLException {
+        Connection con = createConnection();
+        ArrayList<Team> temp = DBController.getTeamsByOwner(con, ownerUsername);
+        return temp;
+    }
+
+    /**
+     * Método que bloquea un equipo basado en su nombre.
+     *
+     * @param teamName nombre del equipo a bloquear
+     * @throws SQLException si ocurre un error de SQL
+     * @throws java.lang.ClassNotFoundException si no se encuentra la clase
+     */
+    public static void blockTeam(String teamName) throws SQLException, ClassNotFoundException {
+        Connection con = createConnection();
+        DBTeam.blockTeam(teamName, con);
+        con.close();
+    }
+
+    /**
+     * Pide a la clase DBPlayer un ArrayList de Player
+     *
+     * @param team el nombre del equipo del cual queremos los jugadores
+     * @param con la conexion
+     * @return ArrayList de los jugadores
+     * @throws SQLException hay una excepcion SQL
+     * @see DBPlayer#getPlayers(int, java.sql.Connection)
+     */
+    public static ArrayList<Player> getPlayers(String team) throws SQLException, ClassNotFoundException {
+        Connection con = createConnection();
+        ArrayList<Player> players = DBController.getPlayers(team, con);
+        con.close();
+        return players;
     }
 }

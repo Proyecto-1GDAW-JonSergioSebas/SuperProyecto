@@ -95,14 +95,14 @@ public class DBController {
     /**
      * Pide a la clase DBPlayer un ArrayList de Player
      *
-     * @param teamid la id del equipo del cual queremos los jugadores
+     * @param team el nombre del equipo del cual queremos los jugadores
      * @param con la conexion
      * @return ArrayList de los jugadores
      * @throws SQLException hay una excepcion SQL
      * @see DBPlayer#getPlayers(int, java.sql.Connection)
      */
-    public static ArrayList<Player> obtainPlayers(int teamid, Connection con) throws SQLException {
-        ArrayList<Player> players = getPlayers(teamid, con);
+    public static ArrayList<Player> getPlayers(String team, Connection con) throws SQLException {
+        ArrayList<Player> players = DBPlayer.getPlayers(team, con);
         return players;
     }
 
@@ -629,7 +629,6 @@ public class DBController {
         return x;
     }
 
-
     /**
      * Obtiene los Game que hay dentro de un MatchSet del cual se pasa el ID
      *
@@ -713,5 +712,30 @@ public class DBController {
      */
     public static void updateLastLeagueStatus(Connection con) throws SQLException {
         DBLeague.updateLastLeagueStatus(con);
+    }
+
+    /**
+     * Devuelve los equipos no bloqueados que se corresponden a un dueño Si el
+     * string de username es vacío, devuelve todos los equipos
+     *
+     * @param con la conexion
+     * @param ownerUsername el nombre de usuario del dueño
+     * @throws ClassNotFoundException no se encuentra la clase
+     * @throws SQLException hay una excepcion SQL
+     * @return lista con los equipos
+     */
+    public static ArrayList<Team> getTeamsByOwner(Connection con, String ownerUsername) throws ClassNotFoundException, SQLException {
+        return DBTeam.getTeamsByOwner(con, ownerUsername);
+    }
+    
+    /**
+     * Método que bloquea un equipo basado en su nombre.
+     *
+     * @param teamName nombre del equipo a bloquear
+     * @param con la conexion
+     * @throws SQLException si ocurre un error de SQL
+     */
+    public static void blockTeam(String teamName, Connection con) throws SQLException {
+        DBTeam.blockTeam(teamName, con);
     }
 }

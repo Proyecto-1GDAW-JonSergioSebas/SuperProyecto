@@ -564,7 +564,7 @@ public class Admin extends javax.swing.JFrame {
      * @param evt Generado automáticamente.
      */
     private void jbOwnerViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOwnerViewActionPerformed
-        ViewController.owner(true);
+        ViewController.owner(true, "");
     }//GEN-LAST:event_jbOwnerViewActionPerformed
     /**
      * Abre la ventana de creación de jugador llamando al metodo
@@ -726,7 +726,7 @@ public class Admin extends javax.swing.JFrame {
      * @param evt Generado automáticamente.
      */
     private void jmViewOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmViewOwnerActionPerformed
-        ViewController.owner(true);
+        ViewController.owner(true, "");
     }//GEN-LAST:event_jmViewOwnerActionPerformed
     /**
      * Abre la ventana de visualización de el tipo seleccionado

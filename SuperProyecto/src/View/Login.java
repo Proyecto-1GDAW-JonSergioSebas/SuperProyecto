@@ -129,7 +129,7 @@ public class Login extends javax.swing.JFrame {
                     break;
                 case 2:
                     System.out.println("Abriendo panel de dueño.");
-                    ViewController.owner(false);
+                    ViewController.owner(false, tfUsername.getText());
                     dispose();
                     break;
                 case 3:

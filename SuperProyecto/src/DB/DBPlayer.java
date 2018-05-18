@@ -33,9 +33,9 @@ public class DBPlayer {
      * @return ArrayList con los jugadores
      * @throws SQLException hay una excepcion SQL
      */
-    public static ArrayList<Player> getPlayers(int teamid, Connection con) throws SQLException {
+    public static ArrayList<Player> getPlayers(String team, Connection con) throws SQLException {
         Statement est = con.createStatement();
-        ResultSet rest = est.executeQuery("SELECT * FROM PLAYER WHERE TEAM=" + teamid + ";");
+        ResultSet rest = est.executeQuery("SELECT * FROM PLAYER WHERE TEAM=(SELECT ID_TM FROM TEAM WHERE TEAM_NAME = " + team);
         ArrayList<Player> players = new ArrayList();
         while (rest.next()) {
             players.add(new Player(rest.getString(2), rest.getString(3), rest.getBigDecimal(4), rest.getString(5)));

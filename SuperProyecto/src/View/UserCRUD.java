@@ -362,7 +362,7 @@ public class UserCRUD extends javax.swing.JDialog {
             errors[2] = true;
         } else {
             jPasswordField2.setBackground(Color.WHITE);
-            errors[2] = false;
+            errors[2] = false; 
         }
     }//GEN-LAST:event_jPasswordField2CaretUpdate
   /** Cierra la ventana

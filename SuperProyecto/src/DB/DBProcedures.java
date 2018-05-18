@@ -14,7 +14,9 @@ import oracle.jdbc.OracleCallableStatement;
 import oracle.jdbc.OracleTypes;
 
 /**
- * Esta clase gestiona la activacion de las sentencias PL/SQL dentro de la base de datos
+ * Esta clase gestiona la activacion de las sentencias PL/SQL dentro de la base
+ * de datos
+ *
  * @author Sebastián Zawisza
  * @version %I% %G%
  * @since 1.0
@@ -54,7 +56,7 @@ public class DBProcedures {
         cs.setInt(1, leagueid);
         cs.registerOutParameter(2, OracleTypes.CURSOR);
         cs.execute();
-        ResultSet rs = ((OracleCallableStatement)cs).getCursor(2);
+        ResultSet rs = ((OracleCallableStatement) cs).getCursor(2);
         return rs;
     }
 }
