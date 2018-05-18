@@ -5,7 +5,6 @@
  */
 package DB;
 
-import static DB.DBController.createConnection;
 import ModelUML.Player;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -15,7 +14,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- * Esta clase gestiona las acciones necesarias en labase de datos sobre los objetos Player
+ * Esta clase gestiona las acciones necesarias en labase de datos sobre los
+ * objetos Player
+ *
  * @author Sergio Zulueta
  * @author Sebastián Zawisza
  * @author Jon Maneiro
@@ -100,7 +101,6 @@ public class DBPlayer {
     /**
      * Cambiar los datos de un Player
      *
-     * @param fullName nombre completo actual
      * @param newFullName nuevo nombre completo
      * @param nickname nickname actual
      * @param newNickname nuevo nickname

@@ -24,7 +24,11 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * Esta clase gestiona las operaciones CRUD de los Owner
- * @author Sebastián Zawisza 
+ *
+ * @author Sebastián Zawisza
+ * @author Jon Maneiro
+ * @version %I% %G%
+ * @since 1.0
  */
 public class OwnerCRUD extends javax.swing.JDialog {
 
@@ -87,6 +91,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
 
     /**
      * the return status of this dialog - one of RET_OK or RET_CANCEL
+     *
      * @return the return status of this dialog - one of RET_OK or RET_CANCEL
      */
     public int getReturnStatus() {
@@ -251,6 +256,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
     /**
      * Ejecuta la operacion CRUD que este seleccionada
+     *
      * @param evt Generado automáticamente
      */
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
@@ -329,6 +335,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
     }//GEN-LAST:event_okButtonActionPerformed
     /**
      * Cierra la ventana
+     *
      * @param evt Generado automáticamente
      */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -337,6 +344,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
 
     /**
      * Closes the dialog
+     *
      * @param evt Generado automáticamente
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
@@ -344,6 +352,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
     }//GEN-LAST:event_closeDialog
     /**
      * Rellena los campos con los datos del Owner seleccionado
+     *
      * @param evt Generado automáticamente
      */
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -354,7 +363,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
         });
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-      /**
+    /**
      * Verifica la validez del campo.
      *
      * @param evt
@@ -424,12 +433,17 @@ public class OwnerCRUD extends javax.swing.JDialog {
             errors[4] = false;
         }
     }//GEN-LAST:event_jPasswordField2CaretUpdate
-
+    /**
+     * Cierra la ventana
+     *
+     * @param retStatus Generado automáticamente.
+     */
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
         dispose();
     }
+
     /**
      * Vacia los campos
      */
@@ -443,6 +457,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
 
     /**
      * El main de la clase
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -478,8 +493,10 @@ public class OwnerCRUD extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private int returnStatus = RET_CANCEL;
+
     /**
-     * Actualiza la funcionalidad de la ventana en base al modo con el que se inicia
+     * Actualiza la funcionalidad de la ventana en base al modo con el que se
+     * inicia
      */
     private void mode() {
         jComboBox1.removeAllItems();

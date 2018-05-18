@@ -7,9 +7,8 @@ package ModelUML;
 
 /**
  * Esta clase contiene los metodos y constructores de los objetos Accounts
+ *
  * @author Sergio Zulueta
- * @author Sebastián Zawisza
- * @author Jon Maneiro
  * @version %I% %G%
  * @since 1.0
  */
@@ -53,6 +52,15 @@ public class Accounts {
      */
     public void setPassword(char[] password) {
         this.password = password;
+    }
+
+    /**
+     * Es un Get que devuelve la contraseña de las personas registradas
+     *
+     * @return devuelve la contraseña como array de caracteres
+     */
+    public char[] getPassword() {
+        return password;
     }
 
 }

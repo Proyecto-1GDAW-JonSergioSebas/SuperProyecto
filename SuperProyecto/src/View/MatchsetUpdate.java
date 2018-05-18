@@ -18,6 +18,8 @@ import javax.swing.table.DefaultTableModel;
  * puntuaciones
  *
  * @author Sebastián Zawisza
+ * @version %I% %G%
+ * @since 1.0
  */
 public class MatchsetUpdate extends javax.swing.JDialog {
 

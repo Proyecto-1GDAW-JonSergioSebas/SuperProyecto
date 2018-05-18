@@ -7,7 +7,10 @@ package Parser;
 
 /**
  * Esta clase contiene los metodos y constructores de los objetos TeamSax
+ *
  * @author Sergio Zulueta
+ * @version %I% %G%
+ * @since 1.0
  */
 public class TeamSax {
 
@@ -26,6 +29,7 @@ public class TeamSax {
 
     /**
      * Constructor lleno
+     *
      * @param name (requerido) Nombre recibido del XML
      * @param points (requerido) Puntos recibidos del XML
      */
@@ -36,7 +40,7 @@ public class TeamSax {
 
     /**
      * Es un Get que devuelve el nombre leido en el XML.
-     * 
+     *
      * @return name devuelve el name
      */
     public String getName() {
@@ -45,7 +49,7 @@ public class TeamSax {
 
     /**
      * Es un Set que establece el nombre leido en el XML.
-     * 
+     *
      * @param name establece el name
      */
     public void setName(String name) {
@@ -54,7 +58,7 @@ public class TeamSax {
 
     /**
      * Es un Get que devuelve los puntos leidos en el XML.
-     * 
+     *
      * @return points devuelve los points
      */
     public int getPoints() {
@@ -63,7 +67,7 @@ public class TeamSax {
 
     /**
      * Es un Get que establece los puntos leidos en el XML.
-     * 
+     *
      * @param points establece los points
      */
     public void setPoints(int points) {
@@ -72,7 +76,7 @@ public class TeamSax {
 
     /**
      * Para sacar por pantalla los datos.
-     * 
+     *
      * @return un String con los datos de TeamSax
      */
     @Override
