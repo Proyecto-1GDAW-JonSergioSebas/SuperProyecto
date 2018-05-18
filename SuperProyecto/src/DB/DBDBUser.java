@@ -13,7 +13,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- * Esta clase gestiona las acciones necesarias en la base de datos sobre los objetos DBUser
+ * Esta clase gestiona las acciones necesarias en la base de datos sobre los
+ * objetos DBUser
+ *
  * @author Sergio Zulueta
  * @author Sebastián Zawisza
  * @author Jon Maneiro
@@ -43,7 +45,6 @@ public class DBDBUser {
      * la contraseña
      *
      * @param username el nombre de usuario
-     * @param password la contraseña
      * @param con la conexion
      * @throws SQLException si se da una excepcion SQL
      */

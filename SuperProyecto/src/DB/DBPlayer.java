@@ -5,7 +5,6 @@
  */
 package DB;
 
-import static DB.DBController.createConnection;
 import ModelUML.Player;
 import View.ViewController;
 import java.math.BigDecimal;
@@ -109,7 +108,6 @@ public class DBPlayer {
     /**
      * Cambiar los datos de un Player
      *
-     * @param fullName nombre completo actual
      * @param newFullName nuevo nombre completo
      * @param nickname nickname actual
      * @param newNickname nuevo nickname

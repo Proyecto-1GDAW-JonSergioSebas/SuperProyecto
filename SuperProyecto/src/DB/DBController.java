@@ -21,7 +21,6 @@ import static DB.DBTeam.getGameTeam;
 import static DB.DBTeam.getTeams;
 import static DB.DBTeam.searchTeam;
 import static DB.DBTeamOwner.getTeamOwner;
-import ModelUML.DBAdmin;
 import ModelUML.DBUser;
 import ModelUML.Game;
 import ModelUML.Player;
@@ -125,6 +124,7 @@ public class DBController {
      *
      * @param leaguename en nombre de la liga
      * @param con la conexion
+     * @return el id de el MatchSet que ha sido creado
      * @throws SQLException hay una excepcion SQL
      */
     public static int createMatchSet(String leaguename, Connection con) throws SQLException {
@@ -171,6 +171,7 @@ public class DBController {
      *
      * @param con conexion
      * @return la dicha lista
+     * @throws java.sql.SQLException si se da alguna excepcion SQL
      */
     public static ArrayList<DBUser> selectAllDBUsers(Connection con) throws SQLException {
         return DBDBUser.selectAllUsers(con);
@@ -192,7 +193,6 @@ public class DBController {
      * Elimina un DBUser de la base de datos
      *
      * @param username el nombre de usuario
-     * @param password la contraseña
      * @param con la conexion
      * @throws SQLException si se da alguna excepcion SQL
      */
@@ -342,7 +342,6 @@ public class DBController {
      * Llama a la clase DBTeamOwner para que elimine un TeamOwner
      *
      * @param username el nombre de usuario
-     * @param password la contraseña
      * @param con la conexion
      * @throws SQLException si se da alguna excepcion SQL
      */
@@ -456,13 +455,13 @@ public class DBController {
      * Llama a la clase DBPlayer para que actualice un Player de la base de
      * datos
      *
-     * @param fullName
-     * @param nickname
-     * @param oldnickname
-     * @param salary
-     * @param email
-     * @param con
-     * @throws SQLException
+     * @param fullName nombre completo del Player
+     * @param nickname nickname
+     * @param oldnickname antiguo nickname
+     * @param salary salario
+     * @param email email
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
      */
     public static void updatePlayer(String fullName, String nickname, String oldnickname, BigDecimal salary, String email, Connection con) throws SQLException {
         DBPlayer.updatePlayer(fullName, oldnickname, nickname, salary, email, con);
@@ -471,9 +470,9 @@ public class DBController {
     /**
      * Realiza una consulta a la base de datos y devuelve todos los Users
      *
-     * @param con
+     * @param con la conexion
      * @return La lista de Users
-     * @throws SQLException
+     * @throws SQLException si se da alguna excepcion SQL
      */
     public static ArrayList<DBUser> selectDBUsers(Connection con) throws SQLException {
         return DBDBUser.selectAllUsers(con);
@@ -482,9 +481,9 @@ public class DBController {
     /**
      * Realiza una consulta a la base de datos y devuelve todos los Admins
      *
-     * @param con
+     * @param con la conexion
      * @return La lista de Admins
-     * @throws SQLException
+     * @throws SQLException si se da alguna excepcion SQL
      */
     public static ArrayList<TeamOwner> selectDBOwners(Connection con) throws SQLException {
         return DBTeamOwner.selectAllTeamOwners(con);
@@ -493,9 +492,9 @@ public class DBController {
     /**
      * Realiza una consulta a la base de datos y devuelve todos los Players
      *
-     * @param con
+     * @param con la conexion
      * @return La lista de Players
-     * @throws SQLException
+     * @throws SQLException si se da alguna excepcion SQL
      */
     public static ArrayList<Player> selectDBPlayers(Connection con) throws SQLException {
         return DBPlayer.selectAllPlayers(con);
@@ -504,9 +503,11 @@ public class DBController {
     /**
      * Realiza una consulta a la base de datos y devuelve todos los Teams
      *
-     * @param con
+     * @param con la conexion
      * @return La lista de Teams
-     * @throws SQLException
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
+     *
      */
     public static ArrayList<Team> selectDBTeams(Connection con) throws SQLException, ClassNotFoundException {
         return DBTeam.getTeams(con);
@@ -658,7 +659,6 @@ public class DBController {
     /**
      * Coge de la base de datos el Date más elevado última liga
      *
-     * @param leagueId el ID de la liga
      * @param con la conexion
      * @return devuelve un objeto Date
      * @throws SQLException si se da alguna excepcion SQL
@@ -684,7 +684,8 @@ public class DBController {
      * Introduce a la base de datos la información contenida en el TreeMap
      *
      * @param games el TreeMap con todos los juegos, puntuaciones, y equipos
-     * @param con la conección
+     * @param con la conexión
+     * @throws SQLException si se da alguna excepcion SQL
      */
     public static void setGames(TreeMap<Integer, Game> games, Connection con) throws SQLException {
         DBGame.setGames(games, con);

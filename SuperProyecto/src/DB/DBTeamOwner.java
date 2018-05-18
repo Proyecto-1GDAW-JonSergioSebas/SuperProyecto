@@ -13,7 +13,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- * Esta clase gestiona las acciones necesarias en la base de datos sobre los objetos TeamOwner
+ * Esta clase gestiona las acciones necesarias en la base de datos sobre los
+ * objetos TeamOwner
+ *
  * @author Sergio Zulueta
  * @author Sebastián Zawisza
  * @author Jon Maneiro
@@ -33,8 +35,10 @@ public class DBTeamOwner {
     public static TeamOwner getTeamOwner(int teamownerid, Connection con) throws SQLException {
         Statement stat = con.createStatement();
         ResultSet rs = stat.executeQuery("SELECT * FROM TEAM_OWNER WHERE ID_TO=" + teamownerid);
-        rs.next();
-        TeamOwner own = new TeamOwner(rs.getString(2), rs.getString(4), rs.getString(5));
+        TeamOwner own = new TeamOwner();
+        while (rs.next()) {
+            own = new TeamOwner(rs.getString(2), rs.getString(4), rs.getString(5));
+        }
         rs.close();
         stat.close();
         return own;
@@ -75,8 +79,12 @@ public class DBTeamOwner {
      * Cambia la contraseña de un TeamOwner
      *
      * @param username nombre de usuario
+     * @param newUsername
      * @param newPassword la nueva contraseña
+     * @param newFullName el nuevo nombre completo
+     * @param newTelephone el nuevo numero de telefono
      * @param con la conexion
+     *
      * @throws SQLException si se da alguna excepcion en SQL
      */
     public static void updateDBTeamOwner(String username, String newUsername, char[] newPassword, String newFullName, String newTelephone, Connection con) throws SQLException {
@@ -120,8 +128,9 @@ public class DBTeamOwner {
         int id = 0;
         Statement sta = con.createStatement();
         ResultSet resul = sta.executeQuery("SELECT ID_TO FROM TEAM_OWNER WHERE USERNAME='" + owner + "'");
-        resul.next();
-        id = resul.getInt(1);
+        while (resul.next()) {
+            id = resul.getInt(1);
+        }
         resul.close();
         sta.close();
         return id;

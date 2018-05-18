@@ -14,8 +14,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -27,7 +25,11 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * Esta clase se encarga de las operaciones CRUD de los Player
+ *
  * @author Sebastián Zawisza
+ * @author Jon Maneiro
+ * @version %I% %G%
+ * @since 1.0
  */
 public class PlayerCRUD extends javax.swing.JDialog {
 
@@ -90,6 +92,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
 
     /**
      * the return status of this dialog - one of RET_OK or RET_CANCEL
+     *
      * @return the return status of this dialog - one of RET_OK or RET_CANCEL
      */
     public int getReturnStatus() {
@@ -242,6 +245,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
     /**
      * Ejecuta la operacion CRUD que este seleccionada
+     *
      * @param evt Generado automáticamente
      */
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
@@ -310,7 +314,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
                             Logger.getLogger(PlayerCRUD.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (SQLException ex) {
                             Logger.getLogger(PlayerCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                            JOptionPane.showMessageDialog(this, "Error no controlado:\n"+ex.toString());
+                            JOptionPane.showMessageDialog(this, "Error no controlado:\n" + ex.toString());
                         }
                         break;
                 }
@@ -323,6 +327,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
     }//GEN-LAST:event_okButtonActionPerformed
     /**
      * Cierra la ventana
+     *
      * @param evt Generado automáticamente
      */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -331,6 +336,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
 
     /**
      * Closes the dialog
+     *
      * @param evt Generado automáticamente
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
@@ -338,6 +344,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
     }//GEN-LAST:event_closeDialog
     /**
      * Rellena los campos con los datos del Player seleccionado
+     *
      * @param evt Generado automáticamente
      */
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
@@ -395,6 +402,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
 
     /**
      * Cierra la ventana
+     *
      * @param retStatus Generado automáticamente
      */
     private void doClose(int retStatus) {
@@ -402,8 +410,10 @@ public class PlayerCRUD extends javax.swing.JDialog {
         setVisible(false);
         dispose();
     }
+
     /**
-     * Actualiza la funcionalidad de la ventana en funcion del modo con el que se ha iniciado
+     * Actualiza la funcionalidad de la ventana en funcion del modo con el que
+     * se ha iniciado
      */
     private void mode() {
         jComboBox2.removeAllItems();
@@ -436,6 +446,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
 
     /**
      * El main de la clase
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) {

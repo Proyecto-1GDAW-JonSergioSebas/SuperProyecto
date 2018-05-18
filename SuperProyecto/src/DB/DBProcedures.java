@@ -30,7 +30,7 @@ public class DBProcedures {
      * @param pw Contraseña
      * @param con La conexión
      * @return el tipo de cuenta
-     * @throws SQLException si sucede algun error de sql
+     * @throws SQLException si sucede algun error de SQL
      */
     public static int LoginGetType(String us, String pw, Connection con) throws SQLException {
         CallableStatement cs = con.prepareCall("{CALL LOGIN.GET_TYPE(?, ?, ?)}"); //todo esto es brujería        

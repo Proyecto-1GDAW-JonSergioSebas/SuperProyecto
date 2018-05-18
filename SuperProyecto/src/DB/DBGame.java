@@ -19,7 +19,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Esta clase gestiona las acciones necesarias en la base de datos sobre los objetos Game
+ * Esta clase gestiona las acciones necesarias en la base de datos sobre los
+ * objetos Game
+ *
  * @author Sergio Zulueta
  * @author Sebastián Zawisza
  * @author Jon Maneiro
@@ -35,6 +37,7 @@ public class DBGame {
      * @param gm El juego
      * @param matchsetnum el numero de jornada
      * @param con la conexion
+     * @return el id del Game que se acaba de crear
      * @throws SQLException hay una excepcion SQL
      */
     public static int insertGame(Game gm, int matchsetnum, Connection con) throws SQLException {
@@ -154,7 +157,8 @@ public class DBGame {
      * Introduce a la base de datos la información contenida en el TreeMap
      *
      * @param games el TreeMap con todos los juegos, puntuaciones, y equipos
-     * @param con la conección
+     * @param con la conexión
+     * @throws java.sql.SQLException
      */
     public static void setGames(TreeMap<Integer, Game> games, Connection con) throws SQLException {
         Statement st = con.createStatement();

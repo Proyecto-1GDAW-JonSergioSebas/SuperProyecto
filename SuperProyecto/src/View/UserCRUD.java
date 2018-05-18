@@ -24,8 +24,11 @@ import javax.swing.JOptionPane;
 
 /**
  * Esta clase se encarga de las operaciones CRUD de los User
+ *
  * @author Sebastián Zawisza
  * @author Jon Maneiro
+ * @version %I% %G%
+ * @since 1.0
  */
 public class UserCRUD extends javax.swing.JDialog {
 
@@ -87,7 +90,8 @@ public class UserCRUD extends javax.swing.JDialog {
     }
 
     /**
-     * the return status of this dialog - one of RET_OK or RET_CANCEL
+     * The return status of this dialog - one of RET_OK or RET_CANCEL
+     *
      * @return the return status of this dialog - one of RET_OK or RET_CANCEL
      */
     public int getReturnStatus() {
@@ -223,6 +227,7 @@ public class UserCRUD extends javax.swing.JDialog {
 
     /**
      * Closes the dialog
+     *
      * @param evt Generado automáticamente
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
@@ -230,6 +235,7 @@ public class UserCRUD extends javax.swing.JDialog {
     }//GEN-LAST:event_closeDialog
     /**
      * Ejecuta la operacion CRUD que este seleccionada
+     *
      * @param evt Generado automáticamente
      */
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
@@ -308,6 +314,7 @@ public class UserCRUD extends javax.swing.JDialog {
     }//GEN-LAST:event_okButtonActionPerformed
     /**
      * Cierra la ventana
+     *
      * @param evt Generado automáticamente
      */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -315,6 +322,7 @@ public class UserCRUD extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelButtonActionPerformed
     /**
      * Rellena los campos con los datos del User seleccionado
+     *
      * @param evt Generado automáticamente
      */
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -323,7 +331,6 @@ public class UserCRUD extends javax.swing.JDialog {
         });
     }//GEN-LAST:event_jComboBox1ActionPerformed
     /**
-
      * Verifica la validez del campo.
      *
      * @param evt
@@ -365,10 +372,12 @@ public class UserCRUD extends javax.swing.JDialog {
             errors[2] = false; 
         }
     }//GEN-LAST:event_jPasswordField2CaretUpdate
-  /** Cierra la ventana
+    /**
+     * Cierra la ventana
+     *
      * @param retStatus Generado automáticamente
-     */  
-  private void doClose(int retStatus) {
+     */
+    private void doClose(int retStatus) {
         returnStatus = retStatus;
         dispose();
     }
@@ -406,6 +415,7 @@ public class UserCRUD extends javax.swing.JDialog {
         }
 
     }
+
     /**
      * Vacia los campos
      */
@@ -417,6 +427,7 @@ public class UserCRUD extends javax.swing.JDialog {
 
     /**
      * El main de la clase
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) {

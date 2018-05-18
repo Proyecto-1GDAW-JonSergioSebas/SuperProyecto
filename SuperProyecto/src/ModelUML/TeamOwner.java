@@ -7,9 +7,8 @@ package ModelUML;
 
 /**
  * Esta clase contiene los metodos y constructores de los objetos TeamOwner
+ *
  * @author Sergio Zulueta
- * @author Sebastián Zawisza
- * @author Jon Maneiro
  * @version %I% %G%
  * @since 1.0
  * @see Accounts
@@ -41,9 +40,9 @@ public class TeamOwner extends Accounts {
     /**
      * Constructor parcial, para la visualización de dueños en listas.
      *
-     * @param userName
-     * @param fullName
-     * @param telephone
+     * @param userName el nombre de usuario
+     * @param fullName nombre completo
+     * @param telephone numero de telefono
      */
     public TeamOwner(String userName, String fullName, String telephone) {
         this.fullName = fullName;

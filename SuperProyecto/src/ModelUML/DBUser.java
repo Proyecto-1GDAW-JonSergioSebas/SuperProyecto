@@ -7,17 +7,14 @@ package ModelUML;
 
 /**
  * Esta clase contiene los metodos y constructores de los objetos DBUser
+ *
  * @author Sergio Zulueta
- * @author Sebastián Zawisza
- * @author Jon Maneiro
  * @version %I% %G%
  * @since 1.0
  * @see Accounts
  */
-
 public class DBUser extends Accounts {
-    
-    
+
     /**
      * Constructor vacio. (Para invocación por constructores de subclases,
      * típicamente implícito.)
@@ -27,9 +24,10 @@ public class DBUser extends Accounts {
 
     /**
      * Constructor lleno
-     * 
+     *
      * @param userName (requerido) Nombre de usuario para acceder al programa
-     * @param password (requerido) Contraseña delusuario para accedera al programa
+     * @param password (requerido) Contraseña delusuario para accedera al
+     * programa
      */
     public DBUser(String userName, char[] password) {
         super.setUserName(userName);

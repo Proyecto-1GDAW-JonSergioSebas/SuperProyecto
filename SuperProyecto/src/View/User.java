@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 
 /**
  * Esta clase se encarga de gestionar las operaciones de la vista del Usuario
+ *
  * @author Sebastián Zawisza
  * @author Jon Maneiro
  * @version %I% %G%
@@ -34,6 +34,7 @@ public class User extends javax.swing.JFrame {
 
     /**
      * Creates new form User
+     *
      * @param child Generado automáticamente
      */
     public User(boolean child) {
@@ -55,7 +56,7 @@ public class User extends javax.swing.JFrame {
         if (child) {
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         }
-        
+
         league = ViewController.executeSaxParserLeague();
         cbLeague.addItem("Liga actual");
         fillCbLeague();
@@ -204,7 +205,9 @@ public class User extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     /**
-     * Actualiza la clasificacion y los MatchSet disponibles en funcion de la League seleccionada
+     * Actualiza la clasificacion y los MatchSet disponibles en funcion de la
+     * League seleccionada
+     *
      * @param evt Generado automáticamente
      */
     private void cbLeagueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLeagueActionPerformed
@@ -217,6 +220,7 @@ public class User extends javax.swing.JFrame {
     }//GEN-LAST:event_cbLeagueActionPerformed
     /**
      * Vacio
+     *
      * @param evt Generado automáticamente
      */
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -225,58 +229,64 @@ public class User extends javax.swing.JFrame {
     /**
      * Actualiza la tabla en la que se muestran las puntuaciones de los partidos
      * en funcion del MatchSet seleccionado
+     *
      * @param evt Generado automáticamente
      */
     private void cbMatchsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMatchsetActionPerformed
-        if(cbLeague.getSelectedItem().toString().equalsIgnoreCase("Liga actual")){
+        if (cbLeague.getSelectedItem().toString().equalsIgnoreCase("Liga actual")) {
             int selMatch = cbMatchset.getSelectedIndex();
             DefaultTableModel dtml = (DefaultTableModel) jtGames.getModel();
             dtml.setRowCount(0);
-            for(Game g:league.get(selMatch).getGames()){
-                String winner="";
-                if(g.getScore1()==g.getScore2()) winner="Empate";
-                else if(g.getScore1()>g.getScore2()) winner = ""+ g.getTeam1().getTeamName();
-                else winner= ""+g.getTeam2().getTeamName();
-                
-                Object[] raw={g.getTeam1().getTeamName(),(g.getScore1()==-1) ? null :g.getScore1()
-                ,g.getTeam2().getTeamName(),(g.getScore2()==-1) ? null:g.getScore2(),winner};
+            for (Game g : league.get(selMatch).getGames()) {
+                String winner = "";
+                if (g.getScore1() == g.getScore2()) {
+                    winner = "Empate";
+                } else if (g.getScore1() > g.getScore2()) {
+                    winner = "" + g.getTeam1().getTeamName();
+                } else {
+                    winner = "" + g.getTeam2().getTeamName();
+                }
+
+                Object[] raw = {g.getTeam1().getTeamName(), (g.getScore1() == -1) ? null : g.getScore1(),
+                     g.getTeam2().getTeamName(), (g.getScore2() == -1) ? null : g.getScore2(), winner};
                 dtml.addRow(raw);
-                
+
             }
             jtGames.setModel(dtml);
-        } else{
-        try {
-            DefaultTableModel dtm = (DefaultTableModel) jtGames.getModel();
-            dtm.setRowCount(0);
-            TreeMap<Integer, Game> games = ViewController.getGames(Integer.parseInt((String) cbMatchset.getSelectedItem()));
-            int i = 0;
-            for (Game g : games.values()) {
-                dtm.addRow(new Object[5]);
-                dtm.setValueAt(g.getTeam1().getTeamName(), i, 0);
-                dtm.setValueAt(((g.getScore1() == -1) ? null : g.getScore1()), i, 1);
-                dtm.setValueAt(g.getTeam2().getTeamName(), i, 2);
-                dtm.setValueAt(((g.getScore2() == -1) ? null : g.getScore2()), i, 3);
-                if (g.getScore1() == g.getScore2()) {
-                    dtm.setValueAt("Empate", i, 4);
-                } else if (g.getScore1() > g.getScore2()) {
-                    dtm.setValueAt(g.getTeam1().getTeamName(), i, 4);
-                } else {
-                    dtm.setValueAt(g.getTeam2().getTeamName(), i, 4);
+        } else {
+            try {
+                DefaultTableModel dtm = (DefaultTableModel) jtGames.getModel();
+                dtm.setRowCount(0);
+                TreeMap<Integer, Game> games = ViewController.getGames(Integer.parseInt((String) cbMatchset.getSelectedItem()));
+                int i = 0;
+                for (Game g : games.values()) {
+                    dtm.addRow(new Object[5]);
+                    dtm.setValueAt(g.getTeam1().getTeamName(), i, 0);
+                    dtm.setValueAt(((g.getScore1() == -1) ? null : g.getScore1()), i, 1);
+                    dtm.setValueAt(g.getTeam2().getTeamName(), i, 2);
+                    dtm.setValueAt(((g.getScore2() == -1) ? null : g.getScore2()), i, 3);
+                    if (g.getScore1() == g.getScore2()) {
+                        dtm.setValueAt("Empate", i, 4);
+                    } else if (g.getScore1() > g.getScore2()) {
+                        dtm.setValueAt(g.getTeam1().getTeamName(), i, 4);
+                    } else {
+                        dtm.setValueAt(g.getTeam2().getTeamName(), i, 4);
+                    }
+                    i++;
                 }
-                i++;
-            }
-            jtGames.setModel(dtm);
+                jtGames.setModel(dtm);
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_cbMatchsetActionPerformed
 
     /**
      * El main de la clase
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -338,8 +348,10 @@ public class User extends javax.swing.JFrame {
         }
 
     }
+
     /**
      * Rellena el comboBox que contiene los MatchSet
+     *
      * @param leaguename el nombre de la liga seleccionada
      */
     private void fillCbMatchSet(String leaguename) {
@@ -358,6 +370,7 @@ public class User extends javax.swing.JFrame {
             }
         }
     }
+
     /**
      * Llena la lista de Clasificacion de la liga actual
      */
