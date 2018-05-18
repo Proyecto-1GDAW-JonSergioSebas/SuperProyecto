@@ -26,6 +26,7 @@ public class DBTeam {
 
     /**
      * Devuelve los equipos bloqueados con su nombre, nacionalidad, y dueño
+
      *
      * @param con la conexion
      * @throws ClassNotFoundException no se encuentra la clase
@@ -49,6 +50,28 @@ public class DBTeam {
         sent.close();
         return teams;
     }
+  
+    /**
+     * Devuelve los equipos con el nombre y la nacionalidad
+     * @param con la conexion
+     * @return lista con los equipos
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static ArrayList<Team> getTeamsOG(Connection con) throws ClassNotFoundException, SQLException {
+
+        ArrayList<Team> teams = new ArrayList();
+        ArrayList<Integer> owners = new ArrayList();
+        Statement sent = con.createStatement();
+        ResultSet resul = sent.executeQuery("SELECT * FROM TEAM");
+        while (resul.next()) {
+            teams.add(new Team(resul.getString(2), resul.getString(3)));
+            owners.add(resul.getInt(4));
+        }
+        for (int i = 0; i < teams.size(); i++) {
+            teams.get(i).setTeamOwner(DBController.obtainTeamOwner(owners.get(i), con));
+        }
+        resul.close();
     
     /**
      * Devuelve los equipos no bloqueados que se corresponden a un dueño

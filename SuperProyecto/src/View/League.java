@@ -138,7 +138,7 @@ public class League extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     /**
-     * Comprueba que se han introducido los datos correctamente y inicia la
+     * Comprueba que se han introducido los datos correctamente e inicia la
      * generacion de calendario
      *
      * @param evt Generado automáticamente
