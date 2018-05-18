@@ -17,13 +17,16 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.TreeMap;
 import javax.swing.JOptionPane;
 import superproyecto.SuperProyecto;
 
 /**
+ * Esta clase se encarga de hacer de intermediario entre las vistas y el resto
+ * del programa, es decir, ninguna función de las vistas saldrá de ellas sin
+ * pasar por esta clase.
+ *
  * @author Sebastián Zawisza
  * @author Sergio Zulueta
  * @author Jon Maneiro
@@ -143,6 +146,8 @@ public class ViewController {
      * @param username el nombre del usuario
      * @param password un array de caracteres que contiene la contraseña
      * @return el tipo de cuenta
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepción SQL
      */
     public static byte LoginAccountQuery(String username, char[] password) throws ClassNotFoundException, SQLException {
         return SuperProyecto.getAccountType(username, password);
@@ -570,8 +575,8 @@ public class ViewController {
      * Método que verifica si la última liga ha terminado, y si lo ha hecho,
      * desbloquea los equipos.
      *
-     * @param con la conexión
      * @throws SQLException si ocurre un error de SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static void updateLastLeagueStatus() throws SQLException, ClassNotFoundException {
         SuperProyecto.updateLastLeagueStatus();
