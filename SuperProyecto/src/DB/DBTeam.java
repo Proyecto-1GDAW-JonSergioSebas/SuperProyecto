@@ -72,6 +72,8 @@ public class DBTeam {
             teams.get(i).setTeamOwner(DBController.obtainTeamOwner(owners.get(i), con));
         }
         resul.close();
+        return teams;
+    }
     
     /**
      * Devuelve los equipos no bloqueados que se corresponden a un dueño
