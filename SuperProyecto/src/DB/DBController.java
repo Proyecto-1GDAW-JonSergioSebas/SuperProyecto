@@ -94,14 +94,16 @@ public class DBController {
     /**
      * Pide a la clase DBPlayer un ArrayList de Player
      *
-     * @param teamid la id del equipo del cual queremos los jugadores
+     * @param team el nombre del equipo del cual queremos los jugadores
      * @param con la conexion
+     * @param with si es con, o sin el equipo
+     *
      * @return ArrayList de los jugadores
      * @throws SQLException hay una excepcion SQL
      * @see DBPlayer#getPlayers(int, java.sql.Connection)
      */
-    public static ArrayList<Player> obtainPlayers(int teamid, Connection con) throws SQLException {
-        ArrayList<Player> players = getPlayers(teamid, con);
+    public static ArrayList<Player> getPlayers(String team, Connection con, boolean with) throws SQLException {
+        ArrayList<Player> players = DBPlayer.getPlayers(team, con, with);
         return players;
     }
 
@@ -630,7 +632,6 @@ public class DBController {
         return x;
     }
 
-
     /**
      * Obtiene los Game que hay dentro de un MatchSet del cual se pasa el ID
      *
@@ -715,7 +716,8 @@ public class DBController {
     public static void updateLastLeagueStatus(Connection con) throws SQLException {
         DBLeague.updateLastLeagueStatus(con);
     }
-    /**
+
+  /**
      * Devuelve un ArrayList con el nombre y la nacionalidad
      * @param con la conexion
      * @return un ArrayList con los equipos
@@ -724,5 +726,66 @@ public class DBController {
      */
     public static ArrayList selectDBTeamsOG(Connection con) throws ClassNotFoundException, SQLException {
         return DBTeam.getTeamsOG(con);
+
+    /**
+     * Devuelve los equipos no bloqueados que se corresponden a un dueño Si el
+     * string de username es vacío, devuelve todos los equipos
+     *
+     * @param con la conexion
+     * @param ownerUsername el nombre de usuario del dueño
+     * @throws ClassNotFoundException no se encuentra la clase
+     * @throws SQLException hay una excepcion SQL
+     * @return lista con los equipos
+     */
+    public static ArrayList<Team> getTeamsByOwner(Connection con, String ownerUsername) throws ClassNotFoundException, SQLException {
+        return DBTeam.getTeamsByOwner(con, ownerUsername);
+    }
+
+    /**
+     * Método que bloquea un equipo basado en su nombre.
+     *
+     * @param teamName nombre del equipo a bloquear
+     * @param con la conexion
+     * @throws SQLException si ocurre un error de SQL
+     */
+    public static void blockTeam(String teamName, Connection con) throws SQLException {
+        DBTeam.blockTeam(teamName, con);
+    }
+
+    /**
+     * Le cambia el valor de TEAM a un PLAYER
+     *
+     * @param nickname el nickname actual
+     * @param newTeam el nombre del nuevo equipo
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void updatePlayerT(String nickname, String newTeam, Connection con) throws SQLException {
+        DBPlayer.updatePlayerT(nickname, newTeam, con);
+    }
+
+    /**
+     * Devuelve el ID correspondiente con el nombre del equipo tomado como
+     * parametro
+     *
+     * @param teamName nombre del equipo
+     * @param con conexion
+     * @return el ID del equipo
+     * @throws SQLException si ocurre algun error de SQL
+     */
+    public static int searchTeam(String teamName, Connection con) throws SQLException {
+        return DBTeam.searchTeam(teamName, con);
+    }
+
+    /**
+     * Actualiza el Player y cambial el valor de TEAM al ser eliminado de un
+     * equipo
+     *
+     * @param nickname
+     * @param con
+     * @throws SQLException
+     */
+    public static void updatePlayerTeamEmpty(String nickname, Connection con) throws SQLException {
+        DBPlayer.updatePlayerTeamEmpty(nickname, con);
     }
 }

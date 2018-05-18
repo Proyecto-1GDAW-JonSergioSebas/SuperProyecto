@@ -25,7 +25,8 @@ import java.util.ArrayList;
 public class DBTeam {
 
     /**
-     * Devuelve los equipos con el nombre y la nacionalidad si estan bloqueados
+     * Devuelve los equipos bloqueados con su nombre, nacionalidad, y dueño
+
      *
      * @param con la conexion
      * @throws ClassNotFoundException no se encuentra la clase
@@ -49,6 +50,7 @@ public class DBTeam {
         sent.close();
         return teams;
     }
+  
     /**
      * Devuelve los equipos con el nombre y la nacionalidad
      * @param con la conexion
@@ -70,6 +72,30 @@ public class DBTeam {
             teams.get(i).setTeamOwner(DBController.obtainTeamOwner(owners.get(i), con));
         }
         resul.close();
+    
+    /**
+     * Devuelve los equipos no bloqueados que se corresponden a un dueño
+     * Si el string de username es vacío, devuelve todos los equipos
+     * @param con la conexion
+     * @param ownerUsername el nombre de usuario del dueño
+     * @throws ClassNotFoundException no se encuentra la clase
+     * @throws SQLException hay una excepcion SQL
+     * @return lista con los equipos
+     */
+    public static ArrayList<Team> getTeamsByOwner(Connection con, String ownerUsername) throws ClassNotFoundException, SQLException {
+        ArrayList<Team> teams = new ArrayList();
+        Statement sent = con.createStatement();
+        //ResultSet res = sent.executeQuery("SELECT * FROM TEAM WHERE BLOCKED = 0" + ((ownerUsername.equals("")) ? "" : " AND TEAM_OWNER = (SELECT ID_TO FROM TEAM_OWNER WHERE USERNAME = '"+ownerUsername+ "')"));
+        ResultSet res;
+        if (ownerUsername.equals("")){
+            res = sent.executeQuery("SELECT * FROM TEAM WHERE BLOCKED = 0");
+        } else {
+            res = sent.executeQuery("SELECT * FROM TEAM WHERE BLOCKED = 0 AND TEAM_OWNER = (SELECT ID_TO FROM TEAM_OWNER WHERE USERNAME = '"+ownerUsername+"')");
+        }
+        while (res.next()) {
+            teams.add(new Team(res.getString(2), res.getString(3)));
+        }
+        res.close();
         sent.close();
         return teams;
     }
@@ -215,5 +241,16 @@ public class DBTeam {
         resul.close();
         sta.close();
         return team;
+    }
+    
+    /**
+     * Método que bloquea un equipo basado en su nombre.
+     * @param teamName nombre del equipo a bloquear
+     * @param con la conexion
+     * @throws SQLException 
+     */
+    public static void blockTeam(String teamName, Connection con) throws SQLException {
+        Statement st = con.createStatement();
+        st.executeUpdate("UPDATE TEAM SET BLOCKED = 1 WHERE TEAM_NAME ='"+teamName+"'");
     }
 }
