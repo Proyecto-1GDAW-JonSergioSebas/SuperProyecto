@@ -4,11 +4,8 @@
  * and open the template in the editor.
  */
 package Parser;
+
 import DB.DBController;
-import static DB.DBController.createConnection;
-import ModelUML.Game;
-import ModelUML.League;
-import ModelUML.MatchSet;
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 import java.io.File;
@@ -18,8 +15,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,38 +28,39 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.xml.sax.SAXException;
 import superproyecto.SuperProyecto;
-import static superproyecto.SuperProyecto.askAllGamesID;
-import static superproyecto.SuperProyecto.askLastLeagueID;
-import static superproyecto.SuperProyecto.askMatchSetsID;
-import static superproyecto.SuperProyecto.createMatchSets;
+
 /**
- *  Esta clase se encarga de obtener la informacion de la base de datoss y con ella
- * crear un arbol de DOM, para despues introducir esa informacion en el fichero
- * xml Classification.xml
- * @version %I% %G%
+ * Esta clase se encarga de obtener la informacion de la base de datoss y con
+ * ella crear un arbol de DOM, para despues introducir esa informacion en el
+ * fichero xml Classification.xml
+ *
  * @author Jon Maneiro
+ * @version %I% %G%
+ * @since 1.0
  */
 public class DOMParserClassification {
-    
+
     private Document dom;
     private static ArrayList<Integer> points;
     private static ArrayList<String> names;
+
     /**
      * Un constructor
      */
-    public DOMParserClassification(){
+    public DOMParserClassification() {
         loadData();
     }
+
     /**
      * Carga los datos de la base de datos
      */
-    private void loadData(){
+    private void loadData() {
         try {
-            
-            Connection con= DBController.createConnection();
+
+            Connection con = DBController.createConnection();
             int leagueid = SuperProyecto.askLastLeagueID(con);
-            ResultSet rs = SuperProyecto.getClassification(leagueid,con);
-            while (rs.next()){
+            ResultSet rs = SuperProyecto.getClassification(leagueid, con);
+            while (rs.next()) {
                 points.add(rs.getInt(3));
                 names.add(rs.getString(2));
             }
@@ -76,18 +72,20 @@ public class DOMParserClassification {
             Logger.getLogger(DOMParserClassification.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * Ejecuta el parser
      */
-    public static void executeDOMClassification(){
+    public static void executeDOMClassification() {
         //Creamos una instancia
         points = new ArrayList();
         names = new ArrayList();
         DOMParserClassification dClassification = new DOMParserClassification();
-        
+
         //Ejecutamos
         dClassification.execute();
     }
+
     /**
      * Ejecuta las funcionalidades del parser
      */
@@ -103,8 +101,9 @@ public class DOMParserClassification {
         writeXMLFile();
         System.out.println("Fichero modificado correctamente.");
     }
+
     /**
-     * Parsea el fichero Classification.xml 
+     * Parsea el fichero Classification.xml
      */
     private void parseXMLFile() {
         //Creamos el DocumentBuilderFactory
@@ -125,6 +124,7 @@ public class DOMParserClassification {
             ioe.printStackTrace();
         }
     }
+
     /**
      * Vuelca los datos guardados dentro del Arbol DOM
      */
@@ -133,38 +133,41 @@ public class DOMParserClassification {
         Element rootClassification = dom.getDocumentElement();
         //Para contar
         int x = names.size();
-        for(int y =0; y<x;y++){
+        for (int y = 0; y < x; y++) {
             Element teamEle = createTeamEle(y);
             rootClassification.appendChild(teamEle);
         }
-        
+
     }
+
     /**
      * Crea el elemento TEAM
+     *
      * @param y contador para saber que Team se debe crear
      * @return un Element que tiene un equipo
      */
     private Element createTeamEle(int y) {
         Element teamEle = dom.createElement("team");
-        
+
         Element nameEle = dom.createElement("name");
         Text nameTxt = dom.createTextNode(names.get(y));
         nameEle.appendChild(nameTxt);
-        
+
         Element pointEle = dom.createElement("points");
         Text pointsTxt = dom.createTextNode(Integer.toString(points.get(y)));
         pointEle.appendChild(pointsTxt);
-        
+
         teamEle.appendChild(nameEle);
         teamEle.appendChild(pointEle);
-        
+
         return teamEle;
     }
+
     /**
      * Escribe los datos del Arbol DOM en el fichero XML
      */
     private void writeXMLFile() {
-         try {
+        try {
             //Configuramos el formato de salida del fichero
             OutputFormat format = new OutputFormat(dom);
             format.setIndenting(true);
@@ -179,15 +182,16 @@ public class DOMParserClassification {
             ie.printStackTrace();
         }
     }
+
     /**
      * Elimina el contenido anterior
      */
     private void deletePreviousContent() {
-        Element docEle= dom.getDocumentElement();
-        
-        for(int x = 0; x<names.size();x++){
+        Element docEle = dom.getDocumentElement();
+
+        for (int x = 0; x < names.size(); x++) {
             NodeList nl = docEle.getElementsByTagName("team");
-            for(int i = 0 ; i<nl.getLength();i++){
+            for (int i = 0; i < nl.getLength(); i++) {
                 Element teamito = (Element) nl.item(i);
                 docEle.removeChild(teamito);
             }

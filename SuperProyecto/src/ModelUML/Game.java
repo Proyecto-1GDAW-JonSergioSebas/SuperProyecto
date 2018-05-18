@@ -5,14 +5,12 @@
  */
 package ModelUML;
 
-import java.util.Calendar;
 import java.util.Date;
 
 /**
  * Esta clase contiene los metodos y constructores de los objetos Game
+ *
  * @author Sergio Zulueta
- * @author Sebastián Zawisza
- * @author Jon Maneiro
  * @version %I% %G%
  * @since 1.0
  */
@@ -43,8 +41,10 @@ public class Game {
         this.score2 = score2;
         this.dateTime = dateTime;
     }
+
     /**
      * Constructor
+     *
      * @param team1 (requerido) Equipo 1 que juega
      * @param team2 (requerido) Equipo 2 que juega
      * @param score1 (requerido) Puntos del primer equipo
@@ -171,7 +171,7 @@ public class Game {
     /**
      * Para sacar por pantalla los datos.
      *
-     * @return un string con los datos del Game 
+     * @return un string con los datos del Game
      */
     @Override
     public String toString() {

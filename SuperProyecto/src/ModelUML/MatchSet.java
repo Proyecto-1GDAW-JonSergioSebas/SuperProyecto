@@ -9,9 +9,8 @@ import java.util.ArrayList;
 
 /**
  * Esta clase contiene los metodos y constuctores de los objetos MatchSet
+ *
  * @author Sergio Zulueta
- * @author Sebastián Zawisza
- * @author Jon Maneiro
  * @version %I% %G%
  * @since 1.0
  */
@@ -59,7 +58,7 @@ public class MatchSet {
 
     /**
      * Funcion que añade partido a partidos.
-     * 
+     *
      * @param game el objeto Game a añadir
      */
     public void addGame(Game game) {
@@ -76,7 +75,8 @@ public class MatchSet {
     }
 
     /**
-     * para sacar por pantalla los datos.
+     * Para sacar por pantalla los datos.
+     *
      * @return un String con los datos del MatchSet
      */
     @Override

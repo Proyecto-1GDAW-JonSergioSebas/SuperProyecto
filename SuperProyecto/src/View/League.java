@@ -11,14 +11,13 @@ import java.text.ParseException;
 import java.time.Instant;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * Esta clase genera el calendario
+ *
  * @author Sebastián Zawisza
  * @version %I% %G%
  * @since 1.0
@@ -29,6 +28,7 @@ public class League extends javax.swing.JDialog {
 
     /**
      * Creates new form League
+     *
      * @param parent Generado automáticamente
      * @param modal Generado automáticamente
      */
@@ -138,9 +138,12 @@ public class League extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     /**
-     * Comprueba que se han introducido los datos correctamente y inicia la generacion de calendario
+     * Comprueba que se han introducido los datos correctamente y inicia la
+     * generacion de calendario
+     *
      * @param evt Generado automáticamente
-     * @see superproyecto.SuperProyecto#createCalendar(java.lang.String, java.lang.String) 
+     * @see superproyecto.SuperProyecto#createCalendar(java.lang.String,
+     * java.lang.String)
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (errors) {
@@ -153,34 +156,40 @@ public class League extends javax.swing.JDialog {
                     }
                     JOptionPane.showMessageDialog(this, "Liga creada.");
                     dispose();
-                } 
-            }else {
-                    JOptionPane.showMessageDialog(rootPane, "La fecha de inicio de una liga debe ser posterior a la fecha actual.");
                 }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "La fecha de inicio de una liga debe ser posterior a la fecha actual.");
+            }
         } else {
             JOptionPane.showMessageDialog(this, "El nombre de la liga debe ser de menos de 20 caracteres.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
     /**
      * Cierra la ventana
+     *
      * @param evt Generado automáticamente
      */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    /**
+     * Verifica que los datos sean correctos
+     *
+     * @param evt Generado automáticamente.
+     */
     private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
         if (jTextField1.getText().length() > 20) {
             jTextField1.setBackground(Color.RED);
-            errors=true;
+            errors = true;
         } else {
             jTextField1.setBackground(Color.WHITE);
-            errors=false;
+            errors = false;
         }
     }//GEN-LAST:event_jTextField1FocusLost
 
     /**
      * El main de la clase
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) {
