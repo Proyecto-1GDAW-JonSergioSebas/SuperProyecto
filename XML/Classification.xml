@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classification xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Classification.xsd">
     <team>
-        <name>Aon</name>
-        <points>12</points>
-    </team>
-    <team>
         <name>Rua</name>
         <points>15</points>
     </team>
@@ -31,6 +27,10 @@
     <team>
         <name>Eight</name>
         <points>15</points>
+    </team>
+    <team>
+        <name>Aon</name>
+        <points>12</points>
     </team>
 </classification>
 <!--<!DOCTYPE classification SYSTEM "Classification.dtd">-->
