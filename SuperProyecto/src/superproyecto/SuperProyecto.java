@@ -740,8 +740,7 @@ public class SuperProyecto {
         Date date = DBController.getLeagueEndDate(con);
         con.close();
         return date;
-    }      
-    
+    }
 
     /**
      * Coge todos los Game con todos sus datos que se correspondan con el ID del
@@ -784,4 +783,76 @@ public class SuperProyecto {
         DBController.updateLastLeagueStatus(con);
         con.close();
     }
+
+    /**
+     * Devuelve los equipos no bloqueados que se corresponden a un dueño Si el
+     * string de username es vacío, devuelve todos los equipos
+     *
+     * @param ownerUsername el nombre de usuario del dueño
+     * @throws ClassNotFoundException no se encuentra la clase
+     * @throws SQLException hay una excepcion SQL
+     * @return lista con los equipos
+     */
+    public static ArrayList<Team> getTeamsByOwner(String ownerUsername) throws ClassNotFoundException, SQLException {
+        Connection con = createConnection();
+        ArrayList<Team> temp = DBController.getTeamsByOwner(con, ownerUsername);
+        return temp;
+    }
+
+    /**
+     * Método que bloquea un equipo basado en su nombre.
+     *
+     * @param teamName nombre del equipo a bloquear
+     * @throws SQLException si ocurre un error de SQL
+     * @throws java.lang.ClassNotFoundException si no se encuentra la clase
+     */
+    public static void blockTeam(String teamName) throws SQLException, ClassNotFoundException {
+        Connection con = createConnection();
+        DBTeam.blockTeam(teamName, con);
+        con.close();
+    }
+
+    /**
+     * Pide a la clase DBPlayer un ArrayList de Player
+     *
+     * @param team el nombre del equipo del cual queremos los jugadores
+     * @param with si es con, o sin el equipo
+     * @return ArrayList de los jugadores
+     * @throws SQLException hay una excepcion SQL
+     * @see DBPlayer#getPlayers(int, java.sql.Connection)
+     */
+    public static ArrayList<Player> getPlayers(String team, boolean with) throws SQLException, ClassNotFoundException {
+        Connection con = createConnection();
+        ArrayList<Player> players = DBController.getPlayers(team, con, with);
+        con.close();
+        return players;
+    }
+
+    /**
+     * Le cambia el valor de TEAM a un PLAYER
+     *
+     * @param nickname el nickname actual
+     * @param newTeam el nombre del nuevo equipo
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void updatePlayerT(String nickname, String newTeam) throws SQLException, ClassNotFoundException {
+        Connection con = createConnection();
+        DBPlayer.updatePlayerT(nickname, newTeam, con);
+        con.close();
+    }
+
+    /**
+     * Actualiza el Player y cambial el valor de TEAM al ser eliminado de un
+     * equipo
+     *
+     * @param nickname
+     * @param con
+     * @throws SQLException
+     */
+    public static void updatePlayerTeamEmpty(String nickname) throws SQLException, ClassNotFoundException {
+        Connection con = createConnection();
+        DBController.updatePlayerTeamEmpty(nickname, con);
+        con.close();
+    }
+
 }

@@ -129,7 +129,7 @@ public class Login extends javax.swing.JFrame {
                     break;
                 case 2:
                     System.out.println("Abriendo panel de dueño.");
-                    ViewController.owner(false);
+                    ViewController.owner(false, tfUsername.getText());
                     dispose();
                     break;
                 case 3:
@@ -142,7 +142,7 @@ public class Login extends javax.swing.JFrame {
             La siguiente línea requiere una justificación:
             El enunciado dice que los dueños deben ser capaces de fijar sus equipos, y que estos deben dejar de estar fijados al terminar la liga.
             El proceso para desbloquear los equipos tiene que ser automático, y normalmente esto sucedería enteramente al nivel del servidor.
-            Esto requeriría un trigger de sistema, que no hemos visto, y tras consultar con Blanca, hemos llegado a la conclusión de que la única solución rasonable es hacerlo a nivel de aplicación.
+            Esto requeriría un trigger de sistema, que no hemos visto, y tras consultar con Blanca, hemos llegado a la conclusión de que la única solución razonable es hacerlo a nivel de aplicación.
             Por supuesto, ésta no es la solución ideal, pero es lo mejor que podemos hacer con las herramientas que nos han dado.
              */
             ViewController.updateLastLeagueStatus();

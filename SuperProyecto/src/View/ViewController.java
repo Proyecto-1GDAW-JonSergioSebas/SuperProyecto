@@ -65,8 +65,8 @@ public class ViewController {
      *
      * @param child Generado automáticamente
      */
-    public static void owner(boolean child) {
-        Owner owner = new Owner(child);
+    public static void owner(boolean child, String username) {
+        Owner owner = new Owner(child, username);
         owner.setVisible(true);
     }
 
@@ -580,5 +580,65 @@ public class ViewController {
      */
     public static void updateLastLeagueStatus() throws SQLException, ClassNotFoundException {
         SuperProyecto.updateLastLeagueStatus();
+    }
+
+    /**
+     * Devuelve los equipos no bloqueados que se corresponden a un dueño Si el
+     * string de username es vacío, devuelve todos los equipos
+     *
+     * @param ownerUsername el nombre de usuario del dueño
+     * @throws ClassNotFoundException no se encuentra la clase
+     * @throws SQLException hay una excepcion SQL
+     * @return lista con los equipos
+     */
+    public static ArrayList<Team> getTeamsByOwner(String ownerUsername) throws ClassNotFoundException, SQLException {
+        return SuperProyecto.getTeamsByOwner(ownerUsername);
+    }
+
+    /**
+     * Método que bloquea un equipo basado en su nombre.
+     *
+     * @param teamName nombre del equipo a bloquear
+     * @throws SQLException si ocurre un error de SQL
+     * @throws java.lang.ClassNotFoundException si no se encuentra la clase
+     */
+    public static void blockTeam(String teamName) throws SQLException, ClassNotFoundException {
+        SuperProyecto.blockTeam(teamName);
+    }
+
+    /**
+     * Pide a la clase DBPlayer un ArrayList de Player
+     *
+     * @param team el nombre del equipo del cual queremos los jugadores
+     * @param with si es con, o sin el equipo
+     * @return ArrayList de los jugadores
+     * @throws SQLException hay una excepcion SQL
+     * @see DBPlayer#getPlayers(int, java.sql.Connection)
+     */
+    public static ArrayList<Player> getPlayers(String team, boolean with) throws SQLException, ClassNotFoundException {
+        return SuperProyecto.getPlayers(team, with);
+    }
+
+    /**
+     * Le cambia el valor de TEAM a un PLAYER
+     *
+     * @param nickname el nickname actual
+     * @param newTeam el id del nuevo equipo
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws java.lang.ClassNotFoundException si no se encuentra la clase
+     */
+    public static void updatePlayerT(String nickname, String newTeam) throws SQLException, ClassNotFoundException {
+        SuperProyecto.updatePlayerT(nickname, newTeam);
+    }
+
+    /**
+     * Actualiza el Player y cambial el valor de TEAM al ser eliminado de un
+     * equipo
+     *
+     * @param nickname
+     * @throws SQLException
+     */
+    public static void updatePlayerTeamEmpty(String nickname) throws SQLException, ClassNotFoundException {
+        SuperProyecto.updatePlayerTeamEmpty(nickname);
     }
 }
