@@ -590,6 +590,7 @@ public class ViewController {
      */
     static ArrayList<Team> selectDBTeamsOG() throws SQLException, ClassNotFoundException {
         return SuperProyecto.selectDBTeamsOG();
+    }
 
     /**
      * Devuelve los equipos no bloqueados que se corresponden a un dueño Si el
