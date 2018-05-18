@@ -715,4 +715,14 @@ public class DBController {
     public static void updateLastLeagueStatus(Connection con) throws SQLException {
         DBLeague.updateLastLeagueStatus(con);
     }
+    /**
+     * Devuelve un ArrayList con el nombre y la nacionalidad
+     * @param con la conexion
+     * @return un ArrayList con los equipos
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static ArrayList selectDBTeamsOG(Connection con) throws ClassNotFoundException, SQLException {
+        return DBTeam.getTeamsOG(con);
+    }
 }

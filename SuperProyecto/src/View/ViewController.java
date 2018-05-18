@@ -581,4 +581,13 @@ public class ViewController {
     public static void updateLastLeagueStatus() throws SQLException, ClassNotFoundException {
         SuperProyecto.updateLastLeagueStatus();
     }
+    /**
+     * Devuelve un ArrayList con los Team
+     * @return un ArrayList con los Team
+     * @throws SQLException si se da una excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
+     */
+    static ArrayList<Team> selectDBTeamsOG() throws SQLException, ClassNotFoundException {
+        return SuperProyecto.selectDBTeamsOG();
+    }
 }

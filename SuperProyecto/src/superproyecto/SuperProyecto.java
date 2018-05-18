@@ -575,6 +575,7 @@ public class SuperProyecto {
         ArrayList arry = new ArrayList();
         Connection con = createConnection();
         arry = DBController.selectDBTeams(con);
+        con.close();
         return arry;
     }
 
@@ -783,5 +784,18 @@ public class SuperProyecto {
         Connection con = createConnection();
         DBController.updateLastLeagueStatus(con);
         con.close();
+    }
+    /**
+     * Devuelve un ArrayList con los Team
+     * @return un ArrayList de Team
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static ArrayList<Team> selectDBTeamsOG() throws ClassNotFoundException, SQLException {
+        ArrayList arry = new ArrayList();
+        Connection con = createConnection();
+        arry = DBController.selectDBTeamsOG(con);
+        con.close();
+        return arry;
     }
 }

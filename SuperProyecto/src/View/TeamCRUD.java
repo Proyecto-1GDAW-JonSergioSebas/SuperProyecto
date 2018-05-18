@@ -425,7 +425,7 @@ public class TeamCRUD extends javax.swing.JDialog {
         jComboBox2.removeAllItems();
         try {
             if (mode != 0) {
-                teams = ViewController.selectDBTeams();
+                teams = ViewController.selectDBTeamsOG();
                 teams.forEach(e -> jComboBox2.addItem(e.getTeamName()));
                 if (mode != 3) {
                     jComboBox1.setEnabled(false);
