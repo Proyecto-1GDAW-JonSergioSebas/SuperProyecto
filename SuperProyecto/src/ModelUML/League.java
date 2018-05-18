@@ -9,9 +9,8 @@ import java.util.ArrayList;
 
 /**
  * Esta clase contiene los metodos y constructores de los objetos League
+ *
  * @author Sergio Zulueta
- * @author Sebastián Zawisza
- * @author Jon Maneiro
  * @version %I% %G%
  * @since 1.0
  */
@@ -33,11 +32,13 @@ public class League {
         this.leagueName = leagueName;
         this.matchsets = matchsets;
     }
+
     /**
      * Constructor solo con el nombre
+     *
      * @param leagueName el nombre de la liga
      */
-    public League (String leagueName){
+    public League(String leagueName) {
         this.leagueName = leagueName;
     }
 
@@ -76,12 +77,14 @@ public class League {
     public void setMatchsets(ArrayList<MatchSet> matchsets) {
         this.matchsets = matchsets;
     }
+
     /**
      * Añade un MatchSet al objeto League
+     *
      * @param mtx el MatchSet a añadir
      */
-    public void addMatchSets(MatchSet mtx){
-        if(this.matchsets==null){
+    public void addMatchSets(MatchSet mtx) {
+        if (this.matchsets == null) {
             this.matchsets = new ArrayList();
         }
         this.matchsets.add(mtx);

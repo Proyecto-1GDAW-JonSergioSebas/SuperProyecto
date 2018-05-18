@@ -5,25 +5,22 @@
  */
 package Parser;
 
-import ModelUML.*;
-
 import java.io.IOException;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- * Esta clase se encarga de parsear el documento Classification.xml y de devolver
- * un ArrayList que contiene objetos TeamSax
+ * Esta clase se encarga de parsear el documento Classification.xml y de
+ * devolver un ArrayList que contiene objetos TeamSax
+ *
  * @author Sergio Zulueta
  * @version %I% %G%
  * @since 1.0

@@ -9,9 +9,8 @@ import java.math.BigDecimal;
 
 /**
  * Esta clase contiene los metodos y constructores de los objetos Player
+ *
  * @author Sergio Zulueta
- * @author Sebastián Zawisza
- * @author Jon Maneiro
  * @version %I% %G%
  * @since 1.0
  */
