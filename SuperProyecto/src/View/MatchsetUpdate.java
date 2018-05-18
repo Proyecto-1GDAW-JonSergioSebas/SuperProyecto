@@ -14,8 +14,12 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * Esta clase muestra una tabla la cual se podra editar para actualizar las puntuaciones
+ * Esta clase muestra una tabla la cual se podra editar para actualizar las
+ * puntuaciones
+ *
  * @author Sebastián Zawisza
+ * @version %I% %G%
+ * @since 1.0
  */
 public class MatchsetUpdate extends javax.swing.JDialog {
 
@@ -23,6 +27,7 @@ public class MatchsetUpdate extends javax.swing.JDialog {
 
     /**
      * Creates new form MatchsetUpdate
+     *
      * @param parent Generado automáticamente
      * @param modal Generado automáticamente
      * @param games Generado automáticamente
@@ -131,6 +136,7 @@ public class MatchsetUpdate extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
     /**
      * Cierra la ventana
+     *
      * @param evt Generado automáticamente
      */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -138,6 +144,7 @@ public class MatchsetUpdate extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
     /**
      * Actualiza los partidos con la informacion introducida en las celdas
+     *
      * @param evt Generado automáticamente
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -183,6 +190,7 @@ public class MatchsetUpdate extends javax.swing.JDialog {
 
     /**
      * El main de la clase
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) {

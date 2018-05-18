@@ -20,10 +20,8 @@ import static DB.DBController.obtainGameTeamID;
 import static DB.DBController.obtainGamesID;
 import static DB.DBController.obtainLastLeagueID;
 import static DB.DBController.obtainMatchSetsID;
-import static DB.DBController.obtainScores;
 import static DB.DBController.obtainTeam;
 import static DB.DBController.teams;
-import static DB.DBController.obtainTeamOwner;
 import ModelUML.DBUser;
 import ModelUML.Game;
 import ModelUML.MatchSet;
@@ -66,8 +64,8 @@ public class SuperProyecto {
         }
         try {
             /*^^NO MODIFICAR ESTO^^*/
-            if(getAllLeagueNames().size()!=0){
-            DOMParserLeague.executeDOMLeague();
+            if (getAllLeagueNames().size() != 0) {
+                DOMParserLeague.executeDOMLeague();
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
@@ -194,6 +192,8 @@ public class SuperProyecto {
      * @param username El usuario de la cuenta.
      * @param password La contraseña de la cuenta.
      * @return El tipo de cuenta.
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepción SQL
      */
     public static byte getAccountType(String username, char[] password) throws ClassNotFoundException, SQLException {
         Connection con = createConnection();
@@ -241,6 +241,7 @@ public class SuperProyecto {
      * @param con la conexion
      * @return un MatchSet
      * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static MatchSet createMatchSets(boolean flip, int matchSetId, Connection con) throws SQLException, ClassNotFoundException {
         ArrayList<Integer> gameID = obtainGamesID(matchSetId, con);
@@ -773,8 +774,8 @@ public class SuperProyecto {
      * Método que verifica si la última liga ha terminado, y si lo ha hecho,
      * desbloquea los equipos.
      *
-     * @param con la conexión
      * @throws SQLException si ocurre un error de SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static void updateLastLeagueStatus() throws SQLException, ClassNotFoundException {
         Connection con = createConnection();

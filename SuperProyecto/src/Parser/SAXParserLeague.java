@@ -8,10 +8,7 @@ package Parser;
 import ModelUML.*;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import java.sql.Date;
 
@@ -23,15 +20,15 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 /**
- * Esta clase se encarga de parsear el documento League.xml y de devolver un ArrayList 
- * con todos los MatchSet llenos de sus respectivos Game, que a su vez estan llenos
- * de sus respectivos datos
+ * Esta clase se encarga de parsear el documento League.xml y de devolver un
+ * ArrayList con todos los MatchSet llenos de sus respectivos Game, que a su vez
+ * estan llenos de sus respectivos datos
+ *
  * @author Sergio Zulueta
  * @version %I% %G%
  * @since 1.0
  */
 public class SAXParserLeague extends DefaultHandler {
-
 
     /**
      * Creacion de los atributos matchset, updateDate, tempVal, date, match,

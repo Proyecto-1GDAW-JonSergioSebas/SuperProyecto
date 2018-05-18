@@ -7,9 +7,8 @@ package ModelUML;
 
 /**
  * Esta clase contiene los metodos y consructores de los objetos DBAdmin
+ *
  * @author Sergio Zulueta
- * @author Sebastián Zawisza
- * @author Jon Maneiro
  * @version %I% %G%
  * @since 1.0
  * @see Accounts
@@ -27,7 +26,8 @@ public class DBAdmin extends Accounts {
      * Constructor lleno
      *
      * @param userName (requerido) Nombre de usuario para acceder al programa
-     * @param password (requerido) Contraseña del usuario para accederal programa
+     * @param password (requerido) Contraseña del usuario para accederal
+     * programa
      */
     public DBAdmin(String userName, char[] password) {
         super.setUserName(userName);

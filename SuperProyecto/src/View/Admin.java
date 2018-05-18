@@ -15,7 +15,9 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- * Esta clase gestiona todas la operaciones que ejecuta la vista de administrador
+ * Esta clase gestiona todas la operaciones que ejecuta la vista de
+ * administrador
+ *
  * @author Sebastián Zawisza
  * @version %I% %G%
  * @since 1.0
@@ -28,6 +30,7 @@ public class Admin extends javax.swing.JFrame {
 
     /**
      * Creates new form User
+     *
      * @param child generado automaticamente
      */
     public Admin(boolean child) {
@@ -473,6 +476,7 @@ public class Admin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     /**
      * Inicia la vista MatchsetUpdate
+     *
      * @param evt Generado automáticamente
      */
     private void jbResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbResultsActionPerformed
@@ -526,6 +530,7 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton2ActionPerformed
     /**
      * Inicia la ventana correspondiente al modo seleccionado para Crear
+     *
      * @param evt Generado automáticamente
      */
     private void jbCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCreateActionPerformed
@@ -710,6 +715,7 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jmUserUpdateActionPerformed
     /**
      * Abre la vista de usuario
+     *
      * @param evt Generado automáticamente.
      */
     private void jmViewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmViewUserActionPerformed
@@ -723,6 +729,7 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jmViewUserActionPerformed
     /**
      * Abre la vista de dueño
+     *
      * @param evt Generado automáticamente.
      */
     private void jmViewOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmViewOwnerActionPerformed
@@ -730,6 +737,7 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jmViewOwnerActionPerformed
     /**
      * Abre la ventana de visualización de el tipo seleccionado
+     *
      * @param evt Generado automáticamente.
      */
     private void jbReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbReadActionPerformed
@@ -750,6 +758,7 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jbReadActionPerformed
     /**
      * Abre la ventana de eliminación del tipo correspondiente
+     *
      * @param evt Generado automáticamente.
      */
     private void jbDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDeleteActionPerformed
@@ -770,6 +779,7 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jbDeleteActionPerformed
     /**
      * Abre la ventana de actualización del tipo correspondiente
+     *
      * @param evt Generado automáticamente.
      */
     private void jbUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUpdateActionPerformed
@@ -790,8 +800,10 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jbUpdateActionPerformed
     /**
      * Crea el calendario
+     *
      * @param evt Generado automáticamente.
-     * @see superproyecto.SuperProyecto#createCalendar(java.lang.String, java.lang.String) 
+     * @see superproyecto.SuperProyecto#createCalendar(java.lang.String,
+     * java.lang.String)
      */
     private void jbCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCalendarActionPerformed
         try {
@@ -810,6 +822,7 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCalendarActionPerformed
     /**
      * Cambia el contenido de cbMatchset en relacion al objeto seleccionado
+     *
      * @param evt Generado automáticamente.
      */
     private void cbLeagueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLeagueActionPerformed
@@ -825,6 +838,7 @@ public class Admin extends javax.swing.JFrame {
     }//GEN-LAST:event_cbLeagueActionPerformed
     /**
      * Premite el cambio de los resultados del MatchSet seleccionado
+     *
      * @param evt Generado automáticamente.
      */
     private void cbMatchsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMatchsetActionPerformed
@@ -967,6 +981,7 @@ public class Admin extends javax.swing.JFrame {
 
     /**
      * El main de la clase
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -979,7 +994,7 @@ public class Admin extends javax.swing.JFrame {
         });
     }
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbLeague;
