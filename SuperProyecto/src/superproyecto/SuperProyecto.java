@@ -8,6 +8,7 @@ package superproyecto;
 import static DB.DBController.createConnection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import View.ViewController;
@@ -739,7 +740,8 @@ public class SuperProyecto {
         Date date = DBController.getLeagueEndDate(con);
         con.close();
         return date;
-    }
+    }      
+    
 
     /**
      * Coge todos los Game con todos sus datos que se correspondan con el ID del

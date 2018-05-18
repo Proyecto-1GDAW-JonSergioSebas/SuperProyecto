@@ -177,7 +177,7 @@ public class SAXParserLeague extends DefaultHandler {
         } else if (qName.equalsIgnoreCase("matchset")) {
             matchset.add(matchSet);
         } else if (qName.equalsIgnoreCase("match")) {
-            matchSet.addGame(match);
+            matchSet.addGame(match);            
         } else if (qName.equalsIgnoreCase("team1")) {
             team = match.getTeam1();
             team = new Team();
@@ -193,7 +193,8 @@ public class SAXParserLeague extends DefaultHandler {
         } else if (qName.equalsIgnoreCase("score2")) {
             match.setScore2(Integer.parseInt(tempVal));
         }
-    }
+    }  
+       
 
     /**
      * Se encarga de ejecutar todo el parser
@@ -210,5 +211,15 @@ public class SAXParserLeague extends DefaultHandler {
         spe.runExample();
         return matchset;
     }
+    
+    /*public static void main(String[] args) {
+
+        System.out.println("SAX");
+        System.out.println("---");
+
+        //Ejecutamos
+        SAXParserLeague spe = new SAXParserLeague();
+        spe.runExample();
+    }*/
 
 }

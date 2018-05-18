@@ -151,14 +151,18 @@ public class MatchsetUpdate extends javax.swing.JDialog {
         if (jTable1.isEditing()) {
             JOptionPane.showMessageDialog(this, "Por favor deja de editar la celda seleccionada.");
         } else {
-            games.forEach((k, v) -> {
-                if (jTable1.getValueAt(k - 1, 1) != null) {
-                    v.setScore1((Integer) jTable1.getValueAt(k - 1, 1));
+            int i = 0;
+            for (Game g : games.values()) {
+                if (jTable1.getValueAt(i, 1) != null) {
+                    g.setScore1((Integer) jTable1.getValueAt(i, 1));
                 }
-                if (jTable1.getValueAt(k - 1, 3) != null) {
-                    v.setScore2((Integer) jTable1.getValueAt(k - 1, 3));
+                if (jTable1.getValueAt(i, 3) != null) {
+                    g.setScore2((Integer) jTable1.getValueAt(i, 3));
                 }
-            });
+                i++;
+            }
+            JOptionPane.showMessageDialog(this, "Datos insertados.");
+            dispose();
         }
         try {
             ViewController.setGames(games);
@@ -167,8 +171,6 @@ public class MatchsetUpdate extends javax.swing.JDialog {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MatchsetUpdate.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JOptionPane.showMessageDialog(this, "Datos insertados.");
-        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
