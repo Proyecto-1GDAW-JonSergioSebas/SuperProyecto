@@ -582,6 +582,15 @@ public class ViewController {
         SuperProyecto.updateLastLeagueStatus();
     }
 
+  /**
+     * Devuelve un ArrayList con los Team
+     * @return un ArrayList con los Team
+     * @throws SQLException si se da una excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
+     */
+    static ArrayList<Team> selectDBTeamsOG() throws SQLException, ClassNotFoundException {
+        return SuperProyecto.selectDBTeamsOG();
+
     /**
      * Devuelve los equipos no bloqueados que se corresponden a un dueño Si el
      * string de username es vacío, devuelve todos los equipos

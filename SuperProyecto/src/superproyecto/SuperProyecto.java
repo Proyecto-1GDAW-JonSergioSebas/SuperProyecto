@@ -575,6 +575,7 @@ public class SuperProyecto {
         ArrayList arry = new ArrayList();
         Connection con = createConnection();
         arry = DBController.selectDBTeams(con);
+        con.close();
         return arry;
     }
 
@@ -784,6 +785,20 @@ public class SuperProyecto {
         con.close();
     }
 
+  /**
+     * Devuelve un ArrayList con los Team
+     * @return un ArrayList de Team
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static ArrayList<Team> selectDBTeamsOG() throws ClassNotFoundException, SQLException {
+        ArrayList arry = new ArrayList();
+        Connection con = createConnection();
+        arry = DBController.selectDBTeamsOG(con);
+        con.close();
+        return arry;
+    }
+
     /**
      * Devuelve los equipos no bloqueados que se corresponden a un dueño Si el
      * string de username es vacío, devuelve todos los equipos
@@ -854,5 +869,4 @@ public class SuperProyecto {
         DBController.updatePlayerTeamEmpty(nickname, con);
         con.close();
     }
-
 }
