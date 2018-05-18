@@ -64,7 +64,6 @@ public class DBTeam {
         //ResultSet res = sent.executeQuery("SELECT * FROM TEAM WHERE BLOCKED = 0" + ((ownerUsername.equals("")) ? "" : " AND TEAM_OWNER = (SELECT ID_TO FROM TEAM_OWNER WHERE USERNAME = '"+ownerUsername+ "')"));
         ResultSet res;
         if (ownerUsername.equals("")){
-            System.out.println("ayy");
             res = sent.executeQuery("SELECT * FROM TEAM WHERE BLOCKED = 0");
         } else {
             res = sent.executeQuery("SELECT * FROM TEAM WHERE BLOCKED = 0 AND TEAM_OWNER = (SELECT ID_TO FROM TEAM_OWNER WHERE USERNAME = '"+ownerUsername+"')");
@@ -224,10 +223,10 @@ public class DBTeam {
      * Método que bloquea un equipo basado en su nombre.
      * @param teamName nombre del equipo a bloquear
      * @param con la conexion
-     * @throws SQLException si ocurre un error de SQL
+     * @throws SQLException 
      */
     public static void blockTeam(String teamName, Connection con) throws SQLException {
         Statement st = con.createStatement();
-        st.executeUpdate("UPDATE TEAM SET BLOCKED = 1 WHERE TEAM_NAME ="+teamName);
+        st.executeUpdate("UPDATE TEAM SET BLOCKED = 1 WHERE TEAM_NAME ='"+teamName+"'");
     }
 }

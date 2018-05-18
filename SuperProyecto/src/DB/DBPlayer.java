@@ -7,6 +7,7 @@ package DB;
 
 import static DB.DBController.createConnection;
 import ModelUML.Player;
+import View.ViewController;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,7 +16,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- * Esta clase gestiona las acciones necesarias en labase de datos sobre los objetos Player
+ * Esta clase gestiona las acciones necesarias en labase de datos sobre los
+ * objetos Player
+ *
  * @author Sergio Zulueta
  * @author Sebastián Zawisza
  * @author Jon Maneiro
@@ -28,14 +31,20 @@ public class DBPlayer {
      * Realiza una consulta para devolver los jugadores pertenecientes al equipo
      * del cual le pasamos la id
      *
-     * @param teamid el id del equipo del cual hay que buscar los jugadores
+     * @param team el nombre del equipo del cual hay que buscar los jugadores
      * @param con la conexion
+     * @param with si es con, o sin el equipo
      * @return ArrayList con los jugadores
      * @throws SQLException hay una excepcion SQL
      */
-    public static ArrayList<Player> getPlayers(String team, Connection con) throws SQLException {
+    public static ArrayList<Player> getPlayers(String team, Connection con, boolean with) throws SQLException {
         Statement est = con.createStatement();
-        ResultSet rest = est.executeQuery("SELECT * FROM PLAYER WHERE TEAM=(SELECT ID_TM FROM TEAM WHERE TEAM_NAME = " + team);
+        ResultSet rest;
+        if (with) {
+            rest = est.executeQuery("SELECT * FROM PLAYER WHERE TEAM = (SELECT ID_TM FROM TEAM WHERE TEAM_NAME = '" + team + "')");
+        } else {
+            rest = est.executeQuery("SELECT * FROM PLAYER WHERE TEAM IS NULL");
+        }
         ArrayList<Player> players = new ArrayList();
         while (rest.next()) {
             players.add(new Player(rest.getString(2), rest.getString(3), rest.getBigDecimal(4), rest.getString(5)));
@@ -138,6 +147,20 @@ public class DBPlayer {
     }
 
     /**
+     * Le cambia el valor de TEAM a un PLAYER
+     *
+     * @param nickname el nickname actual
+     * @param newTeam el nombre del nuevo equipo
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void updatePlayerT(String nickname, String newTeam, Connection con) throws SQLException {
+        Statement sta = con.createStatement();
+        sta.executeUpdate("UPDATE PLAYER SET TEAM=" + DBController.searchTeam(newTeam, con) + "WHERE  NICKNAME='" + nickname + "'");
+        sta.close();
+    }
+
+    /**
      * Actualiza el Player y cambial el valor de TEAM al ser eliminado de un
      * equipo
      *
@@ -146,9 +169,8 @@ public class DBPlayer {
      * @throws SQLException
      */
     public static void updatePlayerTeamEmpty(String nickname, Connection con) throws SQLException {
-
         Statement sta = con.createStatement();
-        sta.executeUpdate("UPDATE PLAYER SET TEAM=(" + null + ")" + "WHERE  NICKNAME='" + nickname + "'");
+        sta.executeUpdate("UPDATE PLAYER SET TEAM = NULL WHERE NICKNAME='" + nickname + "'");
         sta.close();
     }
 

@@ -97,12 +97,14 @@ public class DBController {
      *
      * @param team el nombre del equipo del cual queremos los jugadores
      * @param con la conexion
+     * @param with si es con, o sin el equipo
+     *
      * @return ArrayList de los jugadores
      * @throws SQLException hay una excepcion SQL
      * @see DBPlayer#getPlayers(int, java.sql.Connection)
      */
-    public static ArrayList<Player> getPlayers(String team, Connection con) throws SQLException {
-        ArrayList<Player> players = DBPlayer.getPlayers(team, con);
+    public static ArrayList<Player> getPlayers(String team, Connection con, boolean with) throws SQLException {
+        ArrayList<Player> players = DBPlayer.getPlayers(team, con, with);
         return players;
     }
 
@@ -727,7 +729,7 @@ public class DBController {
     public static ArrayList<Team> getTeamsByOwner(Connection con, String ownerUsername) throws ClassNotFoundException, SQLException {
         return DBTeam.getTeamsByOwner(con, ownerUsername);
     }
-    
+
     /**
      * Método que bloquea un equipo basado en su nombre.
      *
@@ -737,5 +739,42 @@ public class DBController {
      */
     public static void blockTeam(String teamName, Connection con) throws SQLException {
         DBTeam.blockTeam(teamName, con);
+    }
+
+    /**
+     * Le cambia el valor de TEAM a un PLAYER
+     *
+     * @param nickname el nickname actual
+     * @param newTeam el nombre del nuevo equipo
+     * @param con la conexion
+     * @throws SQLException si se da alguna excepcion SQL
+     */
+    public static void updatePlayerT(String nickname, String newTeam, Connection con) throws SQLException {
+        DBPlayer.updatePlayerT(nickname, newTeam, con);
+    }
+
+    /**
+     * Devuelve el ID correspondiente con el nombre del equipo tomado como
+     * parametro
+     *
+     * @param teamName nombre del equipo
+     * @param con conexion
+     * @return el ID del equipo
+     * @throws SQLException si ocurre algun error de SQL
+     */
+    public static int searchTeam(String teamName, Connection con) throws SQLException {
+        return DBTeam.searchTeam(teamName, con);
+    }
+
+    /**
+     * Actualiza el Player y cambial el valor de TEAM al ser eliminado de un
+     * equipo
+     *
+     * @param nickname
+     * @param con
+     * @throws SQLException
+     */
+    public static void updatePlayerTeamEmpty(String nickname, Connection con) throws SQLException {
+        DBPlayer.updatePlayerTeamEmpty(nickname, con);
     }
 }

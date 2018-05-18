@@ -605,12 +605,35 @@ public class ViewController {
      * Pide a la clase DBPlayer un ArrayList de Player
      *
      * @param team el nombre del equipo del cual queremos los jugadores
-     * @param con la conexion
+     * @param with si es con, o sin el equipo
      * @return ArrayList de los jugadores
      * @throws SQLException hay una excepcion SQL
      * @see DBPlayer#getPlayers(int, java.sql.Connection)
      */
-    public static ArrayList<Player> getPlayers(String team) throws SQLException, ClassNotFoundException {
-        return SuperProyecto.getPlayers(team);
+    public static ArrayList<Player> getPlayers(String team, boolean with) throws SQLException, ClassNotFoundException {
+        return SuperProyecto.getPlayers(team, with);
+    }
+
+    /**
+     * Le cambia el valor de TEAM a un PLAYER
+     *
+     * @param nickname el nickname actual
+     * @param newTeam el id del nuevo equipo
+     * @throws SQLException si se da alguna excepcion SQL
+     * @throws java.lang.ClassNotFoundException si no se encuentra la clase
+     */
+    public static void updatePlayerT(String nickname, String newTeam) throws SQLException, ClassNotFoundException {
+        SuperProyecto.updatePlayerT(nickname, newTeam);
+    }
+
+    /**
+     * Actualiza el Player y cambial el valor de TEAM al ser eliminado de un
+     * equipo
+     *
+     * @param nickname
+     * @throws SQLException
+     */
+    public static void updatePlayerTeamEmpty(String nickname) throws SQLException, ClassNotFoundException {
+        SuperProyecto.updatePlayerTeamEmpty(nickname);
     }
 }

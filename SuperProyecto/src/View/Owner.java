@@ -5,9 +5,11 @@
  */
 package View;
 
+import ModelUML.Player;
 import ModelUML.Team;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -23,9 +25,10 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class Owner extends javax.swing.JFrame {
 
-    private static byte mode, progress;
+    private static byte mode;
     private static boolean child;
-    private static ArrayList<Team> teams;
+    private static String username;
+    private static ArrayList<Player> players = new ArrayList();
 
     /**
      * Creates new form User
@@ -48,14 +51,15 @@ public class Owner extends javax.swing.JFrame {
             }
             //</editor-fold>
             mode = 0;
-            progress = 0;
             if (child) {
                 setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             }
-            this.teams = ViewController.getTeamsByOwner(username);
-            teams.forEach(e -> {
+            this.username = username;
+            ViewController.getTeamsByOwner(username).forEach(e -> {
                 cbTeam.addItem(e.getTeamName());
             });
+            cbTeam.setSelectedIndex(-1);
+            
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Owner.class.getName()).log(Level.SEVERE, null, ex);
@@ -89,11 +93,7 @@ public class Owner extends javax.swing.JFrame {
 
         jLabel1.setText("Equipo");
 
-        cbTeam.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbTeamItemStateChanged(evt);
-            }
-        });
+        cbTeam.setEnabled(false);
         cbTeam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbTeamActionPerformed(evt);
@@ -109,11 +109,10 @@ public class Owner extends javax.swing.JFrame {
 
         jLabel2.setText("Jugador");
 
-        cbPlayer.setMaximumRowCount(50);
         cbPlayer.setEnabled(false);
-        cbPlayer.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbPlayerItemStateChanged(evt);
+        cbPlayer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbPlayerActionPerformed(evt);
             }
         });
 
@@ -135,6 +134,11 @@ public class Owner extends javax.swing.JFrame {
 
         jbConfirm.setText("Aceptar");
         jbConfirm.setEnabled(false);
+        jbConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbConfirmActionPerformed(evt);
+            }
+        });
 
         jbFix.setText("Fijar Equipo");
         jbFix.setEnabled(false);
@@ -207,16 +211,9 @@ public class Owner extends javax.swing.JFrame {
      * @param evt Generado automáticamente.
      */
     private void cbTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTeamActionPerformed
-        try {
-            ViewController.getPlayers((String) cbTeam.getSelectedItem()).forEach(e -> {
-                cbPlayer.addItem(e.getNickName());
-            });
-        } catch (SQLException ex) {
-            Logger.getLogger(Owner.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Owner.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        refresh();
     }//GEN-LAST:event_cbTeamActionPerformed
+
     /**
      * Abre una ventana de confirmación, y si el usuario está seguro, fija el
      * estado del equipo para prevenir modificación.
@@ -224,8 +221,23 @@ public class Owner extends javax.swing.JFrame {
      * @param evt Generado automáticamente.
      */
     private void jbFixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFixActionPerformed
-        JOptionPane.showConfirmDialog(rootPane, "Si desea revertir éste cambio necesitará contactar a su administrador.\n¿Está completamente seguro de que quiere fijar su equpo?");
+        if (0 == JOptionPane.showConfirmDialog(rootPane, "Si desea revertir éste cambio necesitará contactar a su administrador.\n¿Está completamente seguro de que quiere fijar su equpo?")) {
+            try {
+                ViewController.blockTeam((String) cbTeam.getSelectedItem());
+                cbTeam.removeAllItems();
+                ViewController.getTeamsByOwner(username).forEach(e -> {
+                    cbTeam.addItem(e.getTeamName());
+                });
+                JOptionPane.showMessageDialog(this, "Equipo bloqueado.");
+            } catch (SQLException ex) {
+                Logger.getLogger(Owner.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Error no controlado:\n" + ex.toString());
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Owner.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_jbFixActionPerformed
+
     /**
      * Actualiza el estado de la ventana de acuerdo al radiobutton seleccionado.
      *
@@ -233,6 +245,7 @@ public class Owner extends javax.swing.JFrame {
      */
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         mode = 1;
+        cbTeam.setEnabled(true);
         refresh();
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
@@ -243,22 +256,9 @@ public class Owner extends javax.swing.JFrame {
      */
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         mode = 2;
+        cbTeam.setEnabled(true);
         refresh();
     }//GEN-LAST:event_jRadioButton2ActionPerformed
-
-    private void cbTeamItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTeamItemStateChanged
-        if (cbTeam.getSelectedIndex() != -1) {
-            progress = 1;
-            refresh();
-        }
-    }//GEN-LAST:event_cbTeamItemStateChanged
-
-    private void cbPlayerItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbPlayerItemStateChanged
-        if (cbPlayer.getSelectedIndex() != -1) {
-            progress = 2;
-            refresh();
-        }
-    }//GEN-LAST:event_cbPlayerItemStateChanged
 
     private void jbUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUserActionPerformed
         try {
@@ -270,15 +270,54 @@ public class Owner extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbUserActionPerformed
 
+    private void jbConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmActionPerformed
+        players.stream().filter(p -> p.getNickName().equals((String) cbPlayer.getSelectedItem())).findAny().ifPresent(c -> {
+            if (mode == 1) {
+                try {
+                    ViewController.updatePlayerT(c.getNickName(), (String) cbTeam.getSelectedItem());
+                } catch (SQLException ex) {
+                    Logger.getLogger(Owner.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Owner.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                try {
+                    ViewController.updatePlayerTeamEmpty(c.getNickName());
+                } catch (SQLException ex) {
+                    Logger.getLogger(Owner.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Owner.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            JOptionPane.showMessageDialog(this, "Jugador actualizado.");
+            refresh();
+        });
+    }//GEN-LAST:event_jbConfirmActionPerformed
+
+    private void cbPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPlayerActionPerformed
+        if (cbPlayer.getSelectedIndex() == -1) {
+            jbConfirm.setEnabled(false);
+        } else {
+            jbConfirm.setEnabled(true);
+        }
+    }//GEN-LAST:event_cbPlayerActionPerformed
+
     /**
      * Actualiza el estado de componentes en la ventana.
      */
     private void refresh() {
-        //hace falta rellenar las combobox teniendo en cuenta el modo, pero eso requiere consultas a bases de datos y eso mejor luego
-        if (progress != 0) {
-            jbFix.setEnabled(true);
-            if (progress == 2) {
-                jbConfirm.setEnabled(true);
+        cbPlayer.removeAllItems();
+        if (mode != 0 && cbTeam.getSelectedIndex() != -1) {
+            try {
+                players = ViewController.getPlayers((String) cbTeam.getSelectedItem(), (mode == 2));
+                players.forEach(e -> cbPlayer.addItem(e.getNickName()));
+                cbPlayer.setEnabled(true);
+                cbPlayer.setSelectedIndex(-1);
+                jbFix.setEnabled(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(Owner.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Owner.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
