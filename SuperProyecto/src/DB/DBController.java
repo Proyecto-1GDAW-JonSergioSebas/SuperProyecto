@@ -726,6 +726,7 @@ public class DBController {
      */
     public static ArrayList selectDBTeamsOG(Connection con) throws ClassNotFoundException, SQLException {
         return DBTeam.getTeamsOG(con);
+    }
 
     /**
      * Devuelve los equipos no bloqueados que se corresponden a un dueño Si el

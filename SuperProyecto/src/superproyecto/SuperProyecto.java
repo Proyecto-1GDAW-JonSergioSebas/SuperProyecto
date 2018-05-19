@@ -823,7 +823,7 @@ public class SuperProyecto {
      */
     public static void blockTeam(String teamName) throws SQLException, ClassNotFoundException {
         Connection con = createConnection();
-        DBTeam.blockTeam(teamName, con);
+        DBController.blockTeam(teamName, con);
         con.close();
     }
 
@@ -852,7 +852,7 @@ public class SuperProyecto {
      */
     public static void updatePlayerT(String nickname, String newTeam) throws SQLException, ClassNotFoundException {
         Connection con = createConnection();
-        DBPlayer.updatePlayerT(nickname, newTeam, con);
+        DBController.updatePlayerT(nickname, newTeam, con);
         con.close();
     }
 
