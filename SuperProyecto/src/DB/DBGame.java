@@ -158,7 +158,7 @@ public class DBGame {
      *
      * @param games el TreeMap con todos los juegos, puntuaciones, y equipos
      * @param con la conexión
-     * @throws java.sql.SQLException
+     * @throws SQLException si se da alguna excepcion SQL
      */
     public static void setGames(TreeMap<Integer, Game> games, Connection con) throws SQLException {
         Statement st = con.createStatement();

@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oracle.dbtools.crest.model.design.relational.RelationalDesign>
+   <object objectType="Table" objectID="230B7C26-5516-7AA4-6F12-1DDC7EA92815" name="CLASSIFICATION_TEMP" seqName="seg_0"/>
+   <object objectType="Table" objectID="A8C008AD-A4AF-0B32-AC14-A1FFC862CD2F" name="DB_ADMIN" seqName="seg_0"/>
+   <object objectType="Table" objectID="AE661FD4-2F70-1AFA-9EF3-575364F8860B" name="DB_USER" seqName="seg_0"/>
+   <object objectType="Table" objectID="C2ACA083-59FC-3019-BA93-78F660A3C91C" name="GAME" seqName="seg_0"/>
+   <object objectType="Table" objectID="44CEDC4A-39BC-807F-670C-B1E59583659E" name="GAME_RESULT" seqName="seg_0"/>
+   <object objectType="Table" objectID="7924AEDF-B77A-CD4F-5FCF-240C0DCC3878" name="LEAGUE" seqName="seg_0"/>
+   <object objectType="Table" objectID="F41D82E3-7CDB-BCDF-42B2-2B77E0B9ABD2" name="MATCHSET" seqName="seg_0"/>
+   <object objectType="Table" objectID="0AB48FE4-E903-FBE0-2D22-054A8B8A8B29" name="PLAYER" seqName="seg_0"/>
+   <object objectType="Table" objectID="A8DA7439-4080-58F5-426B-FDF8E24C503B" name="TEAM" seqName="seg_0"/>
+   <object objectType="Table" objectID="EB581385-4C5E-0A33-F38C-5DA261BED22B" name="TEAM_OWNER" seqName="seg_0"/>
+   <object objectType="Table" objectID="259F6BB9-9493-AFAA-9ACB-586310FCE55C" name="USERNAMES_TEMP" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="464EE19E-CFDE-2258-AF38-2FFEF9100728" name="TM_TO_FK" seqName="seg_0" containerID="A8DA7439-4080-58F5-426B-FDF8E24C503B" refContainerID="EB581385-4C5E-0A33-F38C-5DA261BED22B"/>
+   <object objectType="FKIndexAssociation" objectID="1927F76C-F813-11B2-E2C4-5991884570A1" name="GA_MS_FK" seqName="seg_0" containerID="C2ACA083-59FC-3019-BA93-78F660A3C91C" refContainerID="F41D82E3-7CDB-BCDF-42B2-2B77E0B9ABD2"/>
+   <object objectType="FKIndexAssociation" objectID="EE10C532-C56D-E549-3B6C-2307EC4602F6" name="GR_GA_FK" seqName="seg_0" containerID="44CEDC4A-39BC-807F-670C-B1E59583659E" refContainerID="C2ACA083-59FC-3019-BA93-78F660A3C91C"/>
+   <object objectType="FKIndexAssociation" objectID="7307EB3C-4BF9-3D7A-1243-990BB6422C0C" name="GR_TM_FK" seqName="seg_0" containerID="44CEDC4A-39BC-807F-670C-B1E59583659E" refContainerID="A8DA7439-4080-58F5-426B-FDF8E24C503B"/>
+   <object objectType="FKIndexAssociation" objectID="9B9BC674-E761-EAAB-5584-4B8B8265A832" name="MS_LG_FK" seqName="seg_0" containerID="F41D82E3-7CDB-BCDF-42B2-2B77E0B9ABD2" refContainerID="7924AEDF-B77A-CD4F-5FCF-240C0DCC3878"/>
+   <object objectType="FKIndexAssociation" objectID="A86D5355-58F8-2911-129B-85470864655F" name="PL_TM_FK" seqName="seg_0" containerID="0AB48FE4-E903-FBE0-2D22-054A8B8A8B29" refContainerID="A8DA7439-4080-58F5-426B-FDF8E24C503B"/>
+</oracle.dbtools.crest.model.design.relational.RelationalDesign>

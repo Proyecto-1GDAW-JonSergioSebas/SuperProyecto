@@ -155,6 +155,7 @@ public class League extends javax.swing.JDialog {
                         Logger.getLogger(League.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     JOptionPane.showMessageDialog(this, "Liga creada.");
+                    ViewController.executeDOMLeague();
                     dispose();
                 }
             } else {
@@ -178,11 +179,11 @@ public class League extends javax.swing.JDialog {
      * @param evt Generado automáticamente.
      */
     private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
-        if (jTextField1.getText().length() > 20) {
-            jTextField1.setBackground(Color.RED);
+        if (jTextField1.getText().length() < 20) {
+            jTextField1.setBackground(Color.WHITE);
             errors = true;
         } else {
-            jTextField1.setBackground(Color.WHITE);
+            jTextField1.setBackground(Color.RED);
             errors = false;
         }
     }//GEN-LAST:event_jTextField1FocusLost

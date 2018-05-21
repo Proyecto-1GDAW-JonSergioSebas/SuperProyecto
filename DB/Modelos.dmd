@@ -1,16 +1,13 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="Modelos" id="E9884970-A731-F1EE-E161-602F9F5F48F5" version="3.5">
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="Modelos" id="6A25ADEC-ADB5-670E-5C35-7A588083385A" version="3.5">
 <createdBy>1gdaw07</createdBy>
-<createdTime>2018-04-19 08:26:38 UTC</createdTime>
+<createdTime>2018-05-21 06:42:49 UTC</createdTime>
 <generatorID>Generado por el Usuario</generatorID>
-<ownerDesignName>relacional</ownerDesignName>
+<ownerDesignName>Modelos</ownerDesignName>
 <capitalNames>false</capitalNames>
-<designId>E9884970-A731-F1EE-E161-602F9F5F48F5</designId>
+<designId>6A25ADEC-ADB5-670E-5C35-7A588083385A</designId>
 <usedDesignStorageDescriptors>
-<designDescr class="oracle.dbtools.crest.model.design.Design$DesignStorageDesc" id="63E7C439-1244-6D86-906E-73BF5DAA339C">
-<designStoragePath>C:\proyecto ddl</designStoragePath>
-</designDescr>
-<designDescr class="oracle.dbtools.crest.model.design.Design$DesignStorageDesc" id="E1EBBD6D-838F-DB24-898B-FB9AD9AD6A31">
+<designDescr class="oracle.dbtools.crest.model.design.Design$DesignStorageDesc" id="85A4AF35-AD2D-DBA6-115F-61264484E271">
 <designStoragePath>C:\DDL</designStoragePath>
 </designDescr>
 </usedDesignStorageDescriptors>

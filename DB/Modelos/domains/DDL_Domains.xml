@@ -1,9 +1,81 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <DomainFile class="oracle.dbtools.crest.model.design.DomainFileWrapper" fileName="DDL_Domains">
    <domains>
-      <Domain class="oracle.dbtools.crest.model.design.Domain" name="NUMERIC_5_0_0" id="B2E37860-63D4-DFD7-2DA1-E7889C117B4B">
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_254" id="0D479E52-EF93-A469-F10A-C8F461A6815D">
          <createdBy>1gdaw07</createdBy>
-         <createdTime>2018-04-20 09:34:39 UTC</createdTime>
+         <createdTime>2018-05-21 06:43:43 UTC</createdTime>
+         <generatorID>Generado por el Usuario</generatorID>
+         <ownerDesignName>Modelos</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>254</dataTypeSize>
+         <fileName>DDL_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_12" id="2D0C32B1-D4AD-00B5-3133-5393FD8FD0DD">
+         <createdBy>1gdaw07</createdBy>
+         <createdTime>2018-05-21 06:43:43 UTC</createdTime>
+         <generatorID>Generado por el Usuario</generatorID>
+         <ownerDesignName>Modelos</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>12</dataTypeSize>
+         <fileName>DDL_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="NUMERIC_8_2_0" id="2E926596-0698-6FAC-6F1A-F806FD9196E8">
+         <createdBy>1gdaw07</createdBy>
+         <createdTime>2018-05-21 06:43:43 UTC</createdTime>
+         <generatorID>Generado por el Usuario</generatorID>
+         <ownerDesignName>Modelos</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>8</dataTypePrecision>
+         <dataTypeScale>2</dataTypeScale>
+         <dataTypeSize>0</dataTypeSize>
+         <fileName>DDL_Domains</fileName>
+         <logicalDatatype>LOGDT019</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="NUMERIC_3_0_0" id="6DF196B3-08CC-4ABA-969F-EFF285415626">
+         <createdBy>1gdaw07</createdBy>
+         <createdTime>2018-05-21 06:43:43 UTC</createdTime>
+         <generatorID>Generado por el Usuario</generatorID>
+         <ownerDesignName>Modelos</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>3</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>0</dataTypeSize>
+         <fileName>DDL_Domains</fileName>
+         <logicalDatatype>LOGDT019</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_2" id="75169883-08D9-6C68-7D8B-EC925580CC1C">
+         <createdBy>1gdaw07</createdBy>
+         <createdTime>2018-05-21 06:43:43 UTC</createdTime>
+         <generatorID>Generado por el Usuario</generatorID>
+         <ownerDesignName>Modelos</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>2</dataTypeSize>
+         <fileName>DDL_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_30" id="7B80ED25-70D0-3064-C57F-A4C3452602F4">
+         <createdBy>1gdaw07</createdBy>
+         <createdTime>2018-05-21 06:43:43 UTC</createdTime>
+         <generatorID>Generado por el Usuario</generatorID>
+         <ownerDesignName>Modelos</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>30</dataTypeSize>
+         <fileName>DDL_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="NUMERIC_5_0_0" id="A2CC469F-8182-D762-CDAA-E04DFC6E3AB2">
+         <createdBy>1gdaw07</createdBy>
+         <createdTime>2018-05-21 06:43:43 UTC</createdTime>
          <generatorID>Generado por el Usuario</generatorID>
          <ownerDesignName>Modelos</ownerDesignName>
          <avTSortOrder>0</avTSortOrder>
@@ -12,6 +84,51 @@
          <dataTypeSize>0</dataTypeSize>
          <fileName>DDL_Domains</fileName>
          <logicalDatatype>LOGDT019</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_9" id="A9781EEF-EE3E-BE5F-9CBE-581C7135D668">
+         <createdBy>1gdaw07</createdBy>
+         <createdTime>2018-05-21 06:43:43 UTC</createdTime>
+         <generatorID>Generado por el Usuario</generatorID>
+         <ownerDesignName>Modelos</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>9</dataTypeSize>
+         <fileName>DDL_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="NUMERIC_1_0_0" id="BE8CACC8-9212-568B-C8CF-BCD386CC3FB6">
+         <createdBy>1gdaw07</createdBy>
+         <createdTime>2018-05-21 06:43:43 UTC</createdTime>
+         <generatorID>Generado por el Usuario</generatorID>
+         <ownerDesignName>Modelos</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>1</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>0</dataTypeSize>
+         <fileName>DDL_Domains</fileName>
+         <logicalDatatype>LOGDT019</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_20" id="C5F51E16-A430-6E82-C540-4443383AA0BA">
+         <createdBy>1gdaw07</createdBy>
+         <createdTime>2018-05-21 06:43:43 UTC</createdTime>
+         <generatorID>Generado por el Usuario</generatorID>
+         <ownerDesignName>Modelos</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>20</dataTypeSize>
+         <fileName>DDL_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="Date_0_0_0" id="FFE19C75-552D-C5BC-A56A-8380F2443F92">
+         <createdBy>1gdaw07</createdBy>
+         <createdTime>2018-05-21 06:43:43 UTC</createdTime>
+         <generatorID>Generado por el Usuario</generatorID>
+         <ownerDesignName>Modelos</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <fileName>DDL_Domains</fileName>
+         <logicalDatatype>LOGDT007</logicalDatatype>
       </Domain>
    </domains>
 </DomainFile>

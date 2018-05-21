@@ -58,7 +58,7 @@ public class DBController {
     public static Connection createConnection() throws ClassNotFoundException, SQLException {
 
         Class.forName("oracle.jdbc.OracleDriver");//Indicar el driver
-        Connection con = DriverManager.getConnection("jdbc:oracle:thin:@SrvOracle:1521:orcl", "eqdaw01", "eqdaw01");//Crear la conexion
+        Connection con = DriverManager.getConnection("jdbc:oracle:thin:@10.10.10.9:1521:db12102", "SCOTT", "12345");//Crear la conexion
         return con;
     }
 
@@ -100,7 +100,7 @@ public class DBController {
      *
      * @return ArrayList de los jugadores
      * @throws SQLException hay una excepcion SQL
-     * @see DBPlayer#getPlayers(int, java.sql.Connection)
+     * @see DB.DBPlayer#getPlayers(String, java.sql.Connection,boolean)
      */
     public static ArrayList<Player> getPlayers(String team, Connection con, boolean with) throws SQLException {
         ArrayList<Player> players = DBPlayer.getPlayers(team, con, with);
@@ -782,9 +782,9 @@ public class DBController {
      * Actualiza el Player y cambial el valor de TEAM al ser eliminado de un
      * equipo
      *
-     * @param nickname
-     * @param con
-     * @throws SQLException
+     * @param nickname nickname del jugador
+     * @param con la conexion
+     * @throws SQLException si sucede un error de SQL
      */
     public static void updatePlayerTeamEmpty(String nickname, Connection con) throws SQLException {
         DBPlayer.updatePlayerTeamEmpty(nickname, con);

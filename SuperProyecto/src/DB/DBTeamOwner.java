@@ -79,7 +79,7 @@ public class DBTeamOwner {
      * Cambia la contraseña de un TeamOwner
      *
      * @param username nombre de usuario
-     * @param newUsername
+     * @param newUsername el nuevo nombre de usuario
      * @param newPassword la nueva contraseña
      * @param newFullName el nuevo nombre completo
      * @param newTelephone el nuevo numero de telefono

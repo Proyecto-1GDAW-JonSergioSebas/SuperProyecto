@@ -361,7 +361,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
     /**
      * Verifica la validez del campo.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jTextField3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField3FocusLost
         //gracias, google
@@ -376,7 +376,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
     /**
      * Verifica la validez del campo.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jTextField1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextField1CaretUpdate
         if (jTextField1.getText().length() > 30) {
@@ -389,7 +389,7 @@ public class PlayerCRUD extends javax.swing.JDialog {
     /**
      * Verifica la validez del campo.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jTextField2CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextField2CaretUpdate
         if (jTextField2.getText().length() > 12) {

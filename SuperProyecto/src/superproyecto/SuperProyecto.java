@@ -825,7 +825,7 @@ public class SuperProyecto {
      */
     public static void blockTeam(String teamName) throws SQLException, ClassNotFoundException {
         Connection con = createConnection();
-        DBTeam.blockTeam(teamName, con);
+        DBController.blockTeam(teamName, con);
         con.close();
     }
 
@@ -836,7 +836,8 @@ public class SuperProyecto {
      * @param with si es con, o sin el equipo
      * @return ArrayList de los jugadores
      * @throws SQLException hay una excepcion SQL
-     * @see DBPlayer#getPlayers(int, java.sql.Connection)
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @see DB.DBPlayer#getPlayers(String, java.sql.Connection,boolean)
      */
     public static ArrayList<Player> getPlayers(String team, boolean with) throws SQLException, ClassNotFoundException {
         Connection con = createConnection();
@@ -851,24 +852,51 @@ public class SuperProyecto {
      * @param nickname el nickname actual
      * @param newTeam el nombre del nuevo equipo
      * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static void updatePlayerT(String nickname, String newTeam) throws SQLException, ClassNotFoundException {
         Connection con = createConnection();
-        DBPlayer.updatePlayerT(nickname, newTeam, con);
+        DBController.updatePlayerT(nickname, newTeam, con);
         con.close();
     }
 
     /**
-     * Actualiza el Player y cambial el valor de TEAM al ser eliminado de un
+     * Actualiza el Player y cambia el valor de TEAM al ser eliminado de un
      * equipo
      *
-     * @param nickname
-     * @param con
-     * @throws SQLException
+     * @param nickname el nombre del jugador
+     * @throws SQLException si se da una excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static void updatePlayerTeamEmpty(String nickname) throws SQLException, ClassNotFoundException {
         Connection con = createConnection();
         DBController.updatePlayerTeamEmpty(nickname, con);
         con.close();
+    }
+    /**
+     * Ejecuta el Parser DOM de liga
+     */
+    public static void executeDOMLeague() {
+        try {
+            DOMParserLeague.executeDOMLeague();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    /**
+     * Obtiene un ArrayList con los equipos bloqueados
+     * @return un ArrayList con los equipos bloqueados
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da una excepcion SQL
+     */
+    public static ArrayList<Team> getBlockedTeams() throws ClassNotFoundException, SQLException {
+        Connection con = createConnection();
+        
+        ArrayList<Team> compTeam = DBController.teams(con);
+        
+        con.close();
+        return compTeam;
     }
 }
