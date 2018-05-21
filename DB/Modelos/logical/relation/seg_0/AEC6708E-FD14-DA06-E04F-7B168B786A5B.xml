@@ -1,0 +1,33 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="juega en" directorySegmentName="seg_0" id="AEC6708E-FD14-DA06-E04F-7B168B786A5B">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 07:02:59 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>*</sourceCardinality>
+<sourceEntity>FB04D9E8-93A0-373D-E8DE-DF4F2B9255D3</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>CA830F1A-FB3D-6CB6-3D77-5C2FBA28F950</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<attribute name="SCORE" id="FC525D10-9AF0-C0CA-B93E-4FF3566599E5">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 07:03:18 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</attribute>
+</attributes>
+</Relation>

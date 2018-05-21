@@ -1,0 +1,102 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="CA830F1A-FB3D-6CB6-3D77-5C2FBA28F950" name="TEAM">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:59:19 UTC</createdTime>
+<generatorID>A8DA7439-4080-58F5-426B-FDF8E24C503B</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="ID TM" id="E09D7BFA-EACB-922C-AC04-E6CABFF1D0A4">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:59:19 UTC</createdTime>
+<generatorID>03F7BD13-D07E-5734-9002-EB14C9B00164</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>A2CC469F-8182-D762-CDAA-E04DFC6E3AB2</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="TEAM NAME" id="6A207C1A-6601-B16A-57D9-FF4DC31788E1">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:59:19 UTC</createdTime>
+<generatorID>15A66A60-AEBC-C0F7-FCF1-464E90C067F8</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>2D0C32B1-D4AD-00B5-3133-5393FD8FD0DD</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="NATIONALITY" id="1742B0BB-6AA0-E978-50DB-DE64E7734A29">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:59:19 UTC</createdTime>
+<generatorID>D7771212-6AA4-53D0-F7A7-CADF02B4513E</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>75169883-08D9-6C68-7D8B-EC925580CC1C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="BLOCKED" id="ADDDF774-2035-A5FD-24BE-1FF6C07D43E2">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:59:19 UTC</createdTime>
+<generatorID>5BD0ABE7-E96A-DB24-52CF-801C64BE0943</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>BE8CACC8-9212-568B-C8CF-BCD386CC3FB6</domain>
+<defaultValue>0</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="B7C160D6-9875-9FD4-148A-CDB1DD551095" name="TM PK">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:59:19 UTC</createdTime>
+<generatorID>E259E715-754C-2C1F-C4A8-FF6A93AC3C81</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>E09D7BFA-EACB-922C-AC04-E6CABFF1D0A4</attributeRef>
+</usedAttributes>
+</identifier>
+<identifier id="BE098495-620E-73F7-8064-7182FC92F185" name="TM UK">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:59:19 UTC</createdTime>
+<generatorID>CC33F02F-1352-7671-09F0-B5CF8558D942</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<usedAttributes>
+<attributeRef>6A207C1A-6601-B16A-57D9-FF4DC31788E1</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

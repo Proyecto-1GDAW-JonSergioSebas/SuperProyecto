@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<relationalModel class="oracle.dbtools.crest.model.design.relational.RelationalDesign" name="DDL" id="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" mainViewID="58AD7713-7148-1319-4950-ECA2376AD400">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:43:36 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+<selectedRDBMSSite>3FD120B5-9F4E-6278-D5E2-746D192C8319</selectedRDBMSSite>
+<importDDLFileStamps>
+<importDDLFileStamp class="oracle.dbtools.crest.imports.DDLFileStamp">
+<fileName>DDL.sql</fileName>
+<pathName>C:\Users\1gdaw07\Desktop\SuperDuper\DB</pathName>
+<dbType>11</dbType>
+</importDDLFileStamp>
+</importDDLFileStamps>
+</relationalModel>
