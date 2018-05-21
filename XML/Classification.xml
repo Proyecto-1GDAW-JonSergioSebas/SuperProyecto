@@ -24,13 +24,5 @@
         <name>Isii</name>
         <points>10</points>
     </team>
-    <team>
-        <name>Seachd</name>
-        <points>0</points>
-    </team>
-    <team>
-        <name>Eight</name>
-        <points>0</points>
-    </team>
 </classification>
 <!--<!DOCTYPE classification SYSTEM "Classification.dtd">-->
