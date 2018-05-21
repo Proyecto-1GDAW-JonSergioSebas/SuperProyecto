@@ -807,6 +807,9 @@ public class Admin extends javax.swing.JFrame {
      */
     private void jbCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCalendarActionPerformed
         try {
+            if(ViewController.getTeams().size()%2 != 0){
+                JOptionPane.showMessageDialog(this,"Para crear una liga el numero de equipos fijados debe de ser par");
+            } else{
             Date led = ViewController.getLeagueEndDate();
             if (led == null || led.before(Date.from(Instant.now()))) {
                 ViewController.league(this);
@@ -816,7 +819,7 @@ public class Admin extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "La creación de nuevas ligas solo está permitida tras el fin de la liga actual.");
             }
-
+            }
         } catch (SQLException | ClassNotFoundException e) {
         }
     }//GEN-LAST:event_jbCalendarActionPerformed
@@ -837,7 +840,7 @@ public class Admin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbLeagueActionPerformed
     /**
-     * Premite el cambio de los resultados del MatchSet seleccionado
+     * Permite el cambio de los resultados del MatchSet seleccionado
      *
      * @param evt Generado automáticamente.
      */

@@ -366,7 +366,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
     /**
      * Verifica la validez del campo.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jTextField3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField3FocusLost
         if (jTextField3.getText().matches("^[0-9]{9}$")) {
@@ -380,7 +380,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
     /**
      * Verifica la validez del campo.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jTextField1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextField1CaretUpdate
         if (jTextField1.getText().length() > 30) {
@@ -394,7 +394,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
     /**
      * Verifica la validez del campo.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jTextField2CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextField2CaretUpdate
         if (jTextField2.getText().length() > 12) {
@@ -408,7 +408,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
     /**
      * Verifica la validez del campo.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jPasswordField1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jPasswordField1CaretUpdate
         if (jPasswordField1.getPassword().length > 12) {
@@ -422,7 +422,7 @@ public class OwnerCRUD extends javax.swing.JDialog {
     /**
      * Verifica la validez del campo.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jPasswordField2CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jPasswordField2CaretUpdate
         if (jPasswordField2.getPassword().length > 12) {

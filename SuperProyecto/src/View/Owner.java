@@ -205,7 +205,7 @@ public class Owner extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-/**
+    /**
      * Realiza el cambio al equipo del jugador en cuestión.
      *
      * @param evt Generado automáticamente.
@@ -241,7 +241,7 @@ public class Owner extends javax.swing.JFrame {
     /**
      * Actualiza el estado de la ventana de acuerdo al radiobutton seleccionado.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         mode = 1;
@@ -252,14 +252,17 @@ public class Owner extends javax.swing.JFrame {
     /**
      * Actualiza el estado de la ventana de acuerdo al radiobutton seleccionado.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         mode = 2;
         cbTeam.setEnabled(true);
         refresh();
     }//GEN-LAST:event_jRadioButton2ActionPerformed
-
+    /**
+     * Muestra la vista de usuario
+     * @param evt Generado automáticamente.
+     */
     private void jbUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUserActionPerformed
         try {
             ViewController.user(true);
@@ -269,7 +272,10 @@ public class Owner extends javax.swing.JFrame {
             Logger.getLogger(Owner.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jbUserActionPerformed
-
+    /**
+     * Confirma la accion seleccionada
+     * @param evt Generado automáticamente.
+     */
     private void jbConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmActionPerformed
         players.stream().filter(p -> p.getNickName().equals((String) cbPlayer.getSelectedItem())).findAny().ifPresent(c -> {
             if (mode == 1) {
@@ -293,7 +299,10 @@ public class Owner extends javax.swing.JFrame {
             refresh();
         });
     }//GEN-LAST:event_jbConfirmActionPerformed
-
+    /**
+     * Habilita o deshabilita un botón dependiendo del estado de la ventana
+     * @param evt Generado automáticamente.
+     */
     private void cbPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPlayerActionPerformed
         if (cbPlayer.getSelectedIndex() == -1) {
             jbConfirm.setEnabled(false);

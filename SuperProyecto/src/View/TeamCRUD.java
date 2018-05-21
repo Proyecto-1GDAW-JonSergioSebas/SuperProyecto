@@ -322,7 +322,7 @@ public class TeamCRUD extends javax.swing.JDialog {
     /**
      * Verifica la validez del campo.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jTextField2CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextField2CaretUpdate
         if (jTextField2.getText().length() > 12) {
@@ -336,7 +336,7 @@ public class TeamCRUD extends javax.swing.JDialog {
     /**
      * Verifica la validez del campo.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jTextField1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextField1CaretUpdate
         if (jTextField1.getText().length() > 2) {
