@@ -1,20 +1,20 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <oracle.dbtools.crest.model.design.logical.LogicalDesign>
-   <object objectType="Entity" objectID="933F1544-5E75-4DDB-EA02-DD0968E2E51D" name="ACCOUNTS" seqName="seg_0"/>
-   <object objectType="Entity" objectID="F252F731-84FC-5391-1E5E-2EBC2DF516BC" name="DB ADMIN" seqName="seg_0"/>
-   <object objectType="Entity" objectID="B079BAB4-62D7-D22B-79AF-CC58A3E8E095" name="DB USER" seqName="seg_0"/>
-   <object objectType="Entity" objectID="519FEF63-8285-3978-6C0B-5DC16026AA59" name="GAME" seqName="seg_0"/>
    <object objectType="Entity" objectID="1E08893A-F2A6-7E89-D37D-B35E8AF9F420" name="LEAGUE" seqName="seg_0"/>
-   <object objectType="Entity" objectID="5CE47807-6FBC-45B5-ABAC-1C9A7A37193C" name="MATCHSET" seqName="seg_0"/>
    <object objectType="Entity" objectID="2A7E0D3D-2296-EE75-5664-A56509EB36CF" name="PLAYER" seqName="seg_0"/>
    <object objectType="Entity" objectID="49A56ACC-E2DA-8B8A-1546-EE02F91AB64C" name="TEAM" seqName="seg_0"/>
+   <object objectType="Entity" objectID="519FEF63-8285-3978-6C0B-5DC16026AA59" name="GAME" seqName="seg_0"/>
+   <object objectType="Entity" objectID="5CE47807-6FBC-45B5-ABAC-1C9A7A37193C" name="MATCHSET" seqName="seg_0"/>
+   <object objectType="Entity" objectID="933F1544-5E75-4DDB-EA02-DD0968E2E51D" name="ACCOUNTS" seqName="seg_0"/>
+   <object objectType="Entity" objectID="B079BAB4-62D7-D22B-79AF-CC58A3E8E095" name="DB USER" seqName="seg_0"/>
    <object objectType="Entity" objectID="EE8000FD-D653-DC48-3000-3FB6708B0D6A" name="TEAM OWNER" seqName="seg_0"/>
-   <object objectType="Relation" objectID="ECC4AEBF-4B0F-6C6C-5004-EECE38BB87A9" name="GA_TM" seqName="seg_0"/>
+   <object objectType="Entity" objectID="F252F731-84FC-5391-1E5E-2EBC2DF516BC" name="DB ADMIN" seqName="seg_0"/>
    <object objectType="Relation" objectID="356E17AF-B111-1077-FA6D-92A5760D3A91" name="LG_MS" seqName="seg_0"/>
    <object objectType="Relation" objectID="60D9BCAB-8C73-273C-4CF3-55E8761D2DE3" name="MS_GA" seqName="seg_0"/>
-   <object objectType="Relation" objectID="AD6B115E-AF7F-8FA1-236D-36374699DDB9" name="TM_OW" seqName="seg_0"/>
    <object objectType="Relation" objectID="AADC2B9A-4D11-8CA2-C433-AC0FDBEA0A0C" name="TM_PL" seqName="seg_0"/>
+   <object objectType="Relation" objectID="AD6B115E-AF7F-8FA1-236D-36374699DDB9" name="TM_OW" seqName="seg_0"/>
+   <object objectType="Relation" objectID="ECC4AEBF-4B0F-6C6C-5004-EECE38BB87A9" name="GA_TM" seqName="seg_0"/>
    <object objectType="Hierarchy relation" objectID="0E2BEAD9-5208-85F5-2F21-7536397C62CE" name="Hierarchy_1" seqName="seg_0"/>
-   <object objectType="Hierarchy relation" objectID="B2D8185D-4C47-AA4B-FBC9-58FF52E0B9C7" name="Hierarchy_2" seqName="seg_0"/>
    <object objectType="Hierarchy relation" objectID="74FB777F-B1A2-A62B-C392-EBDB1AD219C8" name="Hierarchy_3" seqName="seg_0"/>
+   <object objectType="Hierarchy relation" objectID="B2D8185D-4C47-AA4B-FBC9-58FF52E0B9C7" name="Hierarchy_2" seqName="seg_0"/>
 </oracle.dbtools.crest.model.design.logical.LogicalDesign>
