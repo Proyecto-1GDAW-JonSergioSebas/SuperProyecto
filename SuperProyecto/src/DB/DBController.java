@@ -782,9 +782,9 @@ public class DBController {
      * Actualiza el Player y cambial el valor de TEAM al ser eliminado de un
      * equipo
      *
-     * @param nickname
-     * @param con
-     * @throws SQLException
+     * @param nickname nickname del jugador
+     * @param con la conexion
+     * @throws SQLException si sucede un error de SQL
      */
     public static void updatePlayerTeamEmpty(String nickname, Connection con) throws SQLException {
         DBPlayer.updatePlayerTeamEmpty(nickname, con);

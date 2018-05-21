@@ -48,7 +48,6 @@ public class DBDBAdmin {
      * @throws SQLException si se da una excepcion SQL
      */
     public static void deleteDBAdmin(String username, char[] password, Connection con) throws SQLException {
-
         Statement sta = con.createStatement();
         sta.executeUpdate("DELETE FROM DBADMIN WHERE USERNAME='" + username + "' AND PASSWD='" + String.valueOf(password) + "'");
         sta.close();
