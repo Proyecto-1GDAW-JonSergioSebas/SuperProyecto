@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="UNIQUE_USERNAME_OWNER" directorySegmentName="seg_0" id="F709EC53-CFD4-8488-3E79-289E75F0914C">
+<sourceDDLFile>DDL.sql</sourceDDLFile>
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:43:37 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<actions>INSERT, UPDATE</actions>
+<body>DECLARE&lt;br&gt;  CURSOR LIST IS SELECT USERNAME FROM USERNAMES_TEMP;&lt;br&gt;BEGIN&lt;br&gt;  FOR US IN LIST LOOP&lt;br&gt;    IF UPPER(TRIGGER_MT.TEMP_OWNER.USERNAME) = UPPER(US.USERNAME) THEN&lt;br&gt;      RAISE_APPLICATION_ERROR(-20003, &apos;El nombre de usuario ya está utilizado.&apos;);&lt;br&gt;    END IF;&lt;br&gt;  END LOOP;&lt;br&gt;  DELETE FROM USERNAMES_TEMP;&lt;br&gt;END;</body>
+<triggerTime>AFTER</triggerTime>
+<columns>EC7EA766-670B-F34C-618E-62F49DA01306</columns>
+<scope>FOR EACH STATEMENT</scope>
+<table>EB581385-4C5E-0A33-F38C-5DA261BED22B</table>
+</TriggerOraclev10g>

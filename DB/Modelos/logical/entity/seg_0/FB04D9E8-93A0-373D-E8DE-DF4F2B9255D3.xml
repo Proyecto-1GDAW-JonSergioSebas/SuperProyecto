@@ -1,0 +1,76 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="FB04D9E8-93A0-373D-E8DE-DF4F2B9255D3" name="GAME">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:59:19 UTC</createdTime>
+<generatorID>C2ACA083-59FC-3019-BA93-78F660A3C91C</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="ID GA" id="B7CE444C-4CF4-FB64-4F08-1DB2B9C8652D">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:59:19 UTC</createdTime>
+<generatorID>6E59325B-BAB4-AA47-8514-28E10DAD197A</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>A2CC469F-8182-D762-CDAA-E04DFC6E3AB2</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="MATCHSET" id="8ABF674E-C722-113E-0641-D3D34BCDF4FE">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:59:19 UTC</createdTime>
+<generatorID>5B82EF49-4353-863C-A1E1-0B1C820B315C</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<referedAttribute>8770089E-ABA8-E5E4-02D5-FE331EEAE4DF</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>A2CC469F-8182-D762-CDAA-E04DFC6E3AB2</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DATE TIME" id="6D0DE0D0-A3C5-002F-AF64-DDA58137A164">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:59:19 UTC</createdTime>
+<generatorID>D14EACA8-8D0B-A6FB-57CC-AD2F33E83131</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>FFE19C75-552D-C5BC-A56A-8380F2443F92</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="F2EFB899-4DE5-713C-4A33-1158DF22FD25" name="GA PK">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:59:19 UTC</createdTime>
+<generatorID>003593E3-6DF3-6FA1-86E6-77A23F7B2868</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>B7CE444C-4CF4-FB64-4F08-1DB2B9C8652D</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

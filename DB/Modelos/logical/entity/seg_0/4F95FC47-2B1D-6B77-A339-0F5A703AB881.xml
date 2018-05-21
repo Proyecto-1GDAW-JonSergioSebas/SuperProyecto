@@ -1,0 +1,34 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="4F95FC47-2B1D-6B77-A339-0F5A703AB881" name="USERNAMES TEMP">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:59:19 UTC</createdTime>
+<generatorID>259F6BB9-9493-AFAA-9ACB-586310FCE55C</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="USERNAME" id="95FD0AC1-40C4-CE77-1EF8-8A1445BB3A88">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:59:19 UTC</createdTime>
+<generatorID>0BEB13A6-3EE6-F44E-676C-20C9D11CB51F</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>2D0C32B1-D4AD-00B5-3133-5393FD8FD0DD</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+</Entity>

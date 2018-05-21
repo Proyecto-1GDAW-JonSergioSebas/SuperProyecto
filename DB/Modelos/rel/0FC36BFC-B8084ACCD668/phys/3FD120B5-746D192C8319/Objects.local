@@ -1,0 +1,39 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oracle.dbtools.crest.model.design.storage.oracle.v12c.StorageDesignOraclev12c>
+   <object objectType="User" objectID="MDSYS" name="MDSYS" seqName="seg_0"/>
+   <object objectType="User" objectID="PUBLIC" name="PUBLIC" seqName="seg_0"/>
+   <object objectType="SType" objectID="47E390DE-0671-C4B1-8428-0F45CBEE18F8" name="SDO_GEOMETRY" seqName="seg_0"/>
+   <object objectType="SType" objectID="F72C39E0-D1CA-8821-2AD7-A1E95A37D3D1" name="XMLTYPE" seqName="seg_0"/>
+   <object objectType="Package" objectID="0E41BDC8-8C6F-F2E3-18F2-46BA1305E2C7" name="TRIGGER_MT" seqName="seg_0"/>
+   <object objectType="Table" objectID="0AB48FE4-E903-FBE0-2D22-054A8B8A8B29" name="PLAYER" seqName="seg_0"/>
+   <object objectType="Table" objectID="230B7C26-5516-7AA4-6F12-1DDC7EA92815" name="CLASSIFICATION_TEMP" seqName="seg_0"/>
+   <object objectType="Table" objectID="259F6BB9-9493-AFAA-9ACB-586310FCE55C" name="USERNAMES_TEMP" seqName="seg_0"/>
+   <object objectType="Table" objectID="44CEDC4A-39BC-807F-670C-B1E59583659E" name="GAME_RESULT" seqName="seg_0"/>
+   <object objectType="Table" objectID="7924AEDF-B77A-CD4F-5FCF-240C0DCC3878" name="LEAGUE" seqName="seg_0"/>
+   <object objectType="Table" objectID="A8C008AD-A4AF-0B32-AC14-A1FFC862CD2F" name="DB_ADMIN" seqName="seg_0"/>
+   <object objectType="Table" objectID="A8DA7439-4080-58F5-426B-FDF8E24C503B" name="TEAM" seqName="seg_0"/>
+   <object objectType="Table" objectID="AE661FD4-2F70-1AFA-9EF3-575364F8860B" name="DB_USER" seqName="seg_0"/>
+   <object objectType="Table" objectID="C2ACA083-59FC-3019-BA93-78F660A3C91C" name="GAME" seqName="seg_0"/>
+   <object objectType="Table" objectID="EB581385-4C5E-0A33-F38C-5DA261BED22B" name="TEAM_OWNER" seqName="seg_0"/>
+   <object objectType="Table" objectID="F41D82E3-7CDB-BCDF-42B2-2B77E0B9ABD2" name="MATCHSET" seqName="seg_0"/>
+   <object objectType="Synonym" objectID="0F1CC407-3219-B2DF-D1DF-5D2818C43700" name="AD_MU_TA" seqName="seg_0"/>
+   <object objectType="Synonym" objectID="F97047CD-DB84-E2AB-17EC-FBDE53B77CA2" name="CL_TP" seqName="seg_0"/>
+   <object objectType="Synonym" objectID="5453DD3E-0179-7B13-7647-56270FBB706C" name="OW_MU_TA" seqName="seg_0"/>
+   <object objectType="Synonym" objectID="46C4BEE9-0F15-312F-3C27-CC8A1DED16AC" name="PL_MU_TA" seqName="seg_0"/>
+   <object objectType="Synonym" objectID="D204D547-2DB6-8013-829D-442B38F2AF9F" name="UN_US_AD" seqName="seg_0"/>
+   <object objectType="Synonym" objectID="C917FEF1-8205-C5BA-51DF-151DD25CF0F6" name="UN_US_OW" seqName="seg_0"/>
+   <object objectType="Synonym" objectID="CB51113F-C73E-5B1A-6AF3-BF5BD28FB397" name="UN_US_US" seqName="seg_0"/>
+   <object objectType="Synonym" objectID="5C41BABD-70DC-2C63-77E3-FAF12781BC66" name="US_MU_TA" seqName="seg_0"/>
+   <object objectType="Trigger" objectID="0D73FFEC-A00E-D03E-F007-9061ED240E4D" name="ADMIN_MUTATING_TABLE" seqName="seg_0"/>
+   <object objectType="Trigger" objectID="DAA4093C-987F-7E81-D741-4B51CA8B006E" name="DBADMIN_USERNAMES_TABLE" seqName="seg_0"/>
+   <object objectType="Trigger" objectID="3792CDF1-285E-48D9-78A3-241CDD7751C3" name="DBUSER_USERNAMES_TABLE" seqName="seg_0"/>
+   <object objectType="Trigger" objectID="98904BE6-688A-F181-AD01-87DD21588CB9" name="OWNER_MUTATING_TABLE" seqName="seg_0"/>
+   <object objectType="Trigger" objectID="8618456E-F7B3-1B21-DDD8-DCDDBB9E2F2E" name="OWNER_USERNAMES_TABLE" seqName="seg_0"/>
+   <object objectType="Trigger" objectID="4762B626-9756-D041-8349-5D1F092F47E0" name="PLAYERS_PER_TEAM" seqName="seg_0"/>
+   <object objectType="Trigger" objectID="7F1A7F67-0A14-82ED-CC02-350F72F913E7" name="PLAYER_MUTATING_TABLE" seqName="seg_0"/>
+   <object objectType="Trigger" objectID="964C85E9-27FC-ED33-2DC9-7103D1BD145D" name="TOTAL_TEAM_SALARY" seqName="seg_0"/>
+   <object objectType="Trigger" objectID="6A37CD33-DF89-E2AE-4BDC-86368325AC90" name="UNIQUE_USERNAME_ADMIN" seqName="seg_0"/>
+   <object objectType="Trigger" objectID="E3843884-D129-16D1-A0A8-5B6B2945CD28" name="UNIQUE_USERNAME_DBUSER" seqName="seg_0"/>
+   <object objectType="Trigger" objectID="F709EC53-CFD4-8488-3E79-289E75F0914C" name="UNIQUE_USERNAME_OWNER" seqName="seg_0"/>
+   <object objectType="Trigger" objectID="67FE4C56-554C-31C4-6355-2184F007BBD2" name="USER_MUTATING_TABLE" seqName="seg_0"/>
+</oracle.dbtools.crest.model.design.storage.oracle.v12c.StorageDesignOraclev12c>

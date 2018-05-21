@@ -1,0 +1,76 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="7CF88CF3-E976-1878-18DA-6B76EEF98C39" name="LEAGUE">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:59:19 UTC</createdTime>
+<generatorID>7924AEDF-B77A-CD4F-5FCF-240C0DCC3878</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="ID LG" id="74F4B285-1EA3-1229-D7F3-E996ACDC5B0B">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:59:19 UTC</createdTime>
+<generatorID>4C7C97DD-6138-B7FF-622D-61EDCD5726A0</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>A2CC469F-8182-D762-CDAA-E04DFC6E3AB2</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LEAGUE NAME" id="39E38445-9A72-D363-F30A-4C800CCD2CF0">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:59:19 UTC</createdTime>
+<generatorID>09AA84F4-8D23-60BB-5B79-0F7468C63D62</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>C5F51E16-A430-6E82-C540-4443383AA0BA</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="OVER" id="0BE5507D-9EB2-9D2A-9E4A-66E82B3DF082">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:59:19 UTC</createdTime>
+<generatorID>9168B516-085A-0C23-DD26-F76B4983470A</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>BE8CACC8-9212-568B-C8CF-BCD386CC3FB6</domain>
+<defaultValue>0</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="C8ED9E95-0E58-7BF4-83FF-F28FC0E74741" name="LG PK">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:59:19 UTC</createdTime>
+<generatorID>6477DCD3-F3F4-034B-24A9-B52BB6D53120</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>74F4B285-1EA3-1229-D7F3-E996ACDC5B0B</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
