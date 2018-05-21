@@ -32,6 +32,8 @@ public class Owner extends javax.swing.JFrame {
 
     /**
      * Creates new form User
+     * @param child Generado automáticamente.
+     * @param username nombre de usuario
      */
     public Owner(boolean child, String username) {
         try {

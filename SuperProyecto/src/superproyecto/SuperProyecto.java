@@ -834,7 +834,8 @@ public class SuperProyecto {
      * @param with si es con, o sin el equipo
      * @return ArrayList de los jugadores
      * @throws SQLException hay una excepcion SQL
-     * @see DBPlayer#getPlayers(int, java.sql.Connection)
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @see DB.DBPlayer#getPlayers(String, java.sql.Connection,boolean)
      */
     public static ArrayList<Player> getPlayers(String team, boolean with) throws SQLException, ClassNotFoundException {
         Connection con = createConnection();
@@ -849,6 +850,7 @@ public class SuperProyecto {
      * @param nickname el nickname actual
      * @param newTeam el nombre del nuevo equipo
      * @throws SQLException si se da alguna excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static void updatePlayerT(String nickname, String newTeam) throws SQLException, ClassNotFoundException {
         Connection con = createConnection();

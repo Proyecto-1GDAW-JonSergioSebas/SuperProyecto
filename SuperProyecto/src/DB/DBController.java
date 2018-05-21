@@ -100,7 +100,7 @@ public class DBController {
      *
      * @return ArrayList de los jugadores
      * @throws SQLException hay una excepcion SQL
-     * @see DBPlayer#getPlayers(int, java.sql.Connection)
+     * @see DB.DBPlayer#getPlayers(String, java.sql.Connection,boolean)
      */
     public static ArrayList<Player> getPlayers(String team, Connection con, boolean with) throws SQLException {
         ArrayList<Player> players = DBPlayer.getPlayers(team, con, with);

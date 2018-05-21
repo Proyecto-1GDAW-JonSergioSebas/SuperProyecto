@@ -252,7 +252,7 @@ public class DBTeam {
      *
      * @param teamName nombre del equipo a bloquear
      * @param con la conexion
-     * @throws SQLException
+     * @throws SQLException si se da alguna excepcion SQL
      */
     public static void blockTeam(String teamName, Connection con) throws SQLException {
         Statement st = con.createStatement();
