@@ -1,0 +1,14 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="PLAYERS_PER_TEAM" directorySegmentName="seg_0" id="4762B626-9756-D041-8349-5D1F092F47E0">
+<sourceDDLFile>DDL.sql</sourceDDLFile>
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:43:37 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<actions>INSERT, UPDATE</actions>
+<body>DECLARE&lt;br&gt;  MEMBERS NUMBER;&lt;br&gt;BEGIN&lt;br&gt;  SELECT COUNT(*) INTO MEMBERS FROM PLAYER WHERE TEAM=TRIGGER_MT.TEMP_PLAYER.TEAM; --una select para calcular la cantidad de miembros actuales en el equipo&lt;br&gt;  IF MEMBERS &gt;= 6 THEN --si eso es mayor que 6, entonces &lt;br&gt;    RAISE_APPLICATION_ERROR(-20001, &apos;Se ha alcanzado el limite de miembros en un equipo.&apos;); --salta la excepcion&lt;br&gt;  END IF;&lt;br&gt;END;</body>
+<triggerTime>AFTER</triggerTime>
+<columns>536D71ED-A655-1BC4-3912-5C2B54715F25</columns>
+<scope>FOR EACH STATEMENT</scope>
+<table>0AB48FE4-E903-FBE0-2D22-054A8B8A8B29</table>
+</TriggerOraclev10g>

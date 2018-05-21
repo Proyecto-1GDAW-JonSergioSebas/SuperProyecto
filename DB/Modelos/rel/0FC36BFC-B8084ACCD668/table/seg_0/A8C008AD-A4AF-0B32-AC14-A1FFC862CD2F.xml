@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="A8C008AD-A4AF-0B32-AC14-A1FFC862CD2F" name="DB_ADMIN">
+<sourceDDLFile>DDL.sql</sourceDDLFile>
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:43:43 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<importedID>5451EBF5-3148-F982-06A7-3D23E8EF44A5</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID_AD" id="802DF572-963E-E905-E985-D308CED87EBD">
+<sourceDDLFile>DDL.sql</sourceDDLFile>
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:43:43 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<importedID>4E55F514-66E3-0227-5001-DF3E5429CB0D</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>A2CC469F-8182-D762-CDAA-E04DFC6E3AB2</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementGenerateAlways>true</autoIncrementGenerateAlways>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementOrder>false</autoIncrementOrder>
+</Column>
+<Column name="USERNAME" id="FDDB79C8-28EB-9A80-10B6-0270D3808A52">
+<sourceDDLFile>DDL.sql</sourceDDLFile>
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:43:43 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<importedID>64803A5C-51E1-4650-078E-C6B3A9B47D6B</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>2D0C32B1-D4AD-00B5-3133-5393FD8FD0DD</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PASSWD" id="55D509C9-0170-7E34-83F0-80806CEEAF3C">
+<sourceDDLFile>DDL.sql</sourceDDLFile>
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:43:43 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<importedID>A6857B7A-D6B8-8088-DE87-89619BE47290</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>2D0C32B1-D4AD-00B5-3133-5393FD8FD0DD</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="4C290496-BB75-5547-9F1B-360BAA9EB9E7" name="AD_PK">
+<sourceDDLFile>DDL.sql</sourceDDLFile>
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:43:43 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<importedID>EEB2803D-48C8-AF54-1A40-8540C9A86D5D</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="802DF572-963E-E905-E985-D308CED87EBD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C9AE153D-14EF-844F-CCCB-7525FBF661D7" name="AD_UK">
+<sourceDDLFile>DDL.sql</sourceDDLFile>
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:43:43 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<importedID>B44734C0-9A3B-4AE6-37C1-5642A2E8EC9D</importedID>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FDDB79C8-28EB-9A80-10B6-0270D3808A52"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

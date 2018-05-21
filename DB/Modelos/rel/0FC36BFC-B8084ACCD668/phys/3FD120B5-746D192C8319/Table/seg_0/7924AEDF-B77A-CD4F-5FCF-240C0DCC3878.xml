@@ -1,0 +1,42 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="LEAGUE" directorySegmentName="seg_0" id="7924AEDF-B77A-CD4F-5FCF-240C0DCC3878">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:43:43 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="LEAGUE_NAME" id="09AA84F4-8D23-60BB-5B79-0F7468C63D62">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:43:43 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="ID_LG" id="4C7C97DD-6138-B7FF-622D-61EDCD5726A0">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:43:43 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<autoIncrementDDL>IDENTITY_CLAUSE</autoIncrementDDL>
+</ColumnProxy>
+<ColumnProxy name="OVER" id="9168B516-085A-0C23-DD26-F76B4983470A">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:43:43 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<defaultValue>0</defaultValue>
+</ColumnProxy>
+</columnProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="LG_PK" id="6477DCD3-F3F4-034B-24A9-B52BB6D53120">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:43:43 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev12c>

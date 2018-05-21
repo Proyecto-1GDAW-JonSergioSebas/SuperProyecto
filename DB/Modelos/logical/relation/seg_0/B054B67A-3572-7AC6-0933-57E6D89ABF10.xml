@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="TM_TO_FK" directorySegmentName="seg_0" id="B054B67A-3572-7AC6-0933-57E6D89ABF10">
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:59:19 UTC</createdTime>
+<generatorID>464EE19E-CFDE-2258-AF38-2FFEF9100728</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<engineerTo>
+<item key="0FC36BFC-7B9C-8B14-E829-B8084ACCD668" value="true"/>
+</engineerTo>
+<sourcePk>23C97D98-92E6-D083-C65B-852A06C094F9</sourcePk>
+<identifying>false</identifying>
+<optionalSource>false</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>AEC3F160-ECB8-22B0-30BB-426DC365D23C</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>CA830F1A-FB3D-6CB6-3D77-5C2FBA28F950</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="PLAYER_MUTATING_TABLE" directorySegmentName="seg_0" id="7F1A7F67-0A14-82ED-CC02-350F72F913E7">
+<sourceDDLFile>DDL.sql</sourceDDLFile>
+<createdBy>1gdaw07</createdBy>
+<createdTime>2018-05-21 06:43:37 UTC</createdTime>
+<generatorID>Generado por el Usuario</generatorID>
+<ownerDesignName>Modelos</ownerDesignName>
+<actions>INSERT, UPDATE</actions>
+<body>BEGIN&lt;br&gt;  TRIGGER_MT.TEMP_PLAYER.SALARY := :NEW.SALARY; --y todo lo que hace es introducir los nuevos valores a la variable que declaramos antes&lt;br&gt;  TRIGGER_MT.TEMP_PLAYER.TEAM := :NEW.TEAM;&lt;br&gt;END;</body>
+<triggerTime>AFTER</triggerTime>
+<columns>536D71ED-A655-1BC4-3912-5C2B54715F25</columns>
+<table>0AB48FE4-E903-FBE0-2D22-054A8B8A8B29</table>
+</TriggerOraclev10g>
