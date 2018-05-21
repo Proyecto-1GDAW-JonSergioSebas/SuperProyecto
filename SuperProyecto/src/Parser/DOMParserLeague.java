@@ -125,7 +125,7 @@ public class DOMParserLeague {
 
             //to generate a file output use fileoutputstream instead of system.out
             XMLSerializer serializer = new XMLSerializer(
-                    new FileOutputStream(new File("../XML/League.xml")), format);
+                    new FileOutputStream(new File("XML/League.xml")), format);
 
             serializer.serialize(dom);
 
@@ -224,7 +224,7 @@ public class DOMParserLeague {
             DocumentBuilder db = dbf.newDocumentBuilder();
 
             //parseamos utilizando el builder para obtener una instancia en DOM del XML
-            dom = db.parse("../XML/League.xml");
+            dom = db.parse("XML/League.xml");
 
         } catch (ParserConfigurationException pce) {
             pce.printStackTrace();

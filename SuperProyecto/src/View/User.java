@@ -233,7 +233,10 @@ public class User extends javax.swing.JFrame {
      * @param evt Generado automáticamente
      */
     private void cbMatchsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMatchsetActionPerformed
-        if (cbLeague.getSelectedItem().toString().equalsIgnoreCase("Liga actual")) {
+        if(cbMatchset.getItemCount()==0){
+            
+        }
+        else if (cbLeague.getSelectedItem().toString().equalsIgnoreCase("Liga actual")) {
             int selMatch = cbMatchset.getSelectedIndex();
             DefaultTableModel dtml = (DefaultTableModel) jtGames.getModel();
             dtml.setRowCount(0);

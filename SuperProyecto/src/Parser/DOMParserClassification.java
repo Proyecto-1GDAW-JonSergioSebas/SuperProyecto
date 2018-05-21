@@ -114,7 +114,7 @@ public class DOMParserClassification {
             DocumentBuilder db = dbf.newDocumentBuilder();
 
             //parseamos utilizando el builder para obtener una instancia en DOM del XML
-            dom = db.parse("../XML/Classification.xml");
+            dom = db.parse("XML/Classification.xml");
 
         } catch (ParserConfigurationException pce) {
             pce.printStackTrace();
@@ -174,7 +174,7 @@ public class DOMParserClassification {
 
             //to generate a file output use fileoutputstream instead of system.out
             XMLSerializer serializer = new XMLSerializer(
-                    new FileOutputStream(new File("../XML/Classification.xml")), format);
+                    new FileOutputStream(new File("XML/Classification.xml")), format);
 
             serializer.serialize(dom);
 

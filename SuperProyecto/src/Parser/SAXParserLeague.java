@@ -72,7 +72,7 @@ public class SAXParserLeague extends DefaultHandler {
             SAXParser sp = spf.newSAXParser();
 
             //parseamos el fichero xml y enviamos la clase para los cuando la llamemos
-            sp.parse("../XML/League.xml", this);
+            sp.parse("XML/League.xml", this);
 
         } catch (SAXException se) {
             se.printStackTrace();
