@@ -857,16 +857,42 @@ public class SuperProyecto {
     }
 
     /**
-     * Actualiza el Player y cambial el valor de TEAM al ser eliminado de un
+     * Actualiza el Player y cambia el valor de TEAM al ser eliminado de un
      * equipo
      *
-     * @param nickname
-     * @param con
-     * @throws SQLException
+     * @param nickname el nombre del jugador
+     * @throws SQLException si se da una excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static void updatePlayerTeamEmpty(String nickname) throws SQLException, ClassNotFoundException {
         Connection con = createConnection();
         DBController.updatePlayerTeamEmpty(nickname, con);
         con.close();
+    }
+    /**
+     * Ejecuta el Parser DOM de liga
+     */
+    public static void executeDOMLeague() {
+        try {
+            DOMParserLeague.executeDOMLeague();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(SuperProyecto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    /**
+     * Obtiene un ArrayList con los equipos bloqueados
+     * @return un ArrayList con los equipos bloqueados
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da una excepcion SQL
+     */
+    public static ArrayList<Team> getBlockedTeams() throws ClassNotFoundException, SQLException {
+        Connection con = createConnection();
+        
+        ArrayList<Team> compTeam = DBController.teams(con);
+        
+        con.close();
+        return compTeam;
     }
 }

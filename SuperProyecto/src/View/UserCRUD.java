@@ -333,7 +333,7 @@ public class UserCRUD extends javax.swing.JDialog {
     /**
      * Verifica la validez del campo.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jTextField2CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextField2CaretUpdate
         if (jTextField2.getText().length() > 12) {
@@ -347,7 +347,7 @@ public class UserCRUD extends javax.swing.JDialog {
     /**
      * Verifica la validez del campo.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jPasswordField1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jPasswordField1CaretUpdate
         if (jPasswordField1.getPassword().length > 12) {
@@ -361,7 +361,7 @@ public class UserCRUD extends javax.swing.JDialog {
     /**
      * Verifica la validez del campo.
      *
-     * @param evt
+     * @param evt Generado automáticamente.
      */
     private void jPasswordField2CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jPasswordField2CaretUpdate
         if (jPasswordField2.getPassword().length > 12) {

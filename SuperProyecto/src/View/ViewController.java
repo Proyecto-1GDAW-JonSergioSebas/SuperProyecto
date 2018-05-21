@@ -64,6 +64,7 @@ public class ViewController {
      * Abre la ventana de Owner.
      *
      * @param child Generado automáticamente
+     * @param username el nombre de usuario
      */
     public static void owner(boolean child, String username) {
         Owner owner = new Owner(child, username);
@@ -645,10 +646,27 @@ public class ViewController {
      * Actualiza el Player y cambial el valor de TEAM al ser eliminado de un
      * equipo
      *
-     * @param nickname
-     * @throws SQLException
+     * @param nickname nickname
+     * @throws SQLException si se da una excepcion SQL
+     * @throws ClassNotFoundException si no se encuentra la clase
      */
     public static void updatePlayerTeamEmpty(String nickname) throws SQLException, ClassNotFoundException {
         SuperProyecto.updatePlayerTeamEmpty(nickname);
+    }
+    /**
+     * Ejecuta el Parser DOM de liga
+     */
+    static void executeDOMLeague() {
+        SuperProyecto.executeDOMLeague();
+    }
+    /**
+     * Obtiene un ArrayList con los equipos bloqueados
+     * @return un ArrayList con los equipos bloqueados
+     * @throws ClassNotFoundException si no se encuentra la clase
+     * @throws SQLException si se da una excepcion SQL
+     */
+    static ArrayList<Team> getTeams() throws ClassNotFoundException, SQLException {
+        ArrayList<Team> compTeam = SuperProyecto.getBlockedTeams();
+        return compTeam;
     }
 }
