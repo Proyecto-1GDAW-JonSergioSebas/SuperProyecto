@@ -76,6 +76,7 @@ public class DBTeam {
         return teams;
     }
 
+  
     /**
      * Devuelve los equipos no bloqueados que se corresponden a un dueño Si el
      * string de username es vacío, devuelve todos los equipos

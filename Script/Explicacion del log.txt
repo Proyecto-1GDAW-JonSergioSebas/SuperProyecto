@@ -1,0 +1,24 @@
+﻿Script para comprobar el estado de la red.
+
+Para empezar basicamente basicamente lo que hace 
+es ejecutar en comando ping a google "8.8.8.8"
+para comprobar si tenemos red, por si falla todo lo demas, 
+poder descartar que no es la red lo que esta fallando.
+
+Una vez hecha la comprobacion a google, lo cual nos
+devuelve las estadisticas del ping, paquetes transmitidos,
+recibidos, perdidos y el tiempo de respuesta. Lo siguiente que
+veriamos es la fecha y la hora en la que se ha ejecutado
+y si hay conexion o no.
+
+Una vez acabada la parte de google, tendriamos exactamente 
+lo mismo pero con los diferentes nodos, indicando a que servido 
+y a que red esta haciendo ping al ejecutarse el script. Tambien añadir 
+que a google se ejecuta ping cuatro veces para transmitir cuatro paquetes
+mientras que a los nodos he puesto que se ejecute dos veces.
+
+El Script se ejecuta autamaticamente cada 1 minuto, no hace falta
+ejecutarlo, con tener el servidor encencido se ejecuta automaticamente.
+Para que se ejecute automaticamente he utilizado el comando crontab -e
+y en el fichero he añadido: */1 * * * *   /var/log/log.sh que es donde 
+tengo la ruta del log.sh.

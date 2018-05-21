@@ -23,6 +23,8 @@ import static DB.DBController.obtainLastLeagueID;
 import static DB.DBController.obtainMatchSetsID;
 import static DB.DBController.obtainTeam;
 import static DB.DBController.teams;
+import DB.DBPlayer;
+import DB.DBTeam;
 import ModelUML.DBUser;
 import ModelUML.Game;
 import ModelUML.MatchSet;
