@@ -62,7 +62,7 @@ public class SAXParserClassification extends DefaultHandler {
             SAXParser sp = spf.newSAXParser();
 
             //parseamos el fichero xml y enviamos la clase para los cuando la llamemos
-            sp.parse("../XML/Classification.xml", this);
+            sp.parse("XML/Classification.xml", this);
 
         } catch (SAXException se) {
             se.printStackTrace();
