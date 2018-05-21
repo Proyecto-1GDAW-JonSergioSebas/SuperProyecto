@@ -199,8 +199,3 @@ INSERT INTO PLAYER (FULL_NAME, NICKNAME, SALARY, EMAIL, TEAM)
 VALUES ('Marco Fox', 'gwa', 15000, 'gwa@mail.com', 8);
 
 COMMIT;
-Insert into DB_ADMIN(username,passwd) values('a','a');
-select * from league;
-select * from game_result;
-select * from game;
-select * from matchset;

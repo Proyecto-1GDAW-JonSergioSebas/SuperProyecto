@@ -58,7 +58,7 @@ public class DBController {
     public static Connection createConnection() throws ClassNotFoundException, SQLException {
 
         Class.forName("oracle.jdbc.OracleDriver");//Indicar el driver
-        Connection con = DriverManager.getConnection("jdbc:oracle:thin:@SrvOracle:1521:orcl", "eqdaw01", "eqdaw01");//Crear la conexion
+        Connection con = DriverManager.getConnection("jdbc:oracle:thin:@10.10.10.9:1521:db12102", "SCOTT", "12345");//Crear la conexion
         return con;
     }
 
@@ -100,7 +100,7 @@ public class DBController {
      *
      * @return ArrayList de los jugadores
      * @throws SQLException hay una excepcion SQL
-     * @see DBPlayer#getPlayers(int, java.sql.Connection)
+     * @see DB.DBPlayer#getPlayers(String, java.sql.Connection,boolean)
      */
     public static ArrayList<Player> getPlayers(String team, Connection con, boolean with) throws SQLException {
         ArrayList<Player> players = DBPlayer.getPlayers(team, con, with);
